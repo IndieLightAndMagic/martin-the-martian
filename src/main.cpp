@@ -2,7 +2,7 @@
 #include <string>
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SDL2_image/SDL_image.h>
 
 
 const int WIN_WIDTH = 640;
@@ -20,7 +20,12 @@ int main(int argc, char **argv){
 
     //Put your own bmp image here
     const SDL_version* pLinkedVersion = IMG_Linked_Version();
-    std::cout << TAG << "SDL_Image Version: " << pLinkedVersion->major << "." << pLinkedVersion->minor << "." << pLinkedVersion->patch << "\n";
+    char M = pLinkedVersion->major; M += 0x30;
+    char m = pLinkedVersion->minor; m += 0x30;
+    char p = pLinkedVersion->patch; p += 0x30;
+    
+    std::cout << TAG << "SDL_Image Version: " << M << "." << m << "." << p << "\n";
+    
     std::string localPath = std::string(RES_DIR) + std::string("/image.png");
     SDL_Surface *bmpSurf = SDL_LoadBMP("../res/image.bmp");
     

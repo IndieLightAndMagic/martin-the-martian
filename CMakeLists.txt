@@ -47,7 +47,6 @@ SOURCES_TO_COMPILE(${ProjectName})
 
 PrintLine()
 HeaderMessage("SDL2 Libraries Linkage Addition")
-SDL_INCLUSION()
 SDL_LINK(${ProjectName})
 
 PrintLine()
