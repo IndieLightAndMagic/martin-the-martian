@@ -1,16 +1,21 @@
-#Collada Parsing Example CMakeLists.txt
+#SDL2 Example CMakeLists.txt
 #
 #   Author: Julián Andrés Guarín Reyes
 #   Version: 0.0.1
-#   Date: January, 2018.
+#   Date: Feb, 2018.
 
+#Utility messages
 cmake_minimum_required(VERSION 3.9.0)
+include(Messages.cmake)
+
+set(CMAKE_VERBOSE_MAKEFILE TRUE)
+
+PrintLine()
+HeaderMessage("SDL Template Example By Julian Guarin")
+PrintLine()
 
 #Info variables
 include(Info.cmake)
-
-#Utility messages
-include(Messages.cmake)
 
 #Sources to include
 include(Sources.cmake)
@@ -18,20 +23,19 @@ include(Sources.cmake)
 #Resources
 include(Resources.cmake)
 
-#Qt Requiere
+#SDL2 
 include(SDL.cmake)
 
+#Cocoa 
+include(MacOS.cmake)
 
-PrintLine()
-HeaderMessage("SDL Template Example By Julian Guarin")
+#Set C++
+include(CPP.cmake)
+USE_14()
 
-#Project is XMLReaderSample
+#Project is SDL VoidSample
 set(ProjectName VoidSample)
 project(${ProjectName})
-
-#Include SDL from SDL.cmake
-SDL_INCLUSION()
-
 
 PrintLine()
 HeaderMessage("Adding Headers To Project")
@@ -42,8 +46,14 @@ HeaderMessage("Adding Sources To Project")
 SOURCES_TO_COMPILE(${ProjectName})
 
 PrintLine()
-HeaderMessage("Linking Qt Libraries")
-QT_LINK(${ProjectName})
+HeaderMessage("SDL2 Libraries Linkage Addition")
+SDL_INCLUSION()
+SDL_LINK(${ProjectName})
 
+PrintLine()
+HeaderMessage("Cocoa Frameworks Linkage Addition")
+COCOA_LINK(${ProjectName})
 
-
+PrintLine()
+HeaderMessage("Standard Linkage Addition")
+LINK_STANDARD_LIBRARIES(${ProjectName})

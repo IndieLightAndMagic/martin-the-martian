@@ -1,10 +1,6 @@
 #include <iostream>
 
-#ifdef __linux__
 #include <SDL2/SDL.h>
-#elif defined(_WIN32)
-#include <SDL.h>
-#endif
 
 const int WIN_WIDTH = 640;
 const int WIN_HEIGHT = 480;
