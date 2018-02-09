@@ -7,7 +7,10 @@ set(SOURCES_CPP
 
 
 #Headers
-set(SOURCES_HEADERS ${CMAKE_SOURCE_DIR}/src)
+set(SOURCES_HEADERS 
+	${CMAKE_SOURCE_DIR}/src
+	${}
+	)
 
 
 

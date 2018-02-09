@@ -1,11 +1,10 @@
 function(SDL_INCLUSION)
-	set(SDL_HEADERS ${SDL_PROJECTS_DIR}/${3rd}/include)
-	set(SDL_LIBS_TO_LINK ${SDL_PROJECTS_DIR}/${3rd}/libSDL2d.a)
+	include_directories(${CMAKE_SOURCE_DIR}/${3rd}/include)
 endfunction()
 
 
 function(SDL_LINK PROJECT_NAME)
-	target_link_libraries(${PROJECT_NAME} ${SDL_LIBS_TO_LINK})
+	target_link_libraries(${CMAKE_SOURCE_DIR}/${3rd}/lib/libSDL2.a)
 endfunction()
 
 

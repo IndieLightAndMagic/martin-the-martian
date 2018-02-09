@@ -4,6 +4,7 @@
 *~
 *.autosave
 *.a
+!*/lib/*.a
 *.core
 *.moc
 *.o
