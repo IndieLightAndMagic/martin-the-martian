@@ -1,10 +1,13 @@
 #include <iostream>
+#include <string>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
 
 const int WIN_WIDTH = 640;
 const int WIN_HEIGHT = 480;
-
+const std::string TAG = "VoidSample";
 int main(int argc, char **argv){
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
         std::cerr << "SDL_Init failed: " << SDL_GetError() << "\n";
@@ -16,7 +19,11 @@ int main(int argc, char **argv){
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
 
     //Put your own bmp image here
+    const SDL_version* pLinkedVersion = IMG_Linked_Version();
+    std::cout << TAG << "SDL_Image Version: " << pLinkedVersion->major << "." << pLinkedVersion->minor << "." << pLinkedVersion->patch << "\n";
+    std::string localPath = std::string(RES_DIR) + std::string("/image.png");
     SDL_Surface *bmpSurf = SDL_LoadBMP("../res/image.bmp");
+    
     SDL_Texture *bmpTex = SDL_CreateTextureFromSurface(renderer, bmpSurf);
     SDL_FreeSurface(bmpSurf);
 
