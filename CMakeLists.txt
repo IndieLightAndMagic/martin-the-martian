@@ -1,25 +1,49 @@
+#Collada Parsing Example CMakeLists.txt
+#
+#   Author: Julián Andrés Guarín Reyes
+#   Version: 0.0.1
+#   Date: January, 2018.
+
 cmake_minimum_required(VERSION 3.9.0)
-message(STATUS "===========================================================")
-set(QTPTH $ENV{HOME}/Qt510)
-message(STATUS "QT PATH: ${QTPTH}")
 
-project(XMLReaderSample)
-message("Hola mundo!!!")
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_AUTOMOC ON)
+#Info variables
+include(Info.cmake)
 
-find_package(Qt5Core REQUIRED)
-find_package(Qt5Xml REQUIRED)
+#Utility messages
+include(Messages.cmake)
 
-add_executable(${PROJECT_NAME} "main.cpp")
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Xml)
+#Sources to include
+include(Sources.cmake)
 
-include_directories("${QTPTH}/5.10.0/clang_64/lib/QtXml.framework/Headers/")
+#Resources
+include(Resources.cmake)
 
-#In http://doc.qt.io/qt-5/cmake-manual.html
-#Read about:
-# Imported targets and their locations
-# Variable Reference and Module Variables Section (This clarifies everything)
+#Qt Requiere
+include(SDL.cmake)
+
+
+PrintLine()
+HeaderMessage("SDL Template Example By Julian Guarin")
+
+#Project is XMLReaderSample
+set(ProjectName VoidSample)
+project(${ProjectName})
+
+#Include SDL from SDL.cmake
+SDL_INCLUSION()
+
+
+PrintLine()
+HeaderMessage("Adding Headers To Project")
+SOURCES_INCLUDE()
+
+PrintLine()
+HeaderMessage("Adding Sources To Project")
+SOURCES_TO_COMPILE(${ProjectName})
+
+PrintLine()
+HeaderMessage("Linking Qt Libraries")
+QT_LINK(${ProjectName})
 
 
 
