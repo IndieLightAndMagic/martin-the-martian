@@ -1,6 +1,6 @@
 
 get_filename_component(RESOURCES_PATH "${CMAKE_SOURCE_DIR}/Resources" ABSOLUTE)
-add_definitions(-DRES_DIR="${RESOURCES_PATH}")
+add_definitions(-DRES_DIR="${RESOURCES_PATH}/")
 
 
 message(STATUS "Resources directory is: ${RESOURCES_PATH}")
