@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
     SDL_assert(InitImageLoading() == true) ;
     
     /* Load Assets */
-    pngSurface = LoadSurface("image.png");
+    pngSurface = LoadSurface("hero.png");
     SDL_Texture *pngTex = SDL_CreateTextureFromSurface(renderer, pngSurface);
     SDL_FreeSurface(pngSurface);
 
