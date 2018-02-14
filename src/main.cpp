@@ -1,3 +1,5 @@
+#include "entity.h"
+
 #include <iostream>
 #include <string>
 
@@ -8,6 +10,8 @@
 const int WIN_WIDTH = 640;
 const int WIN_HEIGHT = 480;
 const std::string TAG = "VoidSample";
+
+
 
 bool InitImageLoading() {
     auto imageFlags = 0;
