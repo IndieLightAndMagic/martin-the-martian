@@ -58,8 +58,25 @@ int main(int argc, char **argv) {
     SDL_FreeSurface(pngSurface);
 
     //Make a target texture to render too
+    Uint32 pixelFormat;
+    int access;
+    SDL_Rect textureRect;
+    {
+        auto zero = SDL_QueryTexture(pngTex,&pixelFormat,&access,&textureRect.w, &textureRect.h);
+        SDL_assert(zero == 0);
+        textureRect.x = 0;
+        textureRect.y = 0;
+
+    }
+
     SDL_Texture *texTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,SDL_TEXTUREACCESS_TARGET, WIN_WIDTH, WIN_HEIGHT);
-    
+    SDL_Rect texRect;
+    {
+        auto zero = SDL_QueryTexture(texTarget, &pixelFormat, &access, &texRect.w, &texRect.h);
+        SDL_assert(zero == 0);
+        textureRect.x = (texRect.w - textureRect.w) >> 1;
+        textureRect.y = (texRect.h - textureRect.h) >> 1;
+    }
     //Now render to the texture
     SDL_SetRenderTarget(renderer, texTarget);
     SDL_RenderClear(renderer);
@@ -69,7 +86,10 @@ int main(int argc, char **argv) {
 
     //Now render the texture target to our screen, but upside down
     SDL_RenderClear(renderer);
-    SDL_RenderCopyEx(renderer, texTarget, NULL, NULL, 0, NULL, SDL_FLIP_VERTICAL);
+
+    //Render in the Center.
+
+    SDL_RenderCopyEx(renderer, texTarget, nullptr, &textureRect, 0, NULL, SDL_FLIP_NONE);
     SDL_RenderPresent(renderer);
 
     SDL_Delay(10000);
