@@ -44,6 +44,22 @@ SDL_Surface * LoadSurface (std::string ResourceName) {
     return pImageSurface;
 }
 
+struct TextureComponent : public  Component {
+    SDL_Surface* m_pSurface;
+    TextureComponent(std::string textureFileName):
+            m_pSurface(LoadSurface(textureFileName)){
+        SDL_assert(m_pSurface!=nullptr);
+    }
+
+};
+class PlayerEntity : public Entity {
+
+public:
+    PlayerEntity(std::string textureFileName){
+
+    }
+};
+
 int main(int argc, char **argv) {
     
     /* System Start */

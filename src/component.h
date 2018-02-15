@@ -1,6 +1,6 @@
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
-#include "entity.h;"
+#include "entity.h"
 class Entity;
 struct Component
 {
