@@ -17,16 +17,16 @@ namespace GTech2D{
         std::string title;
         const Rectangle2D windowRectangle;
     };
-    enum class TechDriver { SDL, SDL_OPENGL};
-
+    class enum TechDriver{SDL, SDL_OPENGL, ALLEGRO, ALLEGRO_OPENGL, GLFW_OPENGL};
     class Tech2D {
-        Tech2D* pTech;
-        TechDriver m_driver;
     public:
-        Tech2D(TechDriver driver = TechDriver::SDL):pTech(nullptr), m_driver(){};
+        Tech2D():{};
         static void CreateWindow(std::string windowTitle, WindowConfiguration winConfig, int flags) = 0;
     };
+    class Tech2DFactory{
 
+        Tech2D* StartTechInstance(Tech2D tech2D = TechDriver::SDL);
+    };
 
 
 }
