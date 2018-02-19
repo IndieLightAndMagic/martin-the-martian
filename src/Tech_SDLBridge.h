@@ -75,6 +75,7 @@ public:
         }
 
         SDL_Texture* pSDLTexture = SDL_CreateTextureFromSurface(pRenderer, pImageSurface);
+        SDL_FreeSurface(pImageSurface);
         if (!pSDLTexture){
             std::cerr << "Tech_SDLBridge: Couldn't create a texture... \n";
             return pTexture;

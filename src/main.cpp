@@ -19,7 +19,6 @@ const std::string TAG = "VoidSample";
 
 
 
-SDL_Surface * pngSurface;
 
 SDL_Surface * LoadSurface (std::string ResourceName) {
     std::string localPath = std::string(RES_DIR) + ResourceName;
@@ -62,10 +61,13 @@ int main(int argc, char **argv) {
     ptech->Assert(static_cast<Tech_SDLBridge*>(ptech)->InitImageLoading() == true);
     
     /* Load Assets */
-    pngSurface = LoadSurface("hero.png");
+    std::unique_ptr<GTech2D::Texture2D>spHeroTexture = ptech->LoadTexture("hero.png"); //LoadSurface("hero.png");
+    GTech2D::Texture2D* pHeroTexture = spHeroTexture.get();
+
+
     SDL_Renderer*   renderer = static_cast<Tech_SDLBridge*>(ptech)->GetRenderer();
-    SDL_Texture*    pngTex = SDL_CreateTextureFromSurface(renderer, pngSurface);
-    SDL_FreeSurface(pngSurface);
+
+    SDL_Texture*    pngTex = static_cast<Texture2D_SDL*>(pHeroTexture)->Get();
 
     //Make a target texture to render too
     Uint32 pixelFormat;
