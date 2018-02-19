@@ -30,6 +30,8 @@ namespace GTech2D{
         Texture2D(const Texture2D&) = default;
         Texture2D(Texture2D&&) = default;
         ~Texture2D() = default;
+
+        virtual Texture2D* Get() = 0;
     };
     class Tech2D {
     public:
@@ -38,7 +40,7 @@ namespace GTech2D{
 
         virtual int CreateRenderer() = 0;
         virtual int CreateWindow(WindowConfiguration winConfig, unsigned int flags) = 0;
-        virtual int DestroyTexture(void* pTexture) = 0;
+        virtual int DestroyTexture(std::unique_ptr<GTech2D::Texture2D> pTexture);
         virtual int Finish() = 0;
         virtual int Init() = 0;
 
