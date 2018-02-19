@@ -26,8 +26,8 @@ namespace GTech2D{
     };
     enum class TechDriver{SDL, SDL_OPENGL, ALLEGRO, ALLEGRO_OPENGL, GLFW_OPENGL};
 
-    class Tech2D {
 
+    class Tech2D {
     public:
         Tech2D(){};
 
@@ -36,6 +36,8 @@ namespace GTech2D{
         virtual int Init() = 0;
         virtual int Finish() = 0;
         virtual void Assert(bool && exp) = 0;
+
+
     };
     class Tech2DFactory{
     public:
