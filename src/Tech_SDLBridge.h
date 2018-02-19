@@ -57,6 +57,13 @@ public:
         return GTech2D::GTECH_OK;
     }
 
+    std::unique_ptr<GTech2D::GTexture> LoadTexture(std::string) override{
+        return std::unique_ptr<GTech2D::GTexture>(nullptr);
+    }
+    int DestroyTexture(void* vpTexture) override {
+        SDL_Texture* pTexture = static_cast<SDL_Texture*>(vpTexture);
+    }
+
 
     void Assert(bool && exp) override {
         SDL_assert(exp);

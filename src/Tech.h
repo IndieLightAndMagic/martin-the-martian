@@ -25,17 +25,28 @@ namespace GTech2D{
         const Rectangle2D windowRectangle;
     };
     enum class TechDriver{SDL, SDL_OPENGL, ALLEGRO, ALLEGRO_OPENGL, GLFW_OPENGL};
-
-
+    struct Texture2D{
+        Texture2D() = default;
+        Texture2D(const Texture2D&) = default;
+        Texture2D(Texture2D&&) = default;
+        ~Texture2D() = default;
+    };
     class Tech2D {
     public:
         Tech2D(){};
 
+
         virtual int CreateRenderer() = 0;
         virtual int CreateWindow(WindowConfiguration winConfig, unsigned int flags) = 0;
-        virtual int Init() = 0;
+        virtual int DestroyTexture(void* pTexture) = 0;
         virtual int Finish() = 0;
+        virtual int Init() = 0;
+
+        virtual std::unique_ptr<GTech2D::Texture2D> LoadTexture(std::string textureFilename) = 0;
+
+
         virtual void Assert(bool && exp) = 0;
+
 
 
     };
