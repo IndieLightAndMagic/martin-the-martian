@@ -5,8 +5,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 
+#include <iostream>
 
-class Texture2D_SDL:public GTech2D::Texture2D {
+class Texture2D_SDL : public GTech2D::Texture2D {
 
     SDL_Texture* m_pTexture;
 public:
@@ -15,10 +16,9 @@ public:
         if (m_pTexture)
             SDL_DestroyTexture(m_pTexture);
     }
-
-    Texture2D* Get() override{
-        std::cerr << "Destroying SDL_Texture\n";
+    SDL_Texture* Get(){
         return m_pTexture;
     }
+
 };
 #endif /* __TEXTURE2D_SDLBRIDGE__ */

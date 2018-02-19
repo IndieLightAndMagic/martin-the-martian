@@ -31,7 +31,6 @@ namespace GTech2D{
         Texture2D(Texture2D&&) = default;
         ~Texture2D() = default;
 
-        virtual Texture2D* Get() = 0;
     };
     class Tech2D {
     public:

@@ -1,6 +1,8 @@
 #ifndef __SDLBRIDGE_H__
 #define __SDLBRIDGE_H__
+
 #include "Tech.h"
+#include "Texture2D_SDLBridge.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
@@ -57,8 +59,30 @@ public:
         return GTech2D::GTECH_OK;
     }
 
-    std::unique_ptr<GTech2D::Texture2D> LoadTexture(std::string) override{
-        return std::unique_ptr<GTech2D::Texture2D>(nullptr);
+    std::unique_ptr<GTech2D::Texture2D> LoadTexture(std::string resourceName) override{
+
+        std::unique_ptr<GTech2D::Texture2D> pTexture(nullptr);
+        if (!pRenderer){
+            std::cerr << "Tech_SDLBridge: Trying to load a texture without a renderer present.\n";
+            return pTexture;
+        }
+
+        std::string localPath = std::string(RES_DIR) + resourceName;
+        SDL_Surface* pImageSurface = IMG_Load(localPath.c_str());
+        if (!pImageSurface){
+            std::cerr << "Tech_SDLBridge: Error loading surface from: " << localPath << "\n";
+            return pTexture;
+        }
+
+        SDL_Texture* pSDLTexture = SDL_CreateTextureFromSurface(pRenderer, pImageSurface);
+        if (!pSDLTexture){
+            std::cerr << "Tech_SDLBridge: Couldn't create a texture... \n";
+            return pTexture;
+        }
+
+        pTexture.reset(new Texture2D_SDL(pSDLTexture));
+        return pTexture;
+
     }
 
 
