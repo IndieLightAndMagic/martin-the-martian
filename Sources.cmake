@@ -3,8 +3,10 @@ function(SOURCES_INCLUDE)
 endfunction()
 
 function(SOURCES_TO_COMPILE PROJECT_NAME)
-	add_executable(${PROJECT_NAME} 
-		${CMAKE_SOURCE_DIR}/src/main.cpp)
+	add_executable(${PROJECT_NAME}
+            ${CMAKE_SOURCE_DIR}/src/main.cpp
+            ${CMAKE_SOURCE_DIR}/src/Tech.cpp
+            )
 endfunction() 
 
 
