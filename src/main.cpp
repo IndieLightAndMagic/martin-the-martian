@@ -47,13 +47,10 @@ int main(int argc, char **argv) {
     /* System Start */
     GTech2D::Tech2D *ptech = GTech2D::Tech2DFactory::StartTechInstance();
     ptech->Init();
-
+    GTech2D::Rectangle2D rectangle2D(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT);
     GTech2D::WindowConfiguration windowConfiguration{
             "Rendering to a texture!",
-            {
-                    {WIN_WIDTH, WIN_HEIGHT},
-                    {SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED}
-            }
+            rectangle2D
     };
 
     ptech->CreateWindow(windowConfiguration, 0);
@@ -68,16 +65,12 @@ int main(int argc, char **argv) {
     SDL_Texture*    pngTex = static_cast<Texture2D_SDL*>(pHeroTexture)->Get();
 
     //Make a target texture to render too
+    GTech2D::Texture2DSize heroTextureSize;
+    spHeroTexture->GetSize(heroTextureSize);
+    GTech2D::WindowPosition heroTexturePosition;
+
     Uint32 pixelFormat;
     int access;
-    SDL_Rect textureRect;
-    {
-        auto zero = SDL_QueryTexture(pngTex,&pixelFormat,&access,&textureRect.w, &textureRect.h);
-        SDL_assert(zero == 0);
-        textureRect.x = 0;
-        textureRect.y = 0;
-
-    }
 
     GTech2D::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
     std::unique_ptr<GTech2D::Texture2D> pATexture = ptech->CreateTexture(textureSize);
@@ -87,13 +80,16 @@ int main(int argc, char **argv) {
     {
         auto zero = SDL_QueryTexture(texTarget, &pixelFormat, &access, &texRect.w, &texRect.h);
         SDL_assert(zero == 0);
-        textureRect.x = (texRect.w - textureRect.w) >> 1;
-        textureRect.y = (texRect.h - textureRect.h) >> 1;
+        heroTexturePosition.x = (texRect.w - heroTextureSize.w) >> 1;
+        heroTexturePosition.y = (texRect.h - heroTextureSize.h) >> 1;
     }
+
+
     //Now render to the texture
-    SDL_SetRenderTarget(renderer, texTarget);
-    SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, pngTex, NULL, NULL);
+    ptech->SetRenderTarget(pATexture);
+    ptech->RenderClear();
+
+    ptech->RenderTexture(spHeroTexture, GTech2D::Rectangle2D(), GTech2D::Rectangle2D());
     //Detach the texture
     SDL_SetRenderTarget(renderer, NULL);
 
@@ -102,7 +98,8 @@ int main(int argc, char **argv) {
 
     //Render in the Center.
 
-    SDL_RenderCopyEx(renderer, texTarget, nullptr, &textureRect, 0, NULL, SDL_FLIP_NONE);
+    //SDL_RenderCopyEx(renderer, texTarget, nullptr, &textureRect, 0, NULL, SDL_FLIP_NONE);
+    SDL_RenderCopy(renderer, pngTex, NULL, NULL);
     SDL_RenderPresent(renderer);
 
     SDL_Delay(3000);

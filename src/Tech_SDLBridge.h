@@ -17,6 +17,30 @@ private:
     SDL_Window* pWindow{nullptr};
     SDL_Renderer* pRenderer{nullptr};
 
+    SDL_Texture* GetTextureFromTexture2DPtr(std::unique_ptr<GTech2D::Texture2D>& spt2d){
+
+        GTech2D::Texture2D* p_gtech2dtexture2d = spt2d.get();
+        if (!p_gtech2dtexture2d) return nullptr;
+
+        auto p_sdltexture2d = static_cast<Texture2D_SDL*>(p_gtech2dtexture2d);
+
+        SDL_Texture* pSDLtexture = p_sdltexture2d->Get();
+        return pSDLtexture;
+
+    }
+    SDL_Rect GetRectFromRectangle2D(GTech2D::Rectangle2D rg){
+        SDL_Rect rs;
+        rs.x = rg.winPos.x;
+        rs.y = rg.winPos.y;
+        rs.w = rg.winSz.w;
+        rs.h = rg.winSz.h;
+
+        return rs;
+    }
+    bool RectIsNull(SDL_Rect &r){
+        return r.w == 0 || r.h == 0;
+    }
+
 public:
     Tech_SDLBridge(){}
     ~Tech_SDLBridge() override {};
@@ -33,8 +57,8 @@ public:
                 winConfig.title.c_str(),
                 winConfig.windowRectangle.winPos.x,
                 winConfig.windowRectangle.winPos.y,
-                winConfig.windowRectangle.winSz.x,
-                winConfig.windowRectangle.winSz.y,
+                winConfig.windowRectangle.winSz.w,
+                winConfig.windowRectangle.winSz.h,
                 uiFlags);
 
         if (!pWindow){
@@ -68,8 +92,8 @@ public:
                 pRenderer,
                 SDL_PIXELFORMAT_RGBA8888,
                 SDL_TEXTUREACCESS_TARGET,
-                rSize.x,
-                rSize.y
+                rSize.w,
+                rSize.h
         );
         if (!pSDLTexture){
             std::cerr << "Tech_SDLBridge: Couldn't create a texture....\n";
@@ -106,10 +130,36 @@ public:
 
     }
 
+    int SetRenderTarget(std::unique_ptr<GTech2D::Texture2D>& spTxtr) override{
+
+        SDL_Texture* pSDLTexture = GetTextureFromTexture2DPtr(spTxtr);
+        SDL_assert(SDL_SetRenderTarget(pRenderer, pSDLTexture) == 0);
+        return GTech2D::GTECH_OK;
+    }
+
+    int RenderClear(void) override{
+        SDL_assert(SDL_RenderClear(pRenderer) == 0);
+        return GTech2D::GTECH_OK;
+    }
+
+    int RenderTexture(GTech2D::UPTexture2D& spTxtr, GTech2D::Rectangle2D srcRect, GTech2D::Rectangle2D dstRect) override
+    {
+        SDL_Texture* pSDLTexture = GetTextureFromTexture2DPtr(spTxtr);
+        if (!pSDLTexture) return GTech2D::GTECH_ERROR;
+
+        SDL_Rect src = GetRectFromRectangle2D(srcRect);
+        SDL_Rect dst = GetRectFromRectangle2D(dstRect);
+
+        SDL_RenderCopy(pRenderer, pSDLTexture, RectIsNull(src) ? nullptr : &src, RectIsNull(dst) ? nullptr : &dst);
+        return GTech2D::GTECH_OK;
+    }
 
     void Assert(bool && exp) override {
         SDL_assert(exp);
     }
+
+
+    /**** SDL SPECIFIC ****/
     /* The following functions are SDL specific. Should be used ONLY in case. */
     void SetSDLInitFlags(unsigned int uiFlags) {
         m_initFlags = uiFlags;

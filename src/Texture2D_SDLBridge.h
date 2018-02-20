@@ -26,6 +26,25 @@ public:
 
         }
     }
+
+    int GetSize(GTech2D::Texture2DSize& rSize) override {
+
+
+        if (!m_pTexture) return GTech2D::GTECH_ERROR;
+
+        struct {
+            Uint32 pixelFormat;
+            int access;
+        }textureFormat;
+        auto zero = SDL_QueryTexture(m_pTexture, &textureFormat.pixelFormat, &textureFormat.access, &rSize.w, &rSize.h);
+        SDL_assert(zero == 0);
+
+        return GTech2D::GTECH_OK;
+
+    }
+
+
+    /*** SDL Specific ***/
     SDL_Texture* Get(){
         return m_pTexture;
     }
