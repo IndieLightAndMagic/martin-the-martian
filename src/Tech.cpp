@@ -14,7 +14,7 @@ GTech2D::Tech2D* GTech2D::Tech2DFactory::StartTechInstance(GTech2D::TechDriver t
 }
 
 
-int GTech2D::Tech2D::DestroyTexture(std::unique_ptr<GTech2D::Texture2D> pTexture){
+int GTech2D::Tech2D::DestroyTexture(std::unique_ptr<GTech2D::Texture2D>& pTexture){
     pTexture.reset(nullptr);
     return GTech2D::GTECH_OK;
 }

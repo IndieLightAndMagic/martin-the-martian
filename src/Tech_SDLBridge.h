@@ -51,6 +51,7 @@ public:
         }
         return GTech2D::GTECH_OK;
     }
+
     int Finish() override {
 
         if (pRenderer) SDL_DestroyRenderer(pRenderer);
@@ -58,7 +59,25 @@ public:
         SDL_Quit();
         return GTech2D::GTECH_OK;
     }
+    std::unique_ptr<GTech2D::Texture2D> CreateTexture(const GTech2D::Texture2DSize& rSize) override {
 
+        std::unique_ptr<GTech2D::Texture2D> pTexture(nullptr);
+
+        SDL_Texture* pSDLTexture = SDL_CreateTexture(
+                pRenderer,
+                SDL_PIXELFORMAT_RGBA8888,
+                SDL_TEXTUREACCESS_TARGET,
+                rSize.x,
+                rSize.y
+        );
+        if (!pSDLTexture){
+            std::cerr << "Tech_SDLBridge: Couldn't create a texture....\n";
+            return pTexture;
+        }
+        pTexture.reset(new Texture2D_SDL(pSDLTexture));
+        return pTexture;
+
+    }
     std::unique_ptr<GTech2D::Texture2D> LoadTexture(std::string resourceName) override{
 
         std::unique_ptr<GTech2D::Texture2D> pTexture(nullptr);

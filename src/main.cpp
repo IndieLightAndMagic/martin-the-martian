@@ -64,9 +64,7 @@ int main(int argc, char **argv) {
     std::unique_ptr<GTech2D::Texture2D>spHeroTexture = ptech->LoadTexture("hero.png"); //LoadSurface("hero.png");
     GTech2D::Texture2D* pHeroTexture = spHeroTexture.get();
 
-
     SDL_Renderer*   renderer = static_cast<Tech_SDLBridge*>(ptech)->GetRenderer();
-
     SDL_Texture*    pngTex = static_cast<Texture2D_SDL*>(pHeroTexture)->Get();
 
     //Make a target texture to render too
@@ -81,7 +79,10 @@ int main(int argc, char **argv) {
 
     }
 
-    SDL_Texture *texTarget = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888,SDL_TEXTUREACCESS_TARGET, WIN_WIDTH, WIN_HEIGHT);
+    GTech2D::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
+    std::unique_ptr<GTech2D::Texture2D> pATexture = ptech->CreateTexture(textureSize);
+    SDL_Texture *texTarget = static_cast<Texture2D_SDL*>(pATexture.get())->Get();
+
     SDL_Rect texRect;
     {
         auto zero = SDL_QueryTexture(texTarget, &pixelFormat, &access, &texRect.w, &texRect.h);
@@ -104,8 +105,8 @@ int main(int argc, char **argv) {
     SDL_RenderCopyEx(renderer, texTarget, nullptr, &textureRect, 0, NULL, SDL_FLIP_NONE);
     SDL_RenderPresent(renderer);
 
-    SDL_Delay(10000);
-    SDL_DestroyTexture(texTarget);
+    SDL_Delay(3000);
+    ptech->DestroyTexture(pATexture);
     SDL_DestroyTexture(pngTex);
     ptech->Finish();
     return 0;
