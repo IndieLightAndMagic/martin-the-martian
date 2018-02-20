@@ -91,10 +91,12 @@ int main(int argc, char **argv) {
 
     ptech->RenderTexture(spHeroTexture, GTech2D::Rectangle2D(), GTech2D::Rectangle2D());
     //Detach the texture
-    SDL_SetRenderTarget(renderer, NULL);
+
+    ptech->DetachRenderTexture();
+    //SDL_SetRenderTarget(renderer, NULL);
 
     //Now render the texture target to our screen, but upside down
-    SDL_RenderClear(renderer);
+    ptech->RenderClear();
 
     //Render in the Center.
 

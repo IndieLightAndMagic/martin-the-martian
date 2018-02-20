@@ -136,7 +136,10 @@ public:
         SDL_assert(SDL_SetRenderTarget(pRenderer, pSDLTexture) == 0);
         return GTech2D::GTECH_OK;
     }
-
+    int DetachRenderTexture() override {
+        SDL_assert(SDL_SetRenderTarget(pRenderer, nullptr) == 0);
+        return GTech2D::GTECH_OK;
+    }
     int RenderClear(void) override{
         SDL_assert(SDL_RenderClear(pRenderer) == 0);
         return GTech2D::GTECH_OK;

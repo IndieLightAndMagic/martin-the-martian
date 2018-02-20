@@ -28,7 +28,7 @@ namespace GTech2D{
         Rectangle2D():winSz({0,0}),winPos({0,0}){}
         Rectangle2D(const Rectangle2D& r):winSz(r.winSz),winPos(r.winPos){}
         Rectangle2D(int x, int y, int w, int h):winSz({w,h}), winPos({x,y}){}
-        
+
     };
     struct WindowConfiguration{
         std::string title;
@@ -64,6 +64,7 @@ namespace GTech2D{
         virtual std::unique_ptr<GTech2D::Texture2D> CreateTexture(const GTech2D::Texture2DSize&) = 0;
 
         virtual int RenderTexture(GTech2D::UPTexture2D&, GTech2D::Rectangle2D srcRect, GTech2D::Rectangle2D dstRect) = 0;
+        virtual int DetachRenderTexture() = 0;
         virtual int SetRenderTarget(std::unique_ptr<GTech2D::Texture2D>&) = 0;
         virtual int RenderClear() = 0;
 
