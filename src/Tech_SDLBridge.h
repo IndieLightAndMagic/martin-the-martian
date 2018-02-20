@@ -19,6 +19,7 @@ private:
 
 public:
     Tech_SDLBridge(){}
+    ~Tech_SDLBridge() override {};
     int Init() override {
         if (SDL_Init(m_initFlags) != 0){
             std::cerr << "SDL_Init failed: " << SDL_GetError() << "\n";
