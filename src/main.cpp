@@ -89,7 +89,7 @@ int main(int argc, char **argv) {
     ptech->SetRenderTarget(pATexture);
     ptech->RenderClear();
 
-    ptech->RenderTexture(spHeroTexture, GTech2D::Rectangle2D(), GTech2D::Rectangle2D());
+    ptech->RenderTexture(spHeroTexture);
     //Detach the texture
 
     ptech->DetachRenderTexture();
@@ -101,7 +101,9 @@ int main(int argc, char **argv) {
     //Render in the Center.
 
     //SDL_RenderCopyEx(renderer, texTarget, nullptr, &textureRect, 0, NULL, SDL_FLIP_NONE);
-    SDL_RenderCopy(renderer, pngTex, NULL, NULL);
+    //SDL_RenderCopy(renderer, pngTex, NULL, NULL);
+    ptech->RenderTexture(pATexture);
+
     SDL_RenderPresent(renderer);
 
     SDL_Delay(3000);

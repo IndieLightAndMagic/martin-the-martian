@@ -145,7 +145,7 @@ public:
         return GTech2D::GTECH_OK;
     }
 
-    int RenderTexture(GTech2D::UPTexture2D& spTxtr, GTech2D::Rectangle2D srcRect, GTech2D::Rectangle2D dstRect) override
+    int RenderTexture(GTech2D::UPTexture2D& spTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect) override
     {
         SDL_Texture* pSDLTexture = GetTextureFromTexture2DPtr(spTxtr);
         if (!pSDLTexture) return GTech2D::GTECH_ERROR;
