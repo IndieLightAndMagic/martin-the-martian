@@ -47,8 +47,14 @@ namespace GTech2D{
         Texture2D(const Texture2D&) = default;
         Texture2D(Texture2D&&) = default;
         virtual ~Texture2D() = default;
-
         virtual int GetSize(GTech2D::Texture2DSize&){return GTECH_ERROR;}
+
+        Point2D Center(){
+
+            Texture2DSize sz;
+            GetSize(sz);
+            return Point2D{sz.w >> 1, sz.h >> 1};
+        }
 
     };
     using UPTexture2D = std::unique_ptr<GTech2D::Texture2D>;
@@ -71,7 +77,7 @@ namespace GTech2D{
         virtual std::unique_ptr<GTech2D::Texture2D> LoadTexture(std::string textureFilename) = 0;
         virtual std::unique_ptr<GTech2D::Texture2D> CreateTexture(const GTech2D::Texture2DSize&) = 0;
 
-        virtual int RenderTextureEx(GTech2D::UPTexture2D&, GTech2D::Rectangle2D dstRect = GTech2D::Rectangle2D(), GTech2D::Rectangle2D srcRect = GTech2D::Rectangle2D(), const double angle_deg = 0, GTech2D::Point2D point, GTech2D::FlipType flip) = 0;
+        virtual int RenderTextureEx(GTech2D::UPTexture2D&, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D, const double angle_deg, GTech2D::Point2D point , GTech2D::FlipType flip = GTech2D::FlipType::FLIP_NO) = 0;
         virtual int RenderTexture(GTech2D::UPTexture2D&, GTech2D::Rectangle2D dstRect = GTech2D::Rectangle2D(), GTech2D::Rectangle2D srcRect = GTech2D::Rectangle2D()) = 0;
         virtual int DetachRenderTexture() = 0;
         virtual int SetRenderTarget(std::unique_ptr<GTech2D::Texture2D>&) = 0;
