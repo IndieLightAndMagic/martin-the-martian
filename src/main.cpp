@@ -102,7 +102,9 @@ int main(int argc, char **argv) {
 
     //SDL_RenderCopyEx(renderer, texTarget, nullptr, &textureRect, 0, NULL, SDL_FLIP_NONE);
     //SDL_RenderCopy(renderer, pngTex, NULL, NULL);
-    ptech->RenderTexture(spHeroTexture);
+    GTech2D::Point2D p{0,0};
+    ptech->RenderTextureEx(pATexture,GTech2D::Rectangle2D::Zero,GTech2D::Rectangle2D::Zero,0,p);
+    ptech->RenderTexture(pATexture);
 
     SDL_RenderPresent(renderer);
 

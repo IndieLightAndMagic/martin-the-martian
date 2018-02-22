@@ -37,6 +37,12 @@ private:
 
         return rs;
     }
+    SDL_Point GetPointFromPoint2D(GTech2D::Point2D pg){
+        SDL_Point ps;
+        ps.x = pg.x;
+        ps.y = pg.y;
+        return ps;
+    }
     bool RectIsNull(SDL_Rect &r){
         return r.w == 0 || r.h == 0;
     }
@@ -143,6 +149,21 @@ public:
     int RenderClear(void) override{
         SDL_assert(SDL_RenderClear(pRenderer) == 0);
         return GTech2D::GTECH_OK;
+    }
+
+    int RenderTextureEx(GTech2D::UPTexture2D&, GTech2D::Rectangle2D dstRect = GTech2D::Rectangle2D(), GTech2D::Rectangle2D srcRect = GTech2D::Rectangle2D(), const double angle_deg = 0, GTech2D::Point point, GTech2D::FlipType flip = GTech2D::FlipType::FLIP_NO){
+
+        SDL_Texture* pSDLTexture = GetTextureFromTexture2DPtr(spTxtr);
+        if (!pSDLTexture) return GTech2D::GTECH_ERROR;
+
+        SDL_Rect src = GetRectFromRectangle2D(srcRect);
+        SDL_Rect dst = GetRectFromRectangle2D(dstRect);
+        SDL_Point p = GetPointFromPoint2D(point);
+        SDL_RendererFlip f = (flip == GTech2D::FlipType::FLIP_HORIZONTAL) ? SDL_FLIP_HORIZONTAL : ((flip == GTech2D::FlipType::FLIP_VERTICAL) ? SDL_FLIP_VERTICAL : ((flip == GTech2D::FlipType::FLIP_HORIZONTAL_AND_VERTICAL) ? SDL_FLIP_HORIZONTAL|SDL_FLIP_VERTICAL : SDL_FLIP_NONE)) ;
+
+        SDL_RenderCopyEx(pRenderer, pSDLTexture, RectIsNull(src) ? nullptr : &src, RectIsNull(dst) ? nullptr : &dst, angle_deg, p, f);
+        return GTech2D::GTECH_OK;
+
     }
 
     int RenderTexture(GTech2D::UPTexture2D& spTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect) override

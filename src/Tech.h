@@ -22,6 +22,10 @@ namespace GTech2D{
     using WindowPosition = _2d<int>;
     using Texture2DSize = _2d_size<int>;
 
+    using Point2D = _2d<int>;
+
+
+    
     struct Rectangle2D{
         WindowSize winSz;
         WindowPosition winPos;
@@ -35,6 +39,8 @@ namespace GTech2D{
         std::string title;
         const Rectangle2D windowRectangle;
     };
+
+    enum class FlipType{FLIP_NO, FLIP_HORIZONTAL, FLIP_VERTICAL, FLIP_HORIZONTAL_AND_VERTICAL};
     enum class TechDriver{SDL, SDL_OPENGL, ALLEGRO, ALLEGRO_OPENGL, GLFW_OPENGL};
     struct Texture2D{
         Texture2D() = default;
@@ -65,6 +71,7 @@ namespace GTech2D{
         virtual std::unique_ptr<GTech2D::Texture2D> LoadTexture(std::string textureFilename) = 0;
         virtual std::unique_ptr<GTech2D::Texture2D> CreateTexture(const GTech2D::Texture2DSize&) = 0;
 
+        virtual int RenderTextureEx(GTech2D::UPTexture2D&, GTech2D::Rectangle2D dstRect = GTech2D::Rectangle2D(), GTech2D::Rectangle2D srcRect = GTech2D::Rectangle2D(), const double angle_deg = 0, GTech2D::Point2D point, GTech2D::FlipType flip) = 0;
         virtual int RenderTexture(GTech2D::UPTexture2D&, GTech2D::Rectangle2D dstRect = GTech2D::Rectangle2D(), GTech2D::Rectangle2D srcRect = GTech2D::Rectangle2D()) = 0;
         virtual int DetachRenderTexture() = 0;
         virtual int SetRenderTarget(std::unique_ptr<GTech2D::Texture2D>&) = 0;
