@@ -25,13 +25,12 @@ namespace GTech2D{
     struct Rectangle2D{
         WindowSize winSz;
         WindowPosition winPos;
-        GTech2D::Texture2D Rectangle2D():winSz({0, 0}), winPos({0, 0}){}
+        Rectangle2D():winSz({0, 0}), winPos({0, 0}){}
         Rectangle2D(const Rectangle2D& r):winSz(r.winSz),winPos(r.winPos){}
         Rectangle2D(int x, int y, int w, int h):winSz({w,h}), winPos({x,y}){}
-        static Rectangle2D Zero;
-    };
-    Rectangle2D Rectangle2D::Zero = GTech2D::Rectangle2D();
 
+    };
+    static Rectangle2D Zero = Rectangle2D();
     struct WindowConfiguration{
         std::string title;
         const Rectangle2D windowRectangle;
