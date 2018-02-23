@@ -199,6 +199,10 @@ public:
         return GTech2D::GTECH_OK;
     }
 
+    void UpdateScreen() override {
+        SDL_RenderPresent(pRenderer);
+    }
+
     void Assert(bool && exp) override {
         SDL_assert(exp);
     }
