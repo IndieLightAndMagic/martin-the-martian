@@ -2,7 +2,7 @@
 
 #include "Tech.h"
 #include "Tech_SDLBridge.h"
-
+#include "ShipSpriteFactory.h"
 
 #include <iostream>
 #include <string>
@@ -16,12 +16,25 @@ const int WIN_HEIGHT = 480;
 const std::string TAG = "VoidSample";
 
 
+struct System {
 
+};
+
+struct RenderSystem : public System{
+
+    /* To Render a Sprite, a RenderSystem needs:
+     * A Sprite Component.
+     * A Position Component.
+     * A Speed Component.
+     * A Scale Component. */
+
+
+};
 
 int main(int argc, char **argv) {
     
     /* System Start */
-    GTech2D::Tech2D *ptech = GTech2D::Tech2DFactory::StartTechInstance();
+    GTech2D::Tech2D* ptech = GTech2D::Tech2DFactory::StartTechInstance();
 
     ptech->Init();
 
@@ -33,11 +46,11 @@ int main(int argc, char **argv) {
 
     ptech->CreateWindow(windowConfiguration, 0);
     ptech->CreateRenderer();
-    ptech->Assert(static_cast<Tech_SDLBridge*>(ptech)->InitImageLoading() == true);
+    ptech->Assert(static_cast<Tech_SDLBridge*>(ptech)->InitImageLoading() != 0);
     
     /* Load Assets */
-    std::unique_ptr<GTech2D::Texture2D>spHeroTexture = ptech->LoadTexture("hero.png"); //LoadSurface("hero.png");
-
+    //std::unique_ptr<GTech2D::Texture2D>spHeroTexture = ptech->LoadTexture("hero.png"); //LoadSurface("hero.png");
+    auto spHeroEntity = SpriteShipFactory::CreateDefaultShipEntity(ptech);
 
     GTech2D::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
     std::unique_ptr<GTech2D::Texture2D> pATexture = ptech->CreateTexture(textureSize);
