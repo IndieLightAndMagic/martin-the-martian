@@ -1,29 +1,35 @@
 #ifndef __ENTITYMANAGER_H__
 #define __ENTITYMANAGER_H__
 
-#include "entity.h"
-
+#include "entityfactory.h"
+#include <map>
 
 namespace ECS {
 
     class EntityManager{
 
-        EntityManger(){}
-        static UPEntityManager em;
+        using UPEntityManager = std::unique_ptr<EntityManager>;
+        std::map<unsigned int, ECSPEntity>entityMap;
 
     public:
 
+        static UPEntityManager entityManager;
         static UPEntityManager GetManager(){
-            if (em == nullptr){
-                em = std::make_unique(new EntityManager());
+            if ( entityManager == nullptr ){
+                entityManager = std::make_unique<EntityManager>(new EntityManager());
             }
-            return em;
+            return entityManager;
         }
-        template <typename T>
+
         unsigned int CreateEntity(){
-            
+            ECSPEntity pEntity = EntityFactory::CreateEntity();
+            entityMap[pEntity->m_id] = pEntity;
+            return pEntity->m_id;
         }
+
     };
+    EntityManager::UPEntityManager EntityManager::entityManager = nullptr;
+
 }
 
 #endif /* __ENTITYMANAGER_H__ */

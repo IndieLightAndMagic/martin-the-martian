@@ -1,8 +1,8 @@
-#include "entity.h"
+#include "entitymanager.h"
 
 #include "Tech.h"
 #include "Tech_SDLBridge.h"
-#include "ShipSpriteFactory.h"
+#include "ShipFactory.h"
 
 #include <iostream>
 #include <string>
@@ -11,8 +11,8 @@
 #include <SDL2_image/SDL_image.h>
 
 
-const int WIN_WIDTH = 640;
-const int WIN_HEIGHT = 480;
+const int WIN_WIDTH = 800;
+const int WIN_HEIGHT = 600;
 const std::string TAG = "VoidSample";
 
 
@@ -31,26 +31,44 @@ struct RenderSystem : public System{
 
 };
 
+namespace GAME {
+
+    ECS::EntityManager  entityManager;
+    GTech2D::UPTech2D   ptech;
+
+
+
+    void InitGameTech(){
+
+        ptech = nullptr;
+        ptech = GTech2D::Tech2DFactory::StartTechInstance();
+        ptech->Init();
+
+        GTech2D::Rectangle2D rectangle2D(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT);
+        GTech2D::WindowConfiguration windowConfiguration{
+                "Rendering to a texture!",
+                rectangle2D
+        };
+
+        ptech->CreateWindow(windowConfiguration, 0);
+        ptech->CreateRenderer();
+        ptech->Assert(static_cast<Tech_SDLBridge*>(ptech)->InitImageLoading() != 0);
+
+    }
+}
+using namespace GAME;
+
+
 int main(int argc, char **argv) {
-    
-    /* System Start */
-    GTech2D::Tech2D* ptech = GTech2D::Tech2DFactory::StartTechInstance();
 
-    ptech->Init();
+    /* InitGameTech */
+    GAME::InitGameTech();
 
-    GTech2D::Rectangle2D rectangle2D(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT);
-    GTech2D::WindowConfiguration windowConfiguration{
-            "Rendering to a texture!",
-            rectangle2D
-    };
+    /* SpawnShip */
+    auto ship = GAME::ShipFactory::CreateShip();
 
-    ptech->CreateWindow(windowConfiguration, 0);
-    ptech->CreateRenderer();
-    ptech->Assert(static_cast<Tech_SDLBridge*>(ptech)->InitImageLoading() != 0);
-    
-    /* Load Assets */
-    //std::unique_ptr<GTech2D::Texture2D>spHeroTexture = ptech->LoadTexture("hero.png"); //LoadSurface("hero.png");
     auto spHeroEntity = SpriteShipFactory::CreateDefaultShipEntity(ptech);
+
 
     GTech2D::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
     std::unique_ptr<GTech2D::Texture2D> pATexture = ptech->CreateTexture(textureSize);

@@ -4,9 +4,24 @@ endfunction()
 
 function(SOURCES_TO_COMPILE PROJECT_NAME)
 	add_executable(${PROJECT_NAME}
+
             ${CMAKE_SOURCE_DIR}/src/main.cpp
             ${CMAKE_SOURCE_DIR}/src/Tech.cpp
-            )
+
+			${CMAKE_SOURCE_DIR}/src/component.h
+			${CMAKE_SOURCE_DIR}/src/componentfactory.h
+			${CMAKE_SOURCE_DIR}/src/componentmanager.h
+
+			${CMAKE_SOURCE_DIR}/src/entity.h
+			${CMAKE_SOURCE_DIR}/src/EntityFactory.h
+			${CMAKE_SOURCE_DIR}/src/entitymanager.h
+
+			${CMAKE_SOURCE_DIR}/src/ShipFactory.h
+
+			${CMAKE_SOURCE_DIR}/src/Tech_SDLBridge.h
+
+
+			)
 endfunction() 
 
 

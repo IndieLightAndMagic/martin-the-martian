@@ -103,14 +103,13 @@ namespace GTech2D{
         virtual void UpdateScreen() = 0;
         virtual void Assert(bool && exp) = 0;
 
-
-
     };
+    using UPTech2D = std::unique_ptr<Tech2D>;
     class Tech2DFactory{
     public:
-        static Tech2D* StartTechInstance( GTech2D::TechDriver tech2D = GTech2D::TechDriver::SDL );
+        static Tech2D* StartTechInstance_(GTech2D::TechDriver tech2D = GTech2D::TechDriver::SDL);
+        static UPTech2D StartTechInstance(GTech2D::TechDriver tech2D = GTech2D::TechDriver::SDL);
     };
-
 
 }
 
