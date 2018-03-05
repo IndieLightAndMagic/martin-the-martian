@@ -6,44 +6,51 @@
 using namespace GTech2D;
 class Entity;
 namespace ECS {
-
-    struct Component
+    template <typename T>
+    class Component
     {
-        static unsigned int unique_component_id;
-        enum struct ComponentType { NONE, CHILD_ENTITY, SPRITE, POSITION, SPEED, DIRECTION, ACCELERATION, CONTROL_INPUT};
-        UPEntity m_pParent;
+    public:
+        int SetParent(unsigned int parentId);
         unsigned int m_id;
-        ComponentType m_type;
-        int SetParent(UPEntity m_parent);
+        T m_data;
+    private:
+        unsigned int m_parentId;
+
+    public:
         Component():
-                m_pParent(UPEntity(nullptr)),
-                m_id(++unique_component_id),
-                m_type(NONE)
+                m_parentId(0),
+                m_id(0)
         {}
 
     };
-    using UPComponent = std::unique_ptr<Component>;
-    unsigned int Component::unique_component_id = 0;
-    struct SpriteComponent : Component {
+    template <typename T>
+    using ECSPComponent<T> = std::shared_ptr<Component<T>>;
 
-        UPTexture2D texture;
-        Vector2Dd anchor;
+    class SpriteComponent {
+
+        GTech2D::ECSPTexture2D texture;
+        inline GTech2D::Vector2Dd anchor;
         double scale;
-
-        SpriteComponent(unsigned int parentId):
-                anchor(Vector2Dd{0.5f, 0.5f}),
-        {
-            m_pParent = parent;
-            m_type = Component::ComponentType::SPRITE;
+    public:
+        GTech2D::Vector2Dd& GetAnchor(){
+            return anchor;
+        }
+        inline GTech2D::ECSPTexture2D& GetTexture(){
+            return texture;
+        }
+        inline double& GetScale(){
+            return scale;
         }
 
     };
-    using UPSpriteComponent = std::unique_ptr<SpriteComponent>;
-    struct Vector2Dd: Component, Vector2Df {
+    using ECSPSpriteComponent = std::shared_ptr<SpriteComponent>;
+
+    class Vector2DdComponent : public Component, GTech2D::Vector2Dd{
 
     };
-
-
+    using SpeedComponent = Vector2DdComponent;
+    using PositionComponent = Vector2DdComponent;
+    using AccelerationComponent = Vector2DdComponent;
 }
 
 

@@ -67,11 +67,11 @@ int main(int argc, char **argv) {
     /* SpawnShip */
     auto ship = GAME::ShipFactory::CreateShip();
 
-    auto spHeroEntity = SpriteShipFactory::CreateDefaultShipEntity(ptech);
+    //auto spHeroEntity = SpriteShipFactory::CreateDefaultShipEntity(ptech);
 
 
     GTech2D::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
-    std::unique_ptr<GTech2D::Texture2D> pATexture = ptech->CreateTexture(textureSize);
+    std::unique_ptr<GTech2D::Texture2D> pATexture = ptech->CreateTextureWithSize(textureSize);
 
     //Now render to the texture
     ptech->SetRenderTarget(pATexture);
@@ -80,10 +80,10 @@ int main(int argc, char **argv) {
 
     //Make a target texture to render too
     GTech2D::Rectangle2D heroAABB;
-    spHeroTexture->GetSize(heroAABB.winSz);
+    //spHeroTexture->GetSize(heroAABB.winSz);
     heroAABB.winPos.x = (textureSize.w >> 1) -  (heroAABB.winSz.w >> 1);
     heroAABB.winPos.y = (textureSize.h >> 1) -  (heroAABB.winSz.h >> 1);
-    ptech->RenderTexture(spHeroTexture,heroAABB);
+    //ptech->RenderTexture(spHeroTexture,heroAABB);
     //Detach the texture
 
     ptech->DetachRenderTexture();

@@ -1,32 +1,33 @@
 #ifndef __SHIPSPRITEFACTORY_H__
 #define __SHIPSPRITEFACTORY_H__
 
+#include "Tech.h"
 #include "entitymanager.h"
-
-using namespace GTech2D;
-using namespace ECS;
-
+#include "componentmanager.h"
 
 namespace GAME {
+
+    class Ship
+
     class ShipFactory {
 
-        static void AddComponents(){
-
-            //Add Sprite
-            //Add Position
-            //Add Acceleration
-
-        }
     public:
         static unsigned int CreateShip(){
 
-            EntityManager::UPEntityManager entityManager = EntityManager::GetManager();
+            ECS::EntityManager::UPEntityManager entityManager = ECS::EntityManager::GetManager();
             unsigned int shipId = entityManager->CreateEntity();
+
+            //Create a Position
+            auto componentManager = ECS::ComponentManager::GetManager();
+            auto positionComponent = componentManager->CreateComponent<GTech2D::Vector2Dd>();
+            auto speedComponent = componentManager->CreateComponent<GTech2D::Vector2Dd>();
+
 
             return shipId;
         }
-
     };
+
+
 }
 
 

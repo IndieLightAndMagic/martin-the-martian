@@ -90,7 +90,7 @@ public:
         SDL_Quit();
         return GTech2D::GTECH_OK;
     }
-    std::unique_ptr<GTech2D::Texture2D> CreateTexture(const GTech2D::Texture2DSize& rSize) override {
+    std::unique_ptr<GTech2D::Texture2D> CreateTextureWithSize(const GTech2D::Texture2DSize &rSize) override {
 
         std::unique_ptr<GTech2D::Texture2D> pTexture(nullptr);
 
@@ -151,7 +151,7 @@ public:
         return GTech2D::GTECH_OK;
     }
 
-    int RenderTextureEx(GTech2D::UPTexture2D& spTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point, GTech2D::FlipType flip) override{
+    int RenderTextureEx(GTech2D::ECSPTexture2D& spTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point, GTech2D::FlipType flip) override{
 
         SDL_Texture* pSDLTexture = GetTextureFromTexture2DPtr(spTxtr);
         if (!pSDLTexture) return GTech2D::GTECH_ERROR;
@@ -187,7 +187,7 @@ public:
 
     }
 
-    int RenderTexture(GTech2D::UPTexture2D& spTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect) override
+    int RenderTexture(GTech2D::ECSPTexture2D& spTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect) override
     {
         SDL_Texture* pSDLTexture = GetTextureFromTexture2DPtr(spTxtr);
         if (!pSDLTexture) return GTech2D::GTECH_ERROR;

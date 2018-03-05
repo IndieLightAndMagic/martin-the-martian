@@ -2,52 +2,40 @@
 #define __COMPONENT_MANAGER_H__
 #include <map>
 #include <memory>
+#include <iostream>
 #include "component.h"
+#include "entitymanager.h"
+#include "componentfactory.h"
 
 namespace ECS{
 
-    using UPComponentManager = std::unique_ptr<ComponentManager>;
     class ComponentManager {
 
-        std::map<unsigned int, UPComponent>componentsMap;
-        ComponentManager(){
-
-        }
+        using ECSPComponentManager = std::shared_ptr<ComponentManager>;
+        std::map<unsigned int, ECSPComponent>componentMap;
 
     public:
-
-        static UPComponentManager cm;
-        UPComponentManager GetComponentManager(){
-
-            if (cm == nullptr){
-                cm = std::make_unique(new ComponentManager());
+        static ECSPComponentManager componentManager;
+        static ECSPComponentManager GetManager(){
+            if ( componentManager == nullptr ){
+                componentManager = std::make_shared<ComponentManager>(new ComponentManager());
             }
-            return cm;
-
+            return componentManager;
         }
 
-        template <typename C>
+        template <typename T>
         unsigned int CreateComponent(){
 
-            auto pcompo = std::make_unique<C>(new C());
-            componentsMap[pcompo->m_id] = pcompo;
-            return pcompo->m_id;
+            ECSPComponent<T> component = ECS::ComponentFactory::CreateComponent<T>();
+            componentMap[component->m_id] = component;
+            return component->m_id;
 
         }
-
-        bool AddComponent(UPEntity pent, UPComponent pcompo){
-
-            pent->m_components.push_back(pcompo);
-            return true;
-        }
-
-        UPComponent GetComponent(unsigned int compoId){
-            return componentsMap[compoId];
-        }
-
-
     };
-    UPComponentManager ComponentManager::cm = nullptr;
+    ComponentManager::ECSPComponentManager ComponentManager::componentManager = nullptr;
+
+
+
 
 }
 

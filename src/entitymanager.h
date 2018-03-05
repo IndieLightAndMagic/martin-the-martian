@@ -27,6 +27,12 @@ namespace ECS {
             return pEntity->m_id;
         }
 
+        bool AddComponent(unsigned int entity, unsigned int componentId){
+
+            entityMap[entity]->m_componentIds.push_back(componentId);
+
+
+        }
     };
     EntityManager::UPEntityManager EntityManager::entityManager = nullptr;
 

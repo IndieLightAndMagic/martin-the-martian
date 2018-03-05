@@ -9,7 +9,7 @@ Version -- Description
 
 0.0.0   -- Starting version.
 0.0.1	-- First Sample for a Rectangle Texture Rendered.
-0.0.2	-- LoadTexture, CreateTexture and DestroyTexture.
+0.0.2	-- LoadTexture, CreateTextureWithSize and DestroyTexture.
 
 
 
