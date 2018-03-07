@@ -9,9 +9,9 @@ namespace ECS {
     public:
         static unsigned int m_int;
         template <typename T>
-        static ECSPComponent<T> CreateComponent(){
+        static ECSPComponent CreateComponent(){
 
-            ECSPComponent<T> pComp = std::make_shared< Component<T> >(new Component<T>());
+            ECSPComponent pComp = std::make_shared<T>();
             pComp->m_id = ++m_int;
             return pComp;
 

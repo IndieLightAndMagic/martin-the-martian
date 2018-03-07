@@ -8,15 +8,15 @@ namespace ECS {
 
     class EntityManager{
 
-        using UPEntityManager = std::unique_ptr<EntityManager>;
         std::map<unsigned int, ECSPEntity>entityMap;
 
     public:
-
+        using UPEntityManager = std::shared_ptr<EntityManager>;
         static UPEntityManager entityManager;
-        static UPEntityManager GetManager(){
+
+        static UPEntityManager& GetManager(){
             if ( entityManager == nullptr ){
-                entityManager = std::make_unique<EntityManager>(new EntityManager());
+                entityManager = std::make_unique<EntityManager>();
             }
             return entityManager;
         }
@@ -30,7 +30,7 @@ namespace ECS {
         bool AddComponent(unsigned int entity, unsigned int componentId){
 
             entityMap[entity]->m_componentIds.push_back(componentId);
-
+            return true;
 
         }
     };

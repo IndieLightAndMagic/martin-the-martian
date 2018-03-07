@@ -34,7 +34,7 @@ struct RenderSystem : public System{
 namespace GAME {
 
     ECS::EntityManager  entityManager;
-    GTech2D::UPTech2D   ptech;
+    GTech2D::GTPTech2D   ptech;
 
 
 
@@ -52,7 +52,10 @@ namespace GAME {
 
         ptech->CreateWindow(windowConfiguration, 0);
         ptech->CreateRenderer();
-        ptech->Assert(static_cast<Tech_SDLBridge*>(ptech)->InitImageLoading() != 0);
+
+        //SDL Specific Code.
+        auto sdl_ptech = static_cast<Tech_SDLBridge*>(ptech.get());
+        ptech->Assert(sdl_ptech->InitImageLoading() != 0);
 
     }
 }
@@ -71,7 +74,7 @@ int main(int argc, char **argv) {
 
 
     GTech2D::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
-    std::unique_ptr<GTech2D::Texture2D> pATexture = ptech->CreateTextureWithSize(textureSize);
+    GTPTexture2D pATexture = ptech->CreateTextureWithSize(textureSize);
 
     //Now render to the texture
     ptech->SetRenderTarget(pATexture);

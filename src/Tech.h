@@ -10,6 +10,7 @@ namespace GTech2D{
 
     template <typename T>
     struct _2d{
+
         T x, y;
     };
 
@@ -74,7 +75,7 @@ namespace GTech2D{
         }
 
     };
-    using ECSPTexture2D = std::shared_ptr<GTech2D::Texture2D>;
+    using GTPTexture2D = std::shared_ptr<GTech2D::Texture2D>;
 
     class Tech2D {
     public:
@@ -86,29 +87,28 @@ namespace GTech2D{
         virtual int CreateRenderer() = 0;
         virtual int CreateWindow(WindowConfiguration winConfig, unsigned int flags) = 0;
 
-        virtual int DestroyTexture(std::unique_ptr<GTech2D::Texture2D>&);
+        virtual int DestroyTexture(GTPTexture2D&);
 
         virtual int Finish() = 0;
         virtual int Init() = 0;
 
-        virtual std::unique_ptr<GTech2D::Texture2D> LoadTexture(std::string textureFilename) = 0;
-        virtual std::unique_ptr<GTech2D::Texture2D> CreateTextureWithSize(const GTech2D::Texture2DSize &) = 0;
+        virtual GTech2D::GTPTexture2D LoadTexture(std::string textureFilename) = 0;
+        virtual GTech2D::GTPTexture2D CreateTextureWithSize(const GTech2D::Texture2DSize&) = 0;
 
-        virtual int RenderTextureEx(GTech2D::ECSPTexture2D&, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point , GTech2D::FlipType flip = GTech2D::FlipType::FLIP_NO) = 0;
-        virtual int RenderTexture(GTech2D::ECSPTexture2D&, GTech2D::Rectangle2D dstRect = GTech2D::Rectangle2D(), GTech2D::Rectangle2D srcRect = GTech2D::Rectangle2D()) = 0;
+        virtual int RenderTextureEx(GTech2D::GTPTexture2D, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point , GTech2D::FlipType flip = GTech2D::FlipType::FLIP_NO) = 0;
+        virtual int RenderTexture(GTech2D::GTPTexture2D, GTech2D::Rectangle2D dstRect = GTech2D::Rectangle2D(), GTech2D::Rectangle2D srcRect = GTech2D::Rectangle2D()) = 0;
         virtual int DetachRenderTexture() = 0;
-        virtual int SetRenderTarget(std::unique_ptr<GTech2D::Texture2D>&) = 0;
+        virtual int SetRenderTarget(GTech2D::GTPTexture2D) = 0;
         virtual int RenderClear() = 0;
 
         virtual void UpdateScreen() = 0;
         virtual void Assert(bool && exp) = 0;
 
     };
-    using UPTech2D = std::unique_ptr<Tech2D>;
+    using GTPTech2D = std::shared_ptr<Tech2D>;
     class Tech2DFactory{
     public:
-        static Tech2D* StartTechInstance_(GTech2D::TechDriver tech2D = GTech2D::TechDriver::SDL);
-        static UPTech2D StartTechInstance(GTech2D::TechDriver tech2D = GTech2D::TechDriver::SDL);
+        static GTPTech2D StartTechInstance(GTech2D::TechDriver tech2D = GTech2D::TechDriver::SDL);
     };
 
 }

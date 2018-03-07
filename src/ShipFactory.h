@@ -7,20 +7,30 @@
 
 namespace GAME {
 
-    class Ship
+
 
     class ShipFactory {
 
     public:
         static unsigned int CreateShip(){
 
-            ECS::EntityManager::UPEntityManager entityManager = ECS::EntityManager::GetManager();
-            unsigned int shipId = entityManager->CreateEntity();
-
-            //Create a Position
+            auto entityManager = ECS::EntityManager::GetManager();
             auto componentManager = ECS::ComponentManager::GetManager();
-            auto positionComponent = componentManager->CreateComponent<GTech2D::Vector2Dd>();
-            auto speedComponent = componentManager->CreateComponent<GTech2D::Vector2Dd>();
+
+            //Create Ship Entity
+            auto shipId = entityManager->CreateEntity();
+
+            //Create a Position & Speed Components
+            auto positionComponent = componentManager->CreateComponent<ECS::PositionComponent>();
+            auto speedComponent = componentManager->CreateComponent<ECS::SpeedComponent>();
+            auto spriteComponent = componentManager->CreateComponent<ECS::SpriteComponent>();
+
+            //Add Components to ship
+            entityManager->AddComponent(shipId, positionComponent);
+            entityManager->AddComponent(shipId, speedComponent);
+            entityManager->AddComponent(shipId, spriteComponent);
+
+
 
 
             return shipId;

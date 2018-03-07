@@ -18,7 +18,7 @@ namespace ECS{
         static ECSPComponentManager componentManager;
         static ECSPComponentManager GetManager(){
             if ( componentManager == nullptr ){
-                componentManager = std::make_shared<ComponentManager>(new ComponentManager());
+                componentManager = std::make_shared<ComponentManager>();
             }
             return componentManager;
         }
@@ -26,7 +26,7 @@ namespace ECS{
         template <typename T>
         unsigned int CreateComponent(){
 
-            ECSPComponent<T> component = ECS::ComponentFactory::CreateComponent<T>();
+            ECSPComponent component = ECS::ComponentFactory::CreateComponent<T>();
             componentMap[component->m_id] = component;
             return component->m_id;
 

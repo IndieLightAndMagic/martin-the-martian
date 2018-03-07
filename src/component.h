@@ -6,14 +6,10 @@
 using namespace GTech2D;
 class Entity;
 namespace ECS {
-    template <typename T>
     class Component
     {
-    public:
-        int SetParent(unsigned int parentId);
+    protected:
         unsigned int m_id;
-        T m_data;
-    private:
         unsigned int m_parentId;
 
     public:
@@ -21,21 +17,21 @@ namespace ECS {
                 m_parentId(0),
                 m_id(0)
         {}
-
+        friend class ComponentFactory;
+        friend class ComponentManager;
     };
-    template <typename T>
-    using ECSPComponent<T> = std::shared_ptr<Component<T>>;
+    using ECSPComponent = std::shared_ptr<Component>;
 
-    class SpriteComponent {
+    class SpriteComponent: public Component {
 
-        GTech2D::ECSPTexture2D texture;
-        inline GTech2D::Vector2Dd anchor;
+        GTech2D::GTPTexture2D texture;
+        GTech2D::Vector2Dd anchor;
         double scale;
     public:
         GTech2D::Vector2Dd& GetAnchor(){
             return anchor;
         }
-        inline GTech2D::ECSPTexture2D& GetTexture(){
+        inline GTech2D::GTPTexture2D& GetTexture(){
             return texture;
         }
         inline double& GetScale(){
@@ -43,10 +39,10 @@ namespace ECS {
         }
 
     };
-    using ECSPSpriteComponent = std::shared_ptr<SpriteComponent>;
 
-    class Vector2DdComponent : public Component, GTech2D::Vector2Dd{
-
+    class Vector2DdComponent : public Component{
+    public:
+        GTech2D::Vector2Dd v;
     };
     using SpeedComponent = Vector2DdComponent;
     using PositionComponent = Vector2DdComponent;

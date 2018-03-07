@@ -11,7 +11,7 @@ namespace ECS {
 
         static ECSPEntity CreateEntity(){
 
-            ECSPEntity pEnt = std::make_shared<Entity>(new Entity());
+            ECSPEntity pEnt = std::make_shared<Entity>();
             pEnt->m_id = ++m_int;
             return pEnt;
 
