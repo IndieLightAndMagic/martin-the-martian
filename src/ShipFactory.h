@@ -30,13 +30,22 @@ namespace GAME {
             entityManager->AddComponent(shipId, speedComponent);
             entityManager->AddComponent(shipId, spriteComponent);
 
-
-
-
             return shipId;
         }
     };
 
+    class RenderingSystem {
+
+        static unsigned int SubscribeEntity(unsigned int id){
+
+            //Get Manager
+            auto entityManager = ECS::EntityManager::GetManager();
+
+            //Vector
+
+
+        }
+    };
 
 }
 
