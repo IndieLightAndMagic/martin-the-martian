@@ -5,7 +5,7 @@
 #   Date: Feb, 2018.
 
 #Utility messages
-cmake_minimum_required(VERSION 3.9.0)
+cmake_minimum_required(VERSION 3.5.1)
 include(Messages.cmake)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
