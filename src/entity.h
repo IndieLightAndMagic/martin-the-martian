@@ -9,10 +9,12 @@ class Component;
 namespace ECS {
 
     class Entity {
-
+        std::vector<unsigned int> m_componentIds;
     public:
         unsigned int m_id;
-        std::vector<unsigned int> m_componentIds;
+
+        friend class EntityManager;
+
     };
     using ECSPEntity = std::shared_ptr<Entity>;
 

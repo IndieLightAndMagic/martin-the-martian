@@ -31,6 +31,11 @@ namespace ECS{
             return component->m_id;
 
         }
+        ECSPComponent GetComponent(unsigned int componentId){
+
+            return componentMap[componentId];
+
+        }
     };
     ComponentManager::ECSPComponentManager ComponentManager::componentManager = nullptr;
 

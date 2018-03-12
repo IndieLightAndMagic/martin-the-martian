@@ -35,14 +35,24 @@ namespace GAME {
     };
 
     class RenderingSystem {
-
+    public:
         static unsigned int SubscribeEntity(unsigned int id){
 
             //Get Manager
             auto entityManager = ECS::EntityManager::GetManager();
+            auto componentManager = ECS::ComponentManager::GetManager();
 
-            //Vector
+            auto componentVectors = entityManager->GetComponentIds(id);
 
+            //Vector of components of this entity
+            for (auto& componentId:componentVectors){
+
+                auto pComponent = componentManager->GetComponent(componentId);
+                std::cout << "Component Type: " << pComponent->GetType() << "\n";
+
+            }
+
+            return 0;
 
         }
     };

@@ -1,13 +1,18 @@
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
+
+#include <cxxabi.h>
 #include "entity.h"
 #include "Tech.h"
 
 using namespace GTech2D;
 class Entity;
 namespace ECS {
+
+
     class Component
     {
+
     protected:
         unsigned int m_id;
         unsigned int m_parentId;
@@ -19,6 +24,15 @@ namespace ECS {
         {}
         friend class ComponentFactory;
         friend class ComponentManager;
+        virtual std::string GetType(){
+            auto name = typeid(*this).name();
+            auto status = 4;
+            std::unique_ptr<char, void(*)(void*)> res {
+                    abi::__cxa_demangle(name, nullptr, nullptr, &status),
+                    std::free
+            };
+            return (status == 0 ? res.get() : name);
+        }
     };
     using ECSPComponent = std::shared_ptr<Component>;
 
@@ -44,9 +58,18 @@ namespace ECS {
     public:
         GTech2D::Vector2Dd v;
     };
-    using SpeedComponent = Vector2DdComponent;
-    using PositionComponent = Vector2DdComponent;
-    using AccelerationComponent = Vector2DdComponent;
+
+    class SpeedComponent : public Vector2DdComponent{
+
+    };
+
+    class PositionComponent : public Vector2DdComponent{
+
+    };
+
+    class AccelerationComponent : public Vector2DdComponent{
+
+    };
 }
 
 

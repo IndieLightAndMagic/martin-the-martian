@@ -70,6 +70,9 @@ int main(int argc, char **argv) {
     /* SpawnShip */
     auto ship = GAME::ShipFactory::CreateShip();
 
+    /* Subscribe ship to a rendering system */
+    auto ret = GAME::RenderingSystem::SubscribeEntity(ship);
+
     //auto spHeroEntity = SpriteShipFactory::CreateDefaultShipEntity(ptech);
 
 

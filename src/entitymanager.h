@@ -33,6 +33,15 @@ namespace ECS {
             return true;
 
         }
+
+        std::vector<unsigned int>& GetComponentIds(unsigned int entity){
+            return entityMap[entity]->m_componentIds;
+        }
+        ECSPEntity GetEntity(unsigned int entity){
+            return entityMap[entity];
+        }
+
+
     };
     EntityManager::UPEntityManager EntityManager::entityManager = nullptr;
 
