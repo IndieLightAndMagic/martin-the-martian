@@ -16,6 +16,7 @@ private:
     unsigned int m_rendererFlags{SDL_RENDERER_ACCELERATED|SDL_RENDERER_TARGETTEXTURE};
     SDL_Window* pWindow{nullptr};
     SDL_Renderer* pRenderer{nullptr};
+    SDL_Rect pWindowRect;
 
     SDL_Texture* GetTextureFromTexture2DPtr(GTech2D::GTPTexture2D spt2d){
 
@@ -57,6 +58,13 @@ public:
         }
         return GTech2D::GTECH_OK;
     }
+    void GetWindowSize(GTech2D::Texture2DSize& rSz) override {
+
+        rSz.w = pWindowRect.w;
+        rSz.h = pWindowRect.h;
+
+    };
+
     int CreateWindow(GTech2D::WindowConfiguration winConfig, unsigned int uiFlags) override {
 
         pWindow = SDL_CreateWindow(
@@ -71,6 +79,7 @@ public:
             std::cerr << "SDL_CreateWindow failed. \n";
             return GTech2D::GTECH_ERROR;
         }
+        SDL_GetWindowSize(pWindow, &pWindowRect.w, &pWindowRect.h);
         return GTech2D::GTECH_OK;
 
     }

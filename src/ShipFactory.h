@@ -33,6 +33,7 @@ namespace GAME {
             auto rpSpriteComponent = static_cast<ECS::SpriteComponent*>(spSpriteComponent.get());
 
             rpSpriteComponent->SetTexture(shipTexture);
+            rpSpriteComponent->SetAnchor({0.5,0.5});
 
 
             //Add Components to ship
@@ -124,14 +125,19 @@ namespace GAME {
 
                 auto rPosition = positions[index];
 
+                GTech2D::Texture2DSize wsz;
+                ptech->GetWindowSize(wsz);
+
+
                 GTech2D::Rectangle2D dstrect;
                 if (spTexture->GetSize(dstrect.winSz) == GTECH_ERROR) continue;
+
                 dstrect.winSz.w *= *rScale;
                 dstrect.winSz.h *= *rScale;
 
                 GTech2D::Point2D anchorPoint;
-                anchorPoint.x = dstrect.winSz.w * rAnchor->x;
-                anchorPoint.y = dstrect.winSz.h - dstrect.winSz.h * rAnchor->y;
+                anchorPoint.x = (dstrect.winSz.w - 1) * rAnchor->x;
+                anchorPoint.y = (dstrect.winSz.h - 1) - (dstrect.winSz.h - 1) * rAnchor->y;
 
                 dstrect.winPos.x = rPosition->x - anchorPoint.x;
                 dstrect.winPos.y = rPosition->y - anchorPoint.y;

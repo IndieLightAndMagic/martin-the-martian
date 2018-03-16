@@ -43,41 +43,55 @@ namespace ECS {
         GTech2D::Vector2Dd anchor;
         double scale;
     public:
-        SpriteComponent():scale(1.0), anchor({0.0,0.0}){}
-        GTech2D::Vector2Dd* GetAnchor(){
+        SpriteComponent() : scale(1.0), anchor({0.0, 0.0}) {}
+
+        GTech2D::Vector2Dd *GetAnchor() {
             return &anchor;
         }
-        inline GTech2D::GTPTexture2D& GetTexture(){
+
+        inline GTech2D::GTPTexture2D &GetTexture() {
+
             return texture;
-        }
-        inline double* GetScale(){
-            return &scale;
+
         }
 
-        inline void SetTexture(GTech2D::GTPTexture2D ptexture){
+        inline double *GetScale() {
+
+            return &scale;
+
+        }
+
+        inline void SetTexture(GTech2D::GTPTexture2D ptexture) {
             texture = ptexture;
         }
+
+        inline void SetAnchor(const GTech2D::Vector2Dd &rAnchor) {
+
+            anchor.x = rAnchor.x;
+
+            anchor.y = rAnchor.y;
+        }
+
+        inline void SetScale(const double &rscale) {
+
+            scale = rscale;
+
+        }
     };
 
-    class Vector2DdComponent : public Component{
-    protected:
-        GTech2D::Vector2Dd v;
+
+    template <typename T>
+    class VectorialComponent : public Component {
     public:
-        GTech2D::Vector2Dd* Get() { return &v; }
-    };
-
-    class SpeedComponent : public Vector2DdComponent{
+        T x,y,z;
 
     };
 
-    class PositionComponent : public Vector2DdComponent{
+    using SpeedComponent = VectorialComponent<double>;
+    using PositionComponent = VectorialComponent<double>;
+    using AccelerationComponent = VectorialComponent<double>;
 
-    };
 
-    class AccelerationComponent : public Vector2DdComponent{
-
-    };
-}
 
 
 #endif /*__COMPONENT_H__*/

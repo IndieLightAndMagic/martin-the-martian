@@ -34,7 +34,7 @@ struct RenderSystem : public System{
 namespace GAME {
 
     ECS::EntityManager  entityManager;
-    GTech2D::GTPTech2D   ptech;
+    GTech2D::GTPTech2D  ptech;
 
 
 
@@ -67,12 +67,19 @@ int main(int argc, char **argv) {
     /* Init Game Technology */
     InitGameTech();
 
+
+
     /* Load Assets */
     auto spHeroTexture = ptech->LoadTexture("hero.png"); //LoadSurface("hero.png");
+
+    /* Create Ship */
+    auto ship = GAME::ShipFactory::CreateShip(ptech);
+    GAME::RenderingSystem::SubscribeEntity(ship);
 
 
     GTech2D::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
     auto pATexture = ptech->CreateTextureWithSize(textureSize);
+
 
     //Now render to the texture
     ptech->SetRenderTarget(pATexture);
@@ -80,11 +87,17 @@ int main(int argc, char **argv) {
 
 
     //Make a target texture to render too
-    GTech2D::Rectangle2D heroAABB;
-    spHeroTexture->GetSize(heroAABB.winSz);
-    heroAABB.winPos.x = (textureSize.w >> 1) -  (heroAABB.winSz.w >> 1);
-    heroAABB.winPos.y = (textureSize.h >> 1) -  (heroAABB.winSz.h >> 1);
-    ptech->RenderTexture(spHeroTexture,heroAABB);
+    if (1){
+        GAME::RenderingSystem::DrawSprites(ptech);
+    } else {
+
+        GTech2D::Rectangle2D heroAABB;
+        spHeroTexture->GetSize(heroAABB.winSz);
+        heroAABB.winPos.x = (textureSize.w >> 1) -  (heroAABB.winSz.w >> 1);
+        heroAABB.winPos.y = (textureSize.h >> 1) -  (heroAABB.winSz.h >> 1);
+        ptech->RenderTexture(spHeroTexture,heroAABB);
+
+    }
     //Detach the texture
 
     ptech->DetachRenderTexture();

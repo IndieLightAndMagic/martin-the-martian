@@ -86,6 +86,8 @@ namespace GTech2D{
 
         virtual int CreateRenderer() = 0;
         virtual int CreateWindow(WindowConfiguration winConfig, unsigned int flags) = 0;
+        virtual void GetWindowSize(GTech2D::Texture2DSize&) = 0;
+
 
         virtual int DestroyTexture(GTPTexture2D&);
 
