@@ -1,7 +1,7 @@
 #ifndef __TECH_H__
 #define __TECH_H__
 #include <string>
-
+#include <cassert>
 namespace GTech2D{
 
 
@@ -76,7 +76,7 @@ namespace GTech2D{
 
     };
     using GTPTexture2D = std::shared_ptr<GTech2D::Texture2D>;
-
+    using GTPTexture2D_ = std::weak_ptr<GTech2D::Texture2D>;
     class Tech2D {
     public:
         Tech2D(){};
@@ -95,14 +95,16 @@ namespace GTech2D{
         virtual GTech2D::GTPTexture2D LoadTexture(std::string textureFilename) = 0;
         virtual GTech2D::GTPTexture2D CreateTextureWithSize(const GTech2D::Texture2DSize&) = 0;
 
-        virtual int RenderTextureEx(GTech2D::GTPTexture2D, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point , GTech2D::FlipType flip = GTech2D::FlipType::FLIP_NO) = 0;
+        virtual int RenderTextureEx(GTech2D::GTPTexture2D textureToRender, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point , GTech2D::FlipType flip = GTech2D::FlipType::FLIP_NO) = 0;
         virtual int RenderTexture(GTech2D::GTPTexture2D, GTech2D::Rectangle2D dstRect = GTech2D::Rectangle2D(), GTech2D::Rectangle2D srcRect = GTech2D::Rectangle2D()) = 0;
         virtual int DetachRenderTexture() = 0;
         virtual int SetRenderTarget(GTech2D::GTPTexture2D) = 0;
         virtual int RenderClear() = 0;
 
         virtual void UpdateScreen() = 0;
-        virtual void Assert(bool && exp) = 0;
+        virtual void Assert(bool && exp){
+            assert(exp);
+        };
 
     };
     using GTPTech2D = std::shared_ptr<Tech2D>;

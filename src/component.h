@@ -35,6 +35,7 @@ namespace ECS {
         }
     };
     using ECSPComponent = std::shared_ptr<Component>;
+    using ECSPComponent_ = std::weak_ptr<Component>;
 
     class SpriteComponent: public Component {
 
@@ -42,21 +43,27 @@ namespace ECS {
         GTech2D::Vector2Dd anchor;
         double scale;
     public:
-        GTech2D::Vector2Dd& GetAnchor(){
-            return anchor;
+        SpriteComponent():scale(1.0), anchor({0.0,0.0}){}
+        GTech2D::Vector2Dd* GetAnchor(){
+            return &anchor;
         }
         inline GTech2D::GTPTexture2D& GetTexture(){
             return texture;
         }
-        inline double& GetScale(){
-            return scale;
+        inline double* GetScale(){
+            return &scale;
         }
 
+        inline void SetTexture(GTech2D::GTPTexture2D ptexture){
+            texture = ptexture;
+        }
     };
 
     class Vector2DdComponent : public Component{
-    public:
+    protected:
         GTech2D::Vector2Dd v;
+    public:
+        GTech2D::Vector2Dd* Get() { return &v; }
     };
 
     class SpeedComponent : public Vector2DdComponent{
