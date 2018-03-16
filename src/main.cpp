@@ -99,4 +99,9 @@ int main(int argc, char **argv) {
 
     //Blit
     ptech->UpdateScreen();
+
+    SDL_Delay(3000);
+    ptech->DestroyTexture(pATexture);
+    ptech->Finish();
+    return 0;
 }
