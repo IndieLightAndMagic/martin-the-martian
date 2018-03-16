@@ -64,40 +64,39 @@ using namespace GAME;
 
 int main(int argc, char **argv) {
 
-    /* InitGameTech */
-    GAME::InitGameTech();
+    /* Init Game Technology */
+    InitGameTech();
 
-    /* SpawnShip */
-    auto ship = GAME::ShipFactory::CreateShip(ptech);
-
-    /* Subscribe ship to a rendering system */
-    auto ret = GAME::RenderingSystem::SubscribeEntity(ship);
+    /* Load Assets */
+    auto spHeroTexture = ptech->LoadTexture("hero.png"); //LoadSurface("hero.png");
 
 
     GTech2D::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
-    GTPTexture2D pATexture = ptech->CreateTextureWithSize(textureSize);
+    auto pATexture = ptech->CreateTextureWithSize(textureSize);
 
-    /* Now render to the texture */
+    //Now render to the texture
     ptech->SetRenderTarget(pATexture);
     ptech->RenderClear();
 
-    //ptech->DetachRenderTexture();
+
+    //Make a target texture to render too
+    GTech2D::Rectangle2D heroAABB;
+    spHeroTexture->GetSize(heroAABB.winSz);
+    heroAABB.winPos.x = (textureSize.w >> 1) -  (heroAABB.winSz.w >> 1);
+    heroAABB.winPos.y = (textureSize.h >> 1) -  (heroAABB.winSz.h >> 1);
+    ptech->RenderTexture(spHeroTexture,heroAABB);
+    //Detach the texture
+
+    ptech->DetachRenderTexture();
     //SDL_SetRenderTarget(renderer, NULL);
 
     //Now render the texture target to our screen, but upside down
     ptech->RenderClear();
 
-    GAME::RenderingSystem::DrawSprites(ptech);
+    //Render in the Center.
 
-    ptech->DetachRenderTexture();
     ptech->RenderTextureEx(pATexture, GTech2D::Zero, GTech2D::Zero, 0, pATexture->Center(), GTech2D::FlipType::FLIP_NO);
-
 
     //Blit
     ptech->UpdateScreen();
-
-    SDL_Delay(3000);
-    ptech->DestroyTexture(pATexture);
-    ptech->Finish();
-    return 0;
 }
