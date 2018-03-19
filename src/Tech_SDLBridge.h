@@ -18,18 +18,25 @@ private:
     SDL_Renderer* pRenderer{nullptr};
     SDL_Rect pWindowRect;
 
-    SDL_Texture* GetTextureFromTexture2DPtr(GTech2D::GTPTexture2D spt2d){
+    SDL_Texture* GetTextureFromTexture2DRawPtr(const GTech2D::Texture2D *pt2d){
 
-        GTech2D::Texture2D* p_gtech2dtexture2d = spt2d.get();
+        auto p_sdltexture2d = dynamic_cast<const Texture2D_SDL*>(pt2d);
+        if (p_sdltexture2d) return p_sdltexture2d->Get();
+        return nullptr;
+
+    }
+    SDL_Texture* GetTextureFromTexture2DSmartPtr(const GTech2D::GTPTexture2D &rspt2d){
+
+        GTech2D::Texture2D* p_gtech2dtexture2d = rspt2d.get();
         if (!p_gtech2dtexture2d) return nullptr;
 
-        auto p_sdltexture2d = static_cast<Texture2D_SDL*>(p_gtech2dtexture2d);
+        auto p_sdltexture2d = dynamic_cast<Texture2D_SDL*>(p_gtech2dtexture2d);
 
         SDL_Texture* pSDLtexture = p_sdltexture2d->Get();
         return pSDLtexture;
 
     }
-    SDL_Rect GetRectFromRectangle2D(GTech2D::Rectangle2D rg){
+    SDL_Rect GetRectFromRectangle2D(const GTech2D::Rectangle2D& rg){
         SDL_Rect rs;
         rs.x = rg.winPos.x;
         rs.y = rg.winPos.y;
@@ -38,7 +45,7 @@ private:
 
         return rs;
     }
-    SDL_Point GetPointFromPoint2D(GTech2D::Point2D pg){
+    SDL_Point GetPointFromPoint2D(const GTech2D::Point2D& pg){
         SDL_Point ps;
         ps.x = pg.x;
         ps.y = pg.y;
@@ -120,7 +127,7 @@ public:
     }
     GTech2D::GTPTexture2D LoadTexture(std::string resourceName) override{
 
-        std::unique_ptr<GTech2D::Texture2D> pTexture(nullptr);
+        GTech2D::GTPTexture2D pTexture(nullptr);
         if (!pRenderer){
             std::cerr << "Tech_SDLBridge: Trying to load a texture without a renderer present.\n";
             return pTexture;
@@ -147,7 +154,7 @@ public:
 
     int SetRenderTarget(GTech2D::GTPTexture2D spTxtr) override{
 
-        SDL_Texture* pSDLTexture = GetTextureFromTexture2DPtr(spTxtr);
+        SDL_Texture* pSDLTexture = GetTextureFromTexture2DSmartPtr(spTxtr);
         SDL_assert(SDL_SetRenderTarget(pRenderer, pSDLTexture) == 0);
         return GTech2D::GTECH_OK;
     }
@@ -160,10 +167,7 @@ public:
         return GTech2D::GTECH_OK;
     }
 
-    int RenderTextureEx(GTech2D::GTPTexture2D spTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point, GTech2D::FlipType flip) override{
-
-        SDL_Texture* pSDLTexture = GetTextureFromTexture2DPtr(spTxtr);
-        if (!pSDLTexture) return GTech2D::GTECH_ERROR;
+    int RenderTextureEx(SDL_Texture* pSDLTexture, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point, GTech2D::FlipType flip) {
 
         SDL_Rect src = GetRectFromRectangle2D(srcRect);
         SDL_Rect* pSrc = RectIsNull(src) ? nullptr : &src;
@@ -196,9 +200,23 @@ public:
 
     }
 
+    int RenderTextureEx(GTech2D::Texture2D* pTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point, GTech2D::FlipType flip) override{
+
+        SDL_Texture* pSDLTexture = GetTextureFromTexture2DRawPtr(pTxtr);
+        if (!pSDLTexture) return GTech2D::GTECH_ERROR;
+        return RenderTextureEx(pSDLTexture, dstRect, srcRect, angle_deg, point, flip);
+    }
+    int RenderTextureEx(GTech2D::GTPTexture2D spTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point, GTech2D::FlipType flip) override{
+
+        SDL_Texture* pSDLTexture = GetTextureFromTexture2DSmartPtr(spTxtr);
+        if (!pSDLTexture) return GTech2D::GTECH_ERROR;
+        return RenderTextureEx(pSDLTexture, dstRect, srcRect, angle_deg, point, flip);
+
+    }
+
     int RenderTexture(GTech2D::GTPTexture2D spTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect) override
     {
-        SDL_Texture* pSDLTexture = GetTextureFromTexture2DPtr(spTxtr);
+        SDL_Texture* pSDLTexture = GetTextureFromTexture2DSmartPtr(spTxtr);
         if (!pSDLTexture) return GTech2D::GTECH_ERROR;
 
         SDL_Rect src = GetRectFromRectangle2D(srcRect);

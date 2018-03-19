@@ -1,6 +1,5 @@
 #include "entitymanager.h"
 
-#include "Tech.h"
 #include "Tech_SDLBridge.h"
 #include "ShipFactory.h"
 
@@ -54,7 +53,7 @@ namespace GAME {
         ptech->CreateRenderer();
 
         //SDL Specific Code.
-        auto sdl_ptech = static_cast<Tech_SDLBridge*>(ptech.get());
+        auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
         ptech->Assert(sdl_ptech->InitImageLoading() != 0);
 
     }
@@ -67,54 +66,42 @@ int main(int argc, char **argv) {
     /* Init Game Technology */
     InitGameTech();
 
-
-
-    /* Load Assets */
-    auto spHeroTexture = ptech->LoadTexture("hero.png"); //LoadSurface("hero.png");
-
     /* Create Ship */
     auto ship = GAME::ShipFactory::CreateShip(ptech);
+    GAME::ShipFactory::SetShipPosition(ship, WIN_WIDTH>>1, WIN_HEIGHT>>1);
     GAME::RenderingSystem::SubscribeEntity(ship);
 
-
+    /* Create a texture to draw on */
     GTech2D::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
     auto pATexture = ptech->CreateTextureWithSize(textureSize);
 
-
-    //Now render to the texture
+    /* Set the texture as the drawing texture */
     ptech->SetRenderTarget(pATexture);
     ptech->RenderClear();
 
+    /* Draw the ship */
+    GAME::RenderingSystem::DrawSprites(ptech);
 
-    //Make a target texture to render too
-    if (1){
-        GAME::RenderingSystem::DrawSprites(ptech);
-    } else {
-
-        GTech2D::Rectangle2D heroAABB;
-        spHeroTexture->GetSize(heroAABB.winSz);
-        heroAABB.winPos.x = (textureSize.w >> 1) -  (heroAABB.winSz.w >> 1);
-        heroAABB.winPos.y = (textureSize.h >> 1) -  (heroAABB.winSz.h >> 1);
-        ptech->RenderTexture(spHeroTexture,heroAABB);
-
-    }
-    //Detach the texture
-
+    /* Stop having pATexture as the drawing texture */
     ptech->DetachRenderTexture();
-    //SDL_SetRenderTarget(renderer, NULL);
 
-    //Now render the texture target to our screen, but upside down
+    /* Clear the screen */
     ptech->RenderClear();
 
-    //Render in the Center.
-
+    /* Take pATexture and render it into the screen */
     ptech->RenderTextureEx(pATexture, GTech2D::Zero, GTech2D::Zero, 0, pATexture->Center(), GTech2D::FlipType::FLIP_NO);
 
-    //Blit
+    /* Ok, show the result */
     ptech->UpdateScreen();
 
+
+    /* Set a 3 seconds delay */
     SDL_Delay(3000);
+
+    /* Destroy the texture */
     ptech->DestroyTexture(pATexture);
+
+    /* Finish all the tech system (SDL for this case) */
     ptech->Finish();
     return 0;
 }

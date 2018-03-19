@@ -10,34 +10,36 @@ class Entity;
 namespace ECS {
 
 
-    class Component
-    {
+    class Component {
 
     protected:
         unsigned int m_id;
         unsigned int m_parentId;
 
     public:
-        Component():
+        Component() :
                 m_parentId(0),
-                m_id(0)
-        {}
+                m_id(0) {}
+
         friend class ComponentFactory;
+
         friend class ComponentManager;
-        virtual std::string GetType(){
+
+        virtual std::string GetType() {
             auto name = typeid(*this).name();
             auto status = 4;
-            std::unique_ptr<char, void(*)(void*)> res {
+            std::unique_ptr<char, void (*)(void *)> res{
                     abi::__cxa_demangle(name, nullptr, nullptr, &status),
                     std::free
             };
             return (status == 0 ? res.get() : name);
         }
     };
+
     using ECSPComponent = std::shared_ptr<Component>;
     using ECSPComponent_ = std::weak_ptr<Component>;
 
-    class SpriteComponent: public Component {
+    class SpriteComponent : public Component {
 
         GTech2D::GTPTexture2D texture;
         GTech2D::Vector2Dd anchor;
@@ -80,18 +82,27 @@ namespace ECS {
     };
 
 
-    template <typename T>
+    template<typename T>
     class VectorialComponent : public Component {
     public:
-        T x,y,z;
-
+        T x, y, z;
     };
 
-    using SpeedComponent = VectorialComponent<double>;
-    using PositionComponent = VectorialComponent<double>;
-    using AccelerationComponent = VectorialComponent<double>;
+    template<typename T>
+    using PVectorialComponent = std::shared_ptr<VectorialComponent<T>>;
 
 
+    class SpeedComponent : public VectorialComponent<double>{};
+    class PositionComponent : public VectorialComponent<double>{};
+    class AccelerationComponent : public VectorialComponent<double>{};
 
+    using PSpeedComponent = std::shared_ptr<SpeedComponent>;
+    using PPositionComponent = std::shared_ptr<PositionComponent>;
+    using PAccelerationComponent = std::shared_ptr<AccelerationComponent>;
+
+    using PSpeedComponent_ = std::weak_ptr<SpeedComponent>;
+    using PPositionComponent_ = std::weak_ptr<PositionComponent>;
+    using PAccelerationComponent_ = std::weak_ptr<AccelerationComponent>;
+}
 
 #endif /*__COMPONENT_H__*/

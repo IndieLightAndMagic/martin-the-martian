@@ -97,6 +97,7 @@ namespace GTech2D{
         virtual GTech2D::GTPTexture2D LoadTexture(std::string textureFilename) = 0;
         virtual GTech2D::GTPTexture2D CreateTextureWithSize(const GTech2D::Texture2DSize&) = 0;
 
+        virtual int RenderTextureEx(GTech2D::Texture2D* textureToRender, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point , GTech2D::FlipType flip = GTech2D::FlipType::FLIP_NO) = 0;
         virtual int RenderTextureEx(GTech2D::GTPTexture2D textureToRender, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point , GTech2D::FlipType flip = GTech2D::FlipType::FLIP_NO) = 0;
         virtual int RenderTexture(GTech2D::GTPTexture2D, GTech2D::Rectangle2D dstRect = GTech2D::Rectangle2D(), GTech2D::Rectangle2D srcRect = GTech2D::Rectangle2D()) = 0;
         virtual int DetachRenderTexture() = 0;

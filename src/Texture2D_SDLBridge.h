@@ -45,7 +45,7 @@ public:
 
 
     /*** SDL Specific ***/
-    SDL_Texture* Get(){
+    SDL_Texture* Get() const{
         return m_pTexture;
     }
 

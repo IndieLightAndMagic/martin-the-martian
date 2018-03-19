@@ -14,7 +14,7 @@ namespace GAME {
     class ShipFactory {
 
     public:
-        static unsigned int CreateShip(GTech2D::GTPTech2D ptech){
+        static unsigned int CreateShip(const GTech2D::GTPTech2D& rptech){
 
             auto entityManager = ECS::EntityManager::GetManager();
             auto componentManager = ECS::ComponentManager::GetManager();
@@ -26,7 +26,7 @@ namespace GAME {
             auto positionComponent = componentManager->CreateComponent<ECS::PositionComponent>();
             auto speedComponent = componentManager->CreateComponent<ECS::SpeedComponent>();
 
-            auto shipTexture = ptech->LoadTexture("hero.png");
+            auto shipTexture = rptech->LoadTexture("hero.png");
 
             auto spriteComponent = componentManager->CreateComponent<ECS::SpriteComponent>();
             auto spSpriteComponent = componentManager->GetComponent(spriteComponent);
@@ -44,14 +44,25 @@ namespace GAME {
 
             return shipId;
         }
+        static void SetShipPosition(unsigned int shipId, int x, int y){
+
+            auto componentsList = ECS::EntityManager::GetManager()->GetComponentIds(shipId);
+            auto genericComponent = ECS::ComponentManager::GetManager()->GetComponent(componentsList[0]);
+            auto rawPointerGenericComponent = genericComponent.get();
+            auto pointerPositionComponent = dynamic_cast<ECS::PositionComponent*>(rawPointerGenericComponent);
+            pointerPositionComponent->x = x;
+            pointerPositionComponent->y = y;
+            pointerPositionComponent->z = 0;
+
+        }
     };
 
     class RenderingSystem {
 
-        static std::vector<GTech2D::GTPTexture2D_>  textures;
+        static std::vector<GTech2D::Texture2D*>  textures;
         static std::vector<GTech2D::Vector2Dd*>     anchors;
         static std::vector<double*>                 scales;
-        static std::vector<GTech2D::Vector2Dd*>     positions;
+        static std::vector<ECS::PositionComponent*> positions;
 
     public:
         static unsigned int SubscribeEntity(unsigned int id){
@@ -102,22 +113,22 @@ namespace GAME {
 
             }
             auto pTexture = pSpriteComponent->GetTexture();
-            textures.push_back(pTexture);
+            textures.push_back(pTexture.get());
 
             anchors.push_back(pSpriteComponent->GetAnchor());
             scales.push_back(pSpriteComponent->GetScale());
-            positions.push_back(pPositionComponent->Get());
+            positions.push_back(pPositionComponent);
 
             return 1;
 
         }
-        static unsigned int DrawSprites(GTech2D::GTPTech2D ptech){
+        static unsigned int DrawSprites(const GTech2D::GTPTech2D& rptech){
 
             auto sz = textures.size();
             for (auto index = 0; index < sz; ++index){
 
-                auto spTexture = textures[index].lock();
-                if (!spTexture) continue;
+                auto pTexture = textures[index];
+                if (!pTexture) continue;
 
                 auto rAnchor = anchors[index];
 
@@ -126,11 +137,11 @@ namespace GAME {
                 auto rPosition = positions[index];
 
                 GTech2D::Texture2DSize wsz;
-                ptech->GetWindowSize(wsz);
+                rptech->GetWindowSize(wsz);
 
 
                 GTech2D::Rectangle2D dstrect;
-                if (spTexture->GetSize(dstrect.winSz) == GTECH_ERROR) continue;
+                if (pTexture->GetSize(dstrect.winSz) == GTECH_ERROR) continue;
 
                 dstrect.winSz.w *= *rScale;
                 dstrect.winSz.h *= *rScale;
@@ -142,7 +153,7 @@ namespace GAME {
                 dstrect.winPos.x = rPosition->x - anchorPoint.x;
                 dstrect.winPos.y = rPosition->y - anchorPoint.y;
 
-                ptech->RenderTextureEx(spTexture, dstrect, GTech2D::Zero, 0.0, anchorPoint, GTech2D::FlipType::FLIP_NO);
+                rptech->RenderTextureEx(pTexture, dstrect, GTech2D::Zero, 0.0, anchorPoint, GTech2D::FlipType::FLIP_NO);
 
                 SDL_Log("Hi!");
 
@@ -151,14 +162,14 @@ namespace GAME {
             return 1;
         }
 
-        static void Update(GTech2D::GTPTech2D ptech){
-            DrawSprites(ptech);
+        static void Update(const GTech2D::GTPTech2D& rpTech){
+            DrawSprites(rpTech);
         }
     };
-    std::vector<GTech2D::GTPTexture2D_>  RenderingSystem::textures{};
-    std::vector<GTech2D::Vector2Dd*>     RenderingSystem::anchors{};
-    std::vector<double*>                 RenderingSystem::scales{};
-    std::vector<GTech2D::Vector2Dd*>     RenderingSystem::positions{};
+    std::vector<GTech2D::Texture2D*>        RenderingSystem::textures{};
+    std::vector<GTech2D::Vector2Dd*>        RenderingSystem::anchors{};
+    std::vector<double*>                    RenderingSystem::scales{};
+    std::vector<ECS::PositionComponent*>    RenderingSystem::positions{};
 
 }
 

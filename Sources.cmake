@@ -20,6 +20,7 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 
 			${CMAKE_SOURCE_DIR}/src/Tech_SDLBridge.h
 
+			${CMAKE_SOURCE_DIR}/src/Texture2D_SDLBridge.h
 
 			)
 endfunction() 
