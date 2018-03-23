@@ -15,25 +15,28 @@ const int WIN_HEIGHT = 600;
 
 
 
-struct System {
+namespace ACTION {
 
-};
+    template <typename T>
+    struct Action{
+        std::weak_ptr<GTech2D::Tech2DEvent> e;
+        void(*fpointer)(std::weak_ptr<GTech2D::Tech2DEvent>, std::weak_ptr<T>) ;
+        std::weak_ptr<T> param;
+        void operator()(){
+            fpointer(e, param);
+        }
+    };
 
-struct RenderSystem : public System{
-
-    /* To Render a Sprite, a RenderSystem needs:
-     * A Sprite Component.
-     * A Position Component.
-     * A Speed Component.
-     * A Scale Component. */
 
 
-};
+}
+
 
 namespace GAME {
 
+    enum class GameResult   {GAME_OK, GAME_FINISHED};
     GTech2D::GTPTech2D  ptech;
-
+    bool bGameIsOn;
 
 
     void InitGameTech(){
@@ -57,12 +60,38 @@ namespace GAME {
         ptech->Assert(sdl_ptech->DetectJoysticks() != 0);
     }
 
-    void ProcessEvents(){
+    void ProcessSDLEvents(){
 
+        SDL_Event e;
+        while (SDL_PollEvent(&e)){
+            if (e.type == SDL_KEYDOWN){
+                if (e.key.keysym.sym  == SDLK_ESCAPE){
 
-
-
+                }
+            }
+        }
     }
+    unsigned int MainLoop() {
+
+        bGameIsOn = true;
+        auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
+        while (bGameIsOn){
+
+            //Get events from loop
+            SDL_Event e;
+            while(SDL_PollEvent(&e)){
+
+                if (e.type == SDL_KEYDOWN){
+
+                }
+            }
+
+
+
+        }
+        return 0;
+    };
+
 }
 using namespace GAME;
 

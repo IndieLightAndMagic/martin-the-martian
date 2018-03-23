@@ -13,7 +13,6 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/componentmanager.h
 
 			${CMAKE_SOURCE_DIR}/src/entity.h
-			${CMAKE_SOURCE_DIR}/src/event.h
 			${CMAKE_SOURCE_DIR}/src/EntityFactory.h
 			${CMAKE_SOURCE_DIR}/src/entitymanager.h
 
