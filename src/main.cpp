@@ -12,7 +12,7 @@
 
 const int WIN_WIDTH = 800;
 const int WIN_HEIGHT = 600;
-const std::string TAG = "VoidSample";
+
 
 
 struct System {
@@ -54,10 +54,10 @@ namespace GAME {
         //SDL Specific Code.
         auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
         ptech->Assert(sdl_ptech->InitImageLoading() != 0);
-
+        ptech->Assert(sdl_ptech->DetectJoysticks() != 0);
     }
 
-    void GetEvents(){
+    void ProcessEvents(){
 
 
 

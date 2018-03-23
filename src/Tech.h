@@ -134,7 +134,7 @@ namespace GTech2D{
         static const std::string m_type;
         virtual ~Tech2DEvent(){}
     };
-    class Tech2DEventKeyboard : public Tech2DEvent{
+    struct Tech2DEventKeyboard : public Tech2DEvent{
     public:
         enum struct KBEvent{KEY_PRESSED, KEY_RELEASED};
         enum struct KBKey{
@@ -151,14 +151,42 @@ namespace GTech2D{
             K_S,
             K_D
         };
-        Tech2DEventKeyboard(const KBEvent& rEvent, const KBKey& rKey):m_event(rEvent), m_key(rKey), m_type(GetType()){
 
-        }
-
-        const KBEvent m_event;
-        const KBKey m_key;
+        KBEvent m_event;
+        KBKey m_key;
     };
-    class Tech2DEventGamepad    : public Tech2DEvent{...};
+    class Tech2DEventGamepad : public Tech2DEvent{
+    public:
+        enum struct KPEvent{KEY_PRESSED, KEY_RELEASE};
+        enum struct KPKey{
+            B_SELECT    = 0,
+
+            B_JOYLFTCLK = 1,
+            B_JOYRGTCLK = 2,
+
+            B_START     = 3,
+
+            B_UP        = 4,
+            B_RGHT      = 5,
+            B_DOWN      = 6,
+            B_LEFT      = 7,
+
+            B_TRIGLEFT  = 8,
+            B_TRIGRGHT  = 9,
+
+            B_SHOULDLFT = 10,
+            B_SHOULDRGT = 11,
+
+            B_TRIANGLE  = 12,
+            B_CIRCLE    = 13,
+            B_CROSS     = 14,
+            B_SQUARE    = 15,
+
+            B_PS        = 16
+        };
+        KPEvent m_event;
+        KPKey m_key;
+    };
 
 }
 

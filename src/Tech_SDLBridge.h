@@ -8,8 +8,10 @@
 #include <SDL2_image/SDL_image.h>
 
 #include <iostream>
+#include <vector>
 
-static std::string TAG{"Tech_SDLBridge"};
+static const std::string TAG{"Tech_SDLBridge"};
+
 class Tech_SDLBridge : public GTech2D::Tech2D{
 private:
 
@@ -39,12 +41,7 @@ private:
 
     }
     SDL_Rect GetRectFromRectangle2D(const GTech2D::Rectangle2D& rg){
-        SDL_Rect rs;
-        rs.x = rg.winPos.x;
-        rs.y = rg.winPos.y;
-        rs.w = rg.winSz.w;
-        rs.h = rg.winSz.h;
-
+        SDL_Rect rs{rg.winPos.x, rg.winPos.y, rg.winSz.w, rg.winSz.h};
         return rs;
     }
     SDL_Point GetPointFromPoint2D(const GTech2D::Point2D& pg){
@@ -259,7 +256,7 @@ public:
         auto sdl_njoysticks = SDL_NumJoysticks();
         if (sdl_njoysticks <= 0) {
             std::cout << TAG << ": No Joyticks attached." << std::endl;
-            return GTECH_ERROR;
+            return GTech2D::GTECH_ERROR;
         } else {
             std::cout << TAG << ": Found " << sdl_njoysticks << " attached." << std::endl;
         }
@@ -270,12 +267,14 @@ public:
             if (pjoystick) {
                 std::cout << TAG << " Found a valid joystick, named: " << SDL_JoystickNameForIndex(i) << std::endl;
                 std::cout << TAG << "\tAxes: " << SDL_JoystickNumAxes(pjoystick) << " - Buttons: " << SDL_JoystickNumButtons(pjoystick) << " - Balls: " << SDL_JoystickNumBalls(pjoystick) << std::endl;
+                m_pjoysticks.push_back(pjoystick);
             } else {
-
+                m_pjoysticks.push_back(nullptr);
+                std::cout << TAG << " Couldn't retrieve a joystick." << std::endl;
             }
         }
 
-        return GTECH_OK;
+        return GTech2D::GTECH_OK;
     }
     int InitImageLoading() {
         auto imageFlags = 0;
