@@ -32,7 +32,6 @@ struct RenderSystem : public System{
 
 namespace GAME {
 
-    ECS::EntityManager  entityManager;
     GTech2D::GTPTech2D  ptech;
 
 
@@ -55,6 +54,13 @@ namespace GAME {
         //SDL Specific Code.
         auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
         ptech->Assert(sdl_ptech->InitImageLoading() != 0);
+
+    }
+
+    void GetEvents(){
+
+
+
 
     }
 }

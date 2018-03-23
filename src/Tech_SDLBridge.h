@@ -9,6 +9,7 @@
 
 #include <iostream>
 
+static std::string TAG{"Tech_SDLBridge"};
 class Tech_SDLBridge : public GTech2D::Tech2D{
 private:
 
@@ -17,6 +18,7 @@ private:
     SDL_Window* pWindow{nullptr};
     SDL_Renderer* pRenderer{nullptr};
     SDL_Rect pWindowRect;
+    std::vector<SDL_Joystick*> m_pjoysticks;
 
     SDL_Texture* GetTextureFromTexture2DRawPtr(const GTech2D::Texture2D *pt2d){
 
@@ -229,6 +231,15 @@ public:
     void UpdateScreen() override {
         SDL_RenderPresent(pRenderer);
     }
+    void UpdateEvents() override {
+
+        SDL_Event sEvent;
+
+    }
+
+    unsigned long GetJoysticksCount() override {
+        return m_pjoysticks.size();
+    }
 
     void Assert(bool && exp) override {
         SDL_assert(exp);
@@ -242,6 +253,29 @@ public:
     }
     void SetSDLRenderFlags(unsigned int uiFlags) {
         m_rendererFlags = uiFlags;
+    }
+    int DetectJoysticks ( ) {
+
+        auto sdl_njoysticks = SDL_NumJoysticks();
+        if (sdl_njoysticks <= 0) {
+            std::cout << TAG << ": No Joyticks attached." << std::endl;
+            return GTECH_ERROR;
+        } else {
+            std::cout << TAG << ": Found " << sdl_njoysticks << " attached." << std::endl;
+        }
+
+
+        for ( auto i = 0; i < sdl_njoysticks; ++i ) {
+            auto pjoystick = SDL_JoystickOpen(i);
+            if (pjoystick) {
+                std::cout << TAG << " Found a valid joystick, named: " << SDL_JoystickNameForIndex(i) << std::endl;
+                std::cout << TAG << "\tAxes: " << SDL_JoystickNumAxes(pjoystick) << " - Buttons: " << SDL_JoystickNumButtons(pjoystick) << " - Balls: " << SDL_JoystickNumBalls(pjoystick) << std::endl;
+            } else {
+
+            }
+        }
+
+        return GTECH_OK;
     }
     int InitImageLoading() {
         auto imageFlags = 0;

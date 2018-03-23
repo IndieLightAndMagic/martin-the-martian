@@ -34,6 +34,7 @@ namespace ECS {
             };
             return (status == 0 ? res.get() : name);
         }
+        virtual ~Component(){}
     };
 
     using ECSPComponent = std::shared_ptr<Component>;

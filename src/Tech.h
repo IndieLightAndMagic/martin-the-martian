@@ -2,6 +2,8 @@
 #define __TECH_H__
 #include <string>
 #include <cassert>
+#include <cxxabi.h>
+
 namespace GTech2D{
 
 
@@ -104,6 +106,9 @@ namespace GTech2D{
         virtual int SetRenderTarget(GTech2D::GTPTexture2D) = 0;
         virtual int RenderClear() = 0;
 
+        virtual unsigned long GetJoysticksCount() = 0;
+
+        virtual void UpdateEvents() = 0;
         virtual void UpdateScreen() = 0;
         virtual void Assert(bool && exp){
             assert(exp);
@@ -115,6 +120,45 @@ namespace GTech2D{
     public:
         static GTPTech2D StartTechInstance(GTech2D::TechDriver tech2D = GTech2D::TechDriver::SDL);
     };
+    class Tech2DEvent {
+    public:
+        virtual std::string GetType() {
+            auto name = typeid(*this).name();
+            auto status = 4;
+            std::unique_ptr<char, void (*)(void *)> res{
+                    abi::__cxa_demangle(name, nullptr, nullptr, &status),
+                    std::free
+            };
+            return (status == 0 ? res.get() : name);
+        }
+        static const std::string m_type;
+        virtual ~Tech2DEvent(){}
+    };
+    class Tech2DEventKeyboard : public Tech2DEvent{
+    public:
+        enum struct KBEvent{KEY_PRESSED, KEY_RELEASED};
+        enum struct KBKey{
+            K_UP,
+            K_LEFT,
+            K_DOWN,
+            K_RIGHT,
+
+            K_ESC,
+            K_SPACE,
+
+            K_W,
+            K_A,
+            K_S,
+            K_D
+        };
+        Tech2DEventKeyboard(const KBEvent& rEvent, const KBKey& rKey):m_event(rEvent), m_key(rKey), m_type(GetType()){
+
+        }
+
+        const KBEvent m_event;
+        const KBKey m_key;
+    };
+    class Tech2DEventGamepad    : public Tech2DEvent{...};
 
 }
 
