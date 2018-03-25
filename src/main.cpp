@@ -82,11 +82,9 @@ namespace GAME {
             while(SDL_PollEvent(&e)){
 
                 if (e.type == SDL_KEYDOWN){
-
+                    bGameIsOn = false;
                 }
             }
-
-
 
         }
         return 0;
@@ -129,9 +127,8 @@ int main(int argc, char **argv) {
     /* Ok, show the result */
     ptech->UpdateScreen();
 
-
     /* Set a 3 seconds delay */
-    SDL_Delay(3000);
+    MainLoop();
 
     /* Destroy the texture */
     ptech->DestroyTexture(pATexture);
