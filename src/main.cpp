@@ -2,6 +2,7 @@
 
 #include "Tech_SDLBridge.h"
 #include "ShipFactory.h"
+#include "SignalSlot/signalslot.h"
 
 #include <iostream>
 #include <string>
@@ -38,6 +39,8 @@ namespace GAME {
     GTech2D::GTPTech2D  ptech;
     bool bGameIsOn;
 
+    void OnEscPressed();
+    ECS::Signal<> signalOnExit;
 
     void InitGameTech(){
 
@@ -58,15 +61,22 @@ namespace GAME {
         auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
         ptech->Assert(sdl_ptech->InitImageLoading() != 0);
         ptech->Assert(sdl_ptech->DetectJoysticks() != 0);
-    }
 
+
+
+    }
+    namespace SCENE{
+        void Init(){
+            signalOnExit.connect(GAME::OnEscPressed);
+        }
+    }
     void ProcessSDLEvents(){
 
         SDL_Event e;
         while (SDL_PollEvent(&e)){
             if (e.type == SDL_KEYDOWN){
                 if (e.key.keysym.sym  == SDLK_ESCAPE){
-
+                    signalOnExit.emit();
                 }
             }
         }
@@ -82,13 +92,17 @@ namespace GAME {
             while(SDL_PollEvent(&e)){
 
                 if (e.type == SDL_KEYDOWN){
-                    bGameIsOn = false;
+                    signalOnExit.emit();
                 }
             }
 
         }
         return 0;
     };
+    void OnEscPressed(){
+        std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
+        bGameIsOn = false;
+    }
 
 }
 using namespace GAME;
@@ -98,7 +112,8 @@ int main(int argc, char **argv) {
 
     /* Init Game Technology */
     InitGameTech();
-
+    GAME::SCENE::Init();
+    
     /* Create Ship */
     auto ship = GAME::ShipFactory::CreateShip(ptech);
     GAME::ShipFactory::SetShipPosition(ship, WIN_WIDTH>>1, WIN_HEIGHT>>1);
