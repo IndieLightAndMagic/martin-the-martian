@@ -151,13 +151,15 @@ namespace GTech2D{
             K_S,
             K_D
         };
+        Tech2DEventKeyboard(Tech2DEventKeyboard::KBEvent event, Tech2DEventKeyboard::KBKey key):m_event(event), m_key(key){
 
+        }
         KBEvent m_event;
         KBKey m_key;
     };
     class Tech2DEventGamepad : public Tech2DEvent{
     public:
-        enum struct KPEvent{KEY_PRESSED, KEY_RELEASE};
+        enum struct KPEvent{KEY_PRESSED, KEY_RELEASED};
         enum struct KPKey{
             B_SELECT    = 0,
 
@@ -184,6 +186,7 @@ namespace GTech2D{
 
             B_PS        = 16
         };
+
         KPEvent m_event;
         KPKey m_key;
     };

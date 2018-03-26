@@ -37,10 +37,17 @@ namespace GAME {
 
     enum class GameResult   {GAME_OK, GAME_FINISHED};
     GTech2D::GTPTech2D  ptech;
+
     bool bGameIsOn;
 
+    enum class MovingState { STAND_STILL = -1,  GOING_RIGHT = 0, GOING_LEFT = 1, DODGE_RIGHT = 2, DODGE_LEFT = 3};
+    MovingState movingState;
+
     void OnEscPressed();
-    ECS::Signal<> signalOnExit;
+    ECS::Signal<> signalOnEscPressed;
+
+    void OnArrowKeyPressed(const GTech2D::Tech2DEventKeyboard&);
+    ECS::Signal<const GTech2D::Tech2DEventKeyboard& > signalOnArrowKeyPressed;
 
     void InitGameTech(){
 
@@ -67,7 +74,12 @@ namespace GAME {
     }
     namespace SCENE{
         void Init(){
-            signalOnExit.connect(GAME::OnEscPressed);
+
+            /* Connect signals to Scene slots */
+            signalOnEscPressed.connect(GAME::OnEscPressed);
+            signalOnArrowKeyPressed.connect(GAME::OnArrowKeyPressed);
+
+
         }
     }
     void ProcessSDLEvents(){
@@ -76,7 +88,7 @@ namespace GAME {
         while (SDL_PollEvent(&e)){
             if (e.type == SDL_KEYDOWN){
                 if (e.key.keysym.sym  == SDLK_ESCAPE){
-                    signalOnExit.emit();
+                    signalOnEscPressed.emit();
                 }
             }
         }
@@ -91,8 +103,20 @@ namespace GAME {
             SDL_Event e;
             while(SDL_PollEvent(&e)){
 
-                if (e.type == SDL_KEYDOWN){
-                    signalOnExit.emit();
+                if (e.type == SDL_KEYDOWN ){
+
+                    if ( e.key.keysym.sym == SDLK_ESCAPE ){
+                        signalOnEscPressed.emit();
+                    } else if ( e.key.keysym.sym == SDLK_UP){
+                        signalOnArrowKeyPressed.emit(Tech2DEventKeyboard{Tech2DEventKeyboard::KBEvent::KEY_PRESSED, Tech2DEventKeyboard::KBKey::K_UP});
+                    } else if ( e.key.keysym.sym == SDLK_DOWN){
+                        signalOnArrowKeyPressed.emit(Tech2DEventKeyboard{Tech2DEventKeyboard::KBEvent::KEY_PRESSED, Tech2DEventKeyboard::KBKey::K_DOWN});
+                    } else if ( e.key.keysym.sym == SDLK_LEFT){
+                        signalOnArrowKeyPressed.emit(Tech2DEventKeyboard{Tech2DEventKeyboard::KBEvent::KEY_PRESSED, Tech2DEventKeyboard::KBKey::K_LEFT});
+                    } else if ( e.key.keysym.sym == SDLK_RIGHT){
+                        signalOnArrowKeyPressed.emit(Tech2DEventKeyboard{Tech2DEventKeyboard::KBEvent::KEY_PRESSED, Tech2DEventKeyboard::KBKey::K_RIGHT});
+                    }
+
                 }
             }
 
@@ -103,7 +127,37 @@ namespace GAME {
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
         bGameIsOn = false;
     }
+    void OnArrowKeyPressed(const GTech2D::Tech2DEventKeyboard& kbEv){
 
+
+        using GTech2D::Tech2DEventKeyboard;
+
+        bool bGoingLeft = true;
+        bGoingLeft = movingState == MovingState::GOING_LEFT || movingState == MovingState::DODGE_LEFT;
+        bool bGoingRight = true;
+        bGoingRight = movingState == MovingState::GOING_RIGHT || movingState == MovingState::DODGE_RIGHT;
+
+        if (kbEv.m_key == GTech2D::Tech2DEventKeyboard::KBKey::K_LEFT && !bGoingLeft){
+            movingState = MovingState::GOING_LEFT;
+            std::cout << __FUNCTION__ << ": ";
+            std::cout << " Left";
+            std::cout << "\n";
+        } else if (kbEv.m_key == GTech2D::Tech2DEventKeyboard::KBKey::K_RIGHT && !bGoingRight) {
+            movingState = MovingState::GOING_RIGHT;
+            std::cout << __FUNCTION__ << ": ";
+            std::cout << " Right";
+            std::cout << "\n";
+        } else if (kbEv.m_key == GTech2D::Tech2DEventKeyboard::KBKey::K_DOWN) {
+            std::cout << __FUNCTION__ << ": ";
+            std::cout << " Down";
+            std::cout << "\n";
+        } else if (kbEv.m_key == GTech2D::Tech2DEventKeyboard::KBKey::K_UP) {
+            std::cout << __FUNCTION__ << ": ";
+            std::cout << " Up";
+            std::cout << "\n";
+        }
+
+    }
 }
 using namespace GAME;
 
@@ -113,7 +167,7 @@ int main(int argc, char **argv) {
     /* Init Game Technology */
     InitGameTech();
     GAME::SCENE::Init();
-    
+
     /* Create Ship */
     auto ship = GAME::ShipFactory::CreateShip(ptech);
     GAME::ShipFactory::SetShipPosition(ship, WIN_WIDTH>>1, WIN_HEIGHT>>1);
