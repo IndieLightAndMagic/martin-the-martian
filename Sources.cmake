@@ -17,6 +17,9 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/EntityFactory.h
 			${CMAKE_SOURCE_DIR}/src/entitymanager.h
 
+			${CMAKE_SOURCE_DIR}/src/Event/event.h
+			${CMAKE_SOURCE_DIR}/src/Event/eventmanager.h
+
 			${CMAKE_SOURCE_DIR}/src/ShipFactory.h
 
 			${CMAKE_SOURCE_DIR}/src/Tech_SDLBridge.h
