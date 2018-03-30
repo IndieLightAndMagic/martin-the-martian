@@ -3,6 +3,8 @@
 #include "Tech_SDLBridge.h"
 #include "ShipFactory.h"
 #include "SignalSlot/signalslot.h"
+#include "Event/eventkeyboard.h"
+
 
 #include <iostream>
 #include <string>

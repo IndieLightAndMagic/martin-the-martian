@@ -4,6 +4,8 @@
 #include <cassert>
 #include <cxxabi.h>
 
+#include "Event/event.h"
+
 namespace GTech2D{
 
 
@@ -120,77 +122,6 @@ namespace GTech2D{
     public:
         static GTPTech2D StartTechInstance(GTech2D::TechDriver tech2D = GTech2D::TechDriver::SDL);
     };
-    class Tech2DEvent {
-    public:
-        virtual std::string GetType() {
-            auto name = typeid(*this).name();
-            auto status = 4;
-            std::unique_ptr<char, void (*)(void *)> res{
-                    abi::__cxa_demangle(name, nullptr, nullptr, &status),
-                    std::free
-            };
-            return (status == 0 ? res.get() : name);
-        }
-        static const std::string m_type;
-        virtual ~Tech2DEvent(){}
-    };
-    struct Tech2DEventKeyboard : public Tech2DEvent{
-    public:
-        enum struct KBEvent{KEY_PRESSED, KEY_RELEASED};
-        enum struct KBKey{
-            K_UP,
-            K_LEFT,
-            K_DOWN,
-            K_RIGHT,
-
-            K_ESC,
-            K_SPACE,
-
-            K_W,
-            K_A,
-            K_S,
-            K_D
-        };
-        Tech2DEventKeyboard(Tech2DEventKeyboard::KBEvent event, Tech2DEventKeyboard::KBKey key):m_event(event), m_key(key){
-
-        }
-        KBEvent m_event;
-        KBKey m_key;
-    };
-    class Tech2DEventGamepad : public Tech2DEvent{
-    public:
-        enum struct KPEvent{KEY_PRESSED, KEY_RELEASED};
-        enum struct KPKey{
-            B_SELECT    = 0,
-
-            B_JOYLFTCLK = 1,
-            B_JOYRGTCLK = 2,
-
-            B_START     = 3,
-
-            B_UP        = 4,
-            B_RGHT      = 5,
-            B_DOWN      = 6,
-            B_LEFT      = 7,
-
-            B_TRIGLEFT  = 8,
-            B_TRIGRGHT  = 9,
-
-            B_SHOULDLFT = 10,
-            B_SHOULDRGT = 11,
-
-            B_TRIANGLE  = 12,
-            B_CIRCLE    = 13,
-            B_CROSS     = 14,
-            B_SQUARE    = 15,
-
-            B_PS        = 16
-        };
-
-        KPEvent m_event;
-        KPKey m_key;
-    };
-
 }
 
 #endif /*__TECH_H__*/
