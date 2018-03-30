@@ -22,8 +22,8 @@ namespace ACTION {
 
     template <typename T>
     struct Action{
-        std::weak_ptr<GTech2D::Tech2DEvent> e;
-        void(*fpointer)(std::weak_ptr<GTech2D::Tech2DEvent>, std::weak_ptr<T>) ;
+        std::weak_ptr<GTech::Tech2DEvent> e;
+        void(*fpointer)(std::weak_ptr<GTech::Tech2DEvent>, std::weak_ptr<T>) ;
         std::weak_ptr<T> param;
         void operator()(){
             fpointer(e, param);
@@ -38,7 +38,7 @@ namespace ACTION {
 namespace GAME {
 
     enum class GameResult   {GAME_OK, GAME_FINISHED};
-    GTech2D::GTPTech2D  ptech;
+    GTech::GTPTech2D  ptech;
 
     bool bGameIsOn;
 
@@ -48,17 +48,17 @@ namespace GAME {
     void OnEscPressed();
     ECS::Signal<> signalOnEscPressed;
 
-    void OnArrowKeyPressed(const GTech2D::Tech2DEventKeyboard&);
-    ECS::Signal<const GTech2D::Tech2DEventKeyboard& > signalOnArrowKeyPressed;
+    void OnArrowKeyPressed(const GTech::Tech2DEventKeyboard&);
+    ECS::Signal<const GTech::Tech2DEventKeyboard& > signalOnArrowKeyPressed;
 
     void InitGameTech(){
 
         ptech = nullptr;
-        ptech = GTech2D::Tech2DFactory::StartTechInstance();
+        ptech = GTech::Tech2DFactory::StartTechInstance();
         ptech->Init();
 
-        GTech2D::Rectangle2D rectangle2D(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT);
-        GTech2D::WindowConfiguration windowConfiguration{
+        GTech::Rectangle2D rectangle2D(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT);
+        GTech::WindowConfiguration windowConfiguration{
                 "Rendering to a texture!",
                 rectangle2D
         };
@@ -129,31 +129,31 @@ namespace GAME {
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
         bGameIsOn = false;
     }
-    void OnArrowKeyPressed(const GTech2D::Tech2DEventKeyboard& kbEv){
+    void OnArrowKeyPressed(const GTech::Tech2DEventKeyboard& kbEv){
 
 
-        using GTech2D::Tech2DEventKeyboard;
+        using GTech::Tech2DEventKeyboard;
 
         bool bGoingLeft = true;
         bGoingLeft = movingState == MovingState::GOING_LEFT || movingState == MovingState::DODGE_LEFT;
         bool bGoingRight = true;
         bGoingRight = movingState == MovingState::GOING_RIGHT || movingState == MovingState::DODGE_RIGHT;
 
-        if (kbEv.m_key == GTech2D::Tech2DEventKeyboard::KBKey::K_LEFT && !bGoingLeft){
+        if (kbEv.m_key == GTech::Tech2DEventKeyboard::KBKey::K_LEFT && !bGoingLeft){
             movingState = MovingState::GOING_LEFT;
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Left";
             std::cout << "\n";
-        } else if (kbEv.m_key == GTech2D::Tech2DEventKeyboard::KBKey::K_RIGHT && !bGoingRight) {
+        } else if (kbEv.m_key == GTech::Tech2DEventKeyboard::KBKey::K_RIGHT && !bGoingRight) {
             movingState = MovingState::GOING_RIGHT;
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Right";
             std::cout << "\n";
-        } else if (kbEv.m_key == GTech2D::Tech2DEventKeyboard::KBKey::K_DOWN) {
+        } else if (kbEv.m_key == GTech::Tech2DEventKeyboard::KBKey::K_DOWN) {
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Down";
             std::cout << "\n";
-        } else if (kbEv.m_key == GTech2D::Tech2DEventKeyboard::KBKey::K_UP) {
+        } else if (kbEv.m_key == GTech::Tech2DEventKeyboard::KBKey::K_UP) {
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Up";
             std::cout << "\n";
@@ -176,7 +176,7 @@ int main(int argc, char **argv) {
     GAME::RenderingSystem::SubscribeEntity(ship);
 
     /* Create a texture to draw on */
-    GTech2D::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
+    GTech::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
     auto pATexture = ptech->CreateTextureWithSize(textureSize);
 
     /* Set the texture as the drawing texture */
@@ -193,7 +193,7 @@ int main(int argc, char **argv) {
     ptech->RenderClear();
 
     /* Take pATexture and render it into the screen */
-    ptech->RenderTextureEx(pATexture, GTech2D::Zero, GTech2D::Zero, 0, pATexture->Center(), GTech2D::FlipType::FLIP_NO);
+    ptech->RenderTextureEx(pATexture, GTech::Zero, GTech::Zero, 0, pATexture->Center(), GTech::FlipType::FLIP_NO);
 
     /* Ok, show the result */
     ptech->UpdateScreen();

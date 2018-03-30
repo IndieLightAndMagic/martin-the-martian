@@ -4,7 +4,7 @@
 #include <cxxabi.h>
 #include <string>
 
-namespace GTech2D {
+namespace GTech {
     class Tech2DEvent {
     public:
         virtual std::string GetType() {

@@ -14,7 +14,7 @@ namespace GAME {
     class ShipFactory {
 
     public:
-        static unsigned int CreateShip(const GTech2D::GTPTech2D& rptech){
+        static unsigned int CreateShip(const GTech::GTPTech2D& rptech){
 
             auto entityManager = ECS::EntityManager::GetManager();
             auto componentManager = ECS::ComponentManager::GetManager();
@@ -59,8 +59,8 @@ namespace GAME {
 
     class RenderingSystem {
 
-        static std::vector<GTech2D::Texture2D*>  textures;
-        static std::vector<GTech2D::Vector2Dd*>     anchors;
+        static std::vector<GTech::Texture2D*>  textures;
+        static std::vector<GTech::Vector2Dd*>     anchors;
         static std::vector<double*>                 scales;
         static std::vector<ECS::PositionComponent*> positions;
 
@@ -122,7 +122,7 @@ namespace GAME {
             return 1;
 
         }
-        static unsigned int DrawSprites(const GTech2D::GTPTech2D& rptech){
+        static unsigned int DrawSprites(const GTech::GTPTech2D& rptech){
 
             auto sz = textures.size();
             for (auto index = 0; index < sz; ++index){
@@ -136,24 +136,24 @@ namespace GAME {
 
                 auto rPosition = positions[index];
 
-                GTech2D::Texture2DSize wsz;
+                GTech::Texture2DSize wsz;
                 rptech->GetWindowSize(wsz);
 
 
-                GTech2D::Rectangle2D dstrect;
+                GTech::Rectangle2D dstrect;
                 if (pTexture->GetSize(dstrect.winSz) == GTECH_ERROR) continue;
 
                 dstrect.winSz.w *= *rScale;
                 dstrect.winSz.h *= *rScale;
 
-                GTech2D::Point2D anchorPoint;
+                GTech::Point2D anchorPoint;
                 anchorPoint.x = (dstrect.winSz.w - 1) * rAnchor->x;
                 anchorPoint.y = (dstrect.winSz.h - 1) - (dstrect.winSz.h - 1) * rAnchor->y;
 
                 dstrect.winPos.x = rPosition->x - anchorPoint.x;
                 dstrect.winPos.y = rPosition->y - anchorPoint.y;
 
-                rptech->RenderTextureEx(pTexture, dstrect, GTech2D::Zero, 0.0, anchorPoint, GTech2D::FlipType::FLIP_NO);
+                rptech->RenderTextureEx(pTexture, dstrect, GTech::Zero, 0.0, anchorPoint, GTech::FlipType::FLIP_NO);
 
                 SDL_Log("Hi!");
 
@@ -162,12 +162,12 @@ namespace GAME {
             return 1;
         }
 
-        static void Update(const GTech2D::GTPTech2D& rpTech){
+        static void Update(const GTech::GTPTech2D& rpTech){
             DrawSprites(rpTech);
         }
     };
-    std::vector<GTech2D::Texture2D*>        RenderingSystem::textures{};
-    std::vector<GTech2D::Vector2Dd*>        RenderingSystem::anchors{};
+    std::vector<GTech::Texture2D*>        RenderingSystem::textures{};
+    std::vector<GTech::Vector2Dd*>        RenderingSystem::anchors{};
     std::vector<double*>                    RenderingSystem::scales{};
     std::vector<ECS::PositionComponent*>    RenderingSystem::positions{};
 

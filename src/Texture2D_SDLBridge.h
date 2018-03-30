@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-class Texture2D_SDL : public GTech2D::Texture2D {
+class Texture2D_SDL : public GTech::Texture2D {
 
     SDL_Texture* m_pTexture;
 public:
@@ -27,10 +27,10 @@ public:
         }
     }
 
-    int GetSize(GTech2D::Texture2DSize& rSize) override {
+    int GetSize(GTech::Texture2DSize& rSize) override {
 
 
-        if (!m_pTexture) return GTech2D::GTECH_ERROR;
+        if (!m_pTexture) return GTech::GTECH_ERROR;
 
         struct {
             Uint32 pixelFormat;
@@ -39,7 +39,7 @@ public:
         auto zero = SDL_QueryTexture(m_pTexture, &textureFormat.pixelFormat, &textureFormat.access, &rSize.w, &rSize.h);
         SDL_assert(zero == 0);
 
-        return GTech2D::GTECH_OK;
+        return GTech::GTECH_OK;
 
     }
 

@@ -7,7 +7,7 @@
 #include "entity.h"
 #include "Tech.h"
 
-namespace GTech2D {
+namespace GTech {
 
 	struct Tech2DEventKeyboard : public Tech2DEvent{
 	public:

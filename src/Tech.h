@@ -6,7 +6,7 @@
 
 #include "Event/event.h"
 
-namespace GTech2D{
+namespace GTech{
 
 
     static const int GTECH_ERROR = 0x0;
@@ -69,7 +69,7 @@ namespace GTech2D{
         Texture2D(const Texture2D&) = default;
         Texture2D(Texture2D&&) = default;
         virtual ~Texture2D() = default;
-        virtual int GetSize(GTech2D::Texture2DSize&){return GTECH_ERROR;}
+        virtual int GetSize(GTech::Texture2DSize&){return GTECH_ERROR;}
 
         Point2D Center(){
 
@@ -79,8 +79,8 @@ namespace GTech2D{
         }
 
     };
-    using GTPTexture2D = std::shared_ptr<GTech2D::Texture2D>;
-    using GTPTexture2D_ = std::weak_ptr<GTech2D::Texture2D>;
+    using GTPTexture2D = std::shared_ptr<GTech::Texture2D>;
+    using GTPTexture2D_ = std::weak_ptr<GTech::Texture2D>;
     class Tech2D {
     public:
         Tech2D(){};
@@ -90,7 +90,7 @@ namespace GTech2D{
 
         virtual int CreateRenderer() = 0;
         virtual int CreateWindow(WindowConfiguration winConfig, unsigned int flags) = 0;
-        virtual void GetWindowSize(GTech2D::Texture2DSize&) = 0;
+        virtual void GetWindowSize(GTech::Texture2DSize&) = 0;
 
 
         virtual int DestroyTexture(GTPTexture2D&);
@@ -98,14 +98,14 @@ namespace GTech2D{
         virtual int Finish() = 0;
         virtual int Init() = 0;
 
-        virtual GTech2D::GTPTexture2D LoadTexture(std::string textureFilename) = 0;
-        virtual GTech2D::GTPTexture2D CreateTextureWithSize(const GTech2D::Texture2DSize&) = 0;
+        virtual GTech::GTPTexture2D LoadTexture(std::string textureFilename) = 0;
+        virtual GTech::GTPTexture2D CreateTextureWithSize(const GTech::Texture2DSize&) = 0;
 
-        virtual int RenderTextureEx(GTech2D::Texture2D* textureToRender, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point , GTech2D::FlipType flip = GTech2D::FlipType::FLIP_NO) = 0;
-        virtual int RenderTextureEx(GTech2D::GTPTexture2D textureToRender, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point , GTech2D::FlipType flip = GTech2D::FlipType::FLIP_NO) = 0;
-        virtual int RenderTexture(GTech2D::GTPTexture2D, GTech2D::Rectangle2D dstRect = GTech2D::Rectangle2D(), GTech2D::Rectangle2D srcRect = GTech2D::Rectangle2D()) = 0;
+        virtual int RenderTextureEx(GTech::Texture2D* textureToRender, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point , GTech::FlipType flip = GTech::FlipType::FLIP_NO) = 0;
+        virtual int RenderTextureEx(GTech::GTPTexture2D textureToRender, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point , GTech::FlipType flip = GTech::FlipType::FLIP_NO) = 0;
+        virtual int RenderTexture(GTech::GTPTexture2D, GTech::Rectangle2D dstRect = GTech::Rectangle2D(), GTech::Rectangle2D srcRect = GTech::Rectangle2D()) = 0;
         virtual int DetachRenderTexture() = 0;
-        virtual int SetRenderTarget(GTech2D::GTPTexture2D) = 0;
+        virtual int SetRenderTarget(GTech::GTPTexture2D) = 0;
         virtual int RenderClear() = 0;
 
         virtual unsigned long GetJoysticksCount() = 0;
@@ -120,7 +120,7 @@ namespace GTech2D{
     using GTPTech2D = std::shared_ptr<Tech2D>;
     class Tech2DFactory{
     public:
-        static GTPTech2D StartTechInstance(GTech2D::TechDriver tech2D = GTech2D::TechDriver::SDL);
+        static GTPTech2D StartTechInstance(GTech::TechDriver tech2D = GTech::TechDriver::SDL);
     };
 }
 

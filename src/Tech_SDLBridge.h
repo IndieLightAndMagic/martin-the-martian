@@ -12,7 +12,7 @@
 
 static const std::string TAG{"Tech_SDLBridge"};
 
-class Tech_SDLBridge : public GTech2D::Tech2D{
+class Tech_SDLBridge : public GTech::Tech2D{
 private:
 
     unsigned int m_initFlags{SDL_INIT_EVERYTHING};
@@ -22,16 +22,16 @@ private:
     SDL_Rect pWindowRect;
     std::vector<SDL_Joystick*> m_pjoysticks;
 
-    SDL_Texture* GetTextureFromTexture2DRawPtr(const GTech2D::Texture2D *pt2d){
+    SDL_Texture* GetTextureFromTexture2DRawPtr(const GTech::Texture2D *pt2d){
 
         auto p_sdltexture2d = dynamic_cast<const Texture2D_SDL*>(pt2d);
         if (p_sdltexture2d) return p_sdltexture2d->Get();
         return nullptr;
 
     }
-    SDL_Texture* GetTextureFromTexture2DSmartPtr(const GTech2D::GTPTexture2D &rspt2d){
+    SDL_Texture* GetTextureFromTexture2DSmartPtr(const GTech::GTPTexture2D &rspt2d){
 
-        GTech2D::Texture2D* p_gtech2dtexture2d = rspt2d.get();
+        GTech::Texture2D* p_gtech2dtexture2d = rspt2d.get();
         if (!p_gtech2dtexture2d) return nullptr;
 
         auto p_sdltexture2d = dynamic_cast<Texture2D_SDL*>(p_gtech2dtexture2d);
@@ -40,11 +40,11 @@ private:
         return pSDLtexture;
 
     }
-    SDL_Rect GetRectFromRectangle2D(const GTech2D::Rectangle2D& rg){
+    SDL_Rect GetRectFromRectangle2D(const GTech::Rectangle2D& rg){
         SDL_Rect rs{rg.winPos.x, rg.winPos.y, rg.winSz.w, rg.winSz.h};
         return rs;
     }
-    SDL_Point GetPointFromPoint2D(const GTech2D::Point2D& pg){
+    SDL_Point GetPointFromPoint2D(const GTech::Point2D& pg){
         SDL_Point ps;
         ps.x = pg.x;
         ps.y = pg.y;
@@ -60,18 +60,18 @@ public:
     int Init() override {
         if (SDL_Init(m_initFlags) != 0){
             std::cerr << "SDL_Init failed: " << SDL_GetError() << "\n";
-            return GTech2D::GTECH_ERROR;
+            return GTech::GTECH_ERROR;
         }
-        return GTech2D::GTECH_OK;
+        return GTech::GTECH_OK;
     }
-    void GetWindowSize(GTech2D::Texture2DSize& rSz) override {
+    void GetWindowSize(GTech::Texture2DSize& rSz) override {
 
         rSz.w = pWindowRect.w;
         rSz.h = pWindowRect.h;
 
     };
 
-    int CreateWindow(GTech2D::WindowConfiguration winConfig, unsigned int uiFlags) override {
+    int CreateWindow(GTech::WindowConfiguration winConfig, unsigned int uiFlags) override {
 
         pWindow = SDL_CreateWindow(
                 winConfig.title.c_str(),
@@ -83,19 +83,19 @@ public:
 
         if (!pWindow){
             std::cerr << "SDL_CreateWindow failed. \n";
-            return GTech2D::GTECH_ERROR;
+            return GTech::GTECH_ERROR;
         }
         SDL_GetWindowSize(pWindow, &pWindowRect.w, &pWindowRect.h);
-        return GTech2D::GTECH_OK;
+        return GTech::GTECH_OK;
 
     }
     int CreateRenderer() override {
         pRenderer = SDL_CreateRenderer(pWindow, -1, m_rendererFlags);
         if (!pRenderer){
             std::cerr << "SDL_CreatRenderer failed. \n";
-            return GTech2D::GTECH_ERROR;
+            return GTech::GTECH_ERROR;
         }
-        return GTech2D::GTECH_OK;
+        return GTech::GTECH_OK;
     }
 
     int Finish() override {
@@ -103,11 +103,11 @@ public:
         if (pRenderer) SDL_DestroyRenderer(pRenderer);
         if (pWindow) SDL_DestroyWindow(pWindow);
         SDL_Quit();
-        return GTech2D::GTECH_OK;
+        return GTech::GTECH_OK;
     }
-    GTech2D::GTPTexture2D CreateTextureWithSize(const GTech2D::Texture2DSize &rSize) override {
+    GTech::GTPTexture2D CreateTextureWithSize(const GTech::Texture2DSize &rSize) override {
 
-        GTech2D::GTPTexture2D pTexture(nullptr);
+        GTech::GTPTexture2D pTexture(nullptr);
 
         SDL_Texture* pSDLTexture = SDL_CreateTexture(
                 pRenderer,
@@ -124,9 +124,9 @@ public:
         return pTexture;
 
     }
-    GTech2D::GTPTexture2D LoadTexture(std::string resourceName) override{
+    GTech::GTPTexture2D LoadTexture(std::string resourceName) override{
 
-        GTech2D::GTPTexture2D pTexture(nullptr);
+        GTech::GTPTexture2D pTexture(nullptr);
         if (!pRenderer){
             std::cerr << "Tech_SDLBridge: Trying to load a texture without a renderer present.\n";
             return pTexture;
@@ -151,22 +151,22 @@ public:
 
     }
 
-    int SetRenderTarget(GTech2D::GTPTexture2D spTxtr) override{
+    int SetRenderTarget(GTech::GTPTexture2D spTxtr) override{
 
         SDL_Texture* pSDLTexture = GetTextureFromTexture2DSmartPtr(spTxtr);
         SDL_assert(SDL_SetRenderTarget(pRenderer, pSDLTexture) == 0);
-        return GTech2D::GTECH_OK;
+        return GTech::GTECH_OK;
     }
     int DetachRenderTexture() override {
         SDL_assert(SDL_SetRenderTarget(pRenderer, nullptr) == 0);
-        return GTech2D::GTECH_OK;
+        return GTech::GTECH_OK;
     }
     int RenderClear(void) override{
         SDL_assert(SDL_RenderClear(pRenderer) == 0);
-        return GTech2D::GTECH_OK;
+        return GTech::GTECH_OK;
     }
 
-    int RenderTextureEx(SDL_Texture* pSDLTexture, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point, GTech2D::FlipType flip) {
+    int RenderTextureEx(SDL_Texture* pSDLTexture, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point, GTech::FlipType flip) {
 
         SDL_Rect src = GetRectFromRectangle2D(srcRect);
         SDL_Rect* pSrc = RectIsNull(src) ? nullptr : &src;
@@ -180,49 +180,49 @@ public:
         SDL_Point sdlPoint = GetPointFromPoint2D(point);
         SDL_Point* pSDLPoint = &sdlPoint;
 
-        if (flip == GTech2D::FlipType::FLIP_HORIZONTAL){
+        if (flip == GTech::FlipType::FLIP_HORIZONTAL){
 
             f = SDL_FLIP_HORIZONTAL;
 
-        } else if (flip == GTech2D::FlipType::FLIP_VERTICAL) {
+        } else if (flip == GTech::FlipType::FLIP_VERTICAL) {
 
             f = SDL_FLIP_VERTICAL;
 
-        } else if (flip == GTech2D::FlipType::FLIP_HORIZONTAL_AND_VERTICAL) {
+        } else if (flip == GTech::FlipType::FLIP_HORIZONTAL_AND_VERTICAL) {
 
             f = (SDL_RendererFlip)(SDL_FLIP_HORIZONTAL|SDL_FLIP_VERTICAL);
 
         }
 
         SDL_RenderCopyEx(pRenderer, pSDLTexture, pSrc, pDst, angle_deg, pSDLPoint, f);
-        return GTech2D::GTECH_OK;
+        return GTech::GTECH_OK;
 
     }
 
-    int RenderTextureEx(GTech2D::Texture2D* pTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point, GTech2D::FlipType flip) override{
+    int RenderTextureEx(GTech::Texture2D* pTxtr, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point, GTech::FlipType flip) override{
 
         SDL_Texture* pSDLTexture = GetTextureFromTexture2DRawPtr(pTxtr);
-        if (!pSDLTexture) return GTech2D::GTECH_ERROR;
+        if (!pSDLTexture) return GTech::GTECH_ERROR;
         return RenderTextureEx(pSDLTexture, dstRect, srcRect, angle_deg, point, flip);
     }
-    int RenderTextureEx(GTech2D::GTPTexture2D spTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect, const double angle_deg, GTech2D::Point2D point, GTech2D::FlipType flip) override{
+    int RenderTextureEx(GTech::GTPTexture2D spTxtr, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point, GTech::FlipType flip) override{
 
         SDL_Texture* pSDLTexture = GetTextureFromTexture2DSmartPtr(spTxtr);
-        if (!pSDLTexture) return GTech2D::GTECH_ERROR;
+        if (!pSDLTexture) return GTech::GTECH_ERROR;
         return RenderTextureEx(pSDLTexture, dstRect, srcRect, angle_deg, point, flip);
 
     }
 
-    int RenderTexture(GTech2D::GTPTexture2D spTxtr, GTech2D::Rectangle2D dstRect, GTech2D::Rectangle2D srcRect) override
+    int RenderTexture(GTech::GTPTexture2D spTxtr, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect) override
     {
         SDL_Texture* pSDLTexture = GetTextureFromTexture2DSmartPtr(spTxtr);
-        if (!pSDLTexture) return GTech2D::GTECH_ERROR;
+        if (!pSDLTexture) return GTech::GTECH_ERROR;
 
         SDL_Rect src = GetRectFromRectangle2D(srcRect);
         SDL_Rect dst = GetRectFromRectangle2D(dstRect);
 
         SDL_RenderCopy(pRenderer, pSDLTexture, RectIsNull(src) ? nullptr : &src, RectIsNull(dst) ? nullptr : &dst);
-        return GTech2D::GTECH_OK;
+        return GTech::GTECH_OK;
     }
 
     void UpdateScreen() override {
@@ -256,7 +256,7 @@ public:
         auto sdl_njoysticks = SDL_NumJoysticks();
         if (sdl_njoysticks <= 0) {
             std::cout << TAG << ": No Joyticks attached." << std::endl;
-            return GTech2D::GTECH_ERROR;
+            return GTech::GTECH_ERROR;
         } else {
             std::cout << TAG << ": Found " << sdl_njoysticks << " attached." << std::endl;
         }
@@ -274,7 +274,7 @@ public:
             }
         }
 
-        return GTech2D::GTECH_OK;
+        return GTech::GTECH_OK;
     }
     int InitImageLoading() {
         auto imageFlags = 0;
@@ -296,7 +296,7 @@ public:
 
         std::cout << "SDL_Image Version: " << M << "." << m << "." << p << "\n";
         imageFlags = IMG_Init(imageFlags);
-        return imageFlags ? GTech2D::GTECH_OK : GTech2D::GTECH_ERROR;
+        return imageFlags ? GTech::GTECH_OK : GTech::GTECH_ERROR;
     }
     SDL_Window* GetWindow(){
         return pWindow;

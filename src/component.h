@@ -5,7 +5,7 @@
 #include "entity.h"
 #include "Tech.h"
 
-using namespace GTech2D;
+using namespace GTech;
 class Entity;
 namespace ECS {
 
@@ -42,17 +42,17 @@ namespace ECS {
 
     class SpriteComponent : public Component {
 
-        GTech2D::GTPTexture2D texture;
-        GTech2D::Vector2Dd anchor;
+        GTech::GTPTexture2D texture;
+        GTech::Vector2Dd anchor;
         double scale;
     public:
         SpriteComponent() : scale(1.0), anchor({0.0, 0.0}) {}
 
-        GTech2D::Vector2Dd *GetAnchor() {
+        GTech::Vector2Dd *GetAnchor() {
             return &anchor;
         }
 
-        inline GTech2D::GTPTexture2D &GetTexture() {
+        inline GTech::GTPTexture2D &GetTexture() {
 
             return texture;
 
@@ -64,11 +64,11 @@ namespace ECS {
 
         }
 
-        inline void SetTexture(GTech2D::GTPTexture2D ptexture) {
+        inline void SetTexture(GTech::GTPTexture2D ptexture) {
             texture = ptexture;
         }
 
-        inline void SetAnchor(const GTech2D::Vector2Dd &rAnchor) {
+        inline void SetAnchor(const GTech::Vector2Dd &rAnchor) {
 
             anchor.x = rAnchor.x;
 

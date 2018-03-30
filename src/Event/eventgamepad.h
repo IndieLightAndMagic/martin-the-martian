@@ -3,7 +3,7 @@
 
 #include "Event/event.h"
 
-namespace GTech2D{
+namespace GTech{
 
 	
     struct Tech2DEventGamepad : public Tech2DEvent{
