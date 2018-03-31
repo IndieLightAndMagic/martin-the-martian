@@ -38,7 +38,7 @@ namespace ACTION {
 namespace GAME {
 
     enum class GameResult   {GAME_OK, GAME_FINISHED};
-    GTech::GTPTech2D  ptech;
+    GTech::Tech  ptech;
 
     bool bGameIsOn;
 

@@ -42,7 +42,7 @@ namespace ECS {
 
     class SpriteComponent : public Component {
 
-        GTech::GTPTexture2D texture;
+        GTech::Texture texture;
         GTech::Vector2Dd anchor;
         double scale;
     public:
@@ -52,7 +52,7 @@ namespace ECS {
             return &anchor;
         }
 
-        inline GTech::GTPTexture2D &GetTexture() {
+        inline GTech::Texture &GetTexture() {
 
             return texture;
 
@@ -64,7 +64,7 @@ namespace ECS {
 
         }
 
-        inline void SetTexture(GTech::GTPTexture2D ptexture) {
+        inline void SetTexture(GTech::Texture ptexture) {
             texture = ptexture;
         }
 

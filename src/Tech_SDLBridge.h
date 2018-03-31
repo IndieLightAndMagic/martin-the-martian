@@ -12,7 +12,7 @@
 
 static const std::string TAG{"Tech_SDLBridge"};
 
-class Tech_SDLBridge : public GTech::Tech2D{
+class Tech_SDLBridge : public GTech::TechnologyLibraryInterface{
 private:
 
     unsigned int m_initFlags{SDL_INIT_EVERYTHING};
@@ -29,7 +29,7 @@ private:
         return nullptr;
 
     }
-    SDL_Texture* GetTextureFromTexture2DSmartPtr(const GTech::GTPTexture2D &rspt2d){
+    SDL_Texture* GetTextureFromTexture2DSmartPtr(const GTech::Texture &rspt2d){
 
         GTech::Texture2D* p_gtech2dtexture2d = rspt2d.get();
         if (!p_gtech2dtexture2d) return nullptr;
@@ -105,9 +105,9 @@ public:
         SDL_Quit();
         return GTech::GTECH_OK;
     }
-    GTech::GTPTexture2D CreateTextureWithSize(const GTech::Texture2DSize &rSize) override {
+    GTech::Texture CreateTextureWithSize(const GTech::Texture2DSize &rSize) override {
 
-        GTech::GTPTexture2D pTexture(nullptr);
+        GTech::Texture pTexture(nullptr);
 
         SDL_Texture* pSDLTexture = SDL_CreateTexture(
                 pRenderer,
@@ -124,9 +124,9 @@ public:
         return pTexture;
 
     }
-    GTech::GTPTexture2D LoadTexture(std::string resourceName) override{
+    GTech::Texture LoadTexture(std::string resourceName) override{
 
-        GTech::GTPTexture2D pTexture(nullptr);
+        GTech::Texture pTexture(nullptr);
         if (!pRenderer){
             std::cerr << "Tech_SDLBridge: Trying to load a texture without a renderer present.\n";
             return pTexture;
@@ -151,7 +151,7 @@ public:
 
     }
 
-    int SetRenderTarget(GTech::GTPTexture2D spTxtr) override{
+    int SetRenderTarget(GTech::Texture spTxtr) override{
 
         SDL_Texture* pSDLTexture = GetTextureFromTexture2DSmartPtr(spTxtr);
         SDL_assert(SDL_SetRenderTarget(pRenderer, pSDLTexture) == 0);
@@ -205,7 +205,7 @@ public:
         if (!pSDLTexture) return GTech::GTECH_ERROR;
         return RenderTextureEx(pSDLTexture, dstRect, srcRect, angle_deg, point, flip);
     }
-    int RenderTextureEx(GTech::GTPTexture2D spTxtr, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point, GTech::FlipType flip) override{
+    int RenderTextureEx(GTech::Texture spTxtr, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point, GTech::FlipType flip) override{
 
         SDL_Texture* pSDLTexture = GetTextureFromTexture2DSmartPtr(spTxtr);
         if (!pSDLTexture) return GTech::GTECH_ERROR;
@@ -213,7 +213,7 @@ public:
 
     }
 
-    int RenderTexture(GTech::GTPTexture2D spTxtr, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect) override
+    int RenderTexture(GTech::Texture spTxtr, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect) override
     {
         SDL_Texture* pSDLTexture = GetTextureFromTexture2DSmartPtr(spTxtr);
         if (!pSDLTexture) return GTech::GTECH_ERROR;

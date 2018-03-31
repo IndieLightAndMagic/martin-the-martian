@@ -78,6 +78,8 @@ namespace ECS{
         mutable int current_id_;
     };
 
+
+
 }
 
 #endif /* SIGNAL_HPP */

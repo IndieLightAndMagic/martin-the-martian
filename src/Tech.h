@@ -79,12 +79,12 @@ namespace GTech{
         }
 
     };
-    using GTPTexture2D = std::shared_ptr<GTech::Texture2D>;
-    using GTPTexture2D_ = std::weak_ptr<GTech::Texture2D>;
-    class Tech2D {
+    using Texture = std::shared_ptr<GTech::Texture2D>;
+    using TextureWeak = std::weak_ptr<GTech::Texture2D>;
+    class TechnologyLibraryInterface {
     public:
-        Tech2D(){};
-        virtual ~Tech2D(){};
+        TechnologyLibraryInterface(){};
+        virtual ~TechnologyLibraryInterface(){};
 
 
 
@@ -93,19 +93,19 @@ namespace GTech{
         virtual void GetWindowSize(GTech::Texture2DSize&) = 0;
 
 
-        virtual int DestroyTexture(GTPTexture2D&);
+        virtual int DestroyTexture(Texture&);
 
         virtual int Finish() = 0;
         virtual int Init() = 0;
 
-        virtual GTech::GTPTexture2D LoadTexture(std::string textureFilename) = 0;
-        virtual GTech::GTPTexture2D CreateTextureWithSize(const GTech::Texture2DSize&) = 0;
+        virtual GTech::Texture LoadTexture(std::string textureFilename) = 0;
+        virtual GTech::Texture CreateTextureWithSize(const GTech::Texture2DSize&) = 0;
 
         virtual int RenderTextureEx(GTech::Texture2D* textureToRender, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point , GTech::FlipType flip = GTech::FlipType::FLIP_NO) = 0;
-        virtual int RenderTextureEx(GTech::GTPTexture2D textureToRender, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point , GTech::FlipType flip = GTech::FlipType::FLIP_NO) = 0;
-        virtual int RenderTexture(GTech::GTPTexture2D, GTech::Rectangle2D dstRect = GTech::Rectangle2D(), GTech::Rectangle2D srcRect = GTech::Rectangle2D()) = 0;
+        virtual int RenderTextureEx(GTech::Texture textureToRender, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point , GTech::FlipType flip = GTech::FlipType::FLIP_NO) = 0;
+        virtual int RenderTexture(GTech::Texture, GTech::Rectangle2D dstRect = GTech::Rectangle2D(), GTech::Rectangle2D srcRect = GTech::Rectangle2D()) = 0;
         virtual int DetachRenderTexture() = 0;
-        virtual int SetRenderTarget(GTech::GTPTexture2D) = 0;
+        virtual int SetRenderTarget(GTech::Texture) = 0;
         virtual int RenderClear() = 0;
 
         virtual unsigned long GetJoysticksCount() = 0;
@@ -117,10 +117,10 @@ namespace GTech{
         };
 
     };
-    using GTPTech2D = std::shared_ptr<Tech2D>;
+    using Tech = std::shared_ptr<TechnologyLibraryInterface>;
     class Tech2DFactory{
     public:
-        static GTPTech2D StartTechInstance(GTech::TechDriver tech2D = GTech::TechDriver::SDL);
+        static Tech StartTechInstance(GTech::TechDriver tech2D = GTech::TechDriver::SDL);
     };
 }
 

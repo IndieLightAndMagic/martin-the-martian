@@ -14,7 +14,7 @@ namespace GAME {
     class ShipFactory {
 
     public:
-        static unsigned int CreateShip(const GTech::GTPTech2D& rptech){
+        static unsigned int CreateShip(const GTech::Tech& rptech){
 
             auto entityManager = ECS::EntityManager::GetManager();
             auto componentManager = ECS::ComponentManager::GetManager();
@@ -122,7 +122,7 @@ namespace GAME {
             return 1;
 
         }
-        static unsigned int DrawSprites(const GTech::GTPTech2D& rptech){
+        static unsigned int DrawSprites(const GTech::Tech& rptech){
 
             auto sz = textures.size();
             for (auto index = 0; index < sz; ++index){
@@ -162,7 +162,7 @@ namespace GAME {
             return 1;
         }
 
-        static void Update(const GTech::GTPTech2D& rpTech){
+        static void Update(const GTech::Tech& rpTech){
             DrawSprites(rpTech);
         }
     };
