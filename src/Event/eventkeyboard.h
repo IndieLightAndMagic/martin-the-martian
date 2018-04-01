@@ -3,14 +3,12 @@
 
 #include <queue>
 
-#include "component.h"
+#include "ECS/Component/component.h"
 #include "entity.h"
 #include "Tech.h"
 
 namespace GTech {
 
-	struct Tech2DEventKeyboard : public Tech2DEvent{
-	public:
 		enum struct KBEvent{KEY_PRESSED, KEY_RELEASED};
 		enum struct KBKey{
 			K_UP,
@@ -26,12 +24,6 @@ namespace GTech {
 			K_S,
 			K_D
 		};
-		Tech2DEventKeyboard(Tech2DEventKeyboard::KBEvent event, Tech2DEventKeyboard::KBKey key):m_event(event), m_key(key){
-
-		}
-		KBEvent m_event;
-		KBKey m_key;
-	};
 
 }
 

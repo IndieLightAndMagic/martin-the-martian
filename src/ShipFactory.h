@@ -5,7 +5,7 @@
 
 #include "Tech.h"
 #include "entitymanager.h"
-#include "componentmanager.h"
+#include "ECS/Component/componentmanager.h"
 
 namespace GAME {
 

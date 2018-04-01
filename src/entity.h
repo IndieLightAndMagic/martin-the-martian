@@ -1,6 +1,6 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
-#include "component.h"
+#include "ECS/Component/component.h"
 
 #include <vector>
 #include <memory>

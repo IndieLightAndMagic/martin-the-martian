@@ -5,7 +5,7 @@
 #include <string>
 
 namespace GTech {
-    class Tech2DEvent {
+    class Event {
     public:
         virtual std::string GetType() {
             auto name = typeid(*this).name();
@@ -17,7 +17,7 @@ namespace GTech {
             return (status == 0 ? res.get() : name);
         }
         static const std::string m_type;
-        virtual ~Tech2DEvent(){}
+        virtual ~Event(){}
     };
 }
 

@@ -9,9 +9,11 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
             ${CMAKE_SOURCE_DIR}/src/main.cpp
             ${CMAKE_SOURCE_DIR}/src/Tech.cpp
 
-			${CMAKE_SOURCE_DIR}/src/component.h
-			${CMAKE_SOURCE_DIR}/src/componentfactory.h
-			${CMAKE_SOURCE_DIR}/src/componentmanager.h
+			${CMAKE_SOURCE_DIR}/src/ECS/Component/component.h
+			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentfactory.h
+			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentmanager.h
+			${CMAKE_SOURCE_DIR}/src/ECS/Component/inputcomponent.h
+
 
 			${CMAKE_SOURCE_DIR}/src/entity.h
 			${CMAKE_SOURCE_DIR}/src/EntityFactory.h
@@ -19,9 +21,12 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 
 			${CMAKE_SOURCE_DIR}/src/Event/event.h
 			${CMAKE_SOURCE_DIR}/src/Event/eventmanager.h
-			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard.h
+			
 			${CMAKE_SOURCE_DIR}/src/Event/eventgamepad.h
-
+			${CMAKE_SOURCE_DIR}/src/Event/eventjoystick.h
+			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard.h
+			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard_sdlbridge.h
+			
 			${CMAKE_SOURCE_DIR}/src/ShipFactory.h
 
 			${CMAKE_SOURCE_DIR}/src/Tech_SDLBridge.h

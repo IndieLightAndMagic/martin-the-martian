@@ -22,8 +22,8 @@ namespace ACTION {
 
     template <typename T>
     struct Action{
-        std::weak_ptr<GTech::Tech2DEvent> e;
-        void(*fpointer)(std::weak_ptr<GTech::Tech2DEvent>, std::weak_ptr<T>) ;
+        std::weak_ptr<GTech::Event> e;
+        void(*fpointer)(std::weak_ptr<GTech::Event>, std::weak_ptr<T>) ;
         std::weak_ptr<T> param;
         void operator()(){
             fpointer(e, param);
@@ -48,8 +48,8 @@ namespace GAME {
     void OnEscPressed();
     ECS::Signal<> signalOnEscPressed;
 
-    void OnArrowKeyPressed(const GTech::Tech2DEventKeyboard&);
-    ECS::Signal<const GTech::Tech2DEventKeyboard& > signalOnArrowKeyPressed;
+    void OnArrowKeyPressed(const GTech::KBKey&);
+    ECS::Signal<const GTech::KBKey& > signalOnArrowKeyPressed;
 
     void InitGameTech(){
 
@@ -97,11 +97,10 @@ namespace GAME {
     }
     unsigned int MainLoop() {
 
-        bGameIsOn = true;
+        /*bGameIsOn = true;
         auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
         while (bGameIsOn){
 
-            //Get events from loop
             SDL_Event e;
             while(SDL_PollEvent(&e)){
 
@@ -110,50 +109,47 @@ namespace GAME {
                     if ( e.key.keysym.sym == SDLK_ESCAPE ){
                         signalOnEscPressed.emit();
                     } else if ( e.key.keysym.sym == SDLK_UP){
-                        signalOnArrowKeyPressed.emit(Tech2DEventKeyboard{Tech2DEventKeyboard::KBEvent::KEY_PRESSED, Tech2DEventKeyboard::KBKey::K_UP});
+                        signalOnArrowKeyPressed.emit(EventKeyboard{EventKeyboard::KBEvent::KEY_PRESSED, EventKeyboard::KBKey::K_UP});
                     } else if ( e.key.keysym.sym == SDLK_DOWN){
-                        signalOnArrowKeyPressed.emit(Tech2DEventKeyboard{Tech2DEventKeyboard::KBEvent::KEY_PRESSED, Tech2DEventKeyboard::KBKey::K_DOWN});
+                        signalOnArrowKeyPressed.emit(EventKeyboard{EventKeyboard::KBEvent::KEY_PRESSED, EventKeyboard::KBKey::K_DOWN});
                     } else if ( e.key.keysym.sym == SDLK_LEFT){
-                        signalOnArrowKeyPressed.emit(Tech2DEventKeyboard{Tech2DEventKeyboard::KBEvent::KEY_PRESSED, Tech2DEventKeyboard::KBKey::K_LEFT});
+                        signalOnArrowKeyPressed.emit(EventKeyboard{EventKeyboard::KBEvent::KEY_PRESSED, EventKeyboard::KBKey::K_LEFT});
                     } else if ( e.key.keysym.sym == SDLK_RIGHT){
-                        signalOnArrowKeyPressed.emit(Tech2DEventKeyboard{Tech2DEventKeyboard::KBEvent::KEY_PRESSED, Tech2DEventKeyboard::KBKey::K_RIGHT});
+                        signalOnArrowKeyPressed.emit(EventKeyboard{EventKeyboard::KBEvent::KEY_PRESSED, EventKeyboard::KBKey::K_RIGHT});
                     }
 
                 }
             }
 
-        }
+        }*/
         return 0;
     };
     void OnEscPressed(){
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
         bGameIsOn = false;
     }
-    void OnArrowKeyPressed(const GTech::Tech2DEventKeyboard& kbEv){
-
-
-        using GTech::Tech2DEventKeyboard;
+    void OnArrowKeyPressed(const KBKey& kbKey){
 
         bool bGoingLeft = true;
         bGoingLeft = movingState == MovingState::GOING_LEFT || movingState == MovingState::DODGE_LEFT;
         bool bGoingRight = true;
         bGoingRight = movingState == MovingState::GOING_RIGHT || movingState == MovingState::DODGE_RIGHT;
 
-        if (kbEv.m_key == GTech::Tech2DEventKeyboard::KBKey::K_LEFT && !bGoingLeft){
+        if (kbKey ==  KBKey::K_LEFT && !bGoingLeft){
             movingState = MovingState::GOING_LEFT;
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Left";
             std::cout << "\n";
-        } else if (kbEv.m_key == GTech::Tech2DEventKeyboard::KBKey::K_RIGHT && !bGoingRight) {
+        } else if (kbKey == KBKey::K_RIGHT && !bGoingRight) {
             movingState = MovingState::GOING_RIGHT;
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Right";
             std::cout << "\n";
-        } else if (kbEv.m_key == GTech::Tech2DEventKeyboard::KBKey::K_DOWN) {
+        } else if (kbKey == KBKey::K_DOWN) {
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Down";
             std::cout << "\n";
-        } else if (kbEv.m_key == GTech::Tech2DEventKeyboard::KBKey::K_UP) {
+        } else if (kbKey == KBKey::K_UP) {
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Up";
             std::cout << "\n";
