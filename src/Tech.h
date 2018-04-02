@@ -4,7 +4,7 @@
 #include <cassert>
 #include <cxxabi.h>
 
-#include "Event/event.h"
+#include "SignalSlot/signalslot.h"
 
 namespace GTech{
 

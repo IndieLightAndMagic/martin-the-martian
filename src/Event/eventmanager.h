@@ -15,39 +15,32 @@
 
 namespace ECS
 {
+    using namespace std;
+    class EventManager {
 
-    class EventManager;
-
-	class EventManager {
-
-		using SignalVectorEventKey = std::vector<ECS::Signal<GTech::KBEvent&, GTech::KBKey&>>
 
         using PEventManager = std::shared_ptr<EventManager>;
-        using PEventManagerWeak = std::weak_ptr<EventManager>;
-
         static PEventManager eventManager;
 
         EventManager(){}
     public:
 
-        static PEventManager& GetEventManager()
-        {
+        static PEventManager& GetEventManager() {
             if (eventManager == nullptr)
             {
                 eventManager = std::make_shared(new (decltype(eventManager)));
             }
             return eventManager;
         }
-        template <typename TEvent, typename TKeyButton>
-		void RegisterKeyboardKeySignal(
-				TEvent& rEvent,
-				TKeyButton& rKeyButton,
-				ECS::Signal<TEvent&, TKeyButton&>& rSignal){
+        template <class T, class Ev, class Ob>
+        void RegisterEventKBEvent(KBEvent revent, KBKey rkey, T* pinst, void(T::*slot)(Ev, Ob)) {
 
 
 
-		}
-        virtual void ProcessEvents() = 0;
+        };
+
+
+
 	};
 	EventManager::PEventManager EventManager::eventManager = nullptr;
 }

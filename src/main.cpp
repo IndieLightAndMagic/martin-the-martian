@@ -17,24 +17,6 @@ const int WIN_WIDTH = 800;
 const int WIN_HEIGHT = 600;
 
 
-
-namespace ACTION {
-
-    template <typename T>
-    struct Action{
-        std::weak_ptr<GTech::Event> e;
-        void(*fpointer)(std::weak_ptr<GTech::Event>, std::weak_ptr<T>) ;
-        std::weak_ptr<T> param;
-        void operator()(){
-            fpointer(e, param);
-        }
-    };
-
-
-
-}
-
-
 namespace GAME {
 
     enum class GameResult   {GAME_OK, GAME_FINISHED};
@@ -46,10 +28,10 @@ namespace GAME {
     MovingState movingState;
 
     void OnEscPressed();
-    ECS::Signal<> signalOnEscPressed;
+    GTech::Signal<> signalOnEscPressed;
 
     void OnArrowKeyPressed(const GTech::KBKey&);
-    ECS::Signal<const GTech::KBKey& > signalOnArrowKeyPressed;
+    GTech::Signal<const GTech::KBKey& > signalOnArrowKeyPressed;
 
     void InitGameTech(){
 
@@ -96,7 +78,8 @@ namespace GAME {
         }
     }
     unsigned int MainLoop() {
-
+        SDL_Event e;
+        e.type = SDL_KEYUP;
         /*bGameIsOn = true;
         auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
         while (bGameIsOn){

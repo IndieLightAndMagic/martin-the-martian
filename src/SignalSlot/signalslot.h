@@ -9,7 +9,7 @@
 // which will be called when the emit() method on the
 // signal object is invoked. Any argument passed to emit()
 // will be passed to the given functions.
-namespace ECS{
+namespace GTech{
     template <typename... Args>
     class Signal {
 

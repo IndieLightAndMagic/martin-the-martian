@@ -3,10 +3,6 @@
 
 #include <queue>
 
-#include "ECS/Component/component.h"
-#include "entity.h"
-#include "Tech.h"
-
 namespace GTech {
 
 		enum struct KBEvent{KEY_PRESSED, KEY_RELEASED};
