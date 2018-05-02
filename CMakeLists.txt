@@ -6,7 +6,7 @@
 
 #Utility messages
 cmake_minimum_required(VERSION 3.5.1)
-include(Messages.cmake)
+include(cmake/Messages.cmake)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -15,22 +15,22 @@ HeaderMessage("SDL Template Example By Julian Guarin")
 PrintLine()
 
 #Info variables
-include(Info.cmake)
+include(cmake/Info.cmake)
 
 #Sources to include
-include(Sources.cmake)
+include(cmake/Sources.cmake)
 
 #Resources
-include(Resources.cmake)
+include(cmake/Resources.cmake)
 
 #SDL2 
-include(SDL.cmake)
+include(cmake/SDL.cmake)
 
 #Cocoa 
-include(MacOS.cmake)
+include(cmake/MacOS.cmake)
 
 #Set C++
-include(CPP.cmake)
+include(cmake/CPP.cmake)
 USE_14()
 
 #Project is SDL VoidSample
