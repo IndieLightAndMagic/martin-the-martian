@@ -15,21 +15,6 @@ const int WIN_HEIGHT = 600;
 
 
 
-namespace ACTION {
-
-    template <typename T>
-    struct Action{
-        std::weak_ptr<GTech2D::Tech2DEvent> e;
-        void(*fpointer)(std::weak_ptr<GTech2D::Tech2DEvent>, std::weak_ptr<T>) ;
-        std::weak_ptr<T> param;
-        void operator()(){
-            fpointer(e, param);
-        }
-    };
-
-
-
-}
 
 
 namespace GAME {
