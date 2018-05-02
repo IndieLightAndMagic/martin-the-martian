@@ -80,7 +80,7 @@ namespace GAME {
     unsigned int MainLoop() {
         SDL_Event e;
         e.type = SDL_KEYUP;
-        /*bGameIsOn = true;
+        bGameIsOn = true;
         auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
         while (bGameIsOn){
 
@@ -92,19 +92,18 @@ namespace GAME {
                     if ( e.key.keysym.sym == SDLK_ESCAPE ){
                         signalOnEscPressed.emit();
                     } else if ( e.key.keysym.sym == SDLK_UP){
-                        signalOnArrowKeyPressed.emit(EventKeyboard{EventKeyboard::KBEvent::KEY_PRESSED, EventKeyboard::KBKey::K_UP});
+                        signalOnArrowKeyPressed.emit(KBKey{KBKey::K_UP});
                     } else if ( e.key.keysym.sym == SDLK_DOWN){
-                        signalOnArrowKeyPressed.emit(EventKeyboard{EventKeyboard::KBEvent::KEY_PRESSED, EventKeyboard::KBKey::K_DOWN});
+                        signalOnArrowKeyPressed.emit(KBKey{KBKey::K_DOWN});
                     } else if ( e.key.keysym.sym == SDLK_LEFT){
-                        signalOnArrowKeyPressed.emit(EventKeyboard{EventKeyboard::KBEvent::KEY_PRESSED, EventKeyboard::KBKey::K_LEFT});
+                        signalOnArrowKeyPressed.emit(KBKey{KBKey::K_LEFT});
                     } else if ( e.key.keysym.sym == SDLK_RIGHT){
-                        signalOnArrowKeyPressed.emit(EventKeyboard{EventKeyboard::KBEvent::KEY_PRESSED, EventKeyboard::KBKey::K_RIGHT});
+                        signalOnArrowKeyPressed.emit(KBKey{KBKey::K_RIGHT});
                     }
-
                 }
             }
 
-        }*/
+        }
         return 0;
     };
     void OnEscPressed(){
