@@ -26,6 +26,7 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/Event/eventjoystick.h
 			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard.h
 			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard_sdlbridge.h
+			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard_sdlbridge.cpp
 			
 			${CMAKE_SOURCE_DIR}/src/ShipFactory.h
 
