@@ -4,7 +4,7 @@
 #include "ShipFactory.h"
 #include "SignalSlot/signalslot.h"
 #include "Event/eventkeyboard.h"
-
+#include "Event/eventkeyboard_sdlbridge.h"
 
 #include <iostream>
 #include <string>
@@ -102,7 +102,6 @@ namespace GAME {
                     }
                 }
             }
-
         }
         return 0;
     };
