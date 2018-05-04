@@ -131,6 +131,10 @@ namespace GTech {
 		auto sdlKey64 	= static_cast<Uint64>(KeyboardKey::SDLKBKey(rKBKey));
 		auto mask64		= sdlEvent64 | sdlKey64;
 
+		Signal<const KBEvent&, const KBKey&>signal;
+		signal.connect(slot);
+		
+		
 	}
 
 	void DispatchKeyboardEvent_SDL(Uint32& rKBEvent,  Sint32& rKBKey){
