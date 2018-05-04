@@ -5,8 +5,8 @@
 
 namespace GTech{
 
-	enum struct KBEvent{KEY_PRESSED, KEY_RELEASED, KEY_UNKNOWNEVENT};
-	enum struct KBKey{
+	enum KBEvent{KEY_PRESSED, KEY_RELEASED, KEY_UNKNOWNEVENT};
+	enum KBKey{
 	
 		K_UP,
 		K_LEFT,
@@ -22,6 +22,7 @@ namespace GTech{
 		K_D,
 
 		K_UNKNOWN
+
 	};
 
 }

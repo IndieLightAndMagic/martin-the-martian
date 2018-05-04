@@ -17,20 +17,18 @@ namespace GTech{
     }
     namespace KeyboardEvent{
 
-        constexpr Uint32 SDLKBEvent(GTech::KBEvent& rKBEvent);
-        constexpr GTech::KBEvent KBEvent_SDL(Uint32& rSDLKBEvent);
+        constexpr Uint32 SDLKBEvent(const GTech::KBEvent& rKBEvent);
+        constexpr GTech::KBEvent KBEvent_SDL(const Uint32& rSDLKBEvent);
 
     }
     namespace KeyboardKey{
-        constexpr GTech::KBKey KBKey_SDL(Sint32& rSDLKBKey);
-        constexpr Sint32 SDLKBKey(GTech::KBKey & rKBKey);
+        constexpr GTech::KBKey KBKey_SDL(const Sint32& rSDLKBKey);
+        constexpr Sint32 SDLKBKey(const GTech::KBKey & rKBKey);
     }
     /*!
     \brief Register a generic KBEvent, for a generic keybutton, with a generic Signal.
     */
-    void RegisterKeyboardEvent_SDL(KBEvent& rEvent, KBKey& rKeyButton, Signal<KBEvent&, KBKey&>& rSignal);
-    void DispatchKeyboardEvent_SDL(Uint32& rKBEvent, Sint32& rKBKey);
-
+    
 
 
 }

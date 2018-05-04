@@ -10,6 +10,8 @@
 // signal object is invoked. Any argument passed to emit()
 // will be passed to the given functions.
 namespace GTech{
+
+    static int signalId{0};
     template <typename... Args>
     class Signal {
 
@@ -62,7 +64,7 @@ namespace GTech{
         }
 
         // calls all connected functions
-        void emit(Args... p) {
+        void emit(Args... p) const{
           for(auto it : slots_) {
             it.second(p...);
           }

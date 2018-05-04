@@ -12,13 +12,12 @@ namespace GTech {
 		using vectorSignalsKBEventKey = vector<Signal<GTech::KBEvent&, GTech::KBKey&>&>;
 		using vectorLambda = vector<function<void()>>;
 		map<Uint64, vectorLambda> mDispatchRegisteredLambda;
-		map<Uint64, vectorSignalsKBEventKey> mDispatchRegisteredSignal;
 		vector<Uint64> vRegisteredKBEvents;
 
 
 	}
 	namespace KeyboardEvent{
-        constexpr Uint32 SDLKBEvent(GTech::KBEvent& rKBEvent){
+        constexpr Uint32 SDLKBEvent(const GTech::KBEvent& rKBEvent){
             switch(rKBEvent){
                 case GTech::KBEvent::KEY_PRESSED:
                     return SDL_KEYDOWN;
@@ -30,7 +29,7 @@ namespace GTech {
                     return 0;
             }
         };
-        constexpr GTech::KBEvent KBEvent_SDL(Uint32& rSDLKBEvent){
+        constexpr GTech::KBEvent KBEvent_SDL(const Uint32& rSDLKBEvent){
             switch(rSDLKBEvent){
                 case SDL_KEYDOWN:
                     return GTech::KBEvent::KEY_PRESSED;
@@ -44,7 +43,7 @@ namespace GTech {
         };
     }
     namespace KeyboardKey{
-    	constexpr GTech::KBKey KBKey_SDL(Sint32& rSDLKBKey){
+    	constexpr GTech::KBKey KBKey_SDL(const Sint32& rSDLKBKey){
     		switch(rSDLKBKey){
     			case SDLK_a:        
                 	return GTech::KBKey::K_A;
@@ -83,7 +82,7 @@ namespace GTech {
 
     		}
 		};
-		constexpr Sint32 SDLKBKey(GTech::KBKey & rKBKey){
+		constexpr Sint32 SDLKBKey(const GTech::KBKey & rKBKey){
     		switch(rKBKey){
 
     			case GTech::KBKey::K_A :        
@@ -126,19 +125,14 @@ namespace GTech {
         
     }
 
-	void RegisterKeyboardEvent_SDL(KBEvent& rEvent, KBKey& rKeyButton, Signal<KBEvent&, KBKey&>& rSignal){
+	void RegisterKeyboardEvent_SDL(const KBEvent& rKBEvent, const KBKey& rKBKey, Signal<KBEvent&, KBKey&>& rSignal){
 
-		auto sdlEvent64	= static_cast<Uint64>(KeyboardEvent::SDLKBEvent(rEvent)) << 32;
-		auto sdlKey64 	= static_cast<Uint64>(KeyboardKey::SDLKBKey(rKeyButton));
+		auto sdlEvent64	= static_cast<Uint64>(KeyboardEvent::SDLKBEvent(rKBEvent)) << 32;
+		auto sdlKey64 	= static_cast<Uint64>(KeyboardKey::SDLKBKey(rKBKey));
 		auto mask64		= sdlEvent64 | sdlKey64;
 
-		auto rvSignals	= KeyboardEventDispatcher::mDispatchRegisteredSignal[mask64];
-		rvSignals.push_back(rSignal);
-
-
 		auto l = [=](){
-			//rSignal.emit(rEvent, rKeyButton);
-			rSignal.disconnect_all();
+			rSignal.emit(rKBEvent, rKBKey);
 		};
 		auto vRegisteredLambda = KeyboardEventDispatcher::mDispatchRegisteredLambda[mask64];
 		if (vRegisteredLambda.empty()){
