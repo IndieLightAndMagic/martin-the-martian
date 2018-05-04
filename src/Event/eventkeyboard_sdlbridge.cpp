@@ -124,22 +124,12 @@ namespace GTech {
 		};
         
     }
-
-	void RegisterKeyboardEvent_SDL(const KBEvent& rKBEvent, const KBKey& rKBKey, Signal<KBEvent&, KBKey&>& rSignal){
+	template <typename... Args>
+	void RegisterKeyboardEvent_SDL(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(Args...)> const& slot){
 
 		auto sdlEvent64	= static_cast<Uint64>(KeyboardEvent::SDLKBEvent(rKBEvent)) << 32;
 		auto sdlKey64 	= static_cast<Uint64>(KeyboardKey::SDLKBKey(rKBKey));
 		auto mask64		= sdlEvent64 | sdlKey64;
-
-		auto l = [=](){
-			rSignal.emit(rKBEvent, rKBKey);
-		};
-		auto vRegisteredLambda = KeyboardEventDispatcher::mDispatchRegisteredLambda[mask64];
-		if (vRegisteredLambda.empty()){
-			KeyboardEventDispatcher::vRegisteredKBEvents.push_back(mask64);
-		}
-		vRegisteredLambda.push_back(l);
-
 
 	}
 
