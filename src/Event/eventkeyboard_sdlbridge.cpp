@@ -125,7 +125,7 @@ namespace GTech {
         
     }
 	template <typename... Args>
-	void RegisterKeyboardEvent_SDL(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(Args...)> const& slot){
+	void RegisterKeyboardEvent_SDL(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(Args...)> slot){
 
 		auto sdlEvent64	= static_cast<Uint64>(KeyboardEvent::SDLKBEvent(rKBEvent)) << 32;
 		auto sdlKey64 	= static_cast<Uint64>(KeyboardKey::SDLKBKey(rKBKey));
@@ -133,8 +133,11 @@ namespace GTech {
 
 		Signal<const KBEvent&, const KBKey&>signal;
 		signal.connect(slot);
-		
-		
+
+		auto lf = [=](){
+			signal.emit(rKBEvent,rKBKey);
+		};
+
 	}
 
 	void DispatchKeyboardEvent_SDL(Uint32& rKBEvent,  Sint32& rKBKey){
