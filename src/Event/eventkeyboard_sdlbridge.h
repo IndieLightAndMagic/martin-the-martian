@@ -28,7 +28,7 @@ namespace GTech{
     /*!
     \brief Register a generic KBEvent, for a generic keybutton, with a generic Signal.
     */
-    
+    void RegisterKeyboardEvent_SDL(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(const KBEvent&, const KBKey&)> );
 
 
 }

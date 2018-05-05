@@ -27,7 +27,7 @@ namespace GAME {
     enum class MovingState { STAND_STILL = -1,  GOING_RIGHT = 0, GOING_LEFT = 1, DODGE_RIGHT = 2, DODGE_LEFT = 3};
     MovingState movingState;
 
-    void OnEscPressed();
+    void OnEscPressed(const GTech::KBEvent&, const GTech::KBKey&);
     GTech::Signal<> signalOnEscPressed;
 
     void OnArrowKeyPressed(const GTech::KBKey&);
@@ -60,7 +60,8 @@ namespace GAME {
         void Init(){
 
             /* Connect signals to Scene slots */
-            signalOnEscPressed.connect(GAME::OnEscPressed);
+
+            GTech::RegisterKeyboardEvent_SDL(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_ESC, GAME::OnEscPressed);
             signalOnArrowKeyPressed.connect(GAME::OnArrowKeyPressed);
 
 
@@ -105,7 +106,7 @@ namespace GAME {
         }
         return 0;
     };
-    void OnEscPressed(){
+    void OnEscPressed(const GTech::KBEvent& kbEvent, const GTech::KBKey & kbKey){
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
         bGameIsOn = false;
     }
