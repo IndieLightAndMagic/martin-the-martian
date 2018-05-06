@@ -1,10 +1,9 @@
 #include "entitymanager.h"
 
-#include "Tech_SDLBridge.h"
+#include "Tech/SDL/Tech_SDLBridge.h"
 #include "ShipFactory.h"
 #include "SignalSlot/signalslot.h"
 #include "Event/eventkeyboard.h"
-#include "Event/eventkeyboard_sdlbridge.h"
 
 #include <iostream>
 #include <string>
@@ -38,6 +37,7 @@ namespace GAME {
         ptech = nullptr;
         ptech = GTech::Tech2DFactory::StartTechInstance();
         ptech->Init();
+        
 
         GTech::Rectangle2D rectangle2D(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT);
         GTech::WindowConfiguration windowConfiguration{

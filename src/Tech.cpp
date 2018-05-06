@@ -1,5 +1,5 @@
 #include "Tech.h"
-#include "Tech_SDLBridge.h"
+#include "Tech/SDL/Tech_SDLBridge.h"
 
 
 GTech::Tech GTech::Tech2DFactory::StartTechInstance(GTech::TechDriver tech2D) {

@@ -1,8 +1,10 @@
-#ifndef __SDLBRIDGE_H__
-#define __SDLBRIDGE_H__
+#ifndef __TECH_SDLBRIDGE_H__
+#define __TECH_SDLBRIDGE_H__
 
 #include "Tech.h"
 #include "Texture2D_SDLBridge.h"
+#include "Event/event.h"
+#include "Event/eventkeyboard_sdlbridge.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
@@ -57,13 +59,7 @@ private:
 public:
     Tech_SDLBridge(){}
     ~Tech_SDLBridge() override {};
-    int Init() override {
-        if (SDL_Init(m_initFlags) != 0){
-            std::cerr << "SDL_Init failed: " << SDL_GetError() << "\n";
-            return GTech::GTECH_ERROR;
-        }
-        return GTech::GTECH_OK;
-    }
+    int Init() override;
     void GetWindowSize(GTech::Texture2DSize& rSz) override {
 
         rSz.w = pWindowRect.w;
@@ -305,4 +301,4 @@ public:
         return pRenderer;
     }
 };
-#endif /*__SDLBRIDGE_H__*/
+#endif /*__TECH_SDLBRIDGE_H__*/

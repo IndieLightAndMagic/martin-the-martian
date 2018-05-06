@@ -14,7 +14,6 @@ namespace GTech {
 		map<Uint64, vectorLambda> mDispatchRegisteredLambda;
 		vector<Uint64> vRegisteredKBEvents;
 
-
 	}
 	namespace KeyboardEvent{
         constexpr Uint32 SDLKBEvent(const GTech::KBEvent& rKBEvent){
@@ -41,6 +40,7 @@ namespace GTech {
                     return GTech::KBEvent::KEY_UNKNOWNEVENT;
             }
         };
+
     }
     namespace KeyboardKey{
     	constexpr GTech::KBKey KBKey_SDL(const Sint32& rSDLKBKey){

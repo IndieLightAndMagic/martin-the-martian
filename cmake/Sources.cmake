@@ -30,7 +30,8 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			
 			${CMAKE_SOURCE_DIR}/src/ShipFactory.h
 
-			${CMAKE_SOURCE_DIR}/src/Tech_SDLBridge.h
+			${CMAKE_SOURCE_DIR}/src/Tech/SDL/Tech_SDLBridge.h
+			${CMAKE_SOURCE_DIR}/src/Tech/SDL/Tech_SDLBridge.cpp
 
 			${CMAKE_SOURCE_DIR}/src/Texture2D_SDLBridge.h
 
