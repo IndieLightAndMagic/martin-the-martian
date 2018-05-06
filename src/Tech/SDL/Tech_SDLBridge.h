@@ -60,6 +60,7 @@ public:
     Tech_SDLBridge(){}
     ~Tech_SDLBridge() override {};
     int Init() override;
+    
     void GetWindowSize(GTech::Texture2DSize& rSz) override {
 
         rSz.w = pWindowRect.w;

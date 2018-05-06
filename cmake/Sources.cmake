@@ -7,7 +7,6 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 	add_executable(${PROJECT_NAME}
 
             ${CMAKE_SOURCE_DIR}/src/main.cpp
-            ${CMAKE_SOURCE_DIR}/src/Tech.cpp
 
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/component.h
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentfactory.h
@@ -30,6 +29,9 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			
 			${CMAKE_SOURCE_DIR}/src/ShipFactory.h
 
+            ${CMAKE_SOURCE_DIR}/src/Tech/G/Tech.h
+			${CMAKE_SOURCE_DIR}/src/Tech/G/Tech.cpp
+			
 			${CMAKE_SOURCE_DIR}/src/Tech/SDL/Tech_SDLBridge.h
 			${CMAKE_SOURCE_DIR}/src/Tech/SDL/Tech_SDLBridge.cpp
 

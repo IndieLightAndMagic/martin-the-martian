@@ -14,7 +14,6 @@ namespace GTech{
 
     template <typename T>
     struct _2d{
-
         T x, y;
     };
 
@@ -32,21 +31,19 @@ namespace GTech{
         T r,g,b,a;
     };
 
-    using WindowSize =  _2d_size<int>;
-    using WindowPosition = _2d<int>;
-    using Texture2DSize = _2d_size<int>;
-
     using Point2D = _2d<int>;
-
+    using Point3D = _3d<int>;
+    using Texture2DSize = _2d_size<int>;
     using Vector2Dd = _2d<double>;
     using Vector2Df = _2d<float>;
     using Vector2Di = _2d<int>;
-
-    using Point3D = _3d<int>;
-
     using Vector3Dd = _3d<double>;
     using Vector3Df = _3d<float>;
     using Vector3Di = _3d<int>;
+    using WindowSize =  _2d_size<int>;
+    using WindowPosition = _2d<int>;
+    
+    
 
     struct Rectangle2D{
         WindowSize winSz;

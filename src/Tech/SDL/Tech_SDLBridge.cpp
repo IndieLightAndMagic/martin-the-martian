@@ -10,3 +10,23 @@ int Tech_SDLBridge::Init() {
     return GTech::GTECH_OK;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
