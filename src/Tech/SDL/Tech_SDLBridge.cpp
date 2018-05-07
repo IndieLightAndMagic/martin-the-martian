@@ -11,7 +11,9 @@ int Tech_SDLBridge::Init() {
 
 }
 
-
+int Tech_SDLBridge::CreateWindow(GTech::WindowConfiguration winConfig, unsigned int uiFlags) {
+	
+}
 
 
 
