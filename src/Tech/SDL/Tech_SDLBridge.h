@@ -55,6 +55,16 @@ namespace GTech{
             return r.w == 0 || r.h == 0;
         }
 
+        
+        /**
+         * @brief      This function should be used internally ONLY by the UpdateEvents function. 
+         *
+         * @param      rKBEvent  Reference to the event to be Dispatched.
+         * @param      rKBKey    Reference to the key to be Dispatched.
+         */
+        void DispatchKeyboardEvent(Uint32& rKBEvent,  Sint32& rKBKey);
+
+
     public:
         Tech_SDLBridge(){}
         ~Tech_SDLBridge() override {};

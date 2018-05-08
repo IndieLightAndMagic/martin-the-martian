@@ -143,7 +143,7 @@ namespace GTech {
 		vLamb.push_back(lf);  
 	}
 
-	void DispatchKeyboardEvent_SDL(Uint32& rKBEvent,  Sint32& rKBKey){
+	void DispatchKeyboardEvent(Uint32& rKBEvent,  Sint32& rKBKey){
 
 		auto mask64 = (static_cast<Uint64>(rKBEvent) << 32) | static_cast<Uint64>(rKBEvent);
 		for (const auto& registeredKBEvent: KeyboardEventDispatcher::vRegisteredKBEvents){
