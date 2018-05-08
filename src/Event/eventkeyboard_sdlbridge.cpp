@@ -1,4 +1,4 @@
-#include "eventkeyboard_sdlbridge.h"
+#include "Tech/SDL/Tech_SDLBridge.h"
 
 #include <map>
 #include <vector>
@@ -124,7 +124,7 @@ namespace GTech {
 		};
         
     }
-	void RegisterKeyboardEvent_SDL(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(const KBEvent&, const KBKey&)> slot){
+	void Tech_SDLBridge::RegisterKeyboardEvent(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(const KBEvent&, const KBKey&)> slot){
 
 		auto sdlEvent64	= static_cast<Uint64>(KeyboardEvent::SDLKBEvent(rKBEvent)) << 32;
 		auto sdlKey64 	= static_cast<Uint64>(KeyboardKey::SDLKBKey(rKBKey));
@@ -140,7 +140,7 @@ namespace GTech {
 		{
 			KeyboardEventDispatcher::vRegisteredKBEvents.push_back(mask64);
 		}
-		vLamb.push_back(lf);
+		vLamb.push_back(lf);  
 	}
 
 	void DispatchKeyboardEvent_SDL(Uint32& rKBEvent,  Sint32& rKBKey){

@@ -61,7 +61,7 @@ namespace GAME {
 
             /* Connect signals to Scene slots */
 
-            GTech::RegisterKeyboardEvent_SDL(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_ESC, GAME::OnEscPressed);
+            ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_ESC, GAME::OnEscPressed);
             signalOnArrowKeyPressed.connect(GAME::OnArrowKeyPressed);
 
 

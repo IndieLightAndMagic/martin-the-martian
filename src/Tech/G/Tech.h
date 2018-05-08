@@ -4,7 +4,9 @@
 #include <cassert>
 #include <cxxabi.h>
 
+#include "Event/eventkeyboard.h"
 #include "SignalSlot/signalslot.h"
+
 
 namespace GTech{
 
@@ -109,6 +111,11 @@ namespace GTech{
 
         virtual void UpdateEvents() = 0;
         virtual void UpdateScreen() = 0;
+
+
+        virtual void RegisterKeyboardEvent(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(const KBEvent&, const KBKey&)>) = 0;
+
+
         virtual void Assert(bool && exp){
             assert(exp);
         };

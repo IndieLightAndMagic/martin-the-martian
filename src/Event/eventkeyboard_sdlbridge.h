@@ -25,11 +25,7 @@ namespace GTech{
         constexpr GTech::KBKey KBKey_SDL(const Sint32& rSDLKBKey);
         constexpr Sint32 SDLKBKey(const GTech::KBKey & rKBKey);
     }
-    /*!
-    \brief Register a generic KBEvent, for a generic keybutton, with a generic Signal.
-    */
-    void RegisterKeyboardEvent_SDL(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(const KBEvent&, const KBKey&)> );
-
+    
 
 }
 
