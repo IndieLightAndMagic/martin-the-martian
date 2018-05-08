@@ -3,7 +3,7 @@
 
 #include <cxxabi.h>
 #include "entity.h"
-#include "Tech.h"
+#include "Tech/G/Tech.h"
 
 using namespace GTech;
 class Entity;

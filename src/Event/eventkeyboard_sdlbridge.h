@@ -2,7 +2,7 @@
 #define __EVENTKEYBOARD_SDL_BRIDGE_H__
 
 
-#include "Tech.h"
+#include "Tech/G/Tech.h"
 #include "Tech/SDL/Tech_SDLBridge.h"
 
 #include "SignalSlot/signalslot.h"

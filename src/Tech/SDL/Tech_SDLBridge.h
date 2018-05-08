@@ -1,7 +1,7 @@
 #ifndef __TECH_SDLBRIDGE_H__
 #define __TECH_SDLBRIDGE_H__
 
-#include "Tech.h"
+#include "Tech/G/Tech.h"
 #include "Texture2D_SDLBridge.h"
 #include "Event/event.h"
 #include "Event/eventkeyboard_sdlbridge.h"
@@ -68,24 +68,7 @@ public:
 
     };
 
-    int CreateWindow(GTech::WindowConfiguration winConfig, unsigned int uiFlags) override {
-
-        pWindow = SDL_CreateWindow(
-                winConfig.title.c_str(),
-                winConfig.windowRectangle.winPos.x,
-                winConfig.windowRectangle.winPos.y,
-                winConfig.windowRectangle.winSz.w,
-                winConfig.windowRectangle.winSz.h,
-                uiFlags);
-
-        if (!pWindow){
-            std::cerr << "SDL_CreateWindow failed. \n";
-            return GTech::GTECH_ERROR;
-        }
-        SDL_GetWindowSize(pWindow, &pWindowRect.w, &pWindowRect.h);
-        return GTech::GTECH_OK;
-
-    }
+    int CreateWindow(GTech::WindowConfiguration winConfig, unsigned int uiFlags) override;
     int CreateRenderer() override {
         pRenderer = SDL_CreateRenderer(pWindow, -1, m_rendererFlags);
         if (!pRenderer){

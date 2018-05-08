@@ -3,7 +3,7 @@
 
 #include <set>
 
-#include "Tech.h"
+#include "Tech/G/Tech.h"
 #include "entitymanager.h"
 #include "ECS/Component/componentmanager.h"
 

@@ -1,6 +1,6 @@
 #ifndef __TEXTURE2D_SDLBRIDGE__
 #define __TEXTURE2D_SDLBRIDGE__
-#include "Tech.h"
+#include "Tech/G/Tech.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>

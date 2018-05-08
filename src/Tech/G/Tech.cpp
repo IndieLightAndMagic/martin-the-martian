@@ -1,4 +1,4 @@
-#include "Tech.h"
+#include "Tech/G/Tech.h"
 #include "Tech/SDL/Tech_SDLBridge.h"
 
 

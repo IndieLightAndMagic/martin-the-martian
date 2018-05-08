@@ -8,7 +8,7 @@
 
 #include <ECS/Component/component.h>
 #include "entity.h"
-#include "Tech.h"
+#include "Tech/G/Tech.h"
 
 #include "SignalSlot/signalslot.h"
 #include "Event/eventkeyboard.h"
