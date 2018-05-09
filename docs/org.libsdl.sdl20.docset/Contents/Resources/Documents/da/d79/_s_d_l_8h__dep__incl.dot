@@ -1,0 +1,18 @@
+digraph "/Users/julian.guarin/Code/hacks/sdl/SDL/include/SDL.h"
+{
+  edge [fontname="FreeSans",fontsize="10",labelfontname="FreeSans",labelfontsize="10"];
+  node [fontname="FreeSans",fontsize="10",shape=record];
+  Node48 [label="/Users/julian.guarin\l/Code/hacks/sdl/SDL/include/\lSDL.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node48 -> Node49 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node49 [label="/Users/julian.guarin\l/Code/hacks/sdl/SDL/include\l/SDL_test.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d3b/_s_d_l__test_8h.html"];
+  Node48 -> Node50 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node50 [label="/Users/julian.guarin\l/Code/hacks/sdl/SDL/include\l/SDL_test_common.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/dc7/_s_d_l__test__common_8h.html"];
+  Node50 -> Node49 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node48 -> Node51 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node51 [label="/Users/julian.guarin\l/Code/hacks/sdl/SDL/include\l/SDL_test_compare.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d59/_s_d_l__test__compare_8h.html"];
+  Node51 -> Node49 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node48 -> Node52 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node52 [label="/Users/julian.guarin\l/Code/hacks/sdl/SDL/include\l/SDL_test_images.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d4/d55/_s_d_l__test__images_8h.html"];
+  Node52 -> Node51 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node52 -> Node49 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+}

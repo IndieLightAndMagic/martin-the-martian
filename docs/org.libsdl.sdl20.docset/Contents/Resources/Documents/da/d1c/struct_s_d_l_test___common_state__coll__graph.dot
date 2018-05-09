@@ -1,0 +1,8 @@
+digraph "SDLTest_CommonState"
+{
+  edge [fontname="FreeSans",fontsize="10",labelfontname="FreeSans",labelfontsize="10"];
+  node [fontname="FreeSans",fontsize="10",shape=record];
+  Node1 [label="SDLTest_CommonState",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" audiospec" ,fontname="FreeSans"];
+  Node2 [label="SDL_AudioSpec",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d1/d75/struct_s_d_l___audio_spec.html"];
+}

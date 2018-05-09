@@ -1,0 +1,20 @@
+digraph "/Users/julian.guarin/Code/hacks/sdl/SDL/include/SDL_filesystem.h"
+{
+  edge [fontname="FreeSans",fontsize="10",labelfontname="FreeSans",labelfontsize="10"];
+  node [fontname="FreeSans",fontsize="10",shape=record];
+  Node9 [label="/Users/julian.guarin\l/Code/hacks/sdl/SDL/include\l/SDL_filesystem.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node9 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node10 [label="/Users/julian.guarin\l/Code/hacks/sdl/SDL/include/\lSDL.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$de/ddc/_s_d_l_8h.html"];
+  Node10 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node11 [label="/Users/julian.guarin\l/Code/hacks/sdl/SDL/include\l/SDL_test.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d3b/_s_d_l__test_8h.html"];
+  Node10 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node12 [label="/Users/julian.guarin\l/Code/hacks/sdl/SDL/include\l/SDL_test_common.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/dc7/_s_d_l__test__common_8h.html"];
+  Node12 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node10 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node13 [label="/Users/julian.guarin\l/Code/hacks/sdl/SDL/include\l/SDL_test_compare.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d59/_s_d_l__test__compare_8h.html"];
+  Node13 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node10 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node14 [label="/Users/julian.guarin\l/Code/hacks/sdl/SDL/include\l/SDL_test_images.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d4/d55/_s_d_l__test__images_8h.html"];
+  Node14 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+  Node14 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
+}
