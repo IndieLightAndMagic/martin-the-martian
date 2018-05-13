@@ -126,6 +126,13 @@ namespace GTech {
 		};
         
     }
+    void Tech_SDLBridge::RegisterKeyboardEvent(const KBEvent& rKBEvent, std::vector<const KBKey> vKBKeys, std::function<void(const KBEvent&, const KBKey&)> slot)
+    {
+        for (const auto key : vKBKeys)
+        {
+            RegisterKeyboardEvent(rKBEvent,key,slot);
+        }
+    }
 	void Tech_SDLBridge::RegisterKeyboardEvent(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(const KBEvent&, const KBKey&)> slot){
 
 

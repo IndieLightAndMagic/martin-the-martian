@@ -114,7 +114,7 @@ namespace GTech{
 
 
         virtual void RegisterKeyboardEvent(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(const KBEvent&, const KBKey&)>) = 0;
-
+        virtual void RegisterKeyboardEvent(const KBEvent& rKBEvent, std::vector<const KBKey>, std::function<void(const KBEvent&, const KBKey&)>) = 0;
 
         virtual void Assert(bool && exp){
             assert(exp);

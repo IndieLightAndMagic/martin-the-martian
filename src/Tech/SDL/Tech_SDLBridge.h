@@ -220,6 +220,7 @@ namespace GTech{
         void UpdateEvents() override;
         
         virtual void RegisterKeyboardEvent(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(const KBEvent&, const KBKey&)>) override;
+        virtual void RegisterKeyboardEvent(const KBEvent& rKBEvent, std::vector<const KBKey>, std::function<void(const KBEvent&, const KBKey&)>) override;
 
 
         unsigned long GetJoysticksCount() override {

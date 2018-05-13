@@ -57,10 +57,12 @@ namespace GAME {
 
     }
     namespace SCENE{
-        void Init(){
+        void Init()
+        {
             /* Connect signals to Scene slots */
-            ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_ESC,      GAME::OnEscPressed);
-            ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_RIGHT,    GAME::OnArrowKeyPressed);
+            auto arrowKeys = std::vector<const GTech::KBKey>{K_RIGHT, K_LEFT, K_UP, K_DOWN};
+            ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_ESC, GAME::OnEscPressed);
+            ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, arrowKeys, GAME::OnArrowKeyPressed);
         }
     }
     
