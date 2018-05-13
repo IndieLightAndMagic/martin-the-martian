@@ -51,58 +51,24 @@ namespace GAME {
         //SDL Specific Code.
         auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
         ptech->Assert(sdl_ptech->InitImageLoading() != 0);
-        ptech->Assert(sdl_ptech->DetectJoysticks() != 0);
+        //ptech->Assert(sdl_ptech->DetectJoysticks() != 0);
 
 
 
     }
     namespace SCENE{
         void Init(){
-
             /* Connect signals to Scene slots */
-
             ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_ESC, GAME::OnEscPressed);
-            signalOnArrowKeyPressed.connect(GAME::OnArrowKeyPressed);
-
-
         }
     }
-    void ProcessSDLEvents(){
-
-        SDL_Event e;
-        while (SDL_PollEvent(&e)){
-            if (e.type == SDL_KEYDOWN){
-                if (e.key.keysym.sym  == SDLK_ESCAPE){
-                    signalOnEscPressed.emit();
-                }
-            }
-        }
-    }
+    
     unsigned int MainLoop() {
-        SDL_Event e;
-        e.type = SDL_KEYUP;
+ 
         bGameIsOn = true;
         auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
         while (bGameIsOn){
-
-            SDL_Event e;
-            while(SDL_PollEvent(&e)){
-
-                if (e.type == SDL_KEYDOWN ){
-
-                    if ( e.key.keysym.sym == SDLK_ESCAPE ){
-                        signalOnEscPressed.emit();
-                    } else if ( e.key.keysym.sym == SDLK_UP){
-                        signalOnArrowKeyPressed.emit(KBKey{KBKey::K_UP});
-                    } else if ( e.key.keysym.sym == SDLK_DOWN){
-                        signalOnArrowKeyPressed.emit(KBKey{KBKey::K_DOWN});
-                    } else if ( e.key.keysym.sym == SDLK_LEFT){
-                        signalOnArrowKeyPressed.emit(KBKey{KBKey::K_LEFT});
-                    } else if ( e.key.keysym.sym == SDLK_RIGHT){
-                        signalOnArrowKeyPressed.emit(KBKey{KBKey::K_RIGHT});
-                    }
-                }
-            }
+            sdl_ptech->UpdateEvents();
         }
         return 0;
     };

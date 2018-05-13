@@ -20,7 +20,7 @@ namespace GTech{
         Signal() : current_id_(0) {}
 
         // copy creates new signal
-        Signal(Signal const& other) : current_id_(0) {}
+        Signal(Signal const& other) = default;
 
         // connects a member function to this Signal
         template <typename T>

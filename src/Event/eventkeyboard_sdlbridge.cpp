@@ -2,6 +2,7 @@
 
 #include <map>
 #include <vector>
+#include <algorithm>
 #include <functional>
 
 using namespace std;
@@ -12,7 +13,7 @@ namespace GTech {
 		using vectorSignalsKBEventKey = vector<Signal<GTech::KBEvent&, GTech::KBKey&>&>;
 		using vectorLambda = vector<function<void()>>;
 		map<Uint64, vectorLambda> mDispatchRegisteredLambda;
-		vector<Uint64> vRegisteredKBEvents;
+		vector<Uint64> vRegisteredKBEventsKeysMaskedPair;
 
 	}
 	namespace KeyboardEvent{
@@ -82,6 +83,7 @@ namespace GTech {
 
     		}
 		};
+
 		constexpr Sint32 SDLKBKey(const GTech::KBKey & rKBKey){
     		switch(rKBKey){
 
@@ -126,8 +128,11 @@ namespace GTech {
     }
 	void Tech_SDLBridge::RegisterKeyboardEvent(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(const KBEvent&, const KBKey&)> slot){
 
-		auto sdlEvent64	= static_cast<Uint64>(KeyboardEvent::SDLKBEvent(rKBEvent)) << 32;
-		auto sdlKey64 	= static_cast<Uint64>(KeyboardKey::SDLKBKey(rKBKey));
+
+        auto sdlKBEvent = KeyboardEvent::SDLKBEvent(rKBEvent);
+        auto sdlEvent64	= static_cast<Uint64>(sdlKBEvent) << 32;
+		auto sdlKBKey   = KeyboardKey::SDLKBKey(rKBKey);
+        auto sdlKey64 	= static_cast<Uint64>(sdlKBKey);
 		auto mask64		= sdlEvent64 | sdlKey64;
 
 		Signal<const KBEvent&, const KBKey&> signal;
@@ -138,21 +143,29 @@ namespace GTech {
 		auto vLamb = KeyboardEventDispatcher::mDispatchRegisteredLambda[mask64];
 		if (vLamb.empty())
 		{
-			KeyboardEventDispatcher::vRegisteredKBEvents.push_back(mask64);
+			KeyboardEventDispatcher::vRegisteredKBEventsKeysMaskedPair.push_back(mask64);
 		}
-		vLamb.push_back(lf);  
+        KeyboardEventDispatcher::mDispatchRegisteredLambda[mask64].push_back(lf);
 	}
 
-	void DispatchKeyboardEvent(Uint32& rKBEvent,  Sint32& rKBKey){
+	void Tech_SDLBridge::DispatchKeyboardEvents(SDL_Event& rEvent){
 
-		auto mask64 = (static_cast<Uint64>(rKBEvent) << 32) | static_cast<Uint64>(rKBEvent);
-		for (const auto& registeredKBEvent: KeyboardEventDispatcher::vRegisteredKBEvents){
+        const auto ev   = rEvent.type;
+        if (ev  != SDL_KEYDOWN && ev  != SDL_KEYUP) return;
+        const auto key  = rEvent.key.keysym.sym;
+        auto mask64     = static_cast<Uint64>(ev );
+        mask64        <<= 32;
+        mask64         |= key;
+        auto beginmask  = KeyboardEventDispatcher::vRegisteredKBEventsKeysMaskedPair.begin();
+        auto endmask    = KeyboardEventDispatcher::vRegisteredKBEventsKeysMaskedPair.end();
+        auto it         = std::find(beginmask, endmask, mask64);
+        if (it == endmask) return;
 
-			if (mask64 != registeredKBEvent) continue;
-			auto vLambdas	= KeyboardEventDispatcher::mDispatchRegisteredLambda[mask64];
-			for (const auto& lambda: vLambdas)
-				lambda();
+        auto vLambda    = KeyboardEventDispatcher::mDispatchRegisteredLambda[mask64];
+        for (auto& lambda : vLambda)
+        {
+            lambda();
+        }
+    }
 
-		}
-	}	
 }

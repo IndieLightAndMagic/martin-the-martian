@@ -31,6 +31,17 @@ namespace GTech {
         return GTech::GTECH_OK;
 
     }
+
+    void Tech_SDLBridge::UpdateEvents() {
+
+        SDL_Event e;
+        while(SDL_PollEvent(&e))
+        {   
+            //Dispathc registered Keyboard Events.
+            DispatchKeyboardEvents(e);
+        }
+
+    }
 }
 
 

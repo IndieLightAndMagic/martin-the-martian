@@ -59,10 +59,10 @@ namespace GTech{
         /**
          * @brief      This function should be used internally ONLY by the UpdateEvents function. 
          *
-         * @param      rKBEvent  Reference to the event to be Dispatched.
-         * @param      rKBKey    Reference to the key to be Dispatched.
+         * @param      rEv  Polled event from SDL.
+         * 
          */
-        void DispatchKeyboardEvent(Uint32& rKBEvent,  Sint32& rKBKey);
+        void DispatchKeyboardEvents(SDL_Event& rEv);
 
 
     public:
@@ -217,11 +217,8 @@ namespace GTech{
         void UpdateScreen() override {
             SDL_RenderPresent(pRenderer);
         }
-        void UpdateEvents() override {
-
-            SDL_Event sEvent;
-
-        }
+        void UpdateEvents() override;
+        
         virtual void RegisterKeyboardEvent(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(const KBEvent&, const KBKey&)>) override;
 
 
