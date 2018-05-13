@@ -29,7 +29,7 @@ namespace GAME {
     void OnEscPressed(const GTech::KBEvent&, const GTech::KBKey&);
     GTech::Signal<> signalOnEscPressed;
 
-    void OnArrowKeyPressed(const GTech::KBKey&);
+    void OnArrowKeyPressed(const GTech::KBEvent&, const GTech::KBKey&);
     GTech::Signal<const GTech::KBKey& > signalOnArrowKeyPressed;
 
     void InitGameTech(){
@@ -59,7 +59,8 @@ namespace GAME {
     namespace SCENE{
         void Init(){
             /* Connect signals to Scene slots */
-            ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_ESC, GAME::OnEscPressed);
+            ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_ESC,      GAME::OnEscPressed);
+            ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_RIGHT,    GAME::OnArrowKeyPressed);
         }
     }
     
@@ -71,24 +72,20 @@ namespace GAME {
             sdl_ptech->UpdateEvents();
         }
         return 0;
-    };
+    }
     void OnEscPressed(const GTech::KBEvent& kbEvent, const GTech::KBKey & kbKey){
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
         bGameIsOn = false;
     }
-    void OnArrowKeyPressed(const KBKey& kbKey){
+    void OnArrowKeyPressed(const GTech::KBEvent& kbEvent, const GTech::KBKey & kbKey){
 
-        bool bGoingLeft = true;
-        bGoingLeft = movingState == MovingState::GOING_LEFT || movingState == MovingState::DODGE_LEFT;
-        bool bGoingRight = true;
-        bGoingRight = movingState == MovingState::GOING_RIGHT || movingState == MovingState::DODGE_RIGHT;
 
-        if (kbKey ==  KBKey::K_LEFT && !bGoingLeft){
+        if (kbKey ==  KBKey::K_LEFT){
             movingState = MovingState::GOING_LEFT;
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Left";
             std::cout << "\n";
-        } else if (kbKey == KBKey::K_RIGHT && !bGoingRight) {
+        } else if (kbKey == KBKey::K_RIGHT) {
             movingState = MovingState::GOING_RIGHT;
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Right";
