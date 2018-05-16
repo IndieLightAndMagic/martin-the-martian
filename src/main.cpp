@@ -12,6 +12,8 @@ void GameInitialization(std::function<void(const Uint32&, const Sint32&)> slotKe
 void OnEscPressed(const Uint32&, const Sint32&);
 void OnArrowKeyPressed(const Uint32&, const Sint32&);
 
+void UpdateEvents();
+
 bool bGameIsOn;
 
 void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
@@ -43,10 +45,10 @@ void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
 void MainLoop()
 {
-
+    bGameIsOn = true;
     while (bGameIsOn)
     {
-
+    	UpdateEvents();
     }
 }
 int main(int argc, char **argv) {
@@ -56,7 +58,7 @@ int main(int argc, char **argv) {
     GameInitialization(OnEscPressed, OnArrowKeyPressed);
 
 
-
+    MainLoop();
 
     
     /* Finish all the tech system (SDL for this case) */
