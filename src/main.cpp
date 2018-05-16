@@ -27,10 +27,8 @@ namespace GAME {
     MovingState movingState;
 
     void OnEscPressed(const GTech::KBEvent&, const GTech::KBKey&);
-    GTech::Signal<> signalOnEscPressed;
 
     void OnArrowKeyPressed(const GTech::KBEvent&, const GTech::KBKey&);
-    GTech::Signal<const GTech::KBKey& > signalOnArrowKeyPressed;
 
     void InitGameTech(){
 
@@ -72,9 +70,9 @@ namespace GAME {
         auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
         while (bGameIsOn){
             sdl_ptech->UpdateEvents();
-            GAME::RenderingSystem::DrawSprites(ptech);
+            ECS::RenderingSystem::DrawSprites(ptech);
 
-            GAME::RenderingSystem::UpdateRenderingSystem(ptech);
+            ECS::RenderingSystem::UpdateRenderingSystem(ptech);
         }
         return 0;
     }
@@ -120,10 +118,10 @@ int main(int argc, char **argv) {
     auto ship = GAME::ShipFactory::CreateShip(ptech);
     GAME::ShipFactory::SetShipPosition(ship, WIN_WIDTH>>1, WIN_HEIGHT>>1);
  
-    GAME::RenderingSystem::SubscribeEntity(ship);
-    GAME::RenderingSystem::InitRenderingSystem(ptech);
+    ECS::RenderingSystem::SubscribeEntity(ship);
+    ECS::RenderingSystem::InitRenderingSystem(ptech);
     GAME::MainLoop();
-    GAME::RenderingSystem::ShutdownRenderingSystem(ptech);
+    ECS::RenderingSystem::ShutdownRenderingSystem(ptech);
 
     
     /* Finish all the tech system (SDL for this case) */

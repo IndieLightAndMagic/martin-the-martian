@@ -10,11 +10,10 @@
 namespace GAME {
 
 
-
     class ShipFactory {
 
     public:
-        static unsigned int CreateShip(const GTech::Tech& rptech){
+        static unsigned int CreateShip(const GTech::Tech &rptech) {
 
             auto entityManager = ECS::EntityManager::GetManager();
             auto componentManager = ECS::ComponentManager::GetManager();
@@ -30,10 +29,10 @@ namespace GAME {
 
             auto spriteComponent = componentManager->CreateComponent<ECS::SpriteComponent>();
             auto spSpriteComponent = componentManager->GetComponent(spriteComponent);
-            auto rpSpriteComponent = static_cast<ECS::SpriteComponent*>(spSpriteComponent.get());
+            auto rpSpriteComponent = static_cast<ECS::SpriteComponent *>(spSpriteComponent.get());
 
             rpSpriteComponent->SetTexture(shipTexture);
-            rpSpriteComponent->SetAnchor({0.5,0.5});
+            rpSpriteComponent->SetAnchor({0.5, 0.5});
 
 
             //Add Components to ship
@@ -44,19 +43,21 @@ namespace GAME {
 
             return shipId;
         }
-        static void SetShipPosition(unsigned int shipId, int x, int y){
+
+        static void SetShipPosition(unsigned int shipId, int x, int y) {
 
             auto componentsList = ECS::EntityManager::GetManager()->GetComponentIds(shipId);
             auto genericComponent = ECS::ComponentManager::GetManager()->GetComponent(componentsList[0]);
             auto rawPointerGenericComponent = genericComponent.get();
-            auto pointerPositionComponent = dynamic_cast<ECS::PositionComponent*>(rawPointerGenericComponent);
+            auto pointerPositionComponent = dynamic_cast<ECS::PositionComponent *>(rawPointerGenericComponent);
             pointerPositionComponent->x = x;
             pointerPositionComponent->y = y;
             pointerPositionComponent->z = 0;
 
         }
     };
-
+}
+namespace ECS {
     class RenderingSystem {
 
 
