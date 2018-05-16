@@ -3,6 +3,7 @@
 #include <functional>
 
 #include <SDL2/SDL.h>
+#include <ECS/System/rendering.h>
 #include "Ship.h"
 
 using namespace std;
@@ -28,11 +29,12 @@ void GameInitialization(std::function<void(const Uint32&, const Sint32&)> slotKe
 
 
     /* Create Ship */
-    auto ship = GAME::Ship::CreateShip();
+    /*auto ship = GAME::Ship::CreateShip();
 
     int width;
     int height;
     SDLWindowSize(&width, &height);
     GAME::Ship::SetShipPosition(ship, width >> 1, height >> 1);
 
+    ECS::RenderingSystem::SubscribeEntity(ship);*/
 }
