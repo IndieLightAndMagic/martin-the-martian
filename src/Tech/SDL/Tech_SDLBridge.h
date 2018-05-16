@@ -142,20 +142,7 @@ namespace GTech{
 
         }
 
-        int SetRenderTarget(GTech::Texture spTxtr) override{
 
-            SDL_Texture* pSDLTexture = GetTextureFromTexture2DSmartPtr(spTxtr);
-            SDL_assert(SDL_SetRenderTarget(pRenderer, pSDLTexture) == 0);
-            return GTech::GTECH_OK;
-        }
-        int DetachRenderTexture() override {
-            SDL_assert(SDL_SetRenderTarget(pRenderer, nullptr) == 0);
-            return GTech::GTECH_OK;
-        }
-        int RenderClear(void) override{
-            SDL_assert(SDL_RenderClear(pRenderer) == 0);
-            return GTech::GTECH_OK;
-        }
 
         int RenderTextureEx(SDL_Texture* pSDLTexture, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point, GTech::FlipType flip) {
 
@@ -216,9 +203,7 @@ namespace GTech{
             return GTech::GTECH_OK;
         }
 
-        void UpdateScreen() override {
-            SDL_RenderPresent(pRenderer);
-        }
+
         void UpdateEvents() override;
         
         virtual void RegisterKeyboardEvent(const KBEvent& rKBEvent, const KBKey& rKBKey, std::function<void(const KBEvent&, const KBKey&)>) override;

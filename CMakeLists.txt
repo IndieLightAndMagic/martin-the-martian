@@ -31,7 +31,8 @@ include(cmake/MacOS.cmake)
 
 #Set C++
 include(cmake/CPP.cmake)
-USE_14()
+#USE_14()
+TRY_17()
 
 #Project is SDL VoidSample
 set(ProjectName VoidSample)

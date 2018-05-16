@@ -5,7 +5,7 @@
 
 
 void SDLInitialization();
-void SDLFinisih();
+void SDLQuit();
 
 void GameInitialization(std::function<void(const Uint32&, const Sint32&)> slotKeyEsc, std::function<void(const Uint32&, const Sint32&)> slotKeyDown);
 
@@ -62,6 +62,6 @@ int main(int argc, char **argv) {
 
     
     /* Finish all the tech system (SDL for this case) */
-    SDL_Quit();
+    SDLQuit();
     return 0;
 }

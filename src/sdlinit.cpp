@@ -1,6 +1,7 @@
 
 
 #include <iostream>
+#include <utility>
 
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
@@ -10,13 +11,17 @@ using namespace std;
 
 SDL_Window* pWindow;
 SDL_Renderer* pRenderer;
-void SDLWindowSize(int* w, int* h) {
-    SDL_GetWindowSize(pWindow, w, h);
+
+
+
+
+SDL_Texture* SDLCreateTexture(SDL_Rect& rSize) {
+    return SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, rSize.w, rSize.h);
 }
+
 void SDLInitialization() {
     constexpr int WindowWidth = 1200;
     constexpr int WindowHeight = 800;
-
 
     Uint32 m_initFlags = SDL_INIT_EVERYTHING;
     if (SDL_Init(m_initFlags) != 0){
@@ -68,8 +73,7 @@ void SDLInitialization() {
     }
 }
 
-SDL_Texture* SDLCreateTextureFromSurface(SDL_Surface* pSurface)
-{
+SDL_Texture* SDLCreateTextureFromSurface(SDL_Surface* pSurface) {
     auto pSDLTexture = SDL_CreateTextureFromSurface(pRenderer, pSurface);
     SDL_FreeSurface(pSurface);
     if (!pSDLTexture){
@@ -78,7 +82,36 @@ SDL_Texture* SDLCreateTextureFromSurface(SDL_Surface* pSurface)
     }
     return pSDLTexture;
 }
-void SDLFinisih()
+
+
+void SDLDetachRenderTexture() {
+    SDL_assert(SDL_SetRenderTarget(pRenderer, nullptr) == 0);
+}
+void SDLRenderClear(void) {
+    SDL_assert(SDL_RenderClear(pRenderer) == 0);
+}
+void SDLRenderCopy(SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect) {
+    SDL_RenderCopy(pRenderer, texture, srcrect, dstrect);
+}
+void SDLSetRenderTarget(SDL_Texture* pSDLTexture) {
+    SDL_assert(SDL_SetRenderTarget(pRenderer, pSDLTexture) == 0);
+}
+void SDLUpdateScreen() {
+    SDL_RenderPresent(pRenderer);
+}
+void SDLWindowSize(int* w, int* h) {
+    SDL_GetWindowSize(pWindow, w, h);
+}
+pair<int, int> SDLWindowSize(){
+
+    int w,h;
+    SDL_GetWindowSize(pWindow, &w, &h);
+    auto p = make_pair(w,h);
+    return p;
+
+}
+
+void SDLQuit()
 {
     SDL_Quit();
 }
