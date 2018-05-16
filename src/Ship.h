@@ -1,19 +1,21 @@
-#ifndef __SHIPSPRITEFACTORY_H__
-#define __SHIPSPRITEFACTORY_H__
+#ifndef __SHIP__
+#define __SHIP__
 
 #include <set>
+#include <SDL2_image/SDL_image.h>
 
 #include "Tech/G/Tech.h"
 #include "entitymanager.h"
 #include "ECS/Component/componentmanager.h"
 
+SDL_Texture* SDLCreateTextureFromSurface(SDL_Surface* pSurface);
 namespace GAME {
 
 
-    class ShipFactory {
+    class Ship {
 
     public:
-        static unsigned int CreateShip(const GTech::Tech &rptech) {
+        static unsigned int CreateShip() {
 
             auto entityManager = ECS::EntityManager_::GetManager();
             auto componentManager = ECS::ComponentManager::GetManager();
@@ -25,15 +27,17 @@ namespace GAME {
             auto positionComponent = componentManager->CreateComponent<ECS::PositionComponent>();
             auto speedComponent = componentManager->CreateComponent<ECS::SpeedComponent>();
 
-            auto shipTexture = rptech->LoadTexture("hero.png");
+            std::string localPath = std::string(RES_DIR) + "hero.png";
+            SDL_Surface* pImageSurface = IMG_Load(localPath.c_str());
+            if (!pImageSurface){
+                std::cerr << "SDL Error loading surface from: " << localPath << "\n";
+                SDL_assert(false);
+            }
 
-            auto spriteComponent = componentManager->CreateComponent<ECS::SpriteComponent>();
-            auto spSpriteComponent = componentManager->GetComponent(spriteComponent);
-            auto rpSpriteComponent = static_cast<ECS::SpriteComponent *>(spSpriteComponent.get());
-
-            rpSpriteComponent->SetTexture(shipTexture);
-            rpSpriteComponent->SetAnchor({0.5, 0.5});
-
+            SDL_Texture* pSDLTexture = SDLCreateTextureFromSurface(pImageSurface);
+            auto spriteComponent = ECS::ComponentManager::GetManager()->CreateComponent<ECS::SpriteComponent>();
+            auto rawSpriteComponent = dynamic_cast<ECS::SpriteComponent*>(ECS::ComponentManager::GetManager()->GetComponent(spriteComponent).get());
+            rawSpriteComponent->SetTexture(pSDLTexture);
 
             //Add Components to ship
             entityManager->AddComponent(shipId, positionComponent);
@@ -59,4 +63,4 @@ namespace GAME {
 }
 
 
-#endif /* __SHIPSPRITEFACTORY_H__ */
+#endif /* __SHIP__ */

@@ -7,16 +7,24 @@
 
 using namespace std;
 
-void SDLInitialization()
-{
+
+SDL_Window* pWindow;
+SDL_Renderer* pRenderer;
+void SDLWindowSize(int* w, int* h) {
+    SDL_GetWindowSize(pWindow, w, h);
+}
+void SDLInitialization() {
     constexpr int WindowWidth = 1200;
     constexpr int WindowHeight = 800;
+
+
     Uint32 m_initFlags = SDL_INIT_EVERYTHING;
     if (SDL_Init(m_initFlags) != 0){
         std::cerr << "SDL_Init failed: " << SDL_GetError() << "\n";
         SDL_assert(false);
     }
-    auto pWindow = SDL_CreateWindow(
+    pWindow = nullptr;
+    pWindow = SDL_CreateWindow(
             "Kill the Martian!!!",
             SDL_WINDOWPOS_CENTERED,
             SDL_WINDOWPOS_CENTERED,
@@ -28,8 +36,8 @@ void SDLInitialization()
         std::cerr << "SDL CreateWindow failed. \n";
         SDL_assert(false);
     }
-
-    auto pRenderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_TARGETTEXTURE);
+    pRenderer = nullptr;
+    pRenderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED|SDL_RENDERER_TARGETTEXTURE);
     if (!pRenderer){
         std::cerr << "SDL_CreatRenderer failed. \n";
         SDL_assert(false);
@@ -58,4 +66,19 @@ void SDLInitialization()
         std::cerr << "IMG_Init failed. \n";
         SDL_assert(false);
     }
+}
+
+SDL_Texture* SDLCreateTextureFromSurface(SDL_Surface* pSurface)
+{
+    auto pSDLTexture = SDL_CreateTextureFromSurface(pRenderer, pSurface);
+    SDL_FreeSurface(pSurface);
+    if (!pSDLTexture){
+        std::cerr << "Tech_SDLBridge: Couldn't create a texture... \n";
+        SDL_assert(false);
+    }
+    return pSDLTexture;
+}
+void SDLFinisih()
+{
+    SDL_Quit();
 }

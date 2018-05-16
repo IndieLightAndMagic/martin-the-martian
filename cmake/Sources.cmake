@@ -33,7 +33,7 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard_sdlbridge.h
 			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard_sdlbridge.cpp
 			
-			${CMAKE_SOURCE_DIR}/src/ShipFactory.h
+			${CMAKE_SOURCE_DIR}/src/Ship.h
 
             ${CMAKE_SOURCE_DIR}/src/Tech/G/Tech.h
 			${CMAKE_SOURCE_DIR}/src/Tech/G/Tech.cpp

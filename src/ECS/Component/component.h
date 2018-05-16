@@ -2,6 +2,7 @@
 #define __COMPONENT_H__
 
 #include <cxxabi.h>
+#include <SDL2/SDL_system.h>
 #include "entity.h"
 #include "Tech/G/Tech.h"
 
@@ -42,44 +43,22 @@ namespace ECS {
 
     class SpriteComponent : public Component {
 
-        GTech::Texture texture;
-        GTech::Vector2Dd anchor;
-        double scale;
+        SDL_Texture* pTexture;
+
     public:
-        SpriteComponent() : scale(1.0), anchor({0.0, 0.0}) {}
+        SpriteComponent() {}
 
-        GTech::Vector2Dd *GetAnchor() {
-            return &anchor;
+
+        inline SDL_Texture* GetTexture() {
+            return pTexture;
         }
 
-        inline GTech::Texture &GetTexture() {
-
-            return texture;
-
+        inline void SetTexture(SDL_Texture* pt) {
+            pTexture = pt;
         }
 
-        inline double *GetScale() {
 
-            return &scale;
 
-        }
-
-        inline void SetTexture(GTech::Texture ptexture) {
-            texture = ptexture;
-        }
-
-        inline void SetAnchor(const GTech::Vector2Dd &rAnchor) {
-
-            anchor.x = rAnchor.x;
-
-            anchor.y = rAnchor.y;
-        }
-
-        inline void SetScale(const double &rscale) {
-
-            scale = rscale;
-
-        }
     };
 
 
