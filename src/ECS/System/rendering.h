@@ -91,7 +91,7 @@ namespace ECS {
             return 1;
 
         }
-        static unsigned int DrawSprites(const GTech::Tech& rptech){
+        static unsigned int DrawSprites(){
 
             auto sz = textures.size();
             for (auto index = 0; index < sz; ++index){
@@ -127,6 +127,10 @@ namespace ECS {
             rect.h = wh.second;
             pScreen = SDLCreateTexture(rect);
 
+            SDLSetRenderTarget(pScreen);
+            SDLRenderClear();
+
+
         }
         static void ShutdownRenderingSystem() {
 
@@ -145,6 +149,7 @@ namespace ECS {
 
         }
     };
+
 }
 #endif /*__RENDERING__ */
  

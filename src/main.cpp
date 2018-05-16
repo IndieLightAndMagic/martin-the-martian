@@ -1,4 +1,5 @@
 
+#include <ECS/System/rendering.h>
 #include "ECS/Component/componentmanager.h"
 #include "Tech/SDL/Tech_SDLBridge.h"
 #include "Ship.h"
@@ -49,6 +50,8 @@ void MainLoop()
     while (bGameIsOn)
     {
     	UpdateEvents();
+        ECS::RenderingSystem::DrawSprites();
+        ECS::RenderingSystem::UpdateRenderingSystem();
     }
 }
 int main(int argc, char **argv) {

@@ -29,12 +29,17 @@ void GameInitialization(std::function<void(const Uint32&, const Sint32&)> slotKe
 
 
     /* Create Ship */
-    /*auto ship = GAME::Ship::CreateShip();
+    auto ship = GAME::Ship::CreateShip();
 
     int width;
     int height;
     SDLWindowSize(&width, &height);
     GAME::Ship::SetShipPosition(ship, width >> 1, height >> 1);
 
-    ECS::RenderingSystem::SubscribeEntity(ship);*/
+
+    ECS::RenderingSystem::InitRenderingSystem();
+    ECS::RenderingSystem::SubscribeEntity(ship);
+
+
+
 }
