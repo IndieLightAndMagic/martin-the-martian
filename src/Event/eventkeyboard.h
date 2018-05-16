@@ -25,8 +25,8 @@ namespace GTech{
 
 	};
 
-	
-	
+
+
 }
 
 #endif /* __EVENTKEYBOARD_H__ */
