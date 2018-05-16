@@ -7,6 +7,8 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 	add_executable(${PROJECT_NAME}
 
             ${CMAKE_SOURCE_DIR}/src/main.cpp
+			${CMAKE_SOURCE_DIR}/src/sdlinit.cpp
+			${CMAKE_SOURCE_DIR}/src/gameinit.cpp
 
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/component.h
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentfactory.h
