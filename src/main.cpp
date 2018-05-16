@@ -1,15 +1,8 @@
 #include "entitymanager.h"
 
+#include "ECS/System/RenderingSystem.h"
 #include "Tech/SDL/Tech_SDLBridge.h"
 #include "ShipFactory.h"
-#include "SignalSlot/signalslot.h"
-#include "Event/eventkeyboard.h"
-
-#include <iostream>
-#include <string>
-
-#include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
 
 
 const int WIN_WIDTH = 800;
@@ -27,10 +20,7 @@ namespace GAME {
     MovingState movingState;
 
     void OnEscPressed(const GTech::KBEvent&, const GTech::KBKey&);
-    GTech::Signal<> signalOnEscPressed;
-
     void OnArrowKeyPressed(const GTech::KBEvent&, const GTech::KBKey&);
-    GTech::Signal<const GTech::KBKey& > signalOnArrowKeyPressed;
 
     void InitGameTech(){
 
@@ -53,8 +43,6 @@ namespace GAME {
         ptech->Assert(sdl_ptech->InitImageLoading() != 0);
         //ptech->Assert(sdl_ptech->DetectJoysticks() != 0);
 
-
-
     }
     namespace SCENE{
         void Init()
@@ -63,19 +51,27 @@ namespace GAME {
             auto arrowKeys = std::vector<const GTech::KBKey>{K_RIGHT, K_LEFT, K_UP, K_DOWN};
             ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_ESC, GAME::OnEscPressed);
             ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, arrowKeys, GAME::OnArrowKeyPressed);
+        
+           /* Create Ship */
+            auto ship = GAME::ShipFactory::CreateShip(ptech);
+            GAME::ShipFactory::SetShipPosition(ship, WIN_WIDTH>>1, WIN_HEIGHT>>1);
+            ECS::RenderingSystem::SubscribeEntity(ship);
         }
     }
     
     unsigned int MainLoop() {
  
         bGameIsOn = true;
-        auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
+        ECS::RenderingSystem::InitRenderingSystem(ptech);
         while (bGameIsOn){
-            sdl_ptech->UpdateEvents();
-            GAME::RenderingSystem::DrawSprites(ptech);
-
-            GAME::RenderingSystem::UpdateRenderingSystem(ptech);
+            
+            ptech->UpdateEvents();
+            ECS::RenderingSystem::DrawSprites(ptech);
+            ECS::RenderingSystem::UpdateRenderingSystem(ptech);
+        
         }
+        ECS::RenderingSystem::ShutdownRenderingSystem(ptech);
+
         return 0;
     }
     void OnEscPressed(const GTech::KBEvent& kbEvent, const GTech::KBKey & kbKey){
@@ -116,15 +112,8 @@ int main(int argc, char **argv) {
     InitGameTech();
     GAME::SCENE::Init();
 
-    /* Create Ship */
-    auto ship = GAME::ShipFactory::CreateShip(ptech);
-    GAME::ShipFactory::SetShipPosition(ship, WIN_WIDTH>>1, WIN_HEIGHT>>1);
- 
-    GAME::RenderingSystem::SubscribeEntity(ship);
-    GAME::RenderingSystem::InitRenderingSystem(ptech);
     GAME::MainLoop();
-    GAME::RenderingSystem::ShutdownRenderingSystem(ptech);
-
+    
     
     /* Finish all the tech system (SDL for this case) */
     ptech->Finish();

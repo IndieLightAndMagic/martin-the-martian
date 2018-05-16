@@ -12,6 +12,8 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentfactory.h
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentmanager.h
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/inputcomponent.h
+			${CMAKE_SOURCE_DIR}/src/ECS/System/RenderingSystem.h
+			${CMAKE_SOURCE_DIR}/src/ECS/System/RenderingSystem.cpp
 
 
 			${CMAKE_SOURCE_DIR}/src/entity.h
