@@ -59,11 +59,21 @@ namespace GAME {
 
     class RenderingSystem {
 
-        static std::vector<GTech::Texture2D*>  textures;
-        static std::vector<GTech::Vector2Dd*>     anchors;
+
+        static std::vector<unsigned int>            ids;
+        static std::vector<GTech::Texture2D*>       textures;
+        static std::vector<GTech::Vector2Dd*>       anchors;
         static std::vector<double*>                 scales;
         static std::vector<ECS::PositionComponent*> positions;
+        static unsigned int*                        ids_;
+        static GTech::Texture2D**                   textures_;
+        static GTech::Vector2Dd**                   anchors_;
+        static double**                             scales_;
+        static ECS::PositionComponent**             positions_;
 
+
+        //Screen Context
+        static GTech::Texture pScreen;
     public:
         static unsigned int SubscribeEntity(unsigned int id){
 
@@ -112,12 +122,14 @@ namespace GAME {
                 return 0;
 
             }
-            auto pTexture = pSpriteComponent->GetTexture();
-            textures.push_back(pTexture.get());
 
-            anchors.push_back(pSpriteComponent->GetAnchor());
-            scales.push_back(pSpriteComponent->GetScale());
-            positions.push_back(pPositionComponent);
+            auto pTexture = pSpriteComponent->GetTexture();
+
+            textures.push_back(pTexture.get());                 textures_   = textures.data();
+            anchors.push_back(pSpriteComponent->GetAnchor());   anchors_    = anchors.data();
+            scales.push_back(pSpriteComponent->GetScale());     scales_     = scales.data();
+            positions.push_back(pPositionComponent);            positions_  = positions.data();
+            ids.push_back(id);                                  ids_        = ids.data();
 
             return 1;
 
@@ -127,14 +139,14 @@ namespace GAME {
             auto sz = textures.size();
             for (auto index = 0; index < sz; ++index){
 
-                auto pTexture = textures[index];
+                auto pTexture = textures_[index];
                 if (!pTexture) continue;
 
-                auto rAnchor = anchors[index];
+                auto rAnchor = anchors_[index];
 
-                auto rScale = scales[index];
+                auto rScale = scales_[index];
 
-                auto rPosition = positions[index];
+                auto rPosition = positions_[index];
 
                 GTech::Texture2DSize wsz;
                 rptech->GetWindowSize(wsz);
@@ -155,22 +167,52 @@ namespace GAME {
 
                 rptech->RenderTextureEx(pTexture, dstrect, GTech::Zero, 0.0, anchorPoint, GTech::FlipType::FLIP_NO);
 
-                SDL_Log("Hi!");
-
             }
 
             return 1;
         }
+        static int InitRenderingSystem(const GTech::Tech& rpTech) {
+            
+            Texture2DSize sz;
+            rpTech->GetWindowSize(sz);
 
-        static void Update(const GTech::Tech& rpTech){
-            DrawSprites(rpTech);
+            pScreen.reset();
+            pScreen = rpTech->CreateTextureWithSize(sz);
+
+            rpTech->SetRenderTarget(pScreen); 
+            rpTech->RenderClear();
+
+            return pScreen ? true : false;
+
+        }
+        static bool ShutdownRenderingSystem(const GTech::Tech& rpTech) {
+
+            rpTech->DestroyTexture(pScreen);
+            return rpTech->DestroyTexture(pScreen) == GTECH_OK ? true : false;
+
+        }
+
+        static void UpdateRenderingSystem(const GTech::Tech& rpTech){
+
+            rpTech->DetachRenderTexture();
+            rpTech->RenderClear();
+            rpTech->RenderTextureEx(pScreen, GTech::Zero, GTech::Zero, 0, pScreen->Center(), GTech::FlipType::FLIP_NO);
+            rpTech->UpdateScreen();
+            rpTech->SetRenderTarget(pScreen); 
+
         }
     };
-    std::vector<GTech::Texture2D*>        RenderingSystem::textures{};
-    std::vector<GTech::Vector2Dd*>        RenderingSystem::anchors{};
+    std::vector<unsigned int>               RenderingSystem::ids{};
+    std::vector<GTech::Texture2D*>          RenderingSystem::textures{};
+    std::vector<GTech::Vector2Dd*>          RenderingSystem::anchors{};
     std::vector<double*>                    RenderingSystem::scales{};
     std::vector<ECS::PositionComponent*>    RenderingSystem::positions{};
-
+    unsigned int*                           RenderingSystem::ids_        = nullptr;
+    GTech::Texture2D**                      RenderingSystem::textures_   = nullptr;
+    GTech::Vector2Dd**                      RenderingSystem::anchors_    = nullptr;
+    double**                                RenderingSystem::scales_     = nullptr;
+    ECS::PositionComponent**                RenderingSystem::positions_  = nullptr;
+    GTech::Texture                          RenderingSystem::pScreen     = nullptr;
 }
 
 

@@ -14,6 +14,8 @@
 static const std::string TAG{"Tech_SDLBridge"};
 namespace GTech{
     class Tech_SDLBridge : public GTech::TechnologyLibraryInterface{
+
+        
     private:
 
         unsigned int m_initFlags{SDL_INIT_EVERYTHING};

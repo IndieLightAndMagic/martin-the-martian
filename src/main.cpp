@@ -72,6 +72,9 @@ namespace GAME {
         auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
         while (bGameIsOn){
             sdl_ptech->UpdateEvents();
+            GAME::RenderingSystem::DrawSprites(ptech);
+
+            GAME::RenderingSystem::UpdateRenderingSystem(ptech);
         }
         return 0;
     }
@@ -116,37 +119,13 @@ int main(int argc, char **argv) {
     /* Create Ship */
     auto ship = GAME::ShipFactory::CreateShip(ptech);
     GAME::ShipFactory::SetShipPosition(ship, WIN_WIDTH>>1, WIN_HEIGHT>>1);
+ 
     GAME::RenderingSystem::SubscribeEntity(ship);
+    GAME::RenderingSystem::InitRenderingSystem(ptech);
+    GAME::MainLoop();
+    GAME::RenderingSystem::ShutdownRenderingSystem(ptech);
 
-    /* Create a texture to draw on */
-    GTech::Texture2DSize textureSize{WIN_WIDTH, WIN_HEIGHT};
-    auto pATexture = ptech->CreateTextureWithSize(textureSize);
-
-    /* Set the texture as the drawing texture */
-    ptech->SetRenderTarget(pATexture);
-    ptech->RenderClear();
-
-    /* Draw the ship */
-    GAME::RenderingSystem::DrawSprites(ptech);
-
-    /* Stop having pATexture as the drawing texture */
-    ptech->DetachRenderTexture();
-
-    /* Clear the screen */
-    ptech->RenderClear();
-
-    /* Take pATexture and render it into the screen */
-    ptech->RenderTextureEx(pATexture, GTech::Zero, GTech::Zero, 0, pATexture->Center(), GTech::FlipType::FLIP_NO);
-
-    /* Ok, show the result */
-    ptech->UpdateScreen();
-
-    /* Set a 3 seconds delay */
-    MainLoop();
-
-    /* Destroy the texture */
-    ptech->DestroyTexture(pATexture);
-
+    
     /* Finish all the tech system (SDL for this case) */
     ptech->Finish();
     return 0;

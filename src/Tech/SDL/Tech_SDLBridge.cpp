@@ -37,7 +37,7 @@ namespace GTech {
         SDL_Event e;
         while(SDL_PollEvent(&e))
         {   
-            //Dispathc registered Keyboard Events.
+            //Dispatch registered Keyboard Events.
             DispatchKeyboardEvents(e);
         }
 

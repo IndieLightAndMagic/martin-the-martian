@@ -80,7 +80,10 @@ namespace GTech{
     };
     using Texture = std::shared_ptr<GTech::Texture2D>;
     using TextureWeak = std::weak_ptr<GTech::Texture2D>;
+
     class TechnologyLibraryInterface {
+    protected:
+        Texture pScreen;
     public:
         TechnologyLibraryInterface(){};
         virtual ~TechnologyLibraryInterface(){};
@@ -99,7 +102,7 @@ namespace GTech{
 
         virtual GTech::Texture LoadTexture(std::string textureFilename) = 0;
         virtual GTech::Texture CreateTextureWithSize(const GTech::Texture2DSize&) = 0;
-
+        
         virtual int RenderTextureEx(GTech::Texture2D* textureToRender, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point , GTech::FlipType flip = GTech::FlipType::FLIP_NO) = 0;
         virtual int RenderTextureEx(GTech::Texture textureToRender, GTech::Rectangle2D dstRect, GTech::Rectangle2D srcRect, const double angle_deg, GTech::Point2D point , GTech::FlipType flip = GTech::FlipType::FLIP_NO) = 0;
         virtual int RenderTexture(GTech::Texture, GTech::Rectangle2D dstRect = GTech::Rectangle2D(), GTech::Rectangle2D srcRect = GTech::Rectangle2D()) = 0;
