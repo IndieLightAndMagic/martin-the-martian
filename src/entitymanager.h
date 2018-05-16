@@ -14,36 +14,15 @@ namespace ECS {
         using ECSPEntityManager = std::shared_ptr<EntityManager_>;
         static ECSPEntityManager entityManager;
 
-        static ECSPEntityManager& GetManager(){
-            if ( entityManager == nullptr ){
-                entityManager = std::make_unique<EntityManager_>();
-            }
-            return entityManager;
-        }
-
-        unsigned int CreateEntity(){
-            ECSPEntity pEntity = EntityFactory::CreateEntity();
-            entityMap[pEntity->m_id] = pEntity;
-            return pEntity->m_id;
-        }
-
-        bool AddComponent(unsigned int entity, unsigned int componentId){
-
-            entityMap[entity]->m_componentIds.push_back(componentId);
-            return true;
-
-        }
-
-        std::vector<unsigned int>& GetComponentIds(unsigned int entity){
-            return entityMap[entity]->m_componentIds;
-        }
-        ECSPEntity GetEntity(unsigned int entity){
-            return entityMap[entity];
-        }
+        static ECSPEntityManager& GetManager();
+        unsigned int CreateEntity();
+		bool AddComponent(unsigned int entity, unsigned int componentId);
+		std::vector<unsigned int>& GetComponentIds(unsigned int entity);
+        ECSPEntity GetEntity(unsigned int entity);
+        
 
 
     };
-    EntityManager_::ECSPEntityManager EntityManager_::entityManager = nullptr;
 
 }
 

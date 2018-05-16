@@ -18,7 +18,7 @@ namespace ECS {
         }
 
     };
-    unsigned int EntityFactory::m_int = 0;
+    
 
 }
 #endif //__ENTITYFACTORY_H__

@@ -13,17 +13,15 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/keyboard.cpp
 
 
-			${CMAKE_SOURCE_DIR}/src/ECS/Component/component.h
-			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentfactory.h
-			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentmanager.h
+			
+			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentfactory.cpp
+			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentmanager.cpp
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/inputcomponent.h
-			${CMAKE_SOURCE_DIR}/src/ECS/System/RenderingSystem.h
+			
 
-
-			${CMAKE_SOURCE_DIR}/src/entity.h
-			${CMAKE_SOURCE_DIR}/src/EntityFactory.h
-			${CMAKE_SOURCE_DIR}/src/entitymanager.h
-
+			${CMAKE_SOURCE_DIR}/src/entityfactory.cpp
+			${CMAKE_SOURCE_DIR}/src/entitymanager.cpp
+			
 			${CMAKE_SOURCE_DIR}/src/Event/event.h
 			${CMAKE_SOURCE_DIR}/src/Event/eventmanager.h
 			
