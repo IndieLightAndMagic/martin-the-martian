@@ -23,11 +23,12 @@ namespace ECS {
 
         //Screen Context
         static GTech::Texture pScreen;
+        static GTech::WindowSize viewport;
     public:
         static unsigned int SubscribeEntity(unsigned int id){
 
             //Get Manager
-            auto entityManager = ECS::EntityManager::GetManager();
+            auto entityManager = ECS::EntityManager_::GetManager();
             auto componentManager = ECS::ComponentManager::GetManager();
             auto componentVectors = entityManager->GetComponentIds(id);
 
@@ -114,6 +115,7 @@ namespace ECS {
                 dstrect.winPos.x = rPosition->x - anchorPoint.x;
                 dstrect.winPos.y = rPosition->y - anchorPoint.y;
 
+                //Render pTexture,
                 rptech->RenderTextureEx(pTexture, dstrect, GTech::Zero, 0.0, anchorPoint, GTech::FlipType::FLIP_NO);
 
             }

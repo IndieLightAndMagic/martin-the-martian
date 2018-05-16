@@ -15,7 +15,7 @@ namespace GAME {
     public:
         static unsigned int CreateShip(const GTech::Tech &rptech) {
 
-            auto entityManager = ECS::EntityManager::GetManager();
+            auto entityManager = ECS::EntityManager_::GetManager();
             auto componentManager = ECS::ComponentManager::GetManager();
 
             //Create Ship Entity
@@ -46,7 +46,7 @@ namespace GAME {
 
         static void SetShipPosition(unsigned int shipId, int x, int y) {
 
-            auto componentsList = ECS::EntityManager::GetManager()->GetComponentIds(shipId);
+            auto componentsList = ECS::EntityManager_::GetManager()->GetComponentIds(shipId);
             auto genericComponent = ECS::ComponentManager::GetManager()->GetComponent(componentsList[0]);
             auto rawPointerGenericComponent = genericComponent.get();
             auto pointerPositionComponent = dynamic_cast<ECS::PositionComponent *>(rawPointerGenericComponent);

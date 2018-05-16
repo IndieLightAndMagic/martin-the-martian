@@ -6,17 +6,17 @@
 
 namespace ECS {
 
-    class EntityManager{
+    class EntityManager_{
 
         std::map<unsigned int, ECSPEntity>entityMap;
 
     public:
-        using ECSPEntityManager = std::shared_ptr<EntityManager>;
+        using ECSPEntityManager = std::shared_ptr<EntityManager_>;
         static ECSPEntityManager entityManager;
 
         static ECSPEntityManager& GetManager(){
             if ( entityManager == nullptr ){
-                entityManager = std::make_unique<EntityManager>();
+                entityManager = std::make_unique<EntityManager_>();
             }
             return entityManager;
         }
@@ -43,7 +43,7 @@ namespace ECS {
 
 
     };
-    EntityManager::ECSPEntityManager EntityManager::entityManager = nullptr;
+    EntityManager_::ECSPEntityManager EntityManager_::entityManager = nullptr;
 
 }
 

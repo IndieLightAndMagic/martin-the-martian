@@ -13,7 +13,7 @@ namespace ECS {
     public:
         unsigned int m_id;
 
-        friend class EntityManager;
+        friend class EntityManager_;
 
     };
     using ECSPEntity = std::shared_ptr<Entity>;

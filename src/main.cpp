@@ -50,20 +50,34 @@ namespace GAME {
         void Init()
         {
             /* Connect signals to Scene slots */
-            auto arrowKeys = std::vector<const GTech::KBKey>{K_RIGHT, K_LEFT, K_UP, K_DOWN};
+            auto arrowKeysGroup = std::vector<const GTech::KBKey>{
+                    K_RIGHT,
+                    K_LEFT,
+                    K_UP,
+                    K_DOWN};
+
+
             ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, GTech::KBKey::K_ESC, GAME::OnEscPressed);
-            ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, arrowKeys, GAME::OnArrowKeyPressed);
+            ptech->RegisterKeyboardEvent(GTech::KBEvent::KEY_PRESSED, arrowKeysGroup, GAME::OnArrowKeyPressed);
+
+            /* Create Ship */
+            auto ship = GAME::ShipFactory::CreateShip(ptech);
+            GAME::ShipFactory::SetShipPosition(ship, WIN_WIDTH>>1, WIN_HEIGHT>>1);
+            ECS::RenderingSystem::SubscribeEntity(ship);
+
+            /* Splash the scene in the screen */
+            ECS::RenderingSystem::InitRenderingSystem(ptech);
         }
+
     }
     
     unsigned int MainLoop() {
  
         bGameIsOn = true;
-        auto sdl_ptech = dynamic_cast<Tech_SDLBridge*>(ptech.get());
-        while (bGameIsOn){
-            sdl_ptech->UpdateEvents();
-            ECS::RenderingSystem::DrawSprites(ptech);
 
+        while (bGameIsOn){
+            ptech->UpdateEvents();
+            ECS::RenderingSystem::DrawSprites(ptech);
             ECS::RenderingSystem::UpdateRenderingSystem(ptech);
         }
         return 0;
@@ -106,12 +120,7 @@ int main(int argc, char **argv) {
     InitGameTech();
     GAME::SCENE::Init();
 
-    /* Create Ship */
-    auto ship = GAME::ShipFactory::CreateShip(ptech);
-    GAME::ShipFactory::SetShipPosition(ship, WIN_WIDTH>>1, WIN_HEIGHT>>1);
- 
-    ECS::RenderingSystem::SubscribeEntity(ship);
-    ECS::RenderingSystem::InitRenderingSystem(ptech);
+
     GAME::MainLoop();
     ECS::RenderingSystem::ShutdownRenderingSystem(ptech);
 
