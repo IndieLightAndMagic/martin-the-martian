@@ -1,12 +1,12 @@
-#include "entitymanager.h"
 
+#include "ECS/Component/componentmanager.h"
+#include "ECS/System/RenderingSystem.h"
 #include "Tech/SDL/Tech_SDLBridge.h"
 #include "ShipFactory.h"
 
 
 const int WIN_WIDTH = 800;
 const int WIN_HEIGHT = 600;
-
 
 namespace GAME {
 
