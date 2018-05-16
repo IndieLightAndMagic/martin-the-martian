@@ -2,14 +2,6 @@
 
 #include "Tech/SDL/Tech_SDLBridge.h"
 #include "ShipFactory.h"
-#include "SignalSlot/signalslot.h"
-#include "Event/eventkeyboard.h"
-
-#include <iostream>
-#include <string>
-
-#include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
 
 
 const int WIN_WIDTH = 800;
