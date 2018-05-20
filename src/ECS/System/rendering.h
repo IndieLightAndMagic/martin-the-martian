@@ -107,12 +107,12 @@ namespace ECS {
 
                 //Render pTexture,
                 SDL_Rect dstrect;
-                dstrect.w = wh.first;
-                dstrect.h = wh.second;
-                dstrect.x = rPosition->x;
-                dstrect.y = rPosition->y;
+                dstrect.w = 64;
+                dstrect.h = 64;
+                dstrect.x = 0;
+                dstrect.y = 0;
 
-                SDLRenderCopy(pTexture, &dstrect, nullptr);
+                SDLRenderCopy(pTexture, nullptr, &dstrect);
             }
 
             return 1;

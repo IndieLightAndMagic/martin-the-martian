@@ -91,7 +91,7 @@ void SDLRenderClear(void) {
     SDL_assert(SDL_RenderClear(pRenderer) == 0);
 }
 void SDLRenderCopy(SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect) {
-    SDL_RenderCopy(pRenderer, texture, srcrect, dstrect);
+    SDL_assert(SDL_RenderCopy(pRenderer, texture, srcrect, dstrect) == 0);
 }
 void SDLSetRenderTarget(SDL_Texture* pSDLTexture) {
     SDL_assert(SDL_SetRenderTarget(pRenderer, pSDLTexture) == 0);
