@@ -1,0 +1,117 @@
+
+=====================================================================================================================================================================================================================
+Textures: 2D Arrange of information which tipically represents an image. Each element of the array represents a pixel in some color format. 
+
+Sprite: A limited 2D plane in R2 or R3 by a rectangle. Usually a sprite has a texture associated, however it also posseses a position in some coordinate system. A more general representation of a sprite has an Affine Transformation Matrix which represents rotation, scaling and translation.
+A sprite also has anchor point.
+
+
+=====================================================================================================================================================================================================================
+SDL COORDINATE SYSTEM
+
+In SDL Coordinates have their origin in the top left corner of the screen. So an static set of transforms have been set origin in other corners. Also let's consider Anchor Coordinates, this coordinates are inscribed inside Sprite's rectangle and these serve to give a location to the sprites anchor point.  
+
+GLM: We are using glm for math's which is a column first library. 
+
+=====================================================================================================================================================================================================================
+Anchor Coordinates: The Anchor of a sprite is a point inside the sprite's rectangle which indicates where the rotation axis crosses the plane the rectangle belongs to. An anchor point is generally inscribed in a coordinate system with its origin in some point inside the sprite's rectangle, usually some rectangle's corner or the rectangle's center. Whenever the sprite rotates, it will do around the axis which crosses the plane through the anchor point. Also when trying to position the sprite in a coordinate system the location will be referred as where the anchor point would be at. 
+
+		^
+        |          X
+        |          x 
+        |	   +------------+   -
+        |	   |			|   |
+       Y|  	  y|   . ap		|   |
+        |	   |			|   H
+        |	   |			|	|
+        |	   |			|	|
+        |  	  cs------------+	-
+        |
+        |      |----- W ----|
+        |
+        |
+       CS---------------------------------------->
+ 		Fig 1
+
+In Fig 1, both coordinate systems are bottom lefters. This or center 
+
+		SH  : Viewport's Height
+		SW  : Viewport's Width
+		H 	: Sprite's rectangle height.
+        W 	: Sprite's rectangle width.
+        CS  : General Coordinate System (World Coordinates)
+        cs  : Sprite rectangle's coordinate system (Local Coordinates) 
+        ap  : the anchor point
+        X,Y : the coordinate describing the position of the sprite (Relative to the coordinate system CS)
+        x,y : the coordinate describing the position of the anchor point in the rectanle (Relative to the coordinate system cs)
+
+Anchor coordinates are relative ones:
+        0 <= x < 1, 0 <= y < 1
+
+
+Anchor to World Coordinates :
+		
+		constexpr blBL(xp,yp)  = xp*W + cs.x, yp*H  + cs.y = [xp, yp, 1] x [[W 0 cs.x] [0   H cs.y] [0 0 1]]
+		constexpr blTL(xp,yp)  = xp*W + cs.x, -yp*H + cs.y = [xp, yp, 1] x [[W 0 cs.y] [0  -H cs.y] [0 0 1]]
+		constexpr blCTu(xp,yp) = xp*W + cs.x, yp*H  + cs.y = [xp, yp, 1] x [[W 0 cs.x] [0   H cs.y] [0 0 1]]
+		constexpr blCTd(xp,yp) = xp*W + cs.x, yp*H  + cs.y = [xp, yp, 1] x [[W 0 cs.x] [0  -H cs.y] [0 0 1]]
+		
+		constexpr tlBL(xp,yp)  = xp*W + cs.x, yp*-H + cs.y = [xp, yp, 1] x [[W 0 cs.x] [0  -H cs.y] [0 0 1]]
+		constexpr tlTL(xp,yp)  = xp*W + cs.x, yp*H  + cs.y = [xp, yp, 1] x [[W 0 cs.y] [0   H cs.y] [0 0 1]]
+		constexpr tlCTu(xp,yp) = xp*W + cs.x, yp*-H + cs.y = [xp, yp, 1] x [[W 0 cs.x] [0  -H cs.y] [0 0 1]]
+		constexpr tlCTd(xp,yp) = xp*W + cs.x, yp*H  + cs.y = [xp, yp, 1] x [[W 0 cs.x] [0   H cs.y] [0 0 1]]
+
+Observe tha -H is the only differential term, and this appears when Y axis on rectangle and world coordinate grow in different direction (upwards the screen or downwards the screen). So in the end we can say the difference is not _where_ the origin is located at but the difference of directions on both _rectangle's y axis_ and _World coordinate's y axis_, we could refer as SYD (same Y direction) or DYD (diferent Y direction):
+
+		[XP,YP] <= constexpr SYD(xp,yp)  = xp*W + cs.x,  yp*H + cs.y = [xp, yp, 1] x [[W 0 cs.x] [0   H cs.y] [0 0 1]]
+		[XP,YP] <= constexpr DYD(xp,yp)  = xp*W + cs.x, -yp*H + cs.y = [xp, yp, 1] x [[W 0 cs.y] [0  -H cs.y] [0 0 1]]
+
+
+				
+Anchor to Local Coordinates:
+		
+		[X, Y] = constexpr AL(xp,yp) = xp*W, yp*H = [xp yp 1] x [[W 0 0] [0 H 0] [0 0 1]] 
+		
+
+World to Local Coordinates:
+
+		constexpr WL(XP,YP)  = XP/W - cs.x/W, YP/H  - cs.y/H = [XP,YP] x [[1/W 0 -cs.x/W] [0 1/H -cs.y/H] [0 0 1]]
+
+=====================================================================================================================================================================================================================
+Screen Coordinates.
+Screen Coordinates transforms from User selected coordinate system into SDL Absolute coordinate system.
+
+SDL is TOPLEFT (TL) coordinate system.
+
+
+vec3 * mat3x3
+coordinate system's origin is at the bottom left but pointing upwards
+constexpr leftbottomsystem(x,y) =	[x y 1]	 X 	[[1 0 0] [0	-1 SH-1] [0 0 1]] 		= [x -y+SH-1]  //y axis pointing up
+
+vec3 * mat3x3
+coordinate system's origin is at the topleft pointing downwards
+constexpr  topbottomsystem(x,y) =   [x y 1]  X  [[1 0 0] [0 1 0] [0 0 1]] 			= [x y 1]   //y axis ponting down
+
+vec3 * mat3x3
+coordinate system's origin is at the center but pointing upwards
+constexpr   upcentersystem(x,y) =	[x y 1]	 X 	[[1 0 SW/2] [0 1 -SH/2] [0 0 1]] 	= [x+(SW/2) -y+(SH/2) 1] //y axis pointing up 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
