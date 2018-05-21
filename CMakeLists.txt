@@ -26,6 +26,9 @@ include(cmake/Resources.cmake)
 #SDL2 
 include(cmake/SDL.cmake)
 
+#GML 
+include(cmake/GLM.cmake)
+
 #Cocoa 
 include(cmake/MacOS.cmake)
 
@@ -41,6 +44,7 @@ project(${ProjectName})
 PrintLine()
 HeaderMessage("Adding Headers To Project")
 SOURCES_INCLUDE()
+GLM_INCLUDE()
 
 PrintLine()
 HeaderMessage("Adding Sources To Project")
