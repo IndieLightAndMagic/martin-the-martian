@@ -11,7 +11,8 @@
 #include <ECS/Component/componentmanager.h>
 #include <entitymanager.h>
 
-
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
 
 SDL_Texture* SDLCreateTexture(SDL_Rect& rSize);
 void SDLDetachRenderTexture();
@@ -25,9 +26,10 @@ namespace ECS {
     class RenderingSystem {
 
 
-        static std::vector<unsigned int>            ids;
-        static std::vector<SDL_Texture*>       		textures;
-        static std::vector<ECS::PositionComponent*> positions;
+        static std::vector<unsigned int>    ids;
+        static std::vector<SDL_Texture*>    textures;
+        static std::vector<glm::ivec2>      textureSizes;
+        static std::vector<glm::vec3*>      positions;
 
 
         //Screen Context
@@ -46,6 +48,7 @@ namespace ECS {
             ECS::SpriteComponent* pSpriteComponent = nullptr;
             ECS::PositionComponent* pPositionComponent = nullptr;
 
+
             for (auto& componentId:componentVectors){
 
                 auto pComponent = componentManager->GetComponent(componentId);
@@ -58,15 +61,9 @@ namespace ECS {
                 //Found & erase
                 compotypes.erase(pit);
 
-                //Hook to pointers
-                ECS::ECSPComponent_ wpComponent = pComponent;
-                if (auto spComponent = wpComponent.lock()){
-
-                    auto rawPointer = spComponent.get();
-                    if (pComponentType == "ECS::SpriteComponent")           pSpriteComponent = static_cast<ECS::SpriteComponent*>(rawPointer);
-                    else if (pComponentType == "ECS::PositionComponent")    pPositionComponent = static_cast<ECS::PositionComponent*>(rawPointer);
-
-                }
+                auto rawPtr = pComponent.get();
+                if (pComponentType == "ECS::PositionComponent")     pPositionComponent = dynamic_cast<PositionComponent*>(pComponent.get());
+                else if (pComponentType == "ECS::SpriteComponent")  pSpriteComponent = dynamic_cast<SpriteComponent*>(pComponent.get());
 
             }
 
@@ -75,18 +72,25 @@ namespace ECS {
                 for (auto &type: compotypes){
                     std::cout << "RenderingSystem::SubscribeEntity : " << "Component not found: " << type << "\n";
                 }
-                if (!pSpriteComponent) std::cout << "RenderingSystem::SubscribeEntity : pSpriteComponent is null\n";
-                if (!pPositionComponent) std::cout << "RenderingSystem::SubscribeEntity : pSpriteComponent is null\n";
-
                 return 0;
 
             }
 
             auto pTexture = pSpriteComponent->GetTexture();
 
+
+            //Texture Data
             textures.push_back(pTexture);
-            positions.push_back(pPositionComponent);
-            ids.push_back(id);                      
+            int w,h;
+            SDL_QueryTexture(pTexture, nullptr, nullptr, &w, &h);
+
+            auto sizevec = glm::ivec2(w,h);
+            textureSizes.push_back(sizevec);
+
+            //Position data
+            positions.push_back(&pPositionComponent->position);
+
+            ids.push_back(id);
 
             return 1;
 
@@ -96,21 +100,23 @@ namespace ECS {
             auto sz = textures.size();
             for (auto index = 0; index < sz; ++index){
 
+                //Got texture & texture sizes
                 auto pTexture = textures[index];
                 if (!pTexture) continue;
 
+                auto textureSize = textureSizes[index];
+
+                //Got Position
                 auto rPosition = positions[index];
-
-                
-                auto wh = SDLWindowSize();
-
 
                 //Render pTexture,
                 SDL_Rect dstrect;
-                dstrect.w = 64;
-                dstrect.h = 64;
-                dstrect.x = 0;
-                dstrect.y = 0;
+                dstrect.x = rPosition->x;
+                dstrect.y = rPosition->y;
+                dstrect.w = textureSize.x;
+                dstrect.h = textureSize.y;
+                SDL_QueryTexture(pTexture, nullptr, nullptr, &dstrect.w, &dstrect.h);
+
 
                 SDLRenderCopy(pTexture, nullptr, &dstrect);
             }

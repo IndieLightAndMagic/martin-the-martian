@@ -52,11 +52,11 @@ namespace GAME {
 
             auto componentsList = ECS::EntityManager_::GetManager()->GetComponentIds(shipId);
             auto genericComponent = ECS::ComponentManager::GetManager()->GetComponent(componentsList[0]);
+
             auto rawPointerGenericComponent = genericComponent.get();
-            auto pointerPositionComponent = dynamic_cast<ECS::PositionComponent *>(rawPointerGenericComponent);
-            pointerPositionComponent->x = x;
-            pointerPositionComponent->y = y;
-            pointerPositionComponent->z = 0;
+            auto pointerPositionComponent   = dynamic_cast<ECS::PositionComponent*>(rawPointerGenericComponent);
+
+            pointerPositionComponent->position = glm::vec3(x,y,0) ;
 
         }
     };

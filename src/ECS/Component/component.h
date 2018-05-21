@@ -6,6 +6,9 @@
 #include "entity.h"
 #include "Tech/G/Tech.h"
 
+
+#include <glm/vec3.hpp>
+
 using namespace GTech;
 class Entity;
 namespace ECS {
@@ -73,16 +76,20 @@ namespace ECS {
 
 
     class SpeedComponent : public VectorialComponent<double>{};
-    class PositionComponent : public VectorialComponent<double>{};
     class AccelerationComponent : public VectorialComponent<double>{};
 
     using PSpeedComponent = std::shared_ptr<SpeedComponent>;
-    using PPositionComponent = std::shared_ptr<PositionComponent>;
     using PAccelerationComponent = std::shared_ptr<AccelerationComponent>;
 
     using PSpeedComponent_ = std::weak_ptr<SpeedComponent>;
-    using PPositionComponent_ = std::weak_ptr<PositionComponent>;
     using PAccelerationComponent_ = std::weak_ptr<AccelerationComponent>;
+
+    class PositionComponent : public Component {
+    public:
+        glm::vec3 position;
+    };
+
 }
+
 
 #endif /*__COMPONENT_H__*/
