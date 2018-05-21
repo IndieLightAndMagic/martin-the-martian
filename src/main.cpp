@@ -1,67 +1,21 @@
 
-#include <ECS/System/rendering.h>
-#include "ECS/Component/componentmanager.h"
-#include "Tech/SDL/Tech_SDLBridge.h"
-#include "Ship.h"
-
-
 void SDLInitialization();
 void SDLQuit();
 
-void GameInitialization(std::function<void(const Uint32&, const Sint32&)> slotKeyEsc, std::function<void(const Uint32&, const Sint32&)> slotKeyDown);
-
-void OnEscPressed(const Uint32&, const Sint32&);
-void OnArrowKeyPressed(const Uint32&, const Sint32&);
-
-void UpdateEvents();
-
-bool bGameIsOn;
-
-void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
-    std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
-    bGameIsOn = false;
-}
-void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
-
-
-    if (kbKey ==  SDLK_LEFT){
-        std::cout << __FUNCTION__ << ": ";
-        std::cout << " Left";
-        std::cout << "\n";
-    } else if (kbKey == SDLK_RIGHT) {
-        std::cout << __FUNCTION__ << ": ";
-        std::cout << " Right";
-        std::cout << "\n";
-    } else if (kbKey == SDLK_DOWN) {
-        std::cout << __FUNCTION__ << ": ";
-        std::cout << " Down";
-        std::cout << "\n";
-    } else if (kbKey == SDLK_UP) {
-        std::cout << __FUNCTION__ << ": ";
-        std::cout << " Up";
-        std::cout << "\n";
-    }
-
+namespace GAME{
+    void GameInitialization();
+    void MainLoop();
 }
 
-void MainLoop()
-{
-    bGameIsOn = true;
-    while (bGameIsOn)
-    {
-    	UpdateEvents();
-        ECS::RenderingSystem::DrawSprites();
-        ECS::RenderingSystem::UpdateRenderingSystem();
-    }
-}
+
+
 int main(int argc, char **argv) {
 
     /* Init Game Technology */
     SDLInitialization();
-    GameInitialization(OnEscPressed, OnArrowKeyPressed);
 
-
-    MainLoop();
+    GAME::GameInitialization();
+    GAME::MainLoop();
 
     
     /* Finish all the tech system (SDL for this case) */

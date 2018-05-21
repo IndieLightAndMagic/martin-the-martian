@@ -39,7 +39,7 @@ namespace GAME {
             auto rawSpriteComponent = dynamic_cast<ECS::SpriteComponent*>(ECS::ComponentManager::GetManager()->GetComponent(spriteComponent).get());
             rawSpriteComponent->SetTexture(pSDLTexture);
 
-            //Add Components to ship
+            //Add Components to shipId
             entityManager->AddComponent(shipId, positionComponent);
             entityManager->AddComponent(shipId, speedComponent);
             entityManager->AddComponent(shipId, spriteComponent);
@@ -57,6 +57,18 @@ namespace GAME {
             auto pointerPositionComponent   = dynamic_cast<ECS::PositionComponent*>(rawPointerGenericComponent);
 
             pointerPositionComponent->position = glm::vec3(x,y,0) ;
+
+        }
+        static void SetShipPositionDelta(unsigned int shipId, int x, int y) {
+
+            auto componentsList = ECS::EntityManager_::GetManager()->GetComponentIds(shipId);
+            auto genericComponent = ECS::ComponentManager::GetManager()->GetComponent(componentsList[0]);
+
+            auto rawPointerGenericComponent = genericComponent.get();
+            auto pointerPositionComponent   = dynamic_cast<ECS::PositionComponent*>(rawPointerGenericComponent);
+
+            pointerPositionComponent->position.x += x;
+            pointerPositionComponent->position.y += y;
 
         }
     };

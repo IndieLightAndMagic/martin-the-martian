@@ -104,6 +104,7 @@ namespace ECS {
                 auto pTexture = textures[index];
                 if (!pTexture) continue;
 
+
                 auto textureSize = textureSizes[index];
 
                 //Got Position
@@ -111,13 +112,12 @@ namespace ECS {
 
                 //Render pTexture,
                 SDL_Rect dstrect;
+
                 dstrect.x = rPosition->x;
                 dstrect.y = rPosition->y;
                 dstrect.w = textureSize.x;
                 dstrect.h = textureSize.y;
                 SDL_QueryTexture(pTexture, nullptr, nullptr, &dstrect.w, &dstrect.h);
-
-
                 SDLRenderCopy(pTexture, nullptr, &dstrect);
             }
 
