@@ -7,9 +7,8 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 	add_executable(${PROJECT_NAME}
 
             ${CMAKE_SOURCE_DIR}/src/main.cpp
-			${CMAKE_SOURCE_DIR}/src/events.cpp
 			${CMAKE_SOURCE_DIR}/src/sdlinit.cpp
-			${CMAKE_SOURCE_DIR}/src/gameinit.cpp
+			${CMAKE_SOURCE_DIR}/src/game.cpp
 			${CMAKE_SOURCE_DIR}/src/keyboard.cpp
 
 
@@ -19,7 +18,8 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/inputcomponent.h
 			
 			${CMAKE_SOURCE_DIR}/src/ECS/System/rendering.cpp
-			
+
+			${CMAKE_SOURCE_DIR}/src/ECS/Event/events.cpp
 
 			${CMAKE_SOURCE_DIR}/src/entityfactory.cpp
 			${CMAKE_SOURCE_DIR}/src/entitymanager.cpp
@@ -31,7 +31,7 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/Event/eventjoystick.h
 			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard.h
 			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard_sdlbridge.h
-			
+
 			${CMAKE_SOURCE_DIR}/src/Ship.h
 			${CMAKE_SOURCE_DIR}/src/SignalSlot/signalslot.h
 
