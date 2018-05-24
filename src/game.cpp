@@ -5,7 +5,7 @@
 #include <SDL2/SDL.h>
 #include <ECS/System/rendering.h>
 #include "Ship.h"
-
+#include "ECS/Event/events.h"
 using namespace std;
 
 void SDLWindowSize(int* w, int* h);
@@ -14,7 +14,6 @@ void SDLWindowSize(int* w, int* h);
 void RegisterKeyboardEvent(Uint32 event, Sint32 key, function<void(const Uint32&, const Sint32&)> slot);
 void RegisterKeyboardEvents(Uint32 event, vector<Sint32>& keys, std::function<void(const Uint32&, const Sint32&)> slot);
 
-void UpdateEvents();
 
 
 namespace GAME{
@@ -59,7 +58,7 @@ namespace GAME{
         bGameIsOn = true;
         while (bGameIsOn)
         {
-            UpdateEvents();
+            ECS::UpdateEvents();
             ECS::RenderingSystem::DrawSprites();
             ECS::RenderingSystem::UpdateRenderingSystem();
         }
