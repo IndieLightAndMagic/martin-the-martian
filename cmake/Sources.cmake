@@ -10,8 +10,8 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/sdlinit.cpp
 			${CMAKE_SOURCE_DIR}/src/game.cpp
 			${CMAKE_SOURCE_DIR}/src/keyboard.cpp
-
-
+			${CMAKE_SOURCE_DIR}/src/timer.cpp
+			${CMAKE_SOURCE_DIR}/src/timer.h
 			
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentfactory.cpp
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentmanager.cpp
@@ -20,6 +20,7 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/ECS/System/rendering.cpp
 
 			${CMAKE_SOURCE_DIR}/src/ECS/Event/events.cpp
+			${CMAKE_SOURCE_DIR}/src/ECS/Event/events.h
 
 			${CMAKE_SOURCE_DIR}/src/entityfactory.cpp
 			${CMAKE_SOURCE_DIR}/src/entitymanager.cpp
