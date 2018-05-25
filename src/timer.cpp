@@ -9,9 +9,7 @@
 
 using namespace std;
 using namespace GTech;
-
-using VectorLambda = vector<function<void()>>;
-map<Uint32, VectorLambda> mMSecLambdas;
+static unsigned int timedEventId = 0;
 
 TimedEvent::TimedEvent(Uint32 delayMs, State action) {
 
@@ -90,19 +88,17 @@ TimedEvent::operator bool() const {
 
 }
 
-void RegisterTimerEventCallback(Uint32 msKey, std::function<void(shared_ptr<void>)> slot, shared_ptr<void> pParam = nullptr){
+unsigned int TimedEvent::RegisterSlot(std::function<void(shared_ptr<void>)> slot, shared_ptr<void> pParam = nullptr){
 
     Signal<shared_ptr<void>> signal;
     signal.connect(slot);
     auto lf = [=](){
         signal.emit(pParam);
     };
-
-    auto vLamb = mMSecLambdas[msKey];
-    mMSecLambdas[msKey].push_back(lf);
-
+    unsigned int key = ++timedEventId;
+    m_mActiveLambda[key] = ActiveFunctionPair{true, lf};
+    return key;
 }
-
 /*
 void DispatchTimerEvents(SDL_Event& rEvent){
 
