@@ -10,6 +10,9 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/sdlinit.cpp
 			${CMAKE_SOURCE_DIR}/src/game.cpp
 			${CMAKE_SOURCE_DIR}/src/keyboard.cpp
+
+			${CMAKE_SOURCE_DIR}/src/timermanager.cpp
+			${CMAKE_SOURCE_DIR}/src/timermanager.h
 			${CMAKE_SOURCE_DIR}/src/timer.cpp
 			${CMAKE_SOURCE_DIR}/src/timer.h
 			

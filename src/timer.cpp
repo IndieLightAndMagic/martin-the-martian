@@ -9,10 +9,14 @@
 
 using namespace std;
 using namespace GTech;
+
 static unsigned int timedEventId = 0;
-
-TimedEvent::TimedEvent(Uint32 delayMs, State action) {
-
+using namespace ECS;
+TimedEvent_::TimedEvent_(Uint32 delayMs, State action) {
+    
+	m_tickCounterFrequencyHz	= SDL_GetPerformanceFrequency();
+	m_tickCounterPeriodMs 		= 1000 / static_cast<double>(m_tickCounterFrequencyHz);
+	m_timerLoops 				= false;
     m_state = action;
     Set(delayMs);
     Reset();
@@ -27,36 +31,39 @@ TimedEvent::TimedEvent(Uint32 delayMs, State action) {
 
 }
 
-void TimedEvent::Set(Uint32 delayMs){
+void TimedEvent_::Set(Uint32 delayMs){
 
-    m_intervalms = delayMs;
+    m_intervalms 		= delayMs;
+    auto dintervalms	= m_intervalms / m_tickCounterPeriodMs;
+    m_ticksPerInterval	= static_cast<Uint64>(dintervalms);
 
 }
 
-void TimedEvent::Reset(){
+void TimedEvent_::Reset(){
 
     //If running or stopped, continue running or stopped but if
     m_state = State::STOPPED;
-
-    auto dtickperiodms  = 1000 / static_cast<double>(SDL_GetPerformanceFrequency());
-    auto dintervalms    = m_intervalms / dtickperiodms;
-    m_intervalticks     = static_cast<Uint64>(dintervalms);
-    SDL_assert(m_intervalticks);
+    SDL_assert(m_ticksPerInterval);
+    onReset.emit();
 
 }
 
-void TimedEvent::Start(){
+void TimedEvent_::Start(){
 
     switch(m_state){
-
         case State::STOPPED:
-            m_t = SDL_GetPerformanceCounter() + m_intervalticks;
+            m_t = *m_ptrTNow + m_ticksPerInterval;
+            onStarted.emit();
             break;
 
         case State::PAUSED:
-            m_t = SDL_GetPerformanceCounter() + m_intervalticksForPause;
+            m_t = *m_ptrTNow + m_intervalticksForPause;
+            onStarted.emit();
             break;
+
         case State::RUNNING:
+            m_t = *m_ptrTNow + m_intervalticksForLoop;
+            break;
         default:
             break;
     }
@@ -64,60 +71,57 @@ void TimedEvent::Start(){
 
 }
 
-void TimedEvent::Stop(){
+void TimedEvent_::Stop(){
 
     Reset();
+    onStopped.emit();
 
 }
 
-void TimedEvent::Pause(){
+void TimedEvent_::RemainingTicksForLoop(uint64_t& refCounter){
 
-    auto t_now = SDL_GetPerformanceCounter();
-    auto t_delta = (t_now > m_t) ? 0 : m_t - t_now;
-    m_intervalticksForPause = t_delta;
+	auto t_mod = (*m_ptrTNow) % m_ticksPerInterval;  
+    refCounter = m_ticksPerInterval - t_mod;
+
+}
+void TimedEvent_::Pause(){
+
+	RemainingTicksForLoop(m_intervalticksForPause);
     m_state = State::PAUSED;
+    onPaused.emit();
 
 }
 
-TimedEvent::operator bool() const {
+inline void TimedEvent_::TimerLoops(bool doLoop){
 
-    if (m_state != State::RUNNING) return false;
-
-    auto t_now = SDL_GetPerformanceCounter();
-    return t_now >= m_t;
+	m_timerLoops = doLoop;
 
 }
 
-unsigned int TimedEvent::RegisterSlot(std::function<void(shared_ptr<void>)> slot, shared_ptr<void> pParam = nullptr){
+void TimedEvent_::Update(){
 
-    Signal<shared_ptr<void>> signal;
-    signal.connect(slot);
-    auto lf = [=](){
-        signal.emit(pParam);
-    };
-    unsigned int key = ++timedEventId;
-    m_mActiveLambda[key] = ActiveFunctionPair{true, lf};
-    return key;
+	if (m_state == RUNNING){
+
+		if (*m_ptrTNow >= m_t){
+			
+			onTimer.emit();
+			
+			if (m_timerLoops){
+
+				RemainingTicksForLoop(m_intervalticksForLoop);
+				//Start again.
+				Start();
+
+			} else {
+
+				m_state = STOPPED;
+
+			}
+
+		}
+	
+	}
+	
 }
-/*
-void DispatchTimerEvents(SDL_Event& rEvent){
 
-    const auto ev   = rEvent.type;
-    if (ev  != SDL_KEYDOWN && ev  != SDL_KEYUP) return;
-    const auto key  = rEvent.key.keysym.sym;
-    auto mask64     = static_cast<Uint64>(ev );
-    mask64        <<= 32;
-    mask64         |= key;
-    auto beginmask  = vRegisteredKBEventsKeysMaskedPair.begin();
-    auto endmask    = vRegisteredKBEventsKeysMaskedPair.end();
-    auto it         = std::find(beginmask, endmask, mask64);
-    if (it == endmask) return;
-
-    auto vLambda    = mDispatchRegisteredLambda[mask64];
-    for (auto& lambda : vLambda)
-    {
-        lambda();
-    }
-}
-*/
 
