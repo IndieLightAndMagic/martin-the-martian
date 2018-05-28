@@ -31,7 +31,10 @@ namespace ECS{
             return componentMap[componentId];
 
         }
-		
+		template <typename T>
+        inline T* GetComponentRaw(unsigned int componentId){
+            return dynamic_cast<T*>(componentManager->GetComponent(componentId).get());
+        }
     };
     
 

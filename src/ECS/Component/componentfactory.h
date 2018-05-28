@@ -13,6 +13,15 @@ namespace ECS {
             pComp->m_id = ++m_int;
             return pComp;
         }
+        template <typename T> static Component CreateComponent(T* pComponent){
+
+            Component pComp = std::make_shared<T>();
+            auto rawComponent = static_cast<ECS::Component_*>(pComponent);
+            pComp.reset(rawComponent);
+            pComp->m_id = ++m_int;
+            return pComp;
+
+        }
     };
     
 }

@@ -1,7 +1,7 @@
 #ifndef __BOLT__
 #define __BOLT__
 
-#include "entitymanager.h"
+#include "ECS/Entity/entitymanager.h"
 #include "ECS/Component/componentmanager.h"
 
 namespace GAME {
@@ -9,33 +9,30 @@ namespace GAME {
 
 	class Bolt {
 	public:
-		static unsigned int CreateBolt(){
-			
-			auto entityManager = ECS::EntityManager_::GetManager();
-			auto componentManager = ECS::ComponentManager::GetManager();
+		static unsigned int CreateBolt(std::string& path){
 
+			auto entityManager = ECS::EntityManager_::GetManager();
+			auto componentManager = ECS::ComponentManager_::GetManager();
+
+			//Create Ship Entity_a
 			auto boltId = entityManager->CreateEntity();
 
-			auto positionComponent = componentManager->CreateComponent<ECS::PositionComponent>();
-			auto speedComponent = componentManager->CreateComponent<ECS::SpeedComponent>();
+			//Create a Position & Speed Components
+			auto positionComponent  = componentManager->CreateComponent<ECS::PositionComponent_>();
+			auto speedComponent     = componentManager->CreateComponent<ECS::SpeedComponent_>();
 
-			std::string localPath = std::string(RES_DIR) + "orangebolt.png";
-			SDL_Surface* pImageSurface = IMG_Load(localPath.c_str());
-			if (!pImageSurface){
-				std::cerr << "SDL Error loading surface from: " << localPath << "\n";
-				SDL_assert(false);
-			}
+			//Create Texture Id
+			auto textureComponentId = componentManager->CreateComponent<ECS::TextureComponent_>();
+			auto textureComponentRP = componentManager->GetComponentRaw<ECS::TextureComponent_>(textureComponentId);
+			//SetTexture
+			textureComponentRP->SetTexture(path);
 
-			SDL_Texture* pSDLTexture = SDLCreateTextureFromSurface(pImageSurface);
-            auto spriteComponent = ECS::ComponentManager::GetManager()->CreateComponent<ECS::SpriteComponent>();
-            auto rawSpriteComponent = dynamic_cast<ECS::SpriteComponent*>(ECS::ComponentManager::GetManager()->GetComponent(spriteComponent).get());
-            rawSpriteComponent->SetTexture(pSDLTexture);
+			//Add Components to boltId
+			entityManager->AddComponent(boltId, positionComponent);
+			entityManager->AddComponent(boltId, speedComponent);
+			entityManager->AddComponent(boltId, textureComponentId);
 
-            entityManager->AddComponent(boltId, positionComponent);
-            entityManager->AddComponent(boltId, speedComponent);
-            entityManager->AddComponent(boltId, spriteComponent);
-
-            return boltId;
+			return boltId;
 		}
 
 	};

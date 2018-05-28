@@ -15,34 +15,29 @@ namespace GAME {
     class Ship {
 
     public:
-        static unsigned int CreateShip() {
+        static unsigned int CreateShip(std::string path){
 
             auto entityManager = ECS::EntityManager_::GetManager();
             auto componentManager = ECS::ComponentManager_::GetManager();
 
-            //Create Ship Entity_
+            //Create Ship Entity_a
             auto shipId = entityManager->CreateEntity();
-
-            //Create a Position & Speed Components
-            auto positionComponent = componentManager->CreateComponent<ECS::PositionComponent_>();
-            auto speedComponent = componentManager->CreateComponent<ECS::SpeedComponent_>();
 
             //Create Texture Id
             auto textureComponentId = componentManager->CreateComponent<ECS::TextureComponent_>();
-            auto genericComponent   = componentManager->GetComponent(textureComponentId);
-            auto textureRP          = dynamic_cast<ECS::TextureComponent_*>(genericComponent.get());
-
+            auto textureComponentRP = componentManager->GetComponentRaw<ECS::TextureComponent_>(textureComponentId);
             //SetTexture
-            textureRP->SetTexture(std::string(RES_DIR)+"hero.png");
+            textureComponentRP->SetTexture(path);
 
             //Add Components to shipId
-            entityManager->AddComponent(shipId, positionComponent);
-            entityManager->AddComponent(shipId, speedComponent);
+            entityManager->AddComponent(shipId, componentManager->CreateComponent<ECS::PositionComponent_>());
+            entityManager->AddComponent(shipId, componentManager->CreateComponent<ECS::SpeedComponent_>());
             entityManager->AddComponent(shipId, textureComponentId);
 
             return shipId;
 
         }
+
 
         static void SetShipPosition(unsigned int shipId, int x, int y) {
 
@@ -51,6 +46,7 @@ namespace GAME {
             positionComponent->position = glm::vec3(x,y,0) ;
 
         }
+
         static void SetShipPositionDelta(unsigned int shipId, int x, int y) {
 
             auto componentsList = ECS::EntityManager_::GetManager()->GetComponentsIds(shipId);
@@ -63,6 +59,9 @@ namespace GAME {
             pointerPositionComponent->position.y += y;
 
         }
+
+
+
     };
 }
 

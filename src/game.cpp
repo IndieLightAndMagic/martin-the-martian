@@ -6,6 +6,8 @@
 #include <ECS/System/rendering.h>
 #include "Ship.h"
 #include "ECS/Event/events.h"
+#include "Bolt.h"
+
 using namespace std;
 
 void SDLWindowSize(int* w, int* h);
@@ -23,6 +25,7 @@ namespace GAME{
 
     void OnEscPressed(const Uint32&, const Sint32&);
     void OnArrowKeyPressed(const Uint32&, const Sint32&);
+    void OnFirePressed(const Uint32&, const Sint32&);
 
 
     void GameInitialization()
@@ -37,10 +40,12 @@ namespace GAME{
         };
         RegisterKeyboardEvents(SDL_KEYDOWN, arrowKeysGroup, OnArrowKeyPressed);
         RegisterKeyboardEvent(SDL_KEYDOWN, SDLK_ESCAPE, OnEscPressed);
+        RegisterKeyboardEvent(SDL_KEYDOWN, SDLK_SPACE, OnFirePressed);
 
 
         /* Create Ship */
-        shipId = GAME::Ship::CreateShip();
+        auto shipTexturePath = std::string(RES_DIR)+"hero.png";
+        shipId = GAME::Ship::CreateShip(shipTexturePath);
 
         int width;
         int height;
@@ -62,6 +67,14 @@ namespace GAME{
             ECS::RenderingSystem::DrawSprites();
             ECS::RenderingSystem::UpdateRenderingSystem();
         }
+    }
+
+    void OnFirePressed(const uint32_t& kbEvent, const int32_t& kbKey){
+
+        auto resPath = std::string(RES_DIR)+"orangebolt.png";
+        auto boltId = GAME::Bolt::CreateBolt(resPath);
+
+
     }
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;

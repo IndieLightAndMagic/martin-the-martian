@@ -55,6 +55,12 @@ namespace ECS {
 
     public:
         TextureComponent_() {}
+        TextureComponent_(std::string path) {
+            SetTexture(path.c_str());
+        }
+        TextureComponent_(const char* path) {
+            SetTexture(path);
+        }
 
         inline SDL_Texture* GetTexture() {
             return m_pTexture;
@@ -73,26 +79,17 @@ namespace ECS {
 
     };
 
-
-    template<typename T>
-    class VectorialComponent : public Component_ {
-    public:
-        T x, y, z;
-    };
-
-    template<typename T>
-    using PVectorialComponent = std::shared_ptr<VectorialComponent<T>>;
-
     class SpeedComponent_;
     using SpeedComponent = std::shared_ptr<SpeedComponent_>;
-    class SpeedComponent_ : public VectorialComponent<double>{};
-    class AccelerationComponent : public VectorialComponent<double>{};
+    class SpeedComponent_ : public Component_{
+        glm::vec3 position;
+    };
 
-    using PSpeedComponent = std::shared_ptr<SpeedComponent_>;
-    using PAccelerationComponent = std::shared_ptr<AccelerationComponent>;
-
-    using PSpeedComponent_ = std::weak_ptr<SpeedComponent_>;
-    using PAccelerationComponent_ = std::weak_ptr<AccelerationComponent>;
+    class AccelerationComponent_;
+    using AccelerationComponent = std::shared_ptr<AccelerationComponent_>;
+    class AccelerationComponent_ : public Component_{
+        glm::vec3 position;
+    };
 
     class PositionComponent_;
     using PositionComponent = std::shared_ptr<PositionComponent_>;
