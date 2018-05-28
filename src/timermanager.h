@@ -17,6 +17,7 @@ namespace ECS {
 		uint32_t RegisterTimer(TimedEvent &rTimedEvent);
 
 	private:
+		uint64_t counterReference;
         TimedEventsManager_();
         static TimedEventsManager_* pInstance;
 	};

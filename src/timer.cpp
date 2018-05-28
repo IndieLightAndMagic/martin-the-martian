@@ -84,6 +84,7 @@ void TimedEvent_::RemainingTicksForLoop(uint64_t& refCounter){
     refCounter = m_ticksPerInterval - t_mod;
 
 }
+
 void TimedEvent_::Pause(){
 
 	RemainingTicksForLoop(m_intervalticksForPause);
@@ -124,4 +125,9 @@ void TimedEvent_::Update(){
 	
 }
 
+void TimedEvent_::SetCounterReference(Uint64 *ptr) {
+
+    m_ptrTNow = ptr;
+
+}
 

@@ -1,10 +1,11 @@
 #include <timermanager.h>
-
+#include <timer.h>
 
 
 using namespace std;
 using namespace ECS;
 
+static vector<TimedEvent> vTimedEvents;
 TimedEventsManager_* TimedEventsManager_::pInstance = nullptr;
 TimedEventsManager_::TimedEventsManager_(){
 
@@ -22,6 +23,7 @@ TimedEventsManager TimedEventsManager_::GetInstance(){
 
 uint32_t TimedEventsManager_::RegisterTimer(TimedEvent &rTimedEvent) {
 
+	rTimedEvent->SetCounterReference(&counterReference);
 	return 0;
 
 }
