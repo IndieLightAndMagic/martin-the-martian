@@ -83,6 +83,14 @@ SDL_Texture* SDLCreateTextureFromSurface(SDL_Surface* pSurface) {
     return pSDLTexture;
 }
 
+SDL_Texture *SDLCreateTextureFromFile(const char *path) {
+    auto pSDLTexture = IMG_LoadTexture(pRenderer, path);
+    if (!pSDLTexture){
+        std::cerr << "Tech_SDLBridge: Couldn't create a texture... \n";
+        SDL_assert(false);
+    }
+    return pSDLTexture;
+}
 
 void SDLDetachRenderTexture() {
     SDL_assert(SDL_SetRenderTarget(pRenderer, nullptr) == 0);

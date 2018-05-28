@@ -9,6 +9,8 @@
 
 #include <glm/vec3.hpp>
 
+SDL_Texture* SDLCreateTextureFromFile(const char *path);
+
 using namespace GTech;
 namespace ECS {
 
@@ -20,6 +22,7 @@ namespace ECS {
         unsigned int m_parentId;
 
     public:
+        Component_(const Component_&) = default;
         Component_() :
                 m_parentId(0),
                 m_id(0) {}
@@ -43,23 +46,30 @@ namespace ECS {
     using Component = std::shared_ptr<Component_>;
     using _Component = std::weak_ptr<Component_>;
 
-    class SpriteComponent : public Component_ {
 
-        SDL_Texture* pTexture;
+    class TextureComponent_;
+    using TextureComponent = std::shared_ptr<TextureComponent_>;
+    class TextureComponent_ : public Component_ {
+
+        SDL_Texture* m_pTexture;
 
     public:
-        SpriteComponent() {}
-
+        TextureComponent_() {}
 
         inline SDL_Texture* GetTexture() {
-            return pTexture;
+            return m_pTexture;
         }
 
         inline void SetTexture(SDL_Texture* pt) {
-            pTexture = pt;
+            m_pTexture = pt;
         }
 
-
+        inline void SetTexture(const char* path) {
+            SetTexture(SDLCreateTextureFromFile(path));
+        }
+        inline void SetTexture(std::string path) {
+            SetTexture(path.c_str());
+        }
 
     };
 
@@ -73,17 +83,20 @@ namespace ECS {
     template<typename T>
     using PVectorialComponent = std::shared_ptr<VectorialComponent<T>>;
 
-
-    class SpeedComponent : public VectorialComponent<double>{};
+    class SpeedComponent_;
+    using SpeedComponent = std::shared_ptr<SpeedComponent_>;
+    class SpeedComponent_ : public VectorialComponent<double>{};
     class AccelerationComponent : public VectorialComponent<double>{};
 
-    using PSpeedComponent = std::shared_ptr<SpeedComponent>;
+    using PSpeedComponent = std::shared_ptr<SpeedComponent_>;
     using PAccelerationComponent = std::shared_ptr<AccelerationComponent>;
 
-    using PSpeedComponent_ = std::weak_ptr<SpeedComponent>;
+    using PSpeedComponent_ = std::weak_ptr<SpeedComponent_>;
     using PAccelerationComponent_ = std::weak_ptr<AccelerationComponent>;
 
-    class PositionComponent : public Component_ {
+    class PositionComponent_;
+    using PositionComponent = std::shared_ptr<PositionComponent_>;
+    class PositionComponent_ : public Component_ {
     public:
         glm::vec3 position;
     };

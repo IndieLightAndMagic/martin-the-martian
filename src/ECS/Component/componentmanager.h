@@ -6,7 +6,7 @@
 #include "component.h"
 #include "ECS/Entity/entitymanager.h"
 #include "componentfactory.h"
-
+#include <memory>
 namespace ECS{
 
     class ComponentManager_ {
@@ -26,7 +26,11 @@ namespace ECS{
             return component->m_id;
 
         }
-        Component GetComponent(unsigned int componentId);
+        inline Component GetComponent(unsigned int componentId) {
+
+            return componentMap[componentId];
+
+        }
 		
     };
     

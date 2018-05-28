@@ -24,39 +24,31 @@ namespace GAME {
             auto shipId = entityManager->CreateEntity();
 
             //Create a Position & Speed Components
-            auto positionComponent = componentManager->CreateComponent<ECS::PositionComponent>();
-            auto speedComponent = componentManager->CreateComponent<ECS::SpeedComponent>();
+            auto positionComponent = componentManager->CreateComponent<ECS::PositionComponent_>();
+            auto speedComponent = componentManager->CreateComponent<ECS::SpeedComponent_>();
 
-            std::string localPath = std::string(RES_DIR) + "hero.png";
-            SDL_Surface* pImageSurface = IMG_Load(localPath.c_str());
-            if (!pImageSurface){
-                std::cerr << "SDL Error loading surface from: " << localPath << "\n";
-                SDL_assert(false);
-            }
+            //Create Texture Id
+            auto textureComponentId = componentManager->CreateComponent<ECS::TextureComponent_>();
+            auto genericComponent   = componentManager->GetComponent(textureComponentId);
+            auto textureRP          = dynamic_cast<ECS::TextureComponent_*>(genericComponent.get());
 
-            SDL_Texture* pSDLTexture = SDLCreateTextureFromSurface(pImageSurface);
-            auto spriteComponent = ECS::ComponentManager_::GetManager()->CreateComponent<ECS::SpriteComponent>();
-            auto rawSpriteComponent = dynamic_cast<ECS::SpriteComponent*>(ECS::ComponentManager_::GetManager()->GetComponent(spriteComponent).get());
-            rawSpriteComponent->SetTexture(pSDLTexture);
+            //SetTexture
+            textureRP->SetTexture(std::string(RES_DIR)+"hero.png");
 
             //Add Components to shipId
             entityManager->AddComponent(shipId, positionComponent);
             entityManager->AddComponent(shipId, speedComponent);
-            entityManager->AddComponent(shipId, spriteComponent);
-
+            entityManager->AddComponent(shipId, textureComponentId);
 
             return shipId;
+
         }
 
         static void SetShipPosition(unsigned int shipId, int x, int y) {
 
             auto componentsList = ECS::EntityManager_::GetManager()->GetComponentsIds(shipId);
-            auto genericComponent = ECS::ComponentManager_::GetManager()->GetComponent(componentsList[0]);
-
-            auto rawPointerGenericComponent = genericComponent.get();
-            auto pointerPositionComponent   = dynamic_cast<ECS::PositionComponent*>(rawPointerGenericComponent);
-
-            pointerPositionComponent->position = glm::vec3(x,y,0) ;
+            auto positionComponent = dynamic_cast<ECS::PositionComponent_*>(ECS::ComponentManager_::GetManager()->GetComponent(componentsList[0]).get());
+            positionComponent->position = glm::vec3(x,y,0) ;
 
         }
         static void SetShipPositionDelta(unsigned int shipId, int x, int y) {
@@ -65,7 +57,7 @@ namespace GAME {
             auto genericComponent = ECS::ComponentManager_::GetManager()->GetComponent(componentsList[0]);
 
             auto rawPointerGenericComponent = genericComponent.get();
-            auto pointerPositionComponent   = dynamic_cast<ECS::PositionComponent*>(rawPointerGenericComponent);
+            auto pointerPositionComponent   = dynamic_cast<ECS::PositionComponent_*>(rawPointerGenericComponent);
 
             pointerPositionComponent->position.x += x;
             pointerPositionComponent->position.y += y;

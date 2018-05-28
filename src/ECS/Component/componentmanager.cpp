@@ -10,8 +10,6 @@ ComponentManager_::ComponentManager ComponentManager_::GetManager(){
         componentManager = std::make_shared<ComponentManager_>();
     }
     return componentManager;
+
 }
 
-Component ComponentManager_::GetComponent(unsigned int componentId){
-	return componentMap[componentId];
-}

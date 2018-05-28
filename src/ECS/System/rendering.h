@@ -15,6 +15,8 @@
 #include <glm/vec3.hpp>
 
 SDL_Texture* SDLCreateTexture(SDL_Rect& rSize);
+SDL_Texture* SDLCreateTextureFromFile(const char* path);
+
 void SDLDetachRenderTexture();
 void SDLRenderClear();
 void SDLRenderCopy(SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect);
@@ -43,10 +45,10 @@ namespace ECS {
             auto componentManager = ECS::ComponentManager_::GetManager();
             auto componentVectors = entityManager->GetComponentsIds(id);
 
-            std::set<std::string> compotypes{"ECS::PositionComponent","ECS::SpriteComponent"};
+            std::set<std::string> compotypes{"ECS::PositionComponent_","ECS::TextureComponent_"};
 
-            ECS::SpriteComponent* pSpriteComponent = nullptr;
-            ECS::PositionComponent* pPositionComponent = nullptr;
+            ECS::TextureComponent_* pSpriteComponent = nullptr;
+            ECS::PositionComponent_* pPositionComponent = nullptr;
 
 
             for (auto& componentId:componentVectors){
@@ -62,8 +64,8 @@ namespace ECS {
                 compotypes.erase(pit);
 
                 auto rawPtr = pComponent.get();
-                if (pComponentType == "ECS::PositionComponent")     pPositionComponent = dynamic_cast<PositionComponent*>(pComponent.get());
-                else if (pComponentType == "ECS::SpriteComponent")  pSpriteComponent = dynamic_cast<SpriteComponent*>(pComponent.get());
+                if (pComponentType == "ECS::PositionComponent_")     pPositionComponent = dynamic_cast<PositionComponent_*>(pComponent.get());
+                else if (pComponentType == "ECS::TextureComponent_")  pSpriteComponent = dynamic_cast<TextureComponent_*>(pComponent.get());
 
             }
 
@@ -110,7 +112,7 @@ namespace ECS {
                 //Got Position
                 auto rPosition = positions[index];
 
-                //Render pTexture,
+                //Render m_pTexture,
                 SDL_Rect dstrect;
 
                 dstrect.x = rPosition->x;
