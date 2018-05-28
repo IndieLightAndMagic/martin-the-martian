@@ -11,7 +11,7 @@
 
 namespace ECS {
 
-    class InputComponent : public Component {
+    class InputComponent : public Component_ {
 
         Signal<GTech::KBEvent&, GTech::KBKey&> keyboardSignal;
         Signal<GTech::GPEvent&, GTech::GPKey&> gamepadSignal;

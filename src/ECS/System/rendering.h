@@ -9,7 +9,7 @@
 #include <SDL2/SDL_system.h>
 #include <ECS/Component/component.h>
 #include <ECS/Component/componentmanager.h>
-#include <entitymanager.h>
+#include <ECS/Entity/entitymanager.h>
 
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
@@ -40,7 +40,7 @@ namespace ECS {
 
             //Get Manager
             auto entityManager = ECS::EntityManager_::GetManager();
-            auto componentManager = ECS::ComponentManager::GetManager();
+            auto componentManager = ECS::ComponentManager_::GetManager();
             auto componentVectors = entityManager->GetComponentIds(id);
 
             std::set<std::string> compotypes{"ECS::PositionComponent","ECS::SpriteComponent"};

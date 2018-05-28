@@ -16,7 +16,7 @@ EntityManager_::ECSPEntityManager& EntityManager_::GetManager(){
 }
 
 unsigned int EntityManager_::CreateEntity(){
-    ECSPEntity pEntity = EntityFactory::CreateEntity();
+    Entity pEntity = EntityFactory::CreateEntity();
     entityMap[pEntity->m_id] = pEntity;
     return pEntity->m_id;
 }
@@ -30,6 +30,6 @@ std::vector<unsigned int>& EntityManager_::GetComponentIds(unsigned int entity){
     return entityMap[entity]->m_componentIds;
 }
 
-ECSPEntity EntityManager_::GetEntity(unsigned int entity){
+Entity EntityManager_::GetEntity(unsigned int entity){
     return entityMap[entity];
 }

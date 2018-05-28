@@ -4,11 +4,14 @@
 
 #include <vector>
 #include <memory>
-class Component;
+class Component_;
 
 namespace ECS {
 
-    class Entity {
+    class Entity_;
+    using Entity = std::shared_ptr<Entity_>;
+
+    class Entity_ {
         std::vector<unsigned int> m_componentIds;
     public:
         unsigned int m_id;
@@ -16,7 +19,6 @@ namespace ECS {
         friend class EntityManager_;
 
     };
-    using ECSPEntity = std::shared_ptr<Entity>;
 
 }
 

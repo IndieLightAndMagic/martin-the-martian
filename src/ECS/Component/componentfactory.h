@@ -8,8 +8,8 @@ namespace ECS {
     public:
         static unsigned int m_int;
         template <typename T>
-        static ECSPComponent CreateComponent(){
-            ECSPComponent pComp = std::make_shared<T>();
+        static Component CreateComponent(){
+            Component pComp = std::make_shared<T>();
             pComp->m_id = ++m_int;
             return pComp;
         }

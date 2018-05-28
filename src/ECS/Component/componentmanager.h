@@ -4,29 +4,29 @@
 #include <memory>
 #include <iostream>
 #include "component.h"
-#include "entitymanager.h"
+#include "ECS/Entity/entitymanager.h"
 #include "componentfactory.h"
 
 namespace ECS{
 
-    class ComponentManager {
+    class ComponentManager_ {
 
-        using ECSPComponentManager = std::shared_ptr<ComponentManager>;
-        std::map<unsigned int, ECSPComponent>componentMap;
+        using ComponentManager = std::shared_ptr<ComponentManager_>;
+        std::map<unsigned int, Component>componentMap;
 
     public:
-        static ECSPComponentManager componentManager;
-        static ECSPComponentManager GetManager();
+        static ComponentManager componentManager;
+        static ComponentManager GetManager();
         
         template <typename T>
         unsigned int CreateComponent(){
 
-            ECSPComponent component = ECS::ComponentFactory::CreateComponent<T>();
+            Component component = ECS::ComponentFactory::CreateComponent<T>();
             componentMap[component->m_id] = component;
             return component->m_id;
 
         }
-        ECSPComponent GetComponent(unsigned int componentId);
+        Component GetComponent(unsigned int componentId);
 		
     };
     

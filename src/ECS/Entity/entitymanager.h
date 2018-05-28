@@ -8,7 +8,7 @@ namespace ECS {
 
     class EntityManager_{
 
-        std::map<unsigned int, ECSPEntity>entityMap;
+        std::map<unsigned int, Entity>entityMap;
 
     public:
         using ECSPEntityManager = std::shared_ptr<EntityManager_>;
@@ -18,7 +18,7 @@ namespace ECS {
         unsigned int CreateEntity();
 		bool AddComponent(unsigned int entity, unsigned int componentId);
 		std::vector<unsigned int>& GetComponentIds(unsigned int entity);
-        ECSPEntity GetEntity(unsigned int entity);
+        Entity GetEntity(unsigned int entity);
         
 
 

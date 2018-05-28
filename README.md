@@ -1,6 +1,6 @@
 Space Invaders Clone
 
-This is an example to illustrate Entity Component System.
+This is an example to illustrate Entity_ Component System.
 
 
 # Release Notes

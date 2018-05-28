@@ -9,9 +9,9 @@ namespace ECS {
     public:
         static unsigned int m_int;
 
-        static ECSPEntity CreateEntity(){
+        static Entity CreateEntity(){
 
-            ECSPEntity pEnt = std::make_shared<Entity>();
+            Entity pEnt = std::make_shared<Entity_>();
             pEnt->m_id = ++m_int;
             return pEnt;
 

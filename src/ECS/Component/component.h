@@ -3,7 +3,7 @@
 
 #include <cxxabi.h>
 #include <SDL2/SDL_system.h>
-#include "entity.h"
+#include "ECS/Entity/entity.h"
 #include "Tech/G/Tech.h"
 
 
@@ -14,20 +14,20 @@ class Entity;
 namespace ECS {
 
 
-    class Component {
+    class Component_ {
 
     protected:
         unsigned int m_id;
         unsigned int m_parentId;
 
     public:
-        Component() :
+        Component_() :
                 m_parentId(0),
                 m_id(0) {}
 
         friend class ComponentFactory;
 
-        friend class ComponentManager;
+        friend class ComponentManager_;
 
         virtual std::string GetType() {
             auto name = typeid(*this).name();
@@ -38,13 +38,13 @@ namespace ECS {
             };
             return (status == 0 ? res.get() : name);
         }
-        virtual ~Component(){}
+        virtual ~Component_(){}
     };
 
-    using ECSPComponent = std::shared_ptr<Component>;
-    using ECSPComponent_ = std::weak_ptr<Component>;
+    using Component = std::shared_ptr<Component_>;
+    using _Component = std::weak_ptr<Component_>;
 
-    class SpriteComponent : public Component {
+    class SpriteComponent : public Component_ {
 
         SDL_Texture* pTexture;
 
@@ -66,7 +66,7 @@ namespace ECS {
 
 
     template<typename T>
-    class VectorialComponent : public Component {
+    class VectorialComponent : public Component_ {
     public:
         T x, y, z;
     };
@@ -84,7 +84,7 @@ namespace ECS {
     using PSpeedComponent_ = std::weak_ptr<SpeedComponent>;
     using PAccelerationComponent_ = std::weak_ptr<AccelerationComponent>;
 
-    class PositionComponent : public Component {
+    class PositionComponent : public Component_ {
     public:
         glm::vec3 position;
     };
