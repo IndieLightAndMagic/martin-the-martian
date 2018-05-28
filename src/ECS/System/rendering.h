@@ -41,7 +41,7 @@ namespace ECS {
             //Get Manager
             auto entityManager = ECS::EntityManager_::GetManager();
             auto componentManager = ECS::ComponentManager_::GetManager();
-            auto componentVectors = entityManager->GetComponentIds(id);
+            auto componentVectors = entityManager->GetComponentsIds(id);
 
             std::set<std::string> compotypes{"ECS::PositionComponent","ECS::SpriteComponent"};
 

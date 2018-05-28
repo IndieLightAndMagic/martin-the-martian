@@ -10,7 +10,6 @@
 #include <glm/vec3.hpp>
 
 using namespace GTech;
-class Entity;
 namespace ECS {
 
 

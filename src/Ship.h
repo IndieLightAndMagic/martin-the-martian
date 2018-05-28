@@ -50,7 +50,7 @@ namespace GAME {
 
         static void SetShipPosition(unsigned int shipId, int x, int y) {
 
-            auto componentsList = ECS::EntityManager_::GetManager()->GetComponentIds(shipId);
+            auto componentsList = ECS::EntityManager_::GetManager()->GetComponentsIds(shipId);
             auto genericComponent = ECS::ComponentManager_::GetManager()->GetComponent(componentsList[0]);
 
             auto rawPointerGenericComponent = genericComponent.get();
@@ -61,7 +61,7 @@ namespace GAME {
         }
         static void SetShipPositionDelta(unsigned int shipId, int x, int y) {
 
-            auto componentsList = ECS::EntityManager_::GetManager()->GetComponentIds(shipId);
+            auto componentsList = ECS::EntityManager_::GetManager()->GetComponentsIds(shipId);
             auto genericComponent = ECS::ComponentManager_::GetManager()->GetComponent(componentsList[0]);
 
             auto rawPointerGenericComponent = genericComponent.get();

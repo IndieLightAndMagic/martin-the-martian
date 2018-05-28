@@ -1,12 +1,12 @@
-#include "entitymanager.h"
+#include "ECS/Entity/entitymanager.h"
 
 using namespace ECS;
 
-EntityManager_::ECSPEntityManager EntityManager_::entityManager = nullptr;
+EntityManager EntityManager_::entityManager = nullptr;
 
 
 
-EntityManager_::ECSPEntityManager& EntityManager_::GetManager(){
+EntityManager& EntityManager_::GetManager(){
 
 	if ( entityManager == nullptr ){
 		entityManager = std::make_unique<EntityManager_>();
@@ -26,7 +26,7 @@ bool EntityManager_::AddComponent(unsigned int entity, unsigned int componentId)
     return true;
 }
 
-std::vector<unsigned int>& EntityManager_::GetComponentIds(unsigned int entity){
+std::vector<unsigned int>& EntityManager_::GetComponentsIds(unsigned int entity){
     return entityMap[entity]->m_componentIds;
 }
 
