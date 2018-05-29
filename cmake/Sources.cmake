@@ -15,7 +15,9 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/timermanager.h
 			${CMAKE_SOURCE_DIR}/src/timer.cpp
 			${CMAKE_SOURCE_DIR}/src/timer.h
-			
+
+
+			${CMAKE_SOURCE_DIR}/src/ECS/Component/entityinformationcomponent.cpp
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentfactory.cpp
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/componentmanager.cpp
 			${CMAKE_SOURCE_DIR}/src/ECS/Component/inputcomponent.h

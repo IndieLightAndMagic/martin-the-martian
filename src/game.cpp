@@ -53,8 +53,11 @@ namespace GAME{
         SDLWindowSize(&width, &height);
         GAME::Ship::SetShipPosition(shipId, width >> 1, height >> 1);
 
-
+        //Init Systems
         ECS::RenderingSystem::InitRenderingSystem();
+        ECS::KinematicsSystem::InitKinematicsSystem();
+
+        //Subscribe Entity into Systems
         ECS::RenderingSystem::SubscribeEntity(shipId);
 
     }
@@ -67,6 +70,7 @@ namespace GAME{
             ECS::UpdateEvents();
             ECS::RenderingSystem::DrawSprites();
             ECS::RenderingSystem::UpdateRenderingSystem();
+            ECS::KinematicsSystem::UpdateKinematicsSystem();
         }
     }
 
@@ -74,7 +78,7 @@ namespace GAME{
 
         auto resPath = std::string(RES_DIR)+"orangebolt.png";
         auto boltId = GAME::Bolt::CreateBolt(resPath);
-
+        ECS::KinematicsSystem::SubscribeEntity(boltId);
 
     }
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
@@ -90,6 +94,7 @@ namespace GAME{
             std::cout << " Left";
             std::cout << "\n";
             GAME::Ship::SetShipPositionDelta(shipId,-64,0);
+
         } else if (kbKey == SDLK_RIGHT) {
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Right";
