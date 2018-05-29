@@ -396,7 +396,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Add or update an existing mapping configuration</p>
-<dl class="section return"><dt>Returns</dt><dd>1 if mapping is added, 0 if updated, -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>1 if mapping is added, 0 if updated, -1 on error </dd></dl>
 
 </div>
 </div>
@@ -430,7 +430,7 @@ Functions</h2></td></tr>
 <p>Where GUID is the string value from <a class="el" href="../../dd/d00/_s_d_l__joystick_8h.html#abfdc07a0619dd67591bc2faf3bd039e3">SDL_JoystickGetGUIDString()</a>, name is the human readable string for the device and mappings are controller mappings to joystick ones. Under Windows there is a reserved GUID of "xinput" that covers any XInput devices. The mapping format for joystick is: bX - a joystick button, index X hX.Y - hat X with value Y aX - axis X of the joystick Buttons can be used as a controller axis and vice versa.</p>
 <p>This string shows an example of a valid mapping for a controller "03000000341a00003608000000000000,PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7", Load a set of mappings from a seekable SDL data stream (memory or file), filtered by the current <a class="el" href="../../d4/d81/_s_d_l__platform_8h.html#a803e751ace217623c119210433a44e6c" title="Gets the name of the platform. ">SDL_GetPlatform()</a> A community sourced database of controllers is available at <a href="https://raw.github.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt">https://raw.github.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt</a></p>
 <p>If <code>freerw</code> is non-zero, the stream will be closed after being read.</p>
-<dl class="section return"><dt>Returns</dt><dd>number of mappings added, -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>number of mappings added, -1 on error </dd></dl>
 
 </div>
 </div>
@@ -799,7 +799,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get a mapping string for an open GameController</p>
-<dl class="section return"><dt>Returns</dt><dd>the mapping string. Must be freed with <a class="el" href="../../d9/d24/_s_d_l__stdinc_8h.html#aca37259d1124b81e9f4bee987b5e775d">SDL_free()</a>. Returns NULL if no mapping is available </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>the mapping string. Must be freed with <a class="el" href="../../d9/d24/_s_d_l__stdinc_8h.html#aca37259d1124b81e9f4bee987b5e775d">SDL_free()</a>. Returns NULL if no mapping is available </dd></dl>
 
 </div>
 </div>
@@ -819,7 +819,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get a mapping string for a GUID</p>
-<dl class="section return"><dt>Returns</dt><dd>the mapping string. Must be freed with <a class="el" href="../../d9/d24/_s_d_l__stdinc_8h.html#aca37259d1124b81e9f4bee987b5e775d">SDL_free()</a>. Returns NULL if no mapping is available </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>the mapping string. Must be freed with <a class="el" href="../../d9/d24/_s_d_l__stdinc_8h.html#aca37259d1124b81e9f4bee987b5e775d">SDL_free()</a>. Returns NULL if no mapping is available </dd></dl>
 
 </div>
 </div>
@@ -839,7 +839,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the mapping at a particular index.</p>
-<dl class="section return"><dt>Returns</dt><dd>the mapping string. Must be freed with <a class="el" href="../../d9/d24/_s_d_l__stdinc_8h.html#aca37259d1124b81e9f4bee987b5e775d">SDL_free()</a>. Returns NULL if the index is out of range. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>the mapping string. Must be freed with <a class="el" href="../../d9/d24/_s_d_l__stdinc_8h.html#aca37259d1124b81e9f4bee987b5e775d">SDL_free()</a>. Returns NULL if the index is out of range. </dd></dl>
 
 </div>
 </div>
@@ -897,7 +897,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get the number of mappings installed</p>
-<dl class="section return"><dt>Returns</dt><dd>the number of mappings </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>the number of mappings </dd></dl>
 
 </div>
 </div>
@@ -917,7 +917,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Open a game controller for use. The index passed as an argument refers to the N'th game controller on the system. This index is not the value which will identify this controller in future controller events. The joystick's instance id (<a class="el" href="../../dd/d00/_s_d_l__joystick_8h.html#a3c3d32500cb08f76ee8077983912c0bd">SDL_JoystickID</a>) will be used there instead.</p>
-<dl class="section return"><dt>Returns</dt><dd>A controller identifier, or NULL if an error occurred. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>A controller identifier, or NULL if an error occurred. </dd></dl>
 
 </div>
 </div>

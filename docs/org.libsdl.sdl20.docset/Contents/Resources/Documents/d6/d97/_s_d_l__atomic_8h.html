@@ -163,7 +163,7 @@ SDL AtomicLock</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Decrement an atomic variable used as a reference count. </p>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if the variable reached zero after decrementing, SDL_FALSE otherwise </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if the variable reached zero after decrementing, SDL_FALSE otherwise </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d6/d97/_s_d_l__atomic_8h_source.html#l00244">244</a> of file <a class="el" href="../../d6/d97/_s_d_l__atomic_8h_source.html">SDL_atomic.h</a>.</p>
 
@@ -294,8 +294,8 @@ SDL AtomicLock</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Add to an atomic variable. </p>
-<dl class="section return"><dt>Returns</dt><dd>The previous value of the atomic variable.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This same style can be used for any number operation </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The previous value of the atomic variable.</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>This same style can be used for any number operation </dd></dl>
 
 </div>
 </div>
@@ -332,8 +332,8 @@ SDL AtomicLock</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set an atomic variable to a new value if it is currently an old value. </p>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if the atomic variable was set, SDL_FALSE otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If you don't know what this function is for, you shouldn't use it! </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if the atomic variable was set, SDL_FALSE otherwise.</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>If you don't know what this function is for, you shouldn't use it! </dd></dl>
 
 </div>
 </div>
@@ -370,8 +370,8 @@ SDL AtomicLock</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set a pointer to a new value if it is currently an old value. </p>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if the pointer was set, SDL_FALSE otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If you don't know what this function is for, you shouldn't use it! </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if the pointer was set, SDL_FALSE otherwise.</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>If you don't know what this function is for, you shouldn't use it! </dd></dl>
 
 </div>
 </div>
@@ -432,7 +432,7 @@ SDL AtomicLock</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Lock a spin lock by setting it to a non-zero value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">lock</td><td>Points to the lock. </td></tr>
   </table>
@@ -468,7 +468,7 @@ SDL AtomicLock</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set an atomic variable to a value. </p>
-<dl class="section return"><dt>Returns</dt><dd>The previous value of the atomic variable. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The previous value of the atomic variable. </dd></dl>
 
 </div>
 </div>
@@ -499,7 +499,7 @@ SDL AtomicLock</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set a pointer to a value atomically. </p>
-<dl class="section return"><dt>Returns</dt><dd>The previous value of the pointer. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The previous value of the pointer. </dd></dl>
 
 </div>
 </div>
@@ -520,13 +520,13 @@ SDL AtomicLock</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Try to lock a spin lock by setting it to a non-zero value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">lock</td><td>Points to the lock.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if the lock succeeded, SDL_FALSE if the lock is already held. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if the lock succeeded, SDL_FALSE if the lock is already held. </dd></dl>
 
 </div>
 </div>
@@ -547,7 +547,7 @@ SDL AtomicLock</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Unlock a spin lock by setting it to 0. Always returns immediately. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">lock</td><td>Points to the lock. </td></tr>
   </table>

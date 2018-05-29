@@ -102,8 +102,8 @@ Functions</h2></td></tr>
 <p>This returns an absolute path in UTF-8 encoding, and is guaranteed to end with a path separator ('\' on Windows, '/' most other places).</p>
 <p>The pointer returned by this function is owned by you. Please call <a class="el" href="../../d9/d24/_s_d_l__stdinc_8h.html#aca37259d1124b81e9f4bee987b5e775d">SDL_free()</a> on the pointer when you are done with it, or it will be a memory leak. This is not necessarily a fast call, though, so you should call this once near startup and save the string if you need it.</p>
 <p>Some platforms can't determine the application's path, and on other platforms, this might be meaningless. In such cases, this function will return NULL.</p>
-<dl class="section return"><dt>Returns</dt><dd>String of base dir in UTF-8 encoding, or NULL on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d4/da4/_s_d_l__filesystem_8h.html#a8ec2086a9f826953edc8f37d8c2f692b" title="Get the user-and-app-specific path where files can be written. ">SDL_GetPrefPath</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>String of base dir in UTF-8 encoding, or NULL on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d4/da4/_s_d_l__filesystem_8h.html#a8ec2086a9f826953edc8f37d8c2f692b" title="Get the user-and-app-specific path where files can be written. ">SDL_GetPrefPath</a> </dd></dl>
 
 </div>
 </div>
@@ -152,15 +152,15 @@ Functions</h2></td></tr>
 <p>The pointer returned by this function is owned by you. Please call <a class="el" href="../../d9/d24/_s_d_l__stdinc_8h.html#aca37259d1124b81e9f4bee987b5e775d">SDL_free()</a> on the pointer when you are done with it, or it will be a memory leak. This is not necessarily a fast call, though, so you should call this once near startup and save the string if you need it.</p>
 <p>You should assume the path returned by this function is the only safe place to write files (and that <a class="el" href="../../d4/da4/_s_d_l__filesystem_8h.html#ae49c8aec43be9835b2bc0c57d4bf01ea" title="Get the path where the application resides. ">SDL_GetBasePath()</a>, while it might be writable, or even the parent of the returned path, aren't where you should be writing things).</p>
 <p>Some platforms can't determine the pref path, and on other platforms, this might be meaningless. In such cases, this function will return NULL.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">org</td><td>The name of your organization. </td></tr>
     <tr><td class="paramname">app</td><td>The name of your application. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>UTF-8 string of user dir in platform-dependent notation. NULL if there's a problem (creating directory failed, etc).</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d4/da4/_s_d_l__filesystem_8h.html#ae49c8aec43be9835b2bc0c57d4bf01ea" title="Get the path where the application resides. ">SDL_GetBasePath</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>UTF-8 string of user dir in platform-dependent notation. NULL if there's a problem (creating directory failed, etc).</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d4/da4/_s_d_l__filesystem_8h.html#ae49c8aec43be9835b2bc0c57d4bf01ea" title="Get the path where the application resides. ">SDL_GetBasePath</a> </dd></dl>
 
 </div>
 </div>

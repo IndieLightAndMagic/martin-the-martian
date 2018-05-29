@@ -205,14 +205,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>This function allows access to driver-dependent window information. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window about which information is being requested </td></tr>
     <tr><td class="paramname">info</td><td>This structure must be initialized with the SDL version, and is then filled in with information about the given window.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if the function is implemented and the version member of the <code>info</code> struct is valid, SDL_FALSE otherwise.</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if the function is implemented and the version member of the <code>info</code> struct is valid, SDL_FALSE otherwise.</dd></dl>
 <p>You typically use this function like this: </p><div class="fragment"><div class="line"><a class="code" href="../../d1/d59/struct_s_d_l___sys_w_minfo.html">SDL_SysWMinfo</a> info;</div><div class="line"><a class="code" href="../../d7/dd5/_s_d_l__version_8h.html#a7154bc5c2a95a644b5187e4225cdcbd0">SDL_VERSION</a>(&amp;info.<a class="code" href="../../d1/d59/struct_s_d_l___sys_w_minfo.html#ac3a70af022d4849e9ff546595e94627f">version</a>);</div><div class="line"><span class="keywordflow">if</span> ( <a class="code" href="../../de/df3/_s_d_l__syswm_8h.html#a2bac95c70f7baf36fda1bc54531afe18">SDL_GetWindowWMInfo</a>(window, &amp;info) ) { ... }</div></div><!-- fragment --> 
 </div>
 </div>

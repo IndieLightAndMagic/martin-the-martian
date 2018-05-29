@@ -167,13 +167,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get a snapshot of the current state of the keyboard. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">numkeys</td><td>if non-NULL, receives the length of the returned array.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An array of key states. Indexes into this array are obtained by using <a class="el" href="../../df/d4a/_s_d_l__scancode_8h.html#a82ab7cff701034fb40a47b5b3a02777b" title="The SDL keyboard scancode representation. ">SDL_Scancode</a> values.</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>An array of key states. Indexes into this array are obtained by using <a class="el" href="../../df/d4a/_s_d_l__scancode_8h.html#a82ab7cff701034fb40a47b5b3a02777b" title="The SDL keyboard scancode representation. ">SDL_Scancode</a> values.</dd></dl>
 <p><b>Example:</b> </p><div class="fragment"><div class="line"><span class="keyword">const</span> <a class="code" href="../../d9/d24/_s_d_l__stdinc_8h.html#a2944638813a090aa23e62f4da842c3e2">Uint8</a> *state = <a class="code" href="../../d3/d07/_s_d_l__keyboard_8h.html#ae3177ba961ae68cc42d2760527313f6a">SDL_GetKeyboardState</a>(<a class="code" href="../../d1/d90/begin__code_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);</div><div class="line"><span class="keywordflow">if</span> ( state[<a class="code" href="../../df/d4a/_s_d_l__scancode_8h.html#a82ab7cff701034fb40a47b5b3a02777ba76a75d2436c9061b989672ffa54b796d">SDL_SCANCODE_RETURN</a>] )   {</div><div class="line">    printf(<span class="stringliteral">&quot;&lt;RETURN&gt; is pressed.\n&quot;</span>);</div><div class="line">}</div></div><!-- fragment --> 
 </div>
 </div>
@@ -194,8 +194,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get a key code from a human-readable name. </p>
-<dl class="section return"><dt>Returns</dt><dd>key code, or SDLK_UNKNOWN if the name wasn't recognized</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/df2/_s_d_l__keycode_8h.html#ae9265f064f13f0f74dfca26a67875171" title="The SDL virtual key representation. ">SDL_Keycode</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>key code, or SDLK_UNKNOWN if the name wasn't recognized</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d5/df2/_s_d_l__keycode_8h.html#ae9265f064f13f0f74dfca26a67875171" title="The SDL virtual key representation. ">SDL_Keycode</a> </dd></dl>
 
 </div>
 </div>
@@ -217,7 +217,7 @@ Functions</h2></td></tr>
 
 <p>Get the key code corresponding to the given scancode according to the current keyboard layout. </p>
 <p>See <a class="el" href="../../d5/df2/_s_d_l__keycode_8h.html#ae9265f064f13f0f74dfca26a67875171" title="The SDL virtual key representation. ">SDL_Keycode</a> for details.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#ae92de57379d799b2ce1ee5b8ea5ff6c7" title="Get a human-readable name for a key. ">SDL_GetKeyName()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#ae92de57379d799b2ce1ee5b8ea5ff6c7" title="Get a human-readable name for a key. ">SDL_GetKeyName()</a> </dd></dl>
 
 </div>
 </div>
@@ -238,8 +238,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get a human-readable name for a key. </p>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to a UTF-8 string that stays valid at least until the next call to this function. If you need it around any longer, you must copy it. If the key doesn't have a name, this function returns an empty string ("").</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/df2/_s_d_l__keycode_8h.html#ae9265f064f13f0f74dfca26a67875171" title="The SDL virtual key representation. ">SDL_Keycode</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>A pointer to a UTF-8 string that stays valid at least until the next call to this function. If you need it around any longer, you must copy it. If the key doesn't have a name, this function returns an empty string ("").</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d5/df2/_s_d_l__keycode_8h.html#ae9265f064f13f0f74dfca26a67875171" title="The SDL virtual key representation. ">SDL_Keycode</a> </dd></dl>
 
 </div>
 </div>
@@ -281,7 +281,7 @@ Functions</h2></td></tr>
 
 <p>Get the scancode corresponding to the given key code according to the current keyboard layout. </p>
 <p>See <a class="el" href="../../df/d4a/_s_d_l__scancode_8h.html#a82ab7cff701034fb40a47b5b3a02777b" title="The SDL keyboard scancode representation. ">SDL_Scancode</a> for details.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a6374d54363c502fdf3ac325158129c28" title="Get a human-readable name for a scancode. ">SDL_GetScancodeName()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a6374d54363c502fdf3ac325158129c28" title="Get a human-readable name for a scancode. ">SDL_GetScancodeName()</a> </dd></dl>
 
 </div>
 </div>
@@ -302,8 +302,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get a scancode from a human-readable name. </p>
-<dl class="section return"><dt>Returns</dt><dd>scancode, or SDL_SCANCODE_UNKNOWN if the name wasn't recognized</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../df/d4a/_s_d_l__scancode_8h.html#a82ab7cff701034fb40a47b5b3a02777b" title="The SDL keyboard scancode representation. ">SDL_Scancode</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>scancode, or SDL_SCANCODE_UNKNOWN if the name wasn't recognized</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../df/d4a/_s_d_l__scancode_8h.html#a82ab7cff701034fb40a47b5b3a02777b" title="The SDL keyboard scancode representation. ">SDL_Scancode</a> </dd></dl>
 
 </div>
 </div>
@@ -324,8 +324,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get a human-readable name for a scancode. </p>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the name for the scancode. If the scancode doesn't have a name, this function returns an empty string ("").</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../df/d4a/_s_d_l__scancode_8h.html#a82ab7cff701034fb40a47b5b3a02777b" title="The SDL keyboard scancode representation. ">SDL_Scancode</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>A pointer to the name for the scancode. If the scancode doesn't have a name, this function returns an empty string ("").</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../df/d4a/_s_d_l__scancode_8h.html#a82ab7cff701034fb40a47b5b3a02777b" title="The SDL keyboard scancode representation. ">SDL_Scancode</a> </dd></dl>
 
 </div>
 </div>
@@ -346,9 +346,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns whether the platform has some screen keyboard support. </p>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if some keyboard support is available else SDL_FALSE.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Not all screen keyboard functions are supported on all platforms.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a0e554f448ac691536698e87b6290070a" title="Returns whether the screen keyboard is shown for given window. ">SDL_IsScreenKeyboardShown()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if some keyboard support is available else SDL_FALSE.</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>Not all screen keyboard functions are supported on all platforms.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a0e554f448ac691536698e87b6290070a" title="Returns whether the screen keyboard is shown for given window. ">SDL_IsScreenKeyboardShown()</a> </dd></dl>
 
 </div>
 </div>
@@ -369,14 +369,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns whether the screen keyboard is shown for given window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window for which screen keyboard should be queried.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if screen keyboard is shown else SDL_FALSE.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a062b393611ce2c8427f5f2a72a55fe10" title="Returns whether the platform has some screen keyboard support. ">SDL_HasScreenKeyboardSupport()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if screen keyboard is shown else SDL_FALSE.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a062b393611ce2c8427f5f2a72a55fe10" title="Returns whether the platform has some screen keyboard support. ">SDL_HasScreenKeyboardSupport()</a> </dd></dl>
 
 </div>
 </div>
@@ -397,7 +397,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Return whether or not Unicode text input events are enabled. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a7f7a1e3720419bda786912b4a0ce17e2" title="Start accepting Unicode text input events. This function will show the on-screen keyboard if supporte...">SDL_StartTextInput()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a7f7a1e3720419bda786912b4a0ce17e2" title="Start accepting Unicode text input events. This function will show the on-screen keyboard if supporte...">SDL_StartTextInput()</a> </dd>
 <dd>
 <a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#ae119b64fe4939641dc53ae650e67ba9f" title="Stop receiving any text input events. This function will hide the on-screen keyboard if supported...">SDL_StopTextInput()</a> </dd></dl>
 
@@ -420,7 +420,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the current key modifier state for the keyboard. </p>
-<dl class="section note"><dt>Note</dt><dd>This does not change the keyboard state, only the key modifier flags. </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>This does not change the keyboard state, only the key modifier flags. </dd></dl>
 
 </div>
 </div>
@@ -441,7 +441,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the rectangle used to type Unicode text inputs. This is used as a hint for IME and on-screen keyboard placement. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a7f7a1e3720419bda786912b4a0ce17e2" title="Start accepting Unicode text input events. This function will show the on-screen keyboard if supporte...">SDL_StartTextInput()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a7f7a1e3720419bda786912b4a0ce17e2" title="Start accepting Unicode text input events. This function will show the on-screen keyboard if supporte...">SDL_StartTextInput()</a> </dd></dl>
 
 </div>
 </div>
@@ -462,7 +462,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Start accepting Unicode text input events. This function will show the on-screen keyboard if supported. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#ae119b64fe4939641dc53ae650e67ba9f" title="Stop receiving any text input events. This function will hide the on-screen keyboard if supported...">SDL_StopTextInput()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#ae119b64fe4939641dc53ae650e67ba9f" title="Stop receiving any text input events. This function will hide the on-screen keyboard if supported...">SDL_StopTextInput()</a> </dd>
 <dd>
 <a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#abf9a780f5da93268148a7737b4ba6632" title="Set the rectangle used to type Unicode text inputs. This is used as a hint for IME and on-screen keyb...">SDL_SetTextInputRect()</a> </dd>
 <dd>
@@ -487,7 +487,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Stop receiving any text input events. This function will hide the on-screen keyboard if supported. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a7f7a1e3720419bda786912b4a0ce17e2" title="Start accepting Unicode text input events. This function will show the on-screen keyboard if supporte...">SDL_StartTextInput()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a7f7a1e3720419bda786912b4a0ce17e2" title="Start accepting Unicode text input events. This function will show the on-screen keyboard if supporte...">SDL_StartTextInput()</a> </dd>
 <dd>
 <a class="el" href="../../d3/d07/_s_d_l__keyboard_8h.html#a062b393611ce2c8427f5f2a72a55fe10" title="Returns whether the platform has some screen keyboard support. ">SDL_HasScreenKeyboardSupport()</a> </dd></dl>
 

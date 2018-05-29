@@ -507,7 +507,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Capture the mouse, to track input outside an SDL window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">enabled</td><td>Whether or not to enable capturing</td></tr>
   </table>
@@ -517,7 +517,7 @@ Functions</h2></td></tr>
 <p>This function may also deny mouse input to other windows&ndash;both those in your application and others on the system&ndash;so you should use this function sparingly, and in small bursts. For example, you might want to track the mouse while the user is dragging something, until the user releases a mouse button. It is not recommended that you capture the mouse for long periods of time, such as the entire time your app is running.</p>
 <p>While captured, mouse events still report coordinates relative to the current (foreground) window, but those coordinates may be outside the bounds of the window (including negative values). Capturing is only allowed for the foreground window. If the window loses focus while capturing, the capture will be disabled automatically.</p>
 <p>While capturing is enabled, the current window will have the SDL_WINDOW_MOUSE_CAPTURE flag set.</p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if not supported. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if not supported. </dd></dl>
 
 </div>
 </div>
@@ -554,7 +554,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create a color cursor. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a21c20ee70166caae9d480669f9006300" title="Frees a cursor created with SDL_CreateCursor() or similar functions. ">SDL_FreeCursor()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a21c20ee70166caae9d480669f9006300" title="Frees a cursor created with SDL_CreateCursor() or similar functions. ">SDL_FreeCursor()</a> </dd></dl>
 
 </div>
 </div>
@@ -622,7 +622,7 @@ Functions</h2></td></tr>
 <tr>
 <td>1 </td><td>0 </td><td>Inverted color if possible, black if not.  </td></tr>
 </table>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a21c20ee70166caae9d480669f9006300" title="Frees a cursor created with SDL_CreateCursor() or similar functions. ">SDL_FreeCursor()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a21c20ee70166caae9d480669f9006300" title="Frees a cursor created with SDL_CreateCursor() or similar functions. ">SDL_FreeCursor()</a> </dd></dl>
 
 </div>
 </div>
@@ -643,7 +643,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create a system cursor. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a21c20ee70166caae9d480669f9006300" title="Frees a cursor created with SDL_CreateCursor() or similar functions. ">SDL_FreeCursor()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a21c20ee70166caae9d480669f9006300" title="Frees a cursor created with SDL_CreateCursor() or similar functions. ">SDL_FreeCursor()</a> </dd></dl>
 
 </div>
 </div>
@@ -664,7 +664,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Frees a cursor created with <a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a14f2fb457ade17b00b3d020b2fbf60d6" title="Create a cursor, using the specified bitmap data and mask (in MSB format). ">SDL_CreateCursor()</a> or similar functions. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a14f2fb457ade17b00b3d020b2fbf60d6" title="Create a cursor, using the specified bitmap data and mask (in MSB format). ">SDL_CreateCursor()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a14f2fb457ade17b00b3d020b2fbf60d6" title="Create a cursor, using the specified bitmap data and mask (in MSB format). ">SDL_CreateCursor()</a> </dd>
 <dd>
 <a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a3b3b0b7b9cc21db0a10bc3e97221a5ab" title="Create a color cursor. ">SDL_CreateColorCursor()</a> </dd>
 <dd>
@@ -740,16 +740,16 @@ Functions</h2></td></tr>
 
 <p>Get the current state of the mouse, in relation to the desktop. </p>
 <p>This works just like <a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a40b1c778fa3c22f1ad2234f9cec228d6" title="Retrieve the current state of the mouse. ">SDL_GetMouseState()</a>, but the coordinates will be reported relative to the top-left of the desktop. This can be useful if you need to track the mouse outside of a specific window and <a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#aae1fb6b209fee8b27117d9b496f6d64a" title="Capture the mouse, to track input outside an SDL window. ">SDL_CaptureMouse()</a> doesn't fit your needs. For example, it could be useful if you need to track the mouse while dragging a window, where coordinates relative to a window might not be in sync at all times.</p>
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a40b1c778fa3c22f1ad2234f9cec228d6" title="Retrieve the current state of the mouse. ">SDL_GetMouseState()</a> returns the mouse position as SDL understands it from the last pump of the event queue. This function, however, queries the OS for the current mouse position, and as such, might be a slightly less efficient function. Unless you know what you're doing and have a good reason to use this function, you probably want <a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a40b1c778fa3c22f1ad2234f9cec228d6" title="Retrieve the current state of the mouse. ">SDL_GetMouseState()</a> instead.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="section note"><dtTicks>Note</dtTicks><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a40b1c778fa3c22f1ad2234f9cec228d6" title="Retrieve the current state of the mouse. ">SDL_GetMouseState()</a> returns the mouse position as SDL understands it from the last pump of the event queue. This function, however, queries the OS for the current mouse position, and as such, might be a slightly less efficient function. Unless you know what you're doing and have a good reason to use this function, you probably want <a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a40b1c778fa3c22f1ad2234f9cec228d6" title="Retrieve the current state of the mouse. ">SDL_GetMouseState()</a> instead.</dd></dl>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>Returns the current X coord, relative to the desktop. Can be NULL. </td></tr>
     <tr><td class="paramname">y</td><td>Returns the current Y coord, relative to the desktop. Can be NULL. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The current button state as a bitmask, which can be tested using the <a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#af1bb0dead027146b766e4e319e22ea7b">SDL_BUTTON(X)</a> macros.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a40b1c778fa3c22f1ad2234f9cec228d6" title="Retrieve the current state of the mouse. ">SDL_GetMouseState</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The current button state as a bitmask, which can be tested using the <a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#af1bb0dead027146b766e4e319e22ea7b">SDL_BUTTON(X)</a> macros.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a40b1c778fa3c22f1ad2234f9cec228d6" title="Retrieve the current state of the mouse. ">SDL_GetMouseState</a> </dd></dl>
 
 </div>
 </div>
@@ -821,7 +821,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Query whether relative mouse mode is enabled. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#ae8d4ea41c36f1e0449ead8e7f6d3dbff" title="Set relative mouse mode. ">SDL_SetRelativeMouseMode()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#ae8d4ea41c36f1e0449ead8e7f6d3dbff" title="Set relative mouse mode. ">SDL_SetRelativeMouseMode()</a> </dd></dl>
 
 </div>
 </div>
@@ -893,16 +893,16 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set relative mouse mode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">enabled</td><td>Whether or not to enable relative mode</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if relative mode is not supported.</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if relative mode is not supported.</dd></dl>
 <p>While the mouse is in relative mode, the cursor is hidden, and the driver will try to report continuous motion in the current window. Only relative motion events will be delivered, the mouse position will not change.</p>
-<dl class="section note"><dt>Note</dt><dd>This function will flush any pending mouse motion.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a3c66693a8d0c79e15076588396fa7eda" title="Query whether relative mouse mode is enabled. ">SDL_GetRelativeMouseMode()</a> </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>This function will flush any pending mouse motion.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d5/d62/_s_d_l__mouse_8h.html#a3c66693a8d0c79e15076588396fa7eda" title="Query whether relative mouse mode is enabled. ">SDL_GetRelativeMouseMode()</a> </dd></dl>
 
 </div>
 </div>
@@ -923,13 +923,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Toggle whether or not the cursor is shown. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">toggle</td><td>1 to show the cursor, 0 to hide it, -1 to query the current state.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if the cursor is shown, or 0 if the cursor is hidden. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>1 if the cursor is shown, or 0 if the cursor is hidden. </dd></dl>
 
 </div>
 </div>
@@ -960,15 +960,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Moves the mouse to the given position in global screen space. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>The x coordinate </td></tr>
     <tr><td class="paramname">y</td><td>The y coordinate </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on error (usually: unsupported by a platform).</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This function generates a mouse motion event </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, -1 on error (usually: unsupported by a platform).</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>This function generates a mouse motion event </dd></dl>
 
 </div>
 </div>
@@ -1005,7 +1005,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Moves the mouse to the given position within the window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to move the mouse into, or NULL for the current mouse focus </td></tr>
     <tr><td class="paramname">x</td><td>The x coordinate within the window </td></tr>
@@ -1013,7 +1013,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This function generates a mouse motion event </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>This function generates a mouse motion event </dd></dl>
 
 </div>
 </div>

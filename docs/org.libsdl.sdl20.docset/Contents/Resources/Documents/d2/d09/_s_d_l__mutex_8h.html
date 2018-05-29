@@ -182,7 +182,7 @@ Condition variable functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Lock the mutex.</p>
-<dl class="section return"><dt>Returns</dt><dd>0, or -1 on error. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0, or -1 on error. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d2/d09/_s_d_l__mutex_8h_source.html#l00071">71</a> of file <a class="el" href="../../d2/d09/_s_d_l__mutex_8h_source.html">SDL_mutex.h</a>.</p>
 
@@ -204,8 +204,8 @@ Condition variable functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Unlock the mutex.</p>
-<dl class="section return"><dt>Returns</dt><dd>0, or -1 on error.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>It is an error to unlock a mutex that has not been locked by the current thread, and doing so results in undefined behavior. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0, or -1 on error.</dd></dl>
+<dl class="section warning"><dtTicks>Warning</dtTicks><dd>It is an error to unlock a mutex that has not been locked by the current thread, and doing so results in undefined behavior. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d2/d09/_s_d_l__mutex_8h_source.html#l00089">89</a> of file <a class="el" href="../../d2/d09/_s_d_l__mutex_8h_source.html">SDL_mutex.h</a>.</p>
 
@@ -277,7 +277,7 @@ Condition variable functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Restart all threads that are waiting on the condition variable.</p>
-<dl class="section return"><dt>Returns</dt><dd>0 or -1 on error. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 or -1 on error. </dd></dl>
 
 </div>
 </div>
@@ -297,7 +297,7 @@ Condition variable functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Restart one of the threads that are waiting on the condition variable.</p>
-<dl class="section return"><dt>Returns</dt><dd>0 or -1 on error. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 or -1 on error. </dd></dl>
 
 </div>
 </div>
@@ -327,9 +327,9 @@ Condition variable functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Wait on the condition variable, unlocking the provided mutex.</p>
-<dl class="section warning"><dt>Warning</dt><dd>The mutex must be locked before entering this function!</dd></dl>
+<dl class="section warning"><dtTicks>Warning</dtTicks><dd>The mutex must be locked before entering this function!</dd></dl>
 <p>The mutex is re-locked once the condition variable is signaled.</p>
-<dl class="section return"><dt>Returns</dt><dd>0 when it is signaled, or -1 on error. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 when it is signaled, or -1 on error. </dd></dl>
 
 </div>
 </div>
@@ -365,7 +365,7 @@ Condition variable functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Waits for at most <code>ms</code> milliseconds, and returns 0 if the condition variable is signaled, <a class="el" href="../../d2/d09/_s_d_l__mutex_8h.html#a1214610634c24465d7c50149752791a9">SDL_MUTEX_TIMEDOUT</a> if the condition is not signaled in the allotted time, and -1 on error.</p>
-<dl class="section warning"><dt>Warning</dt><dd>On some platforms this function is implemented by looping with a delay of 1 ms, and so should be avoided if possible. </dd></dl>
+<dl class="section warning"><dtTicks>Warning</dtTicks><dd>On some platforms this function is implemented by looping with a delay of 1 ms, and so should be avoided if possible. </dd></dl>
 
 </div>
 </div>
@@ -522,7 +522,7 @@ Condition variable functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Atomically increases the semaphore's count (not blocking).</p>
-<dl class="section return"><dt>Returns</dt><dd>0, or -1 on error. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0, or -1 on error. </dd></dl>
 
 </div>
 </div>
@@ -542,7 +542,7 @@ Condition variable functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Non-blocking variant of <a class="el" href="../../d2/d09/_s_d_l__mutex_8h.html#a03f0ce0183b661fdca6c5f0439100a52">SDL_SemWait()</a>.</p>
-<dl class="section return"><dt>Returns</dt><dd>0 if the wait succeeds, <a class="el" href="../../d2/d09/_s_d_l__mutex_8h.html#a1214610634c24465d7c50149752791a9">SDL_MUTEX_TIMEDOUT</a> if the wait would block, and -1 on error. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 if the wait succeeds, <a class="el" href="../../d2/d09/_s_d_l__mutex_8h.html#a1214610634c24465d7c50149752791a9">SDL_MUTEX_TIMEDOUT</a> if the wait would block, and -1 on error. </dd></dl>
 
 </div>
 </div>
@@ -610,8 +610,8 @@ Condition variable functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Variant of <a class="el" href="../../d2/d09/_s_d_l__mutex_8h.html#a03f0ce0183b661fdca6c5f0439100a52">SDL_SemWait()</a> with a timeout in milliseconds.</p>
-<dl class="section return"><dt>Returns</dt><dd>0 if the wait succeeds, <a class="el" href="../../d2/d09/_s_d_l__mutex_8h.html#a1214610634c24465d7c50149752791a9">SDL_MUTEX_TIMEDOUT</a> if the wait does not succeed in the allotted time, and -1 on error.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>On some platforms this function is implemented by looping with a delay of 1 ms, and so should be avoided if possible. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 if the wait succeeds, <a class="el" href="../../d2/d09/_s_d_l__mutex_8h.html#a1214610634c24465d7c50149752791a9">SDL_MUTEX_TIMEDOUT</a> if the wait does not succeed in the allotted time, and -1 on error.</dd></dl>
+<dl class="section warning"><dtTicks>Warning</dtTicks><dd>On some platforms this function is implemented by looping with a delay of 1 ms, and so should be avoided if possible. </dd></dl>
 
 </div>
 </div>
@@ -631,7 +631,7 @@ Condition variable functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Try to lock the mutex</p>
-<dl class="section return"><dt>Returns</dt><dd>0, SDL_MUTEX_TIMEDOUT, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0, SDL_MUTEX_TIMEDOUT, or -1 on error </dd></dl>
 
 </div>
 </div>

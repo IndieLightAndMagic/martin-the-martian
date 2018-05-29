@@ -304,7 +304,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The SDL thread priority.</p>
-<dl class="section note"><dt>Note</dt><dd>On many systems you require special privileges to set high priority. </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>On many systems you require special privileges to set high priority. </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="acce8dea56f6b307fadd2949b64e3ebdaa48d887edbfc7842abdabcec6900d3878"></a>SDL_THREAD_PRIORITY_LOW&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="acce8dea56f6b307fadd2949b64e3ebdaac3a2f7a29f4c8fe11dca0ea258b07dae"></a>SDL_THREAD_PRIORITY_NORMAL&#160;</td><td class="fielddoc"></td></tr>
@@ -485,8 +485,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create an identifier that is globally visible to all threads but refers to data that is thread-specific. </p>
-<dl class="section return"><dt>Returns</dt><dd>The newly created thread local storage identifier, or 0 on error</dd></dl>
-<div class="fragment"><div class="line"><span class="keyword">static</span> <a class="code" href="../../d6/d97/_s_d_l__atomic_8h.html#a59179ff8d21c65b9d9a544f3c2088e81">SDL_SpinLock</a> tls_lock;</div><div class="line"><span class="keyword">static</span> <a class="code" href="../../d8/ded/_s_d_l__thread_8h.html#a07ce005c35ad6ac377d6124db7296026">SDL_TLSID</a> thread_local_storage;</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> SetMyThreadData(<span class="keywordtype">void</span> *value)</div><div class="line">{</div><div class="line">    <span class="keywordflow">if</span> (!thread_local_storage) {</div><div class="line">        <a class="code" href="../../d6/d97/_s_d_l__atomic_8h.html#af8aceba63fc0517725cc9bc4e3d7cbd1">SDL_AtomicLock</a>(&amp;tls_lock);</div><div class="line">        <span class="keywordflow">if</span> (!thread_local_storage) {</div><div class="line">            thread_local_storage = <a class="code" href="../../d8/ded/_s_d_l__thread_8h.html#a8c564bff14f958227159dd3bb37f364d">SDL_TLSCreate</a>();</div><div class="line">        }</div><div class="line">        <a class="code" href="../../d6/d97/_s_d_l__atomic_8h.html#a8404a8dc8ea8d4148b7dd5b90542da9c">SDL_AtomicUnlock</a>(&amp;tls_lock);</div><div class="line">    }</div><div class="line">    <a class="code" href="../../d8/ded/_s_d_l__thread_8h.html#acc47773e0473a0710f1eec63277ebe36">SDL_TLSSet</a>(thread_local_storage, value, 0);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> *GetMyThreadData(<span class="keywordtype">void</span>)</div><div class="line">{</div><div class="line">    <span class="keywordflow">return</span> <a class="code" href="../../d8/ded/_s_d_l__thread_8h.html#a88a0bfbc89d88d880df83c2551b97925">SDL_TLSGet</a>(thread_local_storage);</div><div class="line">}</div></div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/ded/_s_d_l__thread_8h.html#a88a0bfbc89d88d880df83c2551b97925" title="Get the value associated with a thread local storage ID for the current thread. ">SDL_TLSGet()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The newly created thread local storage identifier, or 0 on error</dd></dl>
+<div class="fragment"><div class="line"><span class="keyword">static</span> <a class="code" href="../../d6/d97/_s_d_l__atomic_8h.html#a59179ff8d21c65b9d9a544f3c2088e81">SDL_SpinLock</a> tls_lock;</div><div class="line"><span class="keyword">static</span> <a class="code" href="../../d8/ded/_s_d_l__thread_8h.html#a07ce005c35ad6ac377d6124db7296026">SDL_TLSID</a> thread_local_storage;</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> SetMyThreadData(<span class="keywordtype">void</span> *value)</div><div class="line">{</div><div class="line">    <span class="keywordflow">if</span> (!thread_local_storage) {</div><div class="line">        <a class="code" href="../../d6/d97/_s_d_l__atomic_8h.html#af8aceba63fc0517725cc9bc4e3d7cbd1">SDL_AtomicLock</a>(&amp;tls_lock);</div><div class="line">        <span class="keywordflow">if</span> (!thread_local_storage) {</div><div class="line">            thread_local_storage = <a class="code" href="../../d8/ded/_s_d_l__thread_8h.html#a8c564bff14f958227159dd3bb37f364d">SDL_TLSCreate</a>();</div><div class="line">        }</div><div class="line">        <a class="code" href="../../d6/d97/_s_d_l__atomic_8h.html#a8404a8dc8ea8d4148b7dd5b90542da9c">SDL_AtomicUnlock</a>(&amp;tls_lock);</div><div class="line">    }</div><div class="line">    <a class="code" href="../../d8/ded/_s_d_l__thread_8h.html#acc47773e0473a0710f1eec63277ebe36">SDL_TLSSet</a>(thread_local_storage, value, 0);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> *GetMyThreadData(<span class="keywordtype">void</span>)</div><div class="line">{</div><div class="line">    <span class="keywordflow">return</span> <a class="code" href="../../d8/ded/_s_d_l__thread_8h.html#a88a0bfbc89d88d880df83c2551b97925">SDL_TLSGet</a>(thread_local_storage);</div><div class="line">}</div></div><!-- fragment --><dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d8/ded/_s_d_l__thread_8h.html#a88a0bfbc89d88d880df83c2551b97925" title="Get the value associated with a thread local storage ID for the current thread. ">SDL_TLSGet()</a> </dd>
 <dd>
 <a class="el" href="../../d8/ded/_s_d_l__thread_8h.html#acc47773e0473a0710f1eec63277ebe36" title="Set the value associated with a thread local storage ID for the current thread. ">SDL_TLSSet()</a> </dd></dl>
 
@@ -509,14 +509,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the value associated with a thread local storage ID for the current thread. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>The thread local storage ID</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The value associated with the ID for the current thread, or NULL if no value has been set.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/ded/_s_d_l__thread_8h.html#a8c564bff14f958227159dd3bb37f364d" title="Create an identifier that is globally visible to all threads but refers to data that is thread-specif...">SDL_TLSCreate()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The value associated with the ID for the current thread, or NULL if no value has been set.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d8/ded/_s_d_l__thread_8h.html#a8c564bff14f958227159dd3bb37f364d" title="Create an identifier that is globally visible to all threads but refers to data that is thread-specif...">SDL_TLSCreate()</a> </dd>
 <dd>
 <a class="el" href="../../d8/ded/_s_d_l__thread_8h.html#acc47773e0473a0710f1eec63277ebe36" title="Set the value associated with a thread local storage ID for the current thread. ">SDL_TLSSet()</a> </dd></dl>
 
@@ -555,7 +555,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the value associated with a thread local storage ID for the current thread. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>The thread local storage ID </td></tr>
     <tr><td class="paramname">value</td><td>The value to associate with the ID for the current thread </td></tr>
@@ -563,8 +563,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on error</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/ded/_s_d_l__thread_8h.html#a8c564bff14f958227159dd3bb37f364d" title="Create an identifier that is globally visible to all threads but refers to data that is thread-specif...">SDL_TLSCreate()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, -1 on error</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d8/ded/_s_d_l__thread_8h.html#a8c564bff14f958227159dd3bb37f364d" title="Create an identifier that is globally visible to all threads but refers to data that is thread-specif...">SDL_TLSCreate()</a> </dd>
 <dd>
 <a class="el" href="../../d8/ded/_s_d_l__thread_8h.html#a88a0bfbc89d88d880df83c2551b97925" title="Get the value associated with a thread local storage ID for the current thread. ">SDL_TLSGet()</a> </dd></dl>
 

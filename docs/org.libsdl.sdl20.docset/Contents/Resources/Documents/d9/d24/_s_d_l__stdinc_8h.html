@@ -3102,7 +3102,7 @@ Basic data types</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Replace SDL's memory allocation functions with a custom set. </p>
-<dl class="section note"><dt>Note</dt><dd>If you are replacing SDL's memory functions, you should call <a class="el" href="../../d9/d24/_s_d_l__stdinc_8h.html#a746be6f490c87cd7f5b7fe5118cbf4fb" title="Get the number of outstanding (unfreed) allocations. ">SDL_GetNumAllocations()</a> and be very careful if it returns non-zero. That means that your free function will be called with memory allocated by the previous memory allocation functions. </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>If you are replacing SDL's memory functions, you should call <a class="el" href="../../d9/d24/_s_d_l__stdinc_8h.html#a746be6f490c87cd7f5b7fe5118cbf4fb" title="Get the number of outstanding (unfreed) allocations. ">SDL_GetNumAllocations()</a> and be very careful if it returns non-zero. That means that your free function will be called with memory allocated by the previous memory allocation functions. </dd></dl>
 
 </div>
 </div>

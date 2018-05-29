@@ -141,7 +141,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Initializes the fuzzer for a test</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">execKey</td><td>Execution "Key" that initializes the random number generator uniquely for the test. </td></tr>
   </table>
@@ -186,7 +186,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Generates random null-terminated string. The minimum length for the string is 1 character, maximum length for the string is 255 characters and it can contain ASCII characters from 32 to 126.</p>
 <p>Note: Returned string needs to be deallocated.</p>
-<dl class="section return"><dt>Returns</dt><dd>Newly allocated random string; or NULL if length was invalid or string could not be allocated. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Newly allocated random string; or NULL if length was invalid or string could not be allocated. </dd></dl>
 
 </div>
 </div>
@@ -207,13 +207,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Generates random null-terminated string. The length for the string is defined by the size parameter. String can contain ASCII characters from 32 to 126.</p>
 <p>Note: Returned string needs to be deallocated.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>The length of the generated string</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Newly allocated random string; or NULL if size was invalid or string could not be allocated. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Newly allocated random string; or NULL if size was invalid or string could not be allocated. </dd></dl>
 
 </div>
 </div>
@@ -234,13 +234,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Generates random null-terminated string. The maximum length for the string is defined by the maxLength parameter. String can contain ASCII characters from 32 to 126.</p>
 <p>Note: Returned string needs to be deallocated.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">maxLength</td><td>The maximum length of the generated string.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Newly allocated random string; or NULL if maxLength was invalid or string could not be allocated. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Newly allocated random string; or NULL if maxLength was invalid or string could not be allocated. </dd></dl>
 
 </div>
 </div>
@@ -259,7 +259,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>random double. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>random double. </dd></dl>
 
 </div>
 </div>
@@ -278,7 +278,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>random float. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>random float. </dd></dl>
 
 </div>
 </div>
@@ -308,14 +308,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns integer in range [min, max] (inclusive). Min and max values can be negative values. If Max in smaller than min, then the values are swapped. Min and max are the same value, that value will be returned.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">min</td><td>Minimum inclusive value of returned random number </td></tr>
     <tr><td class="paramname">max</td><td>Maximum inclusive value of returned random number</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Generated random integer in range </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Generated random integer in range </dd></dl>
 
 </div>
 </div>
@@ -335,7 +335,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns a random Sint16</p>
-<dl class="section return"><dt>Returns</dt><dd>Generated signed integer </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Generated signed integer </dd></dl>
 
 </div>
 </div>
@@ -372,7 +372,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a random boundary value for Sint16 within the given boundaries. Boundaries are inclusive, see the usage examples below. If validDomain is true, the function will only return valid boundaries, otherwise non-valid boundaries are also possible. If boundary1 &gt; boundary2, the values are swapped</p>
 <p>Usage examples: RandomSint16BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20 RandomSint16BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9 RandomSint16BoundaryValue(SINT16_MIN, 99, SDL_FALSE) returns 100 RandomSint16BoundaryValue(SINT16_MIN, SINT16_MAX, SDL_FALSE) returns SINT16_MIN (== error value) with error set</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">boundary1</td><td>Lower boundary limit </td></tr>
     <tr><td class="paramname">boundary2</td><td>Upper boundary limit </td></tr>
@@ -380,7 +380,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Random boundary value for the given range and domain or SINT16_MIN with error set </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Random boundary value for the given range and domain or SINT16_MIN with error set </dd></dl>
 
 </div>
 </div>
@@ -400,7 +400,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns a random integer</p>
-<dl class="section return"><dt>Returns</dt><dd>Generated integer </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Generated integer </dd></dl>
 
 </div>
 </div>
@@ -437,7 +437,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a random boundary value for Sint32 within the given boundaries. Boundaries are inclusive, see the usage examples below. If validDomain is true, the function will only return valid boundaries, otherwise non-valid boundaries are also possible. If boundary1 &gt; boundary2, the values are swapped</p>
 <p>Usage examples: RandomSint32BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20 RandomSint32BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9 RandomSint32BoundaryValue(SINT32_MIN, 99, SDL_FALSE) returns 100 RandomSint32BoundaryValue(SINT32_MIN, SINT32_MAX, SDL_FALSE) returns SINT32_MIN (== error value)</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">boundary1</td><td>Lower boundary limit </td></tr>
     <tr><td class="paramname">boundary2</td><td>Upper boundary limit </td></tr>
@@ -445,7 +445,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Random boundary value for the given range and domain or SINT32_MIN with error set </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Random boundary value for the given range and domain or SINT32_MIN with error set </dd></dl>
 
 </div>
 </div>
@@ -465,7 +465,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns random Sint64.</p>
-<dl class="section return"><dt>Returns</dt><dd>Generated signed integer </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Generated signed integer </dd></dl>
 
 </div>
 </div>
@@ -502,7 +502,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a random boundary value for Sint64 within the given boundaries. Boundaries are inclusive, see the usage examples below. If validDomain is true, the function will only return valid boundaries, otherwise non-valid boundaries are also possible. If boundary1 &gt; boundary2, the values are swapped</p>
 <p>Usage examples: RandomSint64BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20 RandomSint64BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9 RandomSint64BoundaryValue(SINT64_MIN, 99, SDL_FALSE) returns 100 RandomSint64BoundaryValue(SINT64_MIN, SINT64_MAX, SDL_FALSE) returns SINT64_MIN (== error value) and error set</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">boundary1</td><td>Lower boundary limit </td></tr>
     <tr><td class="paramname">boundary2</td><td>Upper boundary limit </td></tr>
@@ -510,7 +510,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Random boundary value for the given range and domain or SINT64_MIN with error set </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Random boundary value for the given range and domain or SINT64_MIN with error set </dd></dl>
 
 </div>
 </div>
@@ -530,7 +530,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns a random Sint8</p>
-<dl class="section return"><dt>Returns</dt><dd>Generated signed integer </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Generated signed integer </dd></dl>
 
 </div>
 </div>
@@ -567,7 +567,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a random boundary value for Sint8 within the given boundaries. Boundaries are inclusive, see the usage examples below. If validDomain is true, the function will only return valid boundaries, otherwise non-valid boundaries are also possible. If boundary1 &gt; boundary2, the values are swapped</p>
 <p>Usage examples: RandomSint8BoundaryValue(-10, 20, SDL_TRUE) returns -11, -10, 19 or 20 RandomSint8BoundaryValue(-100, -10, SDL_FALSE) returns -101 or -9 RandomSint8BoundaryValue(SINT8_MIN, 99, SDL_FALSE) returns 100 RandomSint8BoundaryValue(SINT8_MIN, SINT8_MAX, SDL_FALSE) returns SINT8_MIN (== error value) with error set</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">boundary1</td><td>Lower boundary limit </td></tr>
     <tr><td class="paramname">boundary2</td><td>Upper boundary limit </td></tr>
@@ -575,7 +575,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Random boundary value for the given range and domain or SINT8_MIN with error set </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Random boundary value for the given range and domain or SINT8_MIN with error set </dd></dl>
 
 </div>
 </div>
@@ -595,7 +595,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns a random Uint16</p>
-<dl class="section return"><dt>Returns</dt><dd>Generated integer </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Generated integer </dd></dl>
 
 </div>
 </div>
@@ -632,7 +632,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a random boundary value for Uint16 within the given boundaries. Boundaries are inclusive, see the usage examples below. If validDomain is true, the function will only return valid boundaries, otherwise non-valid boundaries are also possible. If boundary1 &gt; boundary2, the values are swapped</p>
 <p>Usage examples: RandomUint16BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20 RandomUint16BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21 RandomUint16BoundaryValue(0, 99, SDL_FALSE) returns 100 RandomUint16BoundaryValue(0, 0xFFFF, SDL_FALSE) returns 0 (error set)</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">boundary1</td><td>Lower boundary limit </td></tr>
     <tr><td class="paramname">boundary2</td><td>Upper boundary limit </td></tr>
@@ -640,7 +640,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Random boundary value for the given range and domain or 0 with error set </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Random boundary value for the given range and domain or 0 with error set </dd></dl>
 
 </div>
 </div>
@@ -660,7 +660,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns a random positive integer</p>
-<dl class="section return"><dt>Returns</dt><dd>Generated integer </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Generated integer </dd></dl>
 
 </div>
 </div>
@@ -697,7 +697,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a random boundary value for Uint32 within the given boundaries. Boundaries are inclusive, see the usage examples below. If validDomain is true, the function will only return valid boundaries, otherwise non-valid boundaries are also possible. If boundary1 &gt; boundary2, the values are swapped</p>
 <p>Usage examples: RandomUint32BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20 RandomUint32BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21 RandomUint32BoundaryValue(0, 99, SDL_FALSE) returns 100 RandomUint32BoundaryValue(0, 0xFFFFFFFF, SDL_FALSE) returns 0 (with error set)</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">boundary1</td><td>Lower boundary limit </td></tr>
     <tr><td class="paramname">boundary2</td><td>Upper boundary limit </td></tr>
@@ -705,7 +705,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Random boundary value for the given range and domain or 0 with error set </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Random boundary value for the given range and domain or 0 with error set </dd></dl>
 
 </div>
 </div>
@@ -725,7 +725,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns random Uint64.</p>
-<dl class="section return"><dt>Returns</dt><dd>Generated integer </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Generated integer </dd></dl>
 
 </div>
 </div>
@@ -762,7 +762,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a random boundary value for Uint64 within the given boundaries. Boundaries are inclusive, see the usage examples below. If validDomain is true, the function will only return valid boundaries, otherwise non-valid boundaries are also possible. If boundary1 &gt; boundary2, the values are swapped</p>
 <p>Usage examples: RandomUint64BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20 RandomUint64BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21 RandomUint64BoundaryValue(0, 99, SDL_FALSE) returns 100 RandomUint64BoundaryValue(0, 0xFFFFFFFFFFFFFFFF, SDL_FALSE) returns 0 (with error set)</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">boundary1</td><td>Lower boundary limit </td></tr>
     <tr><td class="paramname">boundary2</td><td>Upper boundary limit </td></tr>
@@ -770,7 +770,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Random boundary value for the given range and domain or 0 with error set </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Random boundary value for the given range and domain or 0 with error set </dd></dl>
 
 </div>
 </div>
@@ -790,7 +790,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns a random Uint8</p>
-<dl class="section return"><dt>Returns</dt><dd>Generated integer </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Generated integer </dd></dl>
 
 </div>
 </div>
@@ -827,7 +827,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a random boundary value for Uint8 within the given boundaries. Boundaries are inclusive, see the usage examples below. If validDomain is true, the function will only return valid boundaries, otherwise non-valid boundaries are also possible. If boundary1 &gt; boundary2, the values are swapped</p>
 <p>Usage examples: RandomUint8BoundaryValue(10, 20, SDL_TRUE) returns 10, 11, 19 or 20 RandomUint8BoundaryValue(1, 20, SDL_FALSE) returns 0 or 21 RandomUint8BoundaryValue(0, 99, SDL_FALSE) returns 100 RandomUint8BoundaryValue(0, 255, SDL_FALSE) returns 0 (error set)</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">boundary1</td><td>Lower boundary limit </td></tr>
     <tr><td class="paramname">boundary2</td><td>Upper boundary limit </td></tr>
@@ -835,7 +835,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Random boundary value for the given range and domain or 0 with error set </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Random boundary value for the given range and domain or 0 with error set </dd></dl>
 
 </div>
 </div>
@@ -854,7 +854,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>random double in range [0.0 - 1.0[ </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>random double in range [0.0 - 1.0[ </dd></dl>
 
 </div>
 </div>
@@ -873,7 +873,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>random float in range [0.0 - 1.0[ </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>random float in range [0.0 - 1.0[ </dd></dl>
 
 </div>
 </div>

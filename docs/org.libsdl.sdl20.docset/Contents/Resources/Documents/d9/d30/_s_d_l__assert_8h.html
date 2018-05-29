@@ -478,13 +478,13 @@ Functions</h2></td></tr>
 
 <p>Get the current assertion handler. </p>
 <p>This returns the function pointer that is called when an assertion is triggered. This is either the value last passed to <a class="el" href="../../d9/d30/_s_d_l__assert_8h.html#a4f35537f919f74fb363ef1bf285fad37" title="Set an application-defined assertion handler. ">SDL_SetAssertionHandler()</a>, or if no application-specified function is set, is equivalent to calling <a class="el" href="../../d9/d30/_s_d_l__assert_8h.html#aa2e8e2dec8b48cbb4f333b9004ce719e" title="Get the default assertion handler. ">SDL_GetDefaultAssertionHandler()</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">puserdata</td><td>Pointer to a void*, which will store the "userdata" pointer that was passed to <a class="el" href="../../d9/d30/_s_d_l__assert_8h.html#a4f35537f919f74fb363ef1bf285fad37" title="Set an application-defined assertion handler. ">SDL_SetAssertionHandler()</a>. This value will always be NULL for the default handler. If you don't care about this data, it is safe to pass a NULL pointer to this function to ignore it. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The SDL_AssertionHandler that is called when an assert triggers. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The SDL_AssertionHandler that is called when an assert triggers. </dd></dl>
 
 </div>
 </div>
@@ -508,8 +508,8 @@ Functions</h2></td></tr>
 <p>Get all assertions triggered since last call to <a class="el" href="../../d9/d30/_s_d_l__assert_8h.html#a372de161296f3e4661ebd9cf61b58c41" title="Reset the list of all assertion failures. ">SDL_ResetAssertionReport()</a>, or the start of the program.</p>
 <p>The proper way to examine this data looks something like this:</p>
 <p><code> const <a class="el" href="../../d7/d08/struct_s_d_l___assert_data.html">SDL_AssertData</a> *item = <a class="el" href="../../d9/d30/_s_d_l__assert_8h.html#ace646dfd018cf9bd6c96f887fbd6594b" title="Get a list of all assertion failures. ">SDL_GetAssertionReport()</a>; while (item) { printf("'%s', %s (%s:%d), triggered %u times, always ignore: %s.\\n", item-&gt;condition, item-&gt;function, item-&gt;filename, item-&gt;linenum, item-&gt;trigger_count, item-&gt;always_ignore ? "yes" : "no"); item = item-&gt;next; } </code></p>
-<dl class="section return"><dt>Returns</dt><dd>List of all assertions. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d9/d30/_s_d_l__assert_8h.html#a372de161296f3e4661ebd9cf61b58c41" title="Reset the list of all assertion failures. ">SDL_ResetAssertionReport</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>List of all assertions. </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d9/d30/_s_d_l__assert_8h.html#a372de161296f3e4661ebd9cf61b58c41" title="Reset the list of all assertion failures. ">SDL_ResetAssertionReport</a> </dd></dl>
 
 </div>
 </div>
@@ -531,7 +531,7 @@ Functions</h2></td></tr>
 
 <p>Get the default assertion handler. </p>
 <p>This returns the function pointer that is called by default when an assertion is triggered. This is an internal function provided by SDL, that is used for assertions when <a class="el" href="../../d9/d30/_s_d_l__assert_8h.html#a4f35537f919f74fb363ef1bf285fad37" title="Set an application-defined assertion handler. ">SDL_SetAssertionHandler()</a> hasn't been used to provide a different function.</p>
-<dl class="section return"><dt>Returns</dt><dd>The default SDL_AssertionHandler that is called when an assert triggers. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The default SDL_AssertionHandler that is called when an assert triggers. </dd></dl>
 
 </div>
 </div>
@@ -593,7 +593,7 @@ Functions</h2></td></tr>
 
 <p>Reset the list of all assertion failures. </p>
 <p>Reset list of all assertions triggered.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d9/d30/_s_d_l__assert_8h.html#ace646dfd018cf9bd6c96f887fbd6594b" title="Get a list of all assertion failures. ">SDL_GetAssertionReport</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d9/d30/_s_d_l__assert_8h.html#ace646dfd018cf9bd6c96f887fbd6594b" title="Get a list of all assertion failures. ">SDL_GetAssertionReport</a> </dd></dl>
 
 </div>
 </div>
@@ -629,7 +629,7 @@ Functions</h2></td></tr>
 <p>Setting the callback to NULL restores SDL's original internal handler.</p>
 <p>This callback is NOT reset to SDL's internal handler upon <a class="el" href="../../de/ddc/_s_d_l_8h.html#abf064fcc4a657a30db8eace18633f362">SDL_Quit()</a>!</p>
 <p>Return SDL_AssertState value of how to handle the assertion failure.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">handler</td><td>Callback function, called when an assertion fails. </td></tr>
     <tr><td class="paramname">userdata</td><td>A pointer passed to the callback as-is. </td></tr>

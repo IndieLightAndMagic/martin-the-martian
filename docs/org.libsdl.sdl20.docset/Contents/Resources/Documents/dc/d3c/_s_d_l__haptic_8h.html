@@ -278,8 +278,8 @@ Functions</h2></td></tr>
 <li>(optional) Free the effect with <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a48e2262e7294d5c113ac132c99f4395d" title="Destroys a haptic effect on the device. ">SDL_HapticDestroyEffect()</a>.</li>
 <li>Close the haptic device with <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3c6286a76d7e7edef572110ce4a2f6a0" title="Closes a haptic device previously opened with SDL_HapticOpen(). ">SDL_HapticClose()</a>.</li>
 </ul>
-<dl class="section user"><dt>Simple rumble example:</dt><dd><div class="fragment"><div class="line"><a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a79db098a0e8cb102db6c2339a2422e29">SDL_Haptic</a> *haptic;</div><div class="line"></div><div class="line"><span class="comment">// Open the device</span></div><div class="line">haptic = <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80">SDL_HapticOpen</a>( 0 );</div><div class="line"><span class="keywordflow">if</span> (haptic == <a class="code" href="../../d1/d90/begin__code_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)</div><div class="line">   <span class="keywordflow">return</span> -1;</div><div class="line"></div><div class="line"><span class="comment">// Initialize simple rumble</span></div><div class="line"><span class="keywordflow">if</span> (<a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a32f0a3c2739cacd403b653de4796dd1e">SDL_HapticRumbleInit</a>( haptic ) != 0)</div><div class="line">   <span class="keywordflow">return</span> -1;</div><div class="line"></div><div class="line"><span class="comment">// Play effect at 50% strength for 2 seconds</span></div><div class="line"><span class="keywordflow">if</span> (<a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a035361cec7e649da86ccc518fe27ecde">SDL_HapticRumblePlay</a>( haptic, 0.5, 2000 ) != 0)</div><div class="line">   <span class="keywordflow">return</span> -1;</div><div class="line"><a class="code" href="../../de/d46/_s_d_l__timer_8h.html#ac2138dd83032bdf6711f9bb6a5a996f7">SDL_Delay</a>( 2000 );</div><div class="line"></div><div class="line"><span class="comment">// Clean up</span></div><div class="line"><a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3c6286a76d7e7edef572110ce4a2f6a0">SDL_HapticClose</a>( haptic );</div></div><!-- fragment --></dd></dl>
-<dl class="section user"><dt>Complete example:</dt><dd><div class="fragment"><div class="line"><span class="keywordtype">int</span> test_haptic( <a class="code" href="../../dd/d00/_s_d_l__joystick_8h.html#a1246a982e91df301042a77e65c694987">SDL_Joystick</a> * joystick ) {</div><div class="line">   <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a79db098a0e8cb102db6c2339a2422e29">SDL_Haptic</a> *haptic;</div><div class="line">   <a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html">SDL_HapticEffect</a> effect;</div><div class="line">   <span class="keywordtype">int</span> effect_id;</div><div class="line"></div><div class="line">   <span class="comment">// Open the device</span></div><div class="line">   haptic = <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#afc9280b95b8fcabef14618b5ae560a52">SDL_HapticOpenFromJoystick</a>( joystick );</div><div class="line">   <span class="keywordflow">if</span> (haptic == <a class="code" href="../../d1/d90/begin__code_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> -1; <span class="comment">// Most likely joystick isn&#39;t haptic</span></div><div class="line"></div><div class="line">   <span class="comment">// See if it can do sine waves</span></div><div class="line">   <span class="keywordflow">if</span> ((<a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20">SDL_HapticQuery</a>(haptic) &amp; <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#aa6d75adbfcdda5075078e7a2849da5c0">SDL_HAPTIC_SINE</a>)==0) {</div><div class="line">      <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3c6286a76d7e7edef572110ce4a2f6a0">SDL_HapticClose</a>(haptic); <span class="comment">// No sine effect</span></div><div class="line">      <span class="keywordflow">return</span> -1;</div><div class="line">   }</div><div class="line"></div><div class="line">   <span class="comment">// Create the effect</span></div><div class="line">   memset( &amp;effect, 0, <span class="keyword">sizeof</span>(<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html">SDL_HapticEffect</a>) ); <span class="comment">// 0 is safe default</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a5ff6cfd8da91537091e9a6c2108cb179">type</a> = <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#aa6d75adbfcdda5075078e7a2849da5c0">SDL_HAPTIC_SINE</a>;</div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#a2c4f27d4583187a7a994e79ad49083d3">direction</a>.<a class="code" href="../../dc/dc3/struct_s_d_l___haptic_direction.html#acd6830ad68c4ba2af16057fa418087cc">type</a> = <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#acdc35e97e5525472054a67b76e518f3b">SDL_HAPTIC_POLAR</a>; <span class="comment">// Polar coordinates</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#a2c4f27d4583187a7a994e79ad49083d3">direction</a>.<a class="code" href="../../dc/dc3/struct_s_d_l___haptic_direction.html#a6cebd8118a3e61e36bd0c503ae020362">dir</a>[0] = 18000; <span class="comment">// Force comes from south</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#a0e7e105b96308129b248d52b56a2a839">period</a> = 1000; <span class="comment">// 1000 ms</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#aad0ad2b00c7e6959da627663d91f7b94">magnitude</a> = 20000; <span class="comment">// 20000/32767 strength</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#a0ef0b17c54aaa5c99886c2a618444026">length</a> = 5000; <span class="comment">// 5 seconds long</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#ab35eedce7107edc75640586159fe75bb">attack_length</a> = 1000; <span class="comment">// Takes 1 second to get max strength</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#ae1c186d02304eae142a62dca72f50fa8">fade_length</a> = 1000; <span class="comment">// Takes 1 second to fade away</span></div><div class="line"></div><div class="line">   <span class="comment">// Upload the effect</span></div><div class="line">   effect_id = <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a2b30e8c06c85414cc1d0e0df35821c5d">SDL_HapticNewEffect</a>( haptic, &amp;effect );</div><div class="line"></div><div class="line">   <span class="comment">// Test the effect</span></div><div class="line">   <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a82573caa03429e53a64520fc82d58b17">SDL_HapticRunEffect</a>( haptic, effect_id, 1 );</div><div class="line">   <a class="code" href="../../de/d46/_s_d_l__timer_8h.html#ac2138dd83032bdf6711f9bb6a5a996f7">SDL_Delay</a>( 5000); <span class="comment">// Wait for the effect to finish</span></div><div class="line"></div><div class="line">   <span class="comment">// We destroy the effect, although closing the device also does this</span></div><div class="line">   <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a48e2262e7294d5c113ac132c99f4395d">SDL_HapticDestroyEffect</a>( haptic, effect_id );</div><div class="line"></div><div class="line">   <span class="comment">// Close the device</span></div><div class="line">   <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3c6286a76d7e7edef572110ce4a2f6a0">SDL_HapticClose</a>(haptic);</div><div class="line"></div><div class="line">   <span class="keywordflow">return</span> 0; <span class="comment">// Success</span></div><div class="line">}</div></div><!-- fragment --> </dd></dl>
+<dl class="section user"><dtTicks>Simple rumble example:</dtTicks><dd><div class="fragment"><div class="line"><a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a79db098a0e8cb102db6c2339a2422e29">SDL_Haptic</a> *haptic;</div><div class="line"></div><div class="line"><span class="comment">// Open the device</span></div><div class="line">haptic = <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80">SDL_HapticOpen</a>( 0 );</div><div class="line"><span class="keywordflow">if</span> (haptic == <a class="code" href="../../d1/d90/begin__code_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)</div><div class="line">   <span class="keywordflow">return</span> -1;</div><div class="line"></div><div class="line"><span class="comment">// Initialize simple rumble</span></div><div class="line"><span class="keywordflow">if</span> (<a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a32f0a3c2739cacd403b653de4796dd1e">SDL_HapticRumbleInit</a>( haptic ) != 0)</div><div class="line">   <span class="keywordflow">return</span> -1;</div><div class="line"></div><div class="line"><span class="comment">// Play effect at 50% strength for 2 seconds</span></div><div class="line"><span class="keywordflow">if</span> (<a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a035361cec7e649da86ccc518fe27ecde">SDL_HapticRumblePlay</a>( haptic, 0.5, 2000 ) != 0)</div><div class="line">   <span class="keywordflow">return</span> -1;</div><div class="line"><a class="code" href="../../de/d46/_s_d_l__timer_8h.html#ac2138dd83032bdf6711f9bb6a5a996f7">SDL_Delay</a>( 2000 );</div><div class="line"></div><div class="line"><span class="comment">// Clean up</span></div><div class="line"><a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3c6286a76d7e7edef572110ce4a2f6a0">SDL_HapticClose</a>( haptic );</div></div><!-- fragment --></dd></dl>
+<dl class="section user"><dtTicks>Complete example:</dtTicks><dd><div class="fragment"><div class="line"><span class="keywordtype">int</span> test_haptic( <a class="code" href="../../dd/d00/_s_d_l__joystick_8h.html#a1246a982e91df301042a77e65c694987">SDL_Joystick</a> * joystick ) {</div><div class="line">   <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a79db098a0e8cb102db6c2339a2422e29">SDL_Haptic</a> *haptic;</div><div class="line">   <a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html">SDL_HapticEffect</a> effect;</div><div class="line">   <span class="keywordtype">int</span> effect_id;</div><div class="line"></div><div class="line">   <span class="comment">// Open the device</span></div><div class="line">   haptic = <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#afc9280b95b8fcabef14618b5ae560a52">SDL_HapticOpenFromJoystick</a>( joystick );</div><div class="line">   <span class="keywordflow">if</span> (haptic == <a class="code" href="../../d1/d90/begin__code_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> -1; <span class="comment">// Most likely joystick isn&#39;t haptic</span></div><div class="line"></div><div class="line">   <span class="comment">// See if it can do sine waves</span></div><div class="line">   <span class="keywordflow">if</span> ((<a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20">SDL_HapticQuery</a>(haptic) &amp; <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#aa6d75adbfcdda5075078e7a2849da5c0">SDL_HAPTIC_SINE</a>)==0) {</div><div class="line">      <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3c6286a76d7e7edef572110ce4a2f6a0">SDL_HapticClose</a>(haptic); <span class="comment">// No sine effect</span></div><div class="line">      <span class="keywordflow">return</span> -1;</div><div class="line">   }</div><div class="line"></div><div class="line">   <span class="comment">// Create the effect</span></div><div class="line">   memset( &amp;effect, 0, <span class="keyword">sizeof</span>(<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html">SDL_HapticEffect</a>) ); <span class="comment">// 0 is safe default</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a5ff6cfd8da91537091e9a6c2108cb179">type</a> = <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#aa6d75adbfcdda5075078e7a2849da5c0">SDL_HAPTIC_SINE</a>;</div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#a2c4f27d4583187a7a994e79ad49083d3">direction</a>.<a class="code" href="../../dc/dc3/struct_s_d_l___haptic_direction.html#acd6830ad68c4ba2af16057fa418087cc">type</a> = <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#acdc35e97e5525472054a67b76e518f3b">SDL_HAPTIC_POLAR</a>; <span class="comment">// Polar coordinates</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#a2c4f27d4583187a7a994e79ad49083d3">direction</a>.<a class="code" href="../../dc/dc3/struct_s_d_l___haptic_direction.html#a6cebd8118a3e61e36bd0c503ae020362">dir</a>[0] = 18000; <span class="comment">// Force comes from south</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#a0e7e105b96308129b248d52b56a2a839">period</a> = 1000; <span class="comment">// 1000 ms</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#aad0ad2b00c7e6959da627663d91f7b94">magnitude</a> = 20000; <span class="comment">// 20000/32767 strength</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#a0ef0b17c54aaa5c99886c2a618444026">length</a> = 5000; <span class="comment">// 5 seconds long</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#ab35eedce7107edc75640586159fe75bb">attack_length</a> = 1000; <span class="comment">// Takes 1 second to get max strength</span></div><div class="line">   effect.<a class="code" href="../../d4/d80/union_s_d_l___haptic_effect.html#a8320ec4db6ec1dc1d30feb62ee2a2f04">periodic</a>.<a class="code" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html#ae1c186d02304eae142a62dca72f50fa8">fade_length</a> = 1000; <span class="comment">// Takes 1 second to fade away</span></div><div class="line"></div><div class="line">   <span class="comment">// Upload the effect</span></div><div class="line">   effect_id = <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a2b30e8c06c85414cc1d0e0df35821c5d">SDL_HapticNewEffect</a>( haptic, &amp;effect );</div><div class="line"></div><div class="line">   <span class="comment">// Test the effect</span></div><div class="line">   <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a82573caa03429e53a64520fc82d58b17">SDL_HapticRunEffect</a>( haptic, effect_id, 1 );</div><div class="line">   <a class="code" href="../../de/d46/_s_d_l__timer_8h.html#ac2138dd83032bdf6711f9bb6a5a996f7">SDL_Delay</a>( 5000); <span class="comment">// Wait for the effect to finish</span></div><div class="line"></div><div class="line">   <span class="comment">// We destroy the effect, although closing the device also does this</span></div><div class="line">   <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a48e2262e7294d5c113ac132c99f4395d">SDL_HapticDestroyEffect</a>( haptic, effect_id );</div><div class="line"></div><div class="line">   <span class="comment">// Close the device</span></div><div class="line">   <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3c6286a76d7e7edef572110ce4a2f6a0">SDL_HapticClose</a>(haptic);</div><div class="line"></div><div class="line">   <span class="keywordflow">return</span> 0; <span class="comment">// Success</span></div><div class="line">}</div></div><!-- fragment --> </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
@@ -297,7 +297,7 @@ Functions</h2></td></tr>
 
 <p>Device can set autocenter. </p>
 <p>Device supports setting autocenter.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1c8587c0a1494e4379022397e28adaa1" title="Sets the global autocenter of the device. ">SDL_HapticSetAutocenter</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1c8587c0a1494e4379022397e28adaa1" title="Sets the global autocenter of the device. ">SDL_HapticSetAutocenter</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00280">280</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -316,7 +316,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Uses cartesian coordinates for the direction. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/dc3/struct_s_d_l___haptic_direction.html" title="Structure that represents a haptic direction. ">SDL_HapticDirection</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/dc3/struct_s_d_l___haptic_direction.html" title="Structure that represents a haptic direction. ">SDL_HapticDirection</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00319">319</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -336,7 +336,7 @@ Functions</h2></td></tr>
 
 <p>Constant effect supported. </p>
 <p>Constant haptic effect.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d1/d00/struct_s_d_l___haptic_condition.html" title="A structure containing a template for a Condition effect. ">SDL_HapticCondition</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d1/d00/struct_s_d_l___haptic_condition.html" title="A structure containing a template for a Condition effect. ">SDL_HapticCondition</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00152">152</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -375,7 +375,7 @@ Functions</h2></td></tr>
 
 <p>Damper effect supported - uses axes velocity. </p>
 <p>Condition haptic effect that simulates dampening. Effect is based on the axes velocity.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d1/d00/struct_s_d_l___haptic_condition.html" title="A structure containing a template for a Condition effect. ">SDL_HapticCondition</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d1/d00/struct_s_d_l___haptic_condition.html" title="A structure containing a template for a Condition effect. ">SDL_HapticCondition</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00231">231</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -395,7 +395,7 @@ Functions</h2></td></tr>
 
 <p>Friction effect supported - uses axes movement. </p>
 <p>Condition haptic effect that simulates friction. Effect is based on the axes movement.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d1/d00/struct_s_d_l___haptic_condition.html" title="A structure containing a template for a Condition effect. ">SDL_HapticCondition</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d1/d00/struct_s_d_l___haptic_condition.html" title="A structure containing a template for a Condition effect. ">SDL_HapticCondition</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00251">251</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -415,7 +415,7 @@ Functions</h2></td></tr>
 
 <p>Device can set global gain. </p>
 <p>Device supports setting the global gain.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a39918085ea154090140750b27fa0633f" title="Sets the global gain of the device. ">SDL_HapticSetGain</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a39918085ea154090140750b27fa0633f" title="Sets the global gain of the device. ">SDL_HapticSetGain</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00271">271</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -435,7 +435,7 @@ Functions</h2></td></tr>
 
 <p>Inertia effect supported - uses axes acceleration. </p>
 <p>Condition haptic effect that simulates inertia. Effect is based on the axes acceleration.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d1/d00/struct_s_d_l___haptic_condition.html" title="A structure containing a template for a Condition effect. ">SDL_HapticCondition</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d1/d00/struct_s_d_l___haptic_condition.html" title="A structure containing a template for a Condition effect. ">SDL_HapticCondition</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00241">241</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -454,7 +454,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Used to play a device an infinite number of times. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a82573caa03429e53a64520fc82d58b17" title="Runs the haptic effect on its associated haptic device. ">SDL_HapticRunEffect</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a82573caa03429e53a64520fc82d58b17" title="Runs the haptic effect on its associated haptic device. ">SDL_HapticRunEffect</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00341">341</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -474,8 +474,8 @@ Functions</h2></td></tr>
 
 <p>Left/Right effect supported. </p>
 <p>Haptic effect for direct control over high/low frequency motors.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d3/d93/struct_s_d_l___haptic_left_right.html" title="A structure containing a template for a Left/Right effect. ">SDL_HapticLeftRight</a> </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>this value was SDL_HAPTIC_SQUARE right before 2.0.0 shipped. Sorry, we ran out of bits, and this is important for XInput devices. </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d3/d93/struct_s_d_l___haptic_left_right.html" title="A structure containing a template for a Left/Right effect. ">SDL_HapticLeftRight</a> </dd></dl>
+<dl class="section warning"><dtTicks>Warning</dtTicks><dd>this value was SDL_HAPTIC_SQUARE right before 2.0.0 shipped. Sorry, we ran out of bits, and this is important for XInput devices. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00172">172</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -495,7 +495,7 @@ Functions</h2></td></tr>
 
 <p>Device can be paused. </p>
 <p>Devices supports being paused.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a24c2c303ef88ea6792a2aeb196a9819d" title="Pauses a haptic device. ">SDL_HapticPause</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a24c2c303ef88ea6792a2aeb196a9819d" title="Pauses a haptic device. ">SDL_HapticPause</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3a3f07c37e4539fdf7b4adfd872fe015" title="Unpauses a haptic device. ">SDL_HapticUnpause</a> </dd></dl>
 
@@ -516,7 +516,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Uses polar coordinates for the direction. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/dc3/struct_s_d_l___haptic_direction.html" title="Structure that represents a haptic direction. ">SDL_HapticDirection</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/dc3/struct_s_d_l___haptic_direction.html" title="Structure that represents a haptic direction. ">SDL_HapticDirection</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00312">312</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -536,7 +536,7 @@ Functions</h2></td></tr>
 
 <p>Ramp effect supported. </p>
 <p>Ramp haptic effect.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d2/df5/struct_s_d_l___haptic_ramp.html" title="A structure containing a template for a Ramp effect. ">SDL_HapticRamp</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d2/df5/struct_s_d_l___haptic_ramp.html" title="A structure containing a template for a Ramp effect. ">SDL_HapticRamp</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00211">211</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -556,7 +556,7 @@ Functions</h2></td></tr>
 
 <p>Sawtoothdown wave effect supported. </p>
 <p>Periodic haptic effect that simulates saw tooth down waves.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html" title="A structure containing a template for a Periodic effect. ">SDL_HapticPeriodic</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html" title="A structure containing a template for a Periodic effect. ">SDL_HapticPeriodic</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00202">202</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -576,7 +576,7 @@ Functions</h2></td></tr>
 
 <p>Sawtoothup wave effect supported. </p>
 <p>Periodic haptic effect that simulates saw tooth up waves.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html" title="A structure containing a template for a Periodic effect. ">SDL_HapticPeriodic</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html" title="A structure containing a template for a Periodic effect. ">SDL_HapticPeriodic</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00193">193</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -596,7 +596,7 @@ Functions</h2></td></tr>
 
 <p>Sine wave effect supported. </p>
 <p>Periodic haptic effect that simulates sine waves.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html" title="A structure containing a template for a Periodic effect. ">SDL_HapticPeriodic</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html" title="A structure containing a template for a Periodic effect. ">SDL_HapticPeriodic</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00161">161</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -615,7 +615,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Uses spherical coordinates for the direction. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/dc3/struct_s_d_l___haptic_direction.html" title="Structure that represents a haptic direction. ">SDL_HapticDirection</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/dc3/struct_s_d_l___haptic_direction.html" title="Structure that represents a haptic direction. ">SDL_HapticDirection</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00326">326</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -635,7 +635,7 @@ Functions</h2></td></tr>
 
 <p>Spring effect supported - uses axes position. </p>
 <p>Condition haptic effect that simulates a spring. Effect is based on the axes position.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d1/d00/struct_s_d_l___haptic_condition.html" title="A structure containing a template for a Condition effect. ">SDL_HapticCondition</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d1/d00/struct_s_d_l___haptic_condition.html" title="A structure containing a template for a Condition effect. ">SDL_HapticCondition</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00221">221</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -655,7 +655,7 @@ Functions</h2></td></tr>
 
 <p>Device can be queried for effect status. </p>
 <p>Device supports querying effect status.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#ab770cb167093ef6ac1812161e9072521" title="Gets the status of the current effect on the haptic device. ">SDL_HapticGetEffectStatus</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#ab770cb167093ef6ac1812161e9072521" title="Gets the status of the current effect on the haptic device. ">SDL_HapticGetEffectStatus</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00289">289</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -675,7 +675,7 @@ Functions</h2></td></tr>
 
 <p>Triangle wave effect supported. </p>
 <p>Periodic haptic effect that simulates triangular waves.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html" title="A structure containing a template for a Periodic effect. ">SDL_HapticPeriodic</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d1/d6b/struct_s_d_l___haptic_periodic.html" title="A structure containing a template for a Periodic effect. ">SDL_HapticPeriodic</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html#l00184">184</a> of file <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h_source.html">SDL_haptic.h</a>.</p>
 
@@ -695,7 +695,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The haptic structure used to identify an SDL haptic. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#afc9280b95b8fcabef14618b5ae560a52" title="Opens a haptic device for use from a joystick device. ">SDL_HapticOpenFromJoystick</a> </dd>
 <dd>
@@ -723,7 +723,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Closes a haptic device previously opened with <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen()</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to close. </td></tr>
   </table>
@@ -760,14 +760,14 @@ Functions</h2></td></tr>
 
 <p>Destroys a haptic effect on the device. </p>
 <p>This will stop the effect if it's running. Effects are automatically destroyed when the device is closed.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Device to destroy the effect on. </td></tr>
     <tr><td class="paramname">effect</td><td>Identifier of the effect to destroy.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a2b30e8c06c85414cc1d0e0df35821c5d" title="Creates a new haptic effect on the device. ">SDL_HapticNewEffect</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a2b30e8c06c85414cc1d0e0df35821c5d" title="Creates a new haptic effect on the device. ">SDL_HapticNewEffect</a> </dd></dl>
 
 </div>
 </div>
@@ -798,15 +798,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Checks to see if effect is supported by haptic. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to check on. </td></tr>
     <tr><td class="paramname">effect</td><td>Effect to check to see if it is supported. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if effect is supported, SDL_FALSE if it isn't or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20" title="Gets the haptic device&#39;s supported features in bitwise manner. ">SDL_HapticQuery</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if effect is supported, SDL_FALSE if it isn't or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20" title="Gets the haptic device&#39;s supported features in bitwise manner. ">SDL_HapticQuery</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a2b30e8c06c85414cc1d0e0df35821c5d" title="Creates a new haptic effect on the device. ">SDL_HapticNewEffect</a> </dd></dl>
 
@@ -840,15 +840,15 @@ Functions</h2></td></tr>
 
 <p>Gets the status of the current effect on the haptic device. </p>
 <p>Device must support the <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#abfbc9fa0d65f4b5632788945080cc71b" title="Device can be queried for effect status. ">SDL_HAPTIC_STATUS</a> feature.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to query the effect status on. </td></tr>
     <tr><td class="paramname">effect</td><td>Identifier of the effect to query its status. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 if it isn't playing, 1 if it is playing or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a82573caa03429e53a64520fc82d58b17" title="Runs the haptic effect on its associated haptic device. ">SDL_HapticRunEffect</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 if it isn't playing, 1 if it is playing or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a82573caa03429e53a64520fc82d58b17" title="Runs the haptic effect on its associated haptic device. ">SDL_HapticRunEffect</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1c78355b94d196782e02be72ae13ffcd" title="Stops the haptic effect on its associated haptic device. ">SDL_HapticStopEffect</a> </dd></dl>
 
@@ -871,14 +871,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the index of a haptic device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to get the index of. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The index of the haptic device or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The index of the haptic device or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a2f0edac8fd59bedcb198fb25db4706ba" title="Checks if the haptic device at index has been opened. ">SDL_HapticOpened</a> </dd></dl>
 
@@ -902,14 +902,14 @@ Functions</h2></td></tr>
 
 <p>Get the implementation dependent name of a haptic device. </p>
 <p>This can be called before any joysticks are opened. If no name can be found, this function returns NULL.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">device_index</td><td>Index of the device to get its name. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Name of the device or NULL on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a304df9578f0ca8b47bfa95c206d8be11" title="Count the number of haptic devices attached to the system. ">SDL_NumHaptics</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Name of the device or NULL on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a304df9578f0ca8b47bfa95c206d8be11" title="Count the number of haptic devices attached to the system. ">SDL_NumHaptics</a> </dd></dl>
 
 </div>
 </div>
@@ -940,15 +940,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates a new haptic effect on the device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to create the effect on. </td></tr>
     <tr><td class="paramname">effect</td><td>Properties of the effect to create. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The identifier of the effect on success or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#ad7c445a48c04a38749c0f266ed9b4166" title="Updates the properties of an effect. ">SDL_HapticUpdateEffect</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The identifier of the effect on success or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#ad7c445a48c04a38749c0f266ed9b4166" title="Updates the properties of an effect. ">SDL_HapticUpdateEffect</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a82573caa03429e53a64520fc82d58b17" title="Runs the haptic effect on its associated haptic device. ">SDL_HapticRunEffect</a> </dd>
 <dd>
@@ -973,7 +973,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the number of haptic axes the device has. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/dc3/struct_s_d_l___haptic_direction.html" title="Structure that represents a haptic direction. ">SDL_HapticDirection</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/dc3/struct_s_d_l___haptic_direction.html" title="Structure that represents a haptic direction. ">SDL_HapticDirection</a> </dd></dl>
 
 </div>
 </div>
@@ -995,14 +995,14 @@ Functions</h2></td></tr>
 
 <p>Returns the number of effects a haptic device can store. </p>
 <p>On some platforms this isn't fully supported, and therefore is an approximation. Always check to see if your created effect was actually created and do not rely solely on <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a8ab30474b72b6ea9e5b2aa8ceeaade4e" title="Returns the number of effects a haptic device can store. ">SDL_HapticNumEffects()</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>The haptic device to query effect max. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of effects the haptic device can store or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3ee36c81661b2b5da648eb9d92a0b189" title="Returns the number of effects a haptic device can play at the same time. ">SDL_HapticNumEffectsPlaying</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The number of effects the haptic device can store or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3ee36c81661b2b5da648eb9d92a0b189" title="Returns the number of effects a haptic device can play at the same time. ">SDL_HapticNumEffectsPlaying</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20" title="Gets the haptic device&#39;s supported features in bitwise manner. ">SDL_HapticQuery</a> </dd></dl>
 
@@ -1026,14 +1026,14 @@ Functions</h2></td></tr>
 
 <p>Returns the number of effects a haptic device can play at the same time. </p>
 <p>This is not supported on all platforms, but will always return a value. Added here for the sake of completeness.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>The haptic device to query maximum playing effects. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of effects the haptic device can play at the same time or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a8ab30474b72b6ea9e5b2aa8ceeaade4e" title="Returns the number of effects a haptic device can store. ">SDL_HapticNumEffects</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The number of effects the haptic device can play at the same time or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a8ab30474b72b6ea9e5b2aa8ceeaade4e" title="Returns the number of effects a haptic device can store. ">SDL_HapticNumEffects</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20" title="Gets the haptic device&#39;s supported features in bitwise manner. ">SDL_HapticQuery</a> </dd></dl>
 
@@ -1058,14 +1058,14 @@ Functions</h2></td></tr>
 <p>Opens a haptic device for use. </p>
 <p>The index passed as an argument refers to the N'th haptic device on this system.</p>
 <p>When opening a haptic device, its gain will be set to maximum and autocenter will be disabled. To modify these values use <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a39918085ea154090140750b27fa0633f" title="Sets the global gain of the device. ">SDL_HapticSetGain()</a> and <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1c8587c0a1494e4379022397e28adaa1" title="Sets the global autocenter of the device. ">SDL_HapticSetAutocenter()</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">device_index</td><td>Index of the device to open. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Device identifier or NULL on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a614d3af60024e80c7e69396337ee2880" title="Gets the index of a haptic device. ">SDL_HapticIndex</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Device identifier or NULL on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a614d3af60024e80c7e69396337ee2880" title="Gets the index of a haptic device. ">SDL_HapticIndex</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#ae07432e0f2c04e79ab3d848a92c2b41d" title="Tries to open a haptic device from the current mouse. ">SDL_HapticOpenFromMouse</a> </dd>
 <dd>
@@ -1100,14 +1100,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Checks if the haptic device at index has been opened. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">device_index</td><td>Index to check to see if it has been opened. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if it has been opened or 0 if it hasn't.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>1 if it has been opened or 0 if it hasn't.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a614d3af60024e80c7e69396337ee2880" title="Gets the index of a haptic device. ">SDL_HapticIndex</a> </dd></dl>
 
@@ -1132,14 +1132,14 @@ Functions</h2></td></tr>
 <p>Opens a haptic device for use from a joystick device. </p>
 <p>You must still close the haptic device separately. It will not be closed with the joystick.</p>
 <p>When opening from a joystick you should first close the haptic device before closing the joystick device. If not, on some implementations the haptic device will also get unallocated and you'll be unable to use force feedback on that device.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">joystick</td><td>Joystick to create a haptic device from. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A valid haptic device identifier on success or NULL on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>A valid haptic device identifier on success or NULL on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3c6286a76d7e7edef572110ce4a2f6a0" title="Closes a haptic device previously opened with SDL_HapticOpen(). ">SDL_HapticClose</a> </dd></dl>
 
@@ -1162,8 +1162,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Tries to open a haptic device from the current mouse. </p>
-<dl class="section return"><dt>Returns</dt><dd>The haptic device identifier or NULL on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#ab46cc058a1e417366040ff4cd7f1ba43" title="Gets whether or not the current mouse has haptic capabilities. ">SDL_MouseIsHaptic</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The haptic device identifier or NULL on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#ab46cc058a1e417366040ff4cd7f1ba43" title="Gets whether or not the current mouse has haptic capabilities. ">SDL_MouseIsHaptic</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen</a> </dd></dl>
 
@@ -1188,14 +1188,14 @@ Functions</h2></td></tr>
 <p>Pauses a haptic device. </p>
 <p>Device must support the <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a6baee8978ccc97add8457388801d7782" title="Device can be paused. ">SDL_HAPTIC_PAUSE</a> feature. Call <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3a3f07c37e4539fdf7b4adfd872fe015" title="Unpauses a haptic device. ">SDL_HapticUnpause()</a> to resume playback.</p>
 <p>Do not modify the effects nor add new ones while the device is paused. That can cause all sorts of weird errors.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to pause. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3a3f07c37e4539fdf7b4adfd872fe015" title="Unpauses a haptic device. ">SDL_HapticUnpause</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3a3f07c37e4539fdf7b4adfd872fe015" title="Unpauses a haptic device. ">SDL_HapticUnpause</a> </dd></dl>
 
 </div>
 </div>
@@ -1216,14 +1216,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the haptic device's supported features in bitwise manner. </p>
-<p>Example: </p><div class="fragment"><div class="line"><span class="keywordflow">if</span> (<a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20">SDL_HapticQuery</a>(haptic) &amp; <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a955fb9f680dcf9cc72a3d5263e85b80a">SDL_HAPTIC_CONSTANT</a>) {</div><div class="line">    printf(<span class="stringliteral">&quot;We have constant haptic effect!\n&quot;</span>);</div><div class="line">}</div></div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+<p>Example: </p><div class="fragment"><div class="line"><span class="keywordflow">if</span> (<a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20">SDL_HapticQuery</a>(haptic) &amp; <a class="code" href="../../dc/d3c/_s_d_l__haptic_8h.html#a955fb9f680dcf9cc72a3d5263e85b80a">SDL_HAPTIC_CONSTANT</a>) {</div><div class="line">    printf(<span class="stringliteral">&quot;We have constant haptic effect!\n&quot;</span>);</div><div class="line">}</div></div><!-- fragment --><dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>The haptic device to query. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Haptic features in bitwise manner (OR'd).</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a8ab30474b72b6ea9e5b2aa8ceeaade4e" title="Returns the number of effects a haptic device can store. ">SDL_HapticNumEffects</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Haptic features in bitwise manner (OR'd).</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a8ab30474b72b6ea9e5b2aa8ceeaade4e" title="Returns the number of effects a haptic device can store. ">SDL_HapticNumEffects</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#ac63c4377ba5d8b8f20bb2b98ab68b9cb" title="Checks to see if effect is supported by haptic. ">SDL_HapticEffectSupported</a> </dd></dl>
 
@@ -1246,14 +1246,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initializes the haptic device for simple rumble playback. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to initialize for simple rumble playback. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a833d90b5c4aaf3a32768922a2f051e80" title="Opens a haptic device for use. ">SDL_HapticOpen</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a4d258b28faf767e3c796e885aceecb1d" title="Checks to see if rumble is supported on a haptic device. ">SDL_HapticRumbleSupported</a> </dd>
 <dd>
@@ -1296,7 +1296,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Runs simple rumble on a haptic device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to play rumble effect on. </td></tr>
     <tr><td class="paramname">strength</td><td>Strength of the rumble to play as a 0-1 float value. </td></tr>
@@ -1304,8 +1304,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a4d258b28faf767e3c796e885aceecb1d" title="Checks to see if rumble is supported on a haptic device. ">SDL_HapticRumbleSupported</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a4d258b28faf767e3c796e885aceecb1d" title="Checks to see if rumble is supported on a haptic device. ">SDL_HapticRumbleSupported</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a32f0a3c2739cacd403b653de4796dd1e" title="Initializes the haptic device for simple rumble playback. ">SDL_HapticRumbleInit</a> </dd>
 <dd>
@@ -1330,14 +1330,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Stops the simple rumble on a haptic device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic to stop the rumble on. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a4d258b28faf767e3c796e885aceecb1d" title="Checks to see if rumble is supported on a haptic device. ">SDL_HapticRumbleSupported</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a4d258b28faf767e3c796e885aceecb1d" title="Checks to see if rumble is supported on a haptic device. ">SDL_HapticRumbleSupported</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a32f0a3c2739cacd403b653de4796dd1e" title="Initializes the haptic device for simple rumble playback. ">SDL_HapticRumbleInit</a> </dd>
 <dd>
@@ -1362,14 +1362,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Checks to see if rumble is supported on a haptic device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to check to see if it supports rumble. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if effect is supported, SDL_FALSE if it isn't or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a32f0a3c2739cacd403b653de4796dd1e" title="Initializes the haptic device for simple rumble playback. ">SDL_HapticRumbleInit</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if effect is supported, SDL_FALSE if it isn't or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a32f0a3c2739cacd403b653de4796dd1e" title="Initializes the haptic device for simple rumble playback. ">SDL_HapticRumbleInit</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a035361cec7e649da86ccc518fe27ecde" title="Runs simple rumble on a haptic device. ">SDL_HapticRumblePlay</a> </dd>
 <dd>
@@ -1411,7 +1411,7 @@ Functions</h2></td></tr>
 
 <p>Runs the haptic effect on its associated haptic device. </p>
 <p>If iterations are <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a648896e9e14cb27fa8a4b6632d3f3882" title="Used to play a device an infinite number of times. ">SDL_HAPTIC_INFINITY</a>, it'll run the effect over and over repeating the envelope (attack and fade) every time. If you only want the effect to last forever, set <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a648896e9e14cb27fa8a4b6632d3f3882" title="Used to play a device an infinite number of times. ">SDL_HAPTIC_INFINITY</a> in the effect's length parameter.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to run the effect on. </td></tr>
     <tr><td class="paramname">effect</td><td>Identifier of the haptic effect to run. </td></tr>
@@ -1419,8 +1419,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1c78355b94d196782e02be72ae13ffcd" title="Stops the haptic effect on its associated haptic device. ">SDL_HapticStopEffect</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1c78355b94d196782e02be72ae13ffcd" title="Stops the haptic effect on its associated haptic device. ">SDL_HapticStopEffect</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a48e2262e7294d5c113ac132c99f4395d" title="Destroys a haptic effect on the device. ">SDL_HapticDestroyEffect</a> </dd>
 <dd>
@@ -1457,15 +1457,15 @@ Functions</h2></td></tr>
 <p>Sets the global autocenter of the device. </p>
 <p>Autocenter should be between 0 and 100. Setting it to 0 will disable autocentering.</p>
 <p>Device must support the <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a28aa71e231fbf5b88bce7906bf2f4e70" title="Device can set autocenter. ">SDL_HAPTIC_AUTOCENTER</a> feature.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to set autocentering on. </td></tr>
     <tr><td class="paramname">autocenter</td><td>Value to set autocenter to, 0 disables autocentering. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20" title="Gets the haptic device&#39;s supported features in bitwise manner. ">SDL_HapticQuery</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20" title="Gets the haptic device&#39;s supported features in bitwise manner. ">SDL_HapticQuery</a> </dd></dl>
 
 </div>
 </div>
@@ -1498,15 +1498,15 @@ Functions</h2></td></tr>
 <p>Sets the global gain of the device. </p>
 <p>Device must support the <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a3afe54582bd5c184109f3f61b6c84c6c" title="Device can set global gain. ">SDL_HAPTIC_GAIN</a> feature.</p>
 <p>The user may specify the maximum gain by setting the environment variable SDL_HAPTIC_GAIN_MAX which should be between 0 and 100. All calls to <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a39918085ea154090140750b27fa0633f" title="Sets the global gain of the device. ">SDL_HapticSetGain()</a> will scale linearly using SDL_HAPTIC_GAIN_MAX as the maximum.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to set the gain on. </td></tr>
     <tr><td class="paramname">gain</td><td>Value to set the gain to, should be between 0 and 100. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20" title="Gets the haptic device&#39;s supported features in bitwise manner. ">SDL_HapticQuery</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a1ff9156f55900a3ae6750475e65d5a20" title="Gets the haptic device&#39;s supported features in bitwise manner. ">SDL_HapticQuery</a> </dd></dl>
 
 </div>
 </div>
@@ -1527,13 +1527,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Stops all the currently playing effects on a haptic device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to stop. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success or -1 on error. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success or -1 on error. </dd></dl>
 
 </div>
 </div>
@@ -1564,15 +1564,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Stops the haptic effect on its associated haptic device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to stop the effect on. </td></tr>
     <tr><td class="paramname">effect</td><td>Identifier of the effect to stop. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a82573caa03429e53a64520fc82d58b17" title="Runs the haptic effect on its associated haptic device. ">SDL_HapticRunEffect</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a82573caa03429e53a64520fc82d58b17" title="Runs the haptic effect on its associated haptic device. ">SDL_HapticRunEffect</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a48e2262e7294d5c113ac132c99f4395d" title="Destroys a haptic effect on the device. ">SDL_HapticDestroyEffect</a> </dd></dl>
 
@@ -1596,14 +1596,14 @@ Functions</h2></td></tr>
 
 <p>Unpauses a haptic device. </p>
 <p>Call to unpause after <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a24c2c303ef88ea6792a2aeb196a9819d" title="Pauses a haptic device. ">SDL_HapticPause()</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device to unpause. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a24c2c303ef88ea6792a2aeb196a9819d" title="Pauses a haptic device. ">SDL_HapticPause</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a24c2c303ef88ea6792a2aeb196a9819d" title="Pauses a haptic device. ">SDL_HapticPause</a> </dd></dl>
 
 </div>
 </div>
@@ -1641,7 +1641,7 @@ Functions</h2></td></tr>
 
 <p>Updates the properties of an effect. </p>
 <p>Can be used dynamically, although behavior when dynamically changing direction may be strange. Specifically the effect may reupload itself and start playing from the start. You cannot change the type either when running <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#ad7c445a48c04a38749c0f266ed9b4166" title="Updates the properties of an effect. ">SDL_HapticUpdateEffect()</a>.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">haptic</td><td>Haptic device that has the effect. </td></tr>
     <tr><td class="paramname">effect</td><td>Identifier of the effect to update. </td></tr>
@@ -1649,8 +1649,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a2b30e8c06c85414cc1d0e0df35821c5d" title="Creates a new haptic effect on the device. ">SDL_HapticNewEffect</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a2b30e8c06c85414cc1d0e0df35821c5d" title="Creates a new haptic effect on the device. ">SDL_HapticNewEffect</a> </dd>
 <dd>
 <a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#a82573caa03429e53a64520fc82d58b17" title="Runs the haptic effect on its associated haptic device. ">SDL_HapticRunEffect</a> </dd>
 <dd>
@@ -1675,14 +1675,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Checks to see if a joystick has haptic features. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">joystick</td><td>Joystick to test for haptic capabilities. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if the joystick is haptic, SDL_FALSE if it isn't or -1 if an error occurred.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#afc9280b95b8fcabef14618b5ae560a52" title="Opens a haptic device for use from a joystick device. ">SDL_HapticOpenFromJoystick</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if the joystick is haptic, SDL_FALSE if it isn't or -1 if an error occurred.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#afc9280b95b8fcabef14618b5ae560a52" title="Opens a haptic device for use from a joystick device. ">SDL_HapticOpenFromJoystick</a> </dd></dl>
 
 </div>
 </div>
@@ -1703,8 +1703,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets whether or not the current mouse has haptic capabilities. </p>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if the mouse is haptic, SDL_FALSE if it isn't.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#ae07432e0f2c04e79ab3d848a92c2b41d" title="Tries to open a haptic device from the current mouse. ">SDL_HapticOpenFromMouse</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if the mouse is haptic, SDL_FALSE if it isn't.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d3c/_s_d_l__haptic_8h.html#ae07432e0f2c04e79ab3d848a92c2b41d" title="Tries to open a haptic device from the current mouse. ">SDL_HapticOpenFromMouse</a> </dd></dl>
 
 </div>
 </div>
@@ -1725,7 +1725,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Count the number of haptic devices attached to the system. </p>
-<dl class="section return"><dt>Returns</dt><dd>Number of haptic devices detected on the system. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>Number of haptic devices detected on the system. </dd></dl>
 
 </div>
 </div>

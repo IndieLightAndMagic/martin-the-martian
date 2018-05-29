@@ -193,13 +193,13 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p>Macro to determine SDL version program was compiled against. </p>
 <p>This macro fills in a <a class="el" href="../../d9/d84/struct_s_d_l__version.html" title="Information the version of SDL in use. ">SDL_version</a> structure with the version of the library you compiled against. This is determined by what header the compiler uses. Note that if you dynamically linked the library, you might have a slightly newer or older version at runtime. That version can be determined with <a class="el" href="../../d7/dd5/_s_d_l__version_8h.html#aa93855a21a7670e088d18d104162e8d7" title="Get the version of SDL that is linked against your program. ">SDL_GetVersion()</a>, which, unlike <a class="el" href="../../d7/dd5/_s_d_l__version_8h.html#a7154bc5c2a95a644b5187e4225cdcbd0" title="Macro to determine SDL version program was compiled against. ">SDL_VERSION()</a>, is not a macro.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>A pointer to a <a class="el" href="../../d9/d84/struct_s_d_l__version.html" title="Information the version of SDL in use. ">SDL_version</a> struct to initialize.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d9/d84/struct_s_d_l__version.html" title="Information the version of SDL in use. ">SDL_version</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d9/d84/struct_s_d_l__version.html" title="Information the version of SDL in use. ">SDL_version</a> </dd>
 <dd>
 <a class="el" href="../../d7/dd5/_s_d_l__version_8h.html#aa93855a21a7670e088d18d104162e8d7" title="Get the version of SDL that is linked against your program. ">SDL_GetVersion</a> </dd></dl>
 
@@ -344,7 +344,7 @@ Functions</h2></td></tr>
 <p>Get the version of SDL that is linked against your program. </p>
 <p>If you are linking to SDL dynamically, then it is possible that the current version will be different than the version you compiled against. This function returns the current version, while <a class="el" href="../../d7/dd5/_s_d_l__version_8h.html#a7154bc5c2a95a644b5187e4225cdcbd0" title="Macro to determine SDL version program was compiled against. ">SDL_VERSION()</a> is a macro that tells you what version you compiled with.</p>
 <div class="fragment"><div class="line"><a class="code" href="../../d9/d84/struct_s_d_l__version.html">SDL_version</a> compiled;</div><div class="line"><a class="code" href="../../d9/d84/struct_s_d_l__version.html">SDL_version</a> linked;</div><div class="line"></div><div class="line"><a class="code" href="../../d7/dd5/_s_d_l__version_8h.html#a7154bc5c2a95a644b5187e4225cdcbd0">SDL_VERSION</a>(&amp;compiled);</div><div class="line"><a class="code" href="../../d7/dd5/_s_d_l__version_8h.html#aa93855a21a7670e088d18d104162e8d7">SDL_GetVersion</a>(&amp;linked);</div><div class="line">printf(<span class="stringliteral">&quot;We compiled against SDL version %d.%d.%d ...\n&quot;</span>,</div><div class="line">       compiled.<a class="code" href="../../d9/d84/struct_s_d_l__version.html#ad7d7674532073eed237b90f546c97cd0">major</a>, compiled.<a class="code" href="../../d9/d84/struct_s_d_l__version.html#a6c35c7bf80245028d5970e6a504ecf57">minor</a>, compiled.<a class="code" href="../../d9/d84/struct_s_d_l__version.html#aa6dacff18edee8cd037c773b843be0f1">patch</a>);</div><div class="line">printf(<span class="stringliteral">&quot;But we linked against SDL version %d.%d.%d.\n&quot;</span>,</div><div class="line">       linked.<a class="code" href="../../d9/d84/struct_s_d_l__version.html#ad7d7674532073eed237b90f546c97cd0">major</a>, linked.<a class="code" href="../../d9/d84/struct_s_d_l__version.html#a6c35c7bf80245028d5970e6a504ecf57">minor</a>, linked.<a class="code" href="../../d9/d84/struct_s_d_l__version.html#aa6dacff18edee8cd037c773b843be0f1">patch</a>);</div></div><!-- fragment --><p>This function may be called safely at any time, even before <a class="el" href="../../de/ddc/_s_d_l_8h.html#afd344ebdfef34e47c42675ffff482c03">SDL_Init()</a>.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d7/dd5/_s_d_l__version_8h.html#a7154bc5c2a95a644b5187e4225cdcbd0" title="Macro to determine SDL version program was compiled against. ">SDL_VERSION</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d7/dd5/_s_d_l__version_8h.html#a7154bc5c2a95a644b5187e4225cdcbd0" title="Macro to determine SDL version program was compiled against. ">SDL_VERSION</a> </dd></dl>
 
 </div>
 </div>

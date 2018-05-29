@@ -748,7 +748,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Callback used for hit-testing. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ac274b2aaabb52a5fe0a6821654bee822" title="Provide a callback that decides if a window region has special properties. ">SDL_SetWindowHitTest</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ac274b2aaabb52a5fe0a6821654bee822" title="Provide a callback that decides if a window region has special properties. ">SDL_SetWindowHitTest</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../dc/d64/_s_d_l__video_8h_source.html#l01010">1010</a> of file <a class="el" href="../../dc/d64/_s_d_l__video_8h_source.html">SDL_video.h</a>.</p>
 
@@ -767,7 +767,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The type used to identify a window. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a82dcba9ba98239a8682d4ac5880a8a5f" title="Create a window with the specified position, dimensions, and flags. ">SDL_CreateWindow()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a82dcba9ba98239a8682d4ac5880a8a5f" title="Create a window with the specified position, dimensions, and flags. ">SDL_CreateWindow()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a6c3fc51f743e47992e91013d9816c573" title="Create an SDL window from an existing native window. ">SDL_CreateWindowFrom()</a> </dd>
 <dd>
@@ -1007,7 +1007,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Possible return values from the SDL_HitTest callback. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a27bae06a6eb28d2eed7174df3156f2be" title="Callback used for hit-testing. ">SDL_HitTest</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a27bae06a6eb28d2eed7174df3156f2be" title="Callback used for hit-testing. ">SDL_HitTest</a> </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0415a108581752b68c6aca800ff3bad5a3eb7be45c88e40366315d453f3bf721e"></a>SDL_HITTEST_NORMAL&#160;</td><td class="fielddoc"><p>Region is normal. No special properties. </p>
 </td></tr>
@@ -1123,7 +1123,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The flags on a window. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a18e24c26a3123d510f54f46b6e4c6d9a" title="Get the window flags. ">SDL_GetWindowFlags()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a18e24c26a3123d510f54f46b6e4c6d9a" title="Get the window flags. ">SDL_GetWindowFlags()</a> </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab10f4fd6a082ef06fcae96860c95fb18ac7b8279bdf5e22a0b4a95aae3d846923"></a>SDL_WINDOW_FULLSCREEN&#160;</td><td class="fielddoc"><p>fullscreen window </p>
 </td></tr>
@@ -1246,7 +1246,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create a window with the specified position, dimensions, and flags. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">title</td><td>The title of the window, in UTF-8 encoding. </td></tr>
     <tr><td class="paramname">x</td><td>The x position of the window, <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8d2f428ddef3b4ccf08915814e35d9c7">SDL_WINDOWPOS_CENTERED</a>, or <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a20917558a7e5fb159647980218726a52">SDL_WINDOWPOS_UNDEFINED</a>. </td></tr>
@@ -1257,12 +1257,12 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The created window, or NULL if window creation failed.</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The created window, or NULL if window creation failed.</dd></dl>
 <p>If the window is created with the SDL_WINDOW_ALLOW_HIGHDPI flag, its size in pixels may differ from its size in screen coordinates on platforms with high-DPI support (e.g. iOS and Mac OS X). Use <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#abd78819171eb1a9e1f565a0f507f891b" title="Get the size of a window&#39;s client area. ">SDL_GetWindowSize()</a> to query the client area's size in screen coordinates, and <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a0bd0dab9f8fc8d9e383fbb47246d9625" title="Get the size of a window&#39;s underlying drawable in pixels (for use with glViewport). ">SDL_GL_GetDrawableSize()</a>, <a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a04e750509272281b063a420945a44587" title="Get the size of a window&#39;s underlying drawable in pixels (for use with setting viewport, scissor &amp; etc). ">SDL_Vulkan_GetDrawableSize()</a>, or <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a7dae046261b4e0086975b6a7f8a20067" title="Get the output size in pixels of a rendering context. ">SDL_GetRendererOutputSize()</a> to query the drawable size in pixels.</p>
 <p>If the window is created with any of the SDL_WINDOW_OPENGL or SDL_WINDOW_VULKAN flags, then the corresponding LoadLibrary function (SDL_GL_LoadLibrary or SDL_Vulkan_LoadLibrary) is called and the corresponding UnloadLibrary function is called by <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ac30d0db0be5833d27c6d0ea8c3748fa9" title="Destroy a window. ">SDL_DestroyWindow()</a>.</p>
 <p>If SDL_WINDOW_VULKAN is specified and there isn't a working Vulkan driver, <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a82dcba9ba98239a8682d4ac5880a8a5f" title="Create a window with the specified position, dimensions, and flags. ">SDL_CreateWindow()</a> will fail because <a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a8885076e008e9ddd4fe98a4ca4017127" title="Dynamically load a Vulkan loader library. ">SDL_Vulkan_LoadLibrary()</a> will fail.</p>
-<dl class="section note"><dt>Note</dt><dd>On non-Apple devices, SDL requires you to either not link to the Vulkan loader or link to a dynamic library version. This limitation may be removed in a future version of SDL.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ac30d0db0be5833d27c6d0ea8c3748fa9" title="Destroy a window. ">SDL_DestroyWindow()</a> </dd>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>On non-Apple devices, SDL requires you to either not link to the Vulkan loader or link to a dynamic library version. This limitation may be removed in a future version of SDL.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ac30d0db0be5833d27c6d0ea8c3748fa9" title="Destroy a window. ">SDL_DestroyWindow()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#adac66771a5a8094964e6fbcb1965933a" title="Dynamically load an OpenGL library. ">SDL_GL_LoadLibrary()</a> </dd>
 <dd>
@@ -1287,14 +1287,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create an SDL window from an existing native window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>A pointer to driver-dependent window creation data</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The created window, or NULL if window creation failed.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ac30d0db0be5833d27c6d0ea8c3748fa9" title="Destroy a window. ">SDL_DestroyWindow()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The created window, or NULL if window creation failed.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ac30d0db0be5833d27c6d0ea8c3748fa9" title="Destroy a window. ">SDL_DestroyWindow()</a> </dd></dl>
 
 </div>
 </div>
@@ -1335,7 +1335,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Prevent the screen from being blanked by a screensaver. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ad4435b7746b3b92ddf7c4d2ea50ceb2b" title="Returns whether the screensaver is currently enabled (default off). ">SDL_IsScreenSaverEnabled()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ad4435b7746b3b92ddf7c4d2ea50ceb2b" title="Returns whether the screensaver is currently enabled (default off). ">SDL_IsScreenSaverEnabled()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a7bcac31518326109037a8d9a31a210a9" title="Allow the screen to be blanked by a screensaver. ">SDL_EnableScreenSaver()</a> </dd></dl>
 
@@ -1358,7 +1358,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Allow the screen to be blanked by a screensaver. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ad4435b7746b3b92ddf7c4d2ea50ceb2b" title="Returns whether the screensaver is currently enabled (default off). ">SDL_IsScreenSaverEnabled()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ad4435b7746b3b92ddf7c4d2ea50ceb2b" title="Returns whether the screensaver is currently enabled (default off). ">SDL_IsScreenSaverEnabled()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a03fe061a62477062b6f59c6a17ad83b9" title="Prevent the screen from being blanked by a screensaver. ">SDL_DisableScreenSaver()</a> </dd></dl>
 
@@ -1397,7 +1397,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the closest match to the requested display mode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">displayIndex</td><td>The index of display from which mode should be queried. </td></tr>
     <tr><td class="paramname">mode</td><td>The desired display mode </td></tr>
@@ -1405,9 +1405,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The passed in value <code>closest</code>, or NULL if no matching video mode was available.</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The passed in value <code>closest</code>, or NULL if no matching video mode was available.</dd></dl>
 <p>The available display modes are scanned, and <code>closest</code> is filled in with the closest mode matching the requested mode and returned. The mode format and refresh_rate default to the desktop mode if they are 0. The modes are scanned with size being first priority, format being second priority, and finally checking the refresh_rate. If all the available modes are too small, then NULL is returned.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aeb20e0442b26e34f0929bcfe1f78faf5" title="Returns the number of available display modes. ">SDL_GetNumDisplayModes()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aeb20e0442b26e34f0929bcfe1f78faf5" title="Returns the number of available display modes. ">SDL_GetNumDisplayModes()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ace10539eabba2d7e92e8a609bdea9021" title="Fill in information about a specific display mode. ">SDL_GetDisplayMode()</a> </dd></dl>
 
@@ -1460,8 +1460,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the name of the currently initialized video driver. </p>
-<dl class="section return"><dt>Returns</dt><dd>The name of the current video driver or NULL if no driver has been initialized</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a9ad67260fe3058330e1cfff9c050a47f" title="Get the number of video drivers compiled into SDL. ">SDL_GetNumVideoDrivers()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The name of the current video driver or NULL if no driver has been initialized</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a9ad67260fe3058330e1cfff9c050a47f" title="Get the number of video drivers compiled into SDL. ">SDL_GetNumVideoDrivers()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aba4d5e4ba55704749f866720e229330d" title="Get the name of a built in video driver. ">SDL_GetVideoDriver()</a> </dd></dl>
 
@@ -1524,8 +1524,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the desktop area represented by a display, with the primary display located at 0,0. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the index is out of range.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8320b8b6f93e0cdf60904e507847d7e6" title="Returns the number of available video displays. ">SDL_GetNumVideoDisplays()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the index is out of range.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8320b8b6f93e0cdf60904e507847d7e6" title="Returns the number of available video displays. ">SDL_GetNumVideoDisplays()</a> </dd></dl>
 
 </div>
 </div>
@@ -1568,9 +1568,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the dots/pixels-per-inch for a display. </p>
-<dl class="section note"><dt>Note</dt><dd>Diagonal, horizontal and vertical DPI can all be optionally returned if the parameter is non-NULL.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if no DPI information is available or the index is out of range.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8320b8b6f93e0cdf60904e507847d7e6" title="Returns the number of available video displays. ">SDL_GetNumVideoDisplays()</a> </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>Diagonal, horizontal and vertical DPI can all be optionally returned if the parameter is non-NULL.</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if no DPI information is available or the index is out of range.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8320b8b6f93e0cdf60904e507847d7e6" title="Returns the number of available video displays. ">SDL_GetNumVideoDisplays()</a> </dd></dl>
 
 </div>
 </div>
@@ -1607,14 +1607,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Fill in information about a specific display mode. </p>
-<dl class="section note"><dt>Note</dt><dd>The display modes are sorted in this priority: <ul>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>The display modes are sorted in this priority: <ul>
 <li>bits per pixel -&gt; more colors to fewer colors </li>
 <li>width -&gt; largest to smallest </li>
 <li>height -&gt; largest to smallest </li>
 <li>refresh rate -&gt; highest to lowest</li>
 </ul>
 </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aeb20e0442b26e34f0929bcfe1f78faf5" title="Returns the number of available display modes. ">SDL_GetNumDisplayModes()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aeb20e0442b26e34f0929bcfe1f78faf5" title="Returns the number of available display modes. ">SDL_GetNumDisplayModes()</a> </dd></dl>
 
 </div>
 </div>
@@ -1635,8 +1635,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the name of a display in UTF-8 encoding. </p>
-<dl class="section return"><dt>Returns</dt><dd>The name of a display, or NULL for an invalid display index.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8320b8b6f93e0cdf60904e507847d7e6" title="Returns the number of available video displays. ">SDL_GetNumVideoDisplays()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The name of a display, or NULL for an invalid display index.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8320b8b6f93e0cdf60904e507847d7e6" title="Returns the number of available video displays. ">SDL_GetNumVideoDisplays()</a> </dd></dl>
 
 </div>
 </div>
@@ -1669,8 +1669,8 @@ Functions</h2></td></tr>
 <p>Get the usable desktop area represented by a display, with the primary display located at 0,0. </p>
 <p>This is the same area as <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a7a1a71f4599816ba4742a3c5bf3dfc2d" title="Get the desktop area represented by a display, with the primary display located at 0...">SDL_GetDisplayBounds()</a> reports, but with portions reserved by the system removed. For example, on Mac OS X, this subtracts the area occupied by the menu bar and dock.</p>
 <p>Setting a window to be fullscreen generally bypasses these unusable areas, so these are good guidelines for the maximum space available to a non-fullscreen window.</p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the index is out of range.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a7a1a71f4599816ba4742a3c5bf3dfc2d" title="Get the desktop area represented by a display, with the primary display located at 0...">SDL_GetDisplayBounds()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the index is out of range.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a7a1a71f4599816ba4742a3c5bf3dfc2d" title="Get the desktop area represented by a display, with the primary display located at 0...">SDL_GetDisplayBounds()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8320b8b6f93e0cdf60904e507847d7e6" title="Returns the number of available video displays. ">SDL_GetNumVideoDisplays()</a> </dd></dl>
 
@@ -1693,8 +1693,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the window that currently has an input grab enabled. </p>
-<dl class="section return"><dt>Returns</dt><dd>This returns the window if input is grabbed, and NULL otherwise.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a35abeff1b61bd536cba8e931f1ea757f" title="Set a window&#39;s input grab mode. ">SDL_SetWindowGrab()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>This returns the window if input is grabbed, and NULL otherwise.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a35abeff1b61bd536cba8e931f1ea757f" title="Set a window&#39;s input grab mode. ">SDL_SetWindowGrab()</a> </dd></dl>
 
 </div>
 </div>
@@ -1715,7 +1715,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the number of available display modes. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ace10539eabba2d7e92e8a609bdea9021" title="Fill in information about a specific display mode. ">SDL_GetDisplayMode()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ace10539eabba2d7e92e8a609bdea9021" title="Fill in information about a specific display mode. ">SDL_GetDisplayMode()</a> </dd></dl>
 
 </div>
 </div>
@@ -1736,7 +1736,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the number of available video displays. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a7a1a71f4599816ba4742a3c5bf3dfc2d" title="Get the desktop area represented by a display, with the primary display located at 0...">SDL_GetDisplayBounds()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a7a1a71f4599816ba4742a3c5bf3dfc2d" title="Get the desktop area represented by a display, with the primary display located at 0...">SDL_GetDisplayBounds()</a> </dd></dl>
 
 </div>
 </div>
@@ -1757,7 +1757,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the number of video drivers compiled into SDL. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aba4d5e4ba55704749f866720e229330d" title="Get the name of a built in video driver. ">SDL_GetVideoDriver()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aba4d5e4ba55704749f866720e229330d" title="Get the name of a built in video driver. ">SDL_GetVideoDriver()</a> </dd></dl>
 
 </div>
 </div>
@@ -1778,8 +1778,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the name of a built in video driver. </p>
-<dl class="section note"><dt>Note</dt><dd>The video drivers are presented in the order in which they are normally checked during initialization.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a9ad67260fe3058330e1cfff9c050a47f" title="Get the number of video drivers compiled into SDL. ">SDL_GetNumVideoDrivers()</a> </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>The video drivers are presented in the order in which they are normally checked during initialization.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a9ad67260fe3058330e1cfff9c050a47f" title="Get the number of video drivers compiled into SDL. ">SDL_GetNumVideoDrivers()</a> </dd></dl>
 
 </div>
 </div>
@@ -1828,7 +1828,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the size of a window's borders (decorations) around the client area. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to query. </td></tr>
     <tr><td class="paramname">top</td><td>Pointer to variable for storing the size of the top border. NULL is permitted. </td></tr>
@@ -1838,8 +1838,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if getting this information is not supported.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>if this function fails (returns -1), the size values will be initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the window in question was borderless. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if getting this information is not supported.</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>if this function fails (returns -1), the size values will be initialized to 0, 0, 0, 0 (if a non-NULL pointer is provided), as if the window in question was borderless. </dd></dl>
 
 </div>
 </div>
@@ -1860,8 +1860,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the brightness (gamma correction) for a window. </p>
-<dl class="section return"><dt>Returns</dt><dd>The last brightness value passed to <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a99508ad8179717be22896834156e1c70" title="Set the brightness (gamma correction) for a window. ">SDL_SetWindowBrightness()</a></dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a99508ad8179717be22896834156e1c70" title="Set the brightness (gamma correction) for a window. ">SDL_SetWindowBrightness()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The last brightness value passed to <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a99508ad8179717be22896834156e1c70" title="Set the brightness (gamma correction) for a window. ">SDL_SetWindowBrightness()</a></dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a99508ad8179717be22896834156e1c70" title="Set the brightness (gamma correction) for a window. ">SDL_SetWindowBrightness()</a> </dd></dl>
 
 </div>
 </div>
@@ -1892,15 +1892,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retrieve the data pointer associated with a window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to query. </td></tr>
     <tr><td class="paramname">name</td><td>The name of the pointer.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The value associated with 'name'</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#af4e182b298c9ca3b29d9ba715a4792b5" title="Associate an arbitrary named pointer with a window. ">SDL_SetWindowData()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The value associated with 'name'</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#af4e182b298c9ca3b29d9ba715a4792b5" title="Associate an arbitrary named pointer with a window. ">SDL_SetWindowData()</a> </dd></dl>
 
 </div>
 </div>
@@ -1921,7 +1921,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the display index associated with a window. </p>
-<dl class="section return"><dt>Returns</dt><dd>the display index of the display containing the center of the window, or -1 on error. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>the display index of the display containing the center of the window, or -1 on error. </dd></dl>
 
 </div>
 </div>
@@ -1952,7 +1952,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Fill in information about the display mode used when a fullscreen window is visible. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aeae26a52fc590016bee18c4cc7cdcc2a" title="Set the display mode used when a fullscreen window is visible. ">SDL_SetWindowDisplayMode()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aeae26a52fc590016bee18c4cc7cdcc2a" title="Set the display mode used when a fullscreen window is visible. ">SDL_SetWindowDisplayMode()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a6782334a2887f787787cf9b0ba02b120" title="Set a window&#39;s fullscreen state. ">SDL_SetWindowFullscreen()</a> </dd></dl>
 
@@ -2037,7 +2037,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the gamma ramp for a window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window from which the gamma ramp should be queried. </td></tr>
     <tr><td class="paramname">red</td><td>A pointer to a 256 element array of 16-bit quantities to hold the translation table for the red channel, or NULL. </td></tr>
@@ -2046,8 +2046,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if gamma ramps are unsupported.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ae5618ee2554ccffd535bf0ca36eb6af8" title="Set the gamma ramp for a window. ">SDL_SetWindowGammaRamp()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if gamma ramps are unsupported.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ae5618ee2554ccffd535bf0ca36eb6af8" title="Set the gamma ramp for a window. ">SDL_SetWindowGammaRamp()</a> </dd></dl>
 
 </div>
 </div>
@@ -2068,8 +2068,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get a window's input grab mode. </p>
-<dl class="section return"><dt>Returns</dt><dd>This returns SDL_TRUE if input is grabbed, and SDL_FALSE otherwise.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a35abeff1b61bd536cba8e931f1ea757f" title="Set a window&#39;s input grab mode. ">SDL_SetWindowGrab()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>This returns SDL_TRUE if input is grabbed, and SDL_FALSE otherwise.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a35abeff1b61bd536cba8e931f1ea757f" title="Set a window&#39;s input grab mode. ">SDL_SetWindowGrab()</a> </dd></dl>
 
 </div>
 </div>
@@ -2126,7 +2126,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the maximum size of a window's client area. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to query. </td></tr>
     <tr><td class="paramname">w</td><td>Pointer to variable for storing the maximum width, may be NULL </td></tr>
@@ -2134,7 +2134,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8a7ef42efa8acdb08463158089888761" title="Get the minimum size of a window&#39;s client area. ">SDL_GetWindowMinimumSize()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8a7ef42efa8acdb08463158089888761" title="Get the minimum size of a window&#39;s client area. ">SDL_GetWindowMinimumSize()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a6a57e4012388443313d08d1ad361fc89" title="Set the maximum size of a window&#39;s client area. ">SDL_SetWindowMaximumSize()</a> </dd></dl>
 
@@ -2173,7 +2173,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the minimum size of a window's client area. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to query. </td></tr>
     <tr><td class="paramname">w</td><td>Pointer to variable for storing the minimum width, may be NULL </td></tr>
@@ -2181,7 +2181,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a9553eb80a02d012bb62af3fc6adb6498" title="Get the maximum size of a window&#39;s client area. ">SDL_GetWindowMaximumSize()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a9553eb80a02d012bb62af3fc6adb6498" title="Get the maximum size of a window&#39;s client area. ">SDL_GetWindowMaximumSize()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aa89b32e5984b16233f56bf4dc4d82eee" title="Set the minimum size of a window&#39;s client area. ">SDL_SetWindowMinimumSize()</a> </dd></dl>
 
@@ -2215,15 +2215,15 @@ Functions</h2></td></tr>
 
 <p>Get the opacity of a window. </p>
 <p>If transparency isn't supported on this platform, opacity will be reported as 1.0f without error.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window in question. </td></tr>
     <tr><td class="paramname">out_opacity</td><td>Opacity (0.0f - transparent, 1.0f - opaque)</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error (invalid window, etc).</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a990da562bbcd1edca5043d73d6a90cae" title="Set the opacity for a window. ">SDL_SetWindowOpacity()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error (invalid window, etc).</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a990da562bbcd1edca5043d73d6a90cae" title="Set the opacity for a window. ">SDL_SetWindowOpacity()</a> </dd></dl>
 
 </div>
 </div>
@@ -2280,7 +2280,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the position of a window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to query. </td></tr>
     <tr><td class="paramname">x</td><td>Pointer to variable for storing the x position, in screen coordinates. May be NULL. </td></tr>
@@ -2288,7 +2288,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a0df22ac8c413ac7c6b11de9f428c0a22" title="Set the position of a window. ">SDL_SetWindowPosition()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a0df22ac8c413ac7c6b11de9f428c0a22" title="Set the position of a window. ">SDL_SetWindowPosition()</a> </dd></dl>
 
 </div>
 </div>
@@ -2325,7 +2325,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the size of a window's client area. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to query. </td></tr>
     <tr><td class="paramname">w</td><td>Pointer to variable for storing the width, in screen coordinates. May be NULL. </td></tr>
@@ -2334,7 +2334,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>The window size in screen coordinates may differ from the size in pixels, if the window was created with SDL_WINDOW_ALLOW_HIGHDPI on a platform with high-dpi support (e.g. iOS or OS X). Use <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a0bd0dab9f8fc8d9e383fbb47246d9625" title="Get the size of a window&#39;s underlying drawable in pixels (for use with glViewport). ">SDL_GL_GetDrawableSize()</a> or <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a7dae046261b4e0086975b6a7f8a20067" title="Get the output size in pixels of a rendering context. ">SDL_GetRendererOutputSize()</a> to get the real client area size in pixels.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#acdbd10cb45643a9e6830c81b8407a29a" title="Set the size of a window&#39;s client area. ">SDL_SetWindowSize()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#acdbd10cb45643a9e6830c81b8407a29a" title="Set the size of a window&#39;s client area. ">SDL_SetWindowSize()</a> </dd></dl>
 
 </div>
 </div>
@@ -2355,10 +2355,10 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the SDL surface associated with the window. </p>
-<dl class="section return"><dt>Returns</dt><dd>The window's framebuffer surface, or NULL on error.</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The window's framebuffer surface, or NULL on error.</dd></dl>
 <p>A new surface will be created with the optimal format for the window, if necessary. This surface will be freed when the window is destroyed.</p>
-<dl class="section note"><dt>Note</dt><dd>You may not combine this with 3D or the rendering API on this window.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a0afe7fccbc61a35931990b094ee79722" title="Copy the window surface to the screen. ">SDL_UpdateWindowSurface()</a> </dd>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>You may not combine this with 3D or the rendering API on this window.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a0afe7fccbc61a35931990b094ee79722" title="Copy the window surface to the screen. ">SDL_UpdateWindowSurface()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a4fedccb7e9221017b85d2332fff444ae" title="Copy a number of rectangles on the window surface to the screen. ">SDL_UpdateWindowSurfaceRects()</a> </dd></dl>
 
@@ -2381,7 +2381,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the title of a window, in UTF-8 format. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a5b20eaa9901ac96272e0b15bc3e32a8d" title="Set the title of a window, in UTF-8 format. ">SDL_SetWindowTitle()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a5b20eaa9901ac96272e0b15bc3e32a8d" title="Set the title of a window, in UTF-8 format. ">SDL_SetWindowTitle()</a> </dd></dl>
 
 </div>
 </div>
@@ -2402,7 +2402,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create an OpenGL context for use with an OpenGL window, and make it current. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ab7a2dd50224d78183cadb34dd23b5a0f" title="Delete an OpenGL context. ">SDL_GL_DeleteContext()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ab7a2dd50224d78183cadb34dd23b5a0f" title="Delete an OpenGL context. ">SDL_GL_DeleteContext()</a> </dd></dl>
 
 </div>
 </div>
@@ -2423,7 +2423,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Delete an OpenGL context. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a5dd7db7a06745172c84228087af4b5dc" title="Create an OpenGL context for use with an OpenGL window, and make it current. ">SDL_GL_CreateContext()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a5dd7db7a06745172c84228087af4b5dc" title="Create an OpenGL context for use with an OpenGL window, and make it current. ">SDL_GL_CreateContext()</a> </dd></dl>
 
 </div>
 </div>
@@ -2474,7 +2474,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the actual value for an attribute from the current context. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the attribute could not be retrieved. The integer at <code>value</code> will be modified in either case. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the attribute could not be retrieved. The integer at <code>value</code> will be modified in either case. </dd></dl>
 
 </div>
 </div>
@@ -2551,7 +2551,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the size of a window's underlying drawable in pixels (for use with glViewport). </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>Window from which the drawable size should be queried </td></tr>
     <tr><td class="paramname">w</td><td>Pointer to variable for storing the width in pixels, may be NULL </td></tr>
@@ -2560,7 +2560,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>This may differ from <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#abd78819171eb1a9e1f565a0f507f891b" title="Get the size of a window&#39;s client area. ">SDL_GetWindowSize()</a> if we're rendering to a high-DPI drawable, i.e. the window was created with SDL_WINDOW_ALLOW_HIGHDPI on a platform with high-DPI support (Apple calls this "Retina"), and not disabled by the SDL_HINT_VIDEO_HIGHDPI_DISABLED hint.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#abd78819171eb1a9e1f565a0f507f891b" title="Get the size of a window&#39;s client area. ">SDL_GetWindowSize()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#abd78819171eb1a9e1f565a0f507f891b" title="Get the size of a window&#39;s client area. ">SDL_GetWindowSize()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a82dcba9ba98239a8682d4ac5880a8a5f" title="Create a window with the specified position, dimensions, and flags. ">SDL_CreateWindow()</a> </dd></dl>
 
@@ -2603,8 +2603,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the swap interval for the current OpenGL context. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 if there is no vertical retrace synchronization, 1 if the buffer swap is synchronized with the vertical retrace, and -1 if late swaps happen immediately instead of waiting for the next retrace. If the system can't determine the swap interval, or there isn't a valid current context, this will return 0 as a safe default.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a1e0411c31fc515264ad71cf7ac3c5b37" title="Set the swap interval for the current OpenGL context. ">SDL_GL_SetSwapInterval()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 if there is no vertical retrace synchronization, 1 if the buffer swap is synchronized with the vertical retrace, and -1 if late swaps happen immediately instead of waiting for the next retrace. If the system can't determine the swap interval, or there isn't a valid current context, this will return 0 as a safe default.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a1e0411c31fc515264ad71cf7ac3c5b37" title="Set the swap interval for the current OpenGL context. ">SDL_GL_SetSwapInterval()</a> </dd></dl>
 
 </div>
 </div>
@@ -2625,16 +2625,16 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Dynamically load an OpenGL library. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">path</td><td>The platform dependent OpenGL library name, or NULL to open the default OpenGL library.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the library couldn't be loaded.</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the library couldn't be loaded.</dd></dl>
 <p>This should be done after initializing the video driver, but before creating any OpenGL windows. If no OpenGL library is loaded, the default library will be loaded upon creation of the first OpenGL window.</p>
-<dl class="section note"><dt>Note</dt><dd>If you do this, you need to retrieve all of the GL functions used in your program from the dynamic library using <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aadac5d1f09ede76aefd86f51f7b8eb3d" title="Get the address of an OpenGL function. ">SDL_GL_GetProcAddress()</a>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aadac5d1f09ede76aefd86f51f7b8eb3d" title="Get the address of an OpenGL function. ">SDL_GL_GetProcAddress()</a> </dd>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>If you do this, you need to retrieve all of the GL functions used in your program from the dynamic library using <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aadac5d1f09ede76aefd86f51f7b8eb3d" title="Get the address of an OpenGL function. ">SDL_GL_GetProcAddress()</a>.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aadac5d1f09ede76aefd86f51f7b8eb3d" title="Get the address of an OpenGL function. ">SDL_GL_GetProcAddress()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a90a9bcda82ab701859e4e31a56fc05d6" title="Unload the OpenGL library previously loaded by SDL_GL_LoadLibrary(). ">SDL_GL_UnloadLibrary()</a> </dd></dl>
 
@@ -2667,7 +2667,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set up an OpenGL context for rendering into an OpenGL window. </p>
-<dl class="section note"><dt>Note</dt><dd>The context must have been created with a compatible window. </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>The context must have been created with a compatible window. </dd></dl>
 
 </div>
 </div>
@@ -2718,7 +2718,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set an OpenGL window attribute before window creation. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the attribute could not be set. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the attribute could not be set. </dd></dl>
 
 </div>
 </div>
@@ -2739,14 +2739,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the swap interval for the current OpenGL context. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">interval</td><td>0 for immediate updates, 1 for updates synchronized with the vertical retrace. If the system supports it, you may specify -1 to allow late swaps to happen immediately instead of waiting for the next retrace.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if setting the swap interval is not supported.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a4cc701a934655b29451cb224ffa46282" title="Get the swap interval for the current OpenGL context. ">SDL_GL_GetSwapInterval()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if setting the swap interval is not supported.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a4cc701a934655b29451cb224ffa46282" title="Get the swap interval for the current OpenGL context. ">SDL_GL_GetSwapInterval()</a> </dd></dl>
 
 </div>
 </div>
@@ -2787,7 +2787,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Unload the OpenGL library previously loaded by <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#adac66771a5a8094964e6fbcb1965933a" title="Dynamically load an OpenGL library. ">SDL_GL_LoadLibrary()</a>. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#adac66771a5a8094964e6fbcb1965933a" title="Dynamically load an OpenGL library. ">SDL_GL_LoadLibrary()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#adac66771a5a8094964e6fbcb1965933a" title="Dynamically load an OpenGL library. ">SDL_GL_LoadLibrary()</a> </dd></dl>
 
 </div>
 </div>
@@ -2808,7 +2808,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Hide a window. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8e219f8fec76d439186028794e04d939" title="Show a window. ">SDL_ShowWindow()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8e219f8fec76d439186028794e04d939" title="Show a window. ">SDL_ShowWindow()</a> </dd></dl>
 
 </div>
 </div>
@@ -2829,7 +2829,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns whether the screensaver is currently enabled (default off). </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a7bcac31518326109037a8d9a31a210a9" title="Allow the screen to be blanked by a screensaver. ">SDL_EnableScreenSaver()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a7bcac31518326109037a8d9a31a210a9" title="Allow the screen to be blanked by a screensaver. ">SDL_EnableScreenSaver()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a03fe061a62477062b6f59c6a17ad83b9" title="Prevent the screen from being blanked by a screensaver. ">SDL_DisableScreenSaver()</a> </dd></dl>
 
@@ -2852,7 +2852,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Make a window as large as possible. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a5d466a385cd86979572598997e206c2a" title="Restore the size and position of a minimized or maximized window. ">SDL_RestoreWindow()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a5d466a385cd86979572598997e206c2a" title="Restore the size and position of a minimized or maximized window. ">SDL_RestoreWindow()</a> </dd></dl>
 
 </div>
 </div>
@@ -2873,7 +2873,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Minimize a window to an iconic representation. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a5d466a385cd86979572598997e206c2a" title="Restore the size and position of a minimized or maximized window. ">SDL_RestoreWindow()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a5d466a385cd86979572598997e206c2a" title="Restore the size and position of a minimized or maximized window. ">SDL_RestoreWindow()</a> </dd></dl>
 
 </div>
 </div>
@@ -2914,7 +2914,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Restore the size and position of a minimized or maximized window. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ac3f36c32a3b4936cedccb5d3841c651a" title="Make a window as large as possible. ">SDL_MaximizeWindow()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ac3f36c32a3b4936cedccb5d3841c651a" title="Make a window as large as possible. ">SDL_MaximizeWindow()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ac6514ed0c925048acd65e5be07933820" title="Minimize a window to an iconic representation. ">SDL_MinimizeWindow()</a> </dd></dl>
 
@@ -2948,15 +2948,15 @@ Functions</h2></td></tr>
 
 <p>Set the border state of a window. </p>
 <p>This will add or remove the window's SDL_WINDOW_BORDERLESS flag and add or remove the border from the actual window. This is a no-op if the window's border already matches the requested state.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window of which to change the border state. </td></tr>
     <tr><td class="paramname">bordered</td><td>SDL_FALSE to remove border, SDL_TRUE to add border.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>You can't change the border state of a fullscreen window.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a18e24c26a3123d510f54f46b6e4c6d9a" title="Get the window flags. ">SDL_GetWindowFlags()</a> </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>You can't change the border state of a fullscreen window.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a18e24c26a3123d510f54f46b6e4c6d9a" title="Get the window flags. ">SDL_GetWindowFlags()</a> </dd></dl>
 
 </div>
 </div>
@@ -2987,8 +2987,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the brightness (gamma correction) for a window. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if setting the brightness isn't supported.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a93f3aa91844602154329651a12e0140c" title="Get the brightness (gamma correction) for a window. ">SDL_GetWindowBrightness()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if setting the brightness isn't supported.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a93f3aa91844602154329651a12e0140c" title="Get the brightness (gamma correction) for a window. ">SDL_GetWindowBrightness()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ae5618ee2554ccffd535bf0ca36eb6af8" title="Set the gamma ramp for a window. ">SDL_SetWindowGammaRamp()</a> </dd></dl>
 
@@ -3027,7 +3027,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Associate an arbitrary named pointer with a window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to associate with the pointer. </td></tr>
     <tr><td class="paramname">name</td><td>The name of the pointer. </td></tr>
@@ -3035,9 +3035,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The previous value associated with 'name'</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The name is case-sensitive.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ad83629c483cd53bc3dda19ced0c22f0d" title="Retrieve the data pointer associated with a window. ">SDL_GetWindowData()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The previous value associated with 'name'</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>The name is case-sensitive.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ad83629c483cd53bc3dda19ced0c22f0d" title="Retrieve the data pointer associated with a window. ">SDL_GetWindowData()</a> </dd></dl>
 
 </div>
 </div>
@@ -3069,15 +3069,15 @@ Functions</h2></td></tr>
 
 <p>Set the display mode used when a fullscreen window is visible. </p>
 <p>By default the window's dimensions and the desktop format and refresh rate are used.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window for which the display mode should be set. </td></tr>
     <tr><td class="paramname">mode</td><td>The mode to use, or NULL for the default mode.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if setting the display mode failed.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a4e17aa075c884d84dece7f3380c00553" title="Fill in information about the display mode used when a fullscreen window is visible. ">SDL_GetWindowDisplayMode()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if setting the display mode failed.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a4e17aa075c884d84dece7f3380c00553" title="Fill in information about the display mode used when a fullscreen window is visible. ">SDL_GetWindowDisplayMode()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a6782334a2887f787787cf9b0ba02b120" title="Set a window&#39;s fullscreen state. ">SDL_SetWindowFullscreen()</a> </dd></dl>
 
@@ -3110,8 +3110,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set a window's fullscreen state. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if setting the display mode failed.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aeae26a52fc590016bee18c4cc7cdcc2a" title="Set the display mode used when a fullscreen window is visible. ">SDL_SetWindowDisplayMode()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if setting the display mode failed.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aeae26a52fc590016bee18c4cc7cdcc2a" title="Set the display mode used when a fullscreen window is visible. ">SDL_SetWindowDisplayMode()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a4e17aa075c884d84dece7f3380c00553" title="Fill in information about the display mode used when a fullscreen window is visible. ">SDL_GetWindowDisplayMode()</a> </dd></dl>
 
@@ -3156,7 +3156,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the gamma ramp for a window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window for which the gamma ramp should be set. </td></tr>
     <tr><td class="paramname">red</td><td>The translation table for the red channel, or NULL. </td></tr>
@@ -3165,9 +3165,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if gamma ramps are unsupported.</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if gamma ramps are unsupported.</dd></dl>
 <p>Set the gamma translation table for the red, green, and blue channels of the video hardware. Each table is an array of 256 16-bit quantities, representing a mapping between the input and output for that channel. The input is the index into the array, and the output is the 16-bit gamma value at that index, scaled to the output color precision.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ae4009ef11567d9d9e97bfec80040ddf4" title="Get the gamma ramp for a window. ">SDL_GetWindowGammaRamp()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ae4009ef11567d9d9e97bfec80040ddf4" title="Get the gamma ramp for a window. ">SDL_GetWindowGammaRamp()</a> </dd></dl>
 
 </div>
 </div>
@@ -3198,7 +3198,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set a window's input grab mode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window for which the input grab mode should be set. </td></tr>
     <tr><td class="paramname">grabbed</td><td>This is SDL_TRUE to grab input, and SDL_FALSE to release input.</td></tr>
@@ -3206,7 +3206,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>If the caller enables a grab while another window is currently grabbed, the other window loses its grab in favor of the caller's window.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a7c23433a124a1a6d23abbc438882ed9c" title="Get a window&#39;s input grab mode. ">SDL_GetWindowGrab()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a7c23433a124a1a6d23abbc438882ed9c" title="Get a window&#39;s input grab mode. ">SDL_GetWindowGrab()</a> </dd></dl>
 
 </div>
 </div>
@@ -3249,7 +3249,7 @@ Functions</h2></td></tr>
 <p>Specifying NULL for a callback disables hit-testing. Hit-testing is disabled by default.</p>
 <p>Platforms that don't support this functionality will return -1 unconditionally, even if you're attempting to disable hit-testing.</p>
 <p>Your callback may fire at any time, and its firing does not indicate any specific behavior (for example, on Windows, this certainly might fire when the OS is deciding whether to drag your window, but it fires for lots of other reasons, too, some unrelated to anything you probably care about <em>and when the mouse isn't actually at the location it is testing</em>). Since this can fire at any time, you should try to keep your callback efficient, devoid of allocations, etc.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to set hit-testing on. </td></tr>
     <tr><td class="paramname">callback</td><td>The callback to call when doing a hit-test. </td></tr>
@@ -3257,7 +3257,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on error (including unsupported). </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, -1 on error (including unsupported). </dd></dl>
 
 </div>
 </div>
@@ -3288,7 +3288,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the icon for a window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window for which the icon should be set. </td></tr>
     <tr><td class="paramname">icon</td><td>The icon for the window. </td></tr>
@@ -3316,14 +3316,14 @@ Functions</h2></td></tr>
 
 <p>Explicitly sets input focus to the window. </p>
 <p>You almost certainly want <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#af64d8bb36badf63a968d790b94ea0db2" title="Raise a window above other windows and set the input focus. ">SDL_RaiseWindow()</a> instead of this function. Use this with caution, as you might give focus to a window that's completely obscured by other windows.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window that should get the input focus</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 otherwise. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#af64d8bb36badf63a968d790b94ea0db2" title="Raise a window above other windows and set the input focus. ">SDL_RaiseWindow()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 otherwise. </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#af64d8bb36badf63a968d790b94ea0db2" title="Raise a window above other windows and set the input focus. ">SDL_RaiseWindow()</a> </dd></dl>
 
 </div>
 </div>
@@ -3360,7 +3360,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the maximum size of a window's client area. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to set a new maximum size. </td></tr>
     <tr><td class="paramname">max_w</td><td>The maximum width of the window, must be &gt;0 </td></tr>
@@ -3368,8 +3368,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>You can't change the maximum size of a fullscreen window, it automatically matches the size of the display mode.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a9553eb80a02d012bb62af3fc6adb6498" title="Get the maximum size of a window&#39;s client area. ">SDL_GetWindowMaximumSize()</a> </dd>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>You can't change the maximum size of a fullscreen window, it automatically matches the size of the display mode.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a9553eb80a02d012bb62af3fc6adb6498" title="Get the maximum size of a window&#39;s client area. ">SDL_GetWindowMaximumSize()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aa89b32e5984b16233f56bf4dc4d82eee" title="Set the minimum size of a window&#39;s client area. ">SDL_SetWindowMinimumSize()</a> </dd></dl>
 
@@ -3408,7 +3408,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the minimum size of a window's client area. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to set a new minimum size. </td></tr>
     <tr><td class="paramname">min_w</td><td>The minimum width of the window, must be &gt;0 </td></tr>
@@ -3416,8 +3416,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>You can't change the minimum size of a fullscreen window, it automatically matches the size of the display mode.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8a7ef42efa8acdb08463158089888761" title="Get the minimum size of a window&#39;s client area. ">SDL_GetWindowMinimumSize()</a> </dd>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>You can't change the minimum size of a fullscreen window, it automatically matches the size of the display mode.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8a7ef42efa8acdb08463158089888761" title="Get the minimum size of a window&#39;s client area. ">SDL_GetWindowMinimumSize()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a6a57e4012388443313d08d1ad361fc89" title="Set the maximum size of a window&#39;s client area. ">SDL_SetWindowMaximumSize()</a> </dd></dl>
 
@@ -3450,14 +3450,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the window as a modal for another window (TODO: reconsider this function and/or its name) </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">modal_window</td><td>The window that should be modal </td></tr>
     <tr><td class="paramname">parent_window</td><td>The parent window</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 otherwise. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 otherwise. </dd></dl>
 
 </div>
 </div>
@@ -3488,15 +3488,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the opacity for a window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window which will be made transparent or opaque </td></tr>
     <tr><td class="paramname">opacity</td><td>Opacity (0.0f - transparent, 1.0f - opaque) This will be clamped internally between 0.0f and 1.0f.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if setting the opacity isn't supported.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#afbb9d394aa6525e76174e6e77f23d604" title="Get the opacity of a window. ">SDL_GetWindowOpacity()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if setting the opacity isn't supported.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#afbb9d394aa6525e76174e6e77f23d604" title="Get the opacity of a window. ">SDL_GetWindowOpacity()</a> </dd></dl>
 
 </div>
 </div>
@@ -3533,7 +3533,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the position of a window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to reposition. </td></tr>
     <tr><td class="paramname">x</td><td>The x coordinate of the window in screen coordinates, or <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a8d2f428ddef3b4ccf08915814e35d9c7">SDL_WINDOWPOS_CENTERED</a> or <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a20917558a7e5fb159647980218726a52">SDL_WINDOWPOS_UNDEFINED</a>. </td></tr>
@@ -3541,8 +3541,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>The window coordinate origin is the upper left of the display.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a898380264f3077ab91c269fa96bdb0fe" title="Get the position of a window. ">SDL_GetWindowPosition()</a> </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>The window coordinate origin is the upper left of the display.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a898380264f3077ab91c269fa96bdb0fe" title="Get the position of a window. ">SDL_GetWindowPosition()</a> </dd></dl>
 
 </div>
 </div>
@@ -3574,15 +3574,15 @@ Functions</h2></td></tr>
 
 <p>Set the user-resizable state of a window. </p>
 <p>This will add or remove the window's SDL_WINDOW_RESIZABLE flag and allow/disallow user resizing of the window. This is a no-op if the window's resizable state already matches the requested state.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window of which to change the resizable state. </td></tr>
     <tr><td class="paramname">resizable</td><td>SDL_TRUE to allow resizing, SDL_FALSE to disallow.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>You can't change the resizable state of a fullscreen window.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a18e24c26a3123d510f54f46b6e4c6d9a" title="Get the window flags. ">SDL_GetWindowFlags()</a> </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>You can't change the resizable state of a fullscreen window.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a18e24c26a3123d510f54f46b6e4c6d9a" title="Get the window flags. ">SDL_GetWindowFlags()</a> </dd></dl>
 
 </div>
 </div>
@@ -3619,7 +3619,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the size of a window's client area. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window to resize. </td></tr>
     <tr><td class="paramname">w</td><td>The width of the window, in screen coordinates. Must be &gt;0. </td></tr>
@@ -3627,9 +3627,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>Fullscreen windows automatically match the size of the display mode, and you should use <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aeae26a52fc590016bee18c4cc7cdcc2a" title="Set the display mode used when a fullscreen window is visible. ">SDL_SetWindowDisplayMode()</a> to change their size.</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>Fullscreen windows automatically match the size of the display mode, and you should use <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aeae26a52fc590016bee18c4cc7cdcc2a" title="Set the display mode used when a fullscreen window is visible. ">SDL_SetWindowDisplayMode()</a> to change their size.</dd></dl>
 <p>The window size in screen coordinates may differ from the size in pixels, if the window was created with SDL_WINDOW_ALLOW_HIGHDPI on a platform with high-dpi support (e.g. iOS or OS X). Use <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a0bd0dab9f8fc8d9e383fbb47246d9625" title="Get the size of a window&#39;s underlying drawable in pixels (for use with glViewport). ">SDL_GL_GetDrawableSize()</a> or <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a7dae046261b4e0086975b6a7f8a20067" title="Get the output size in pixels of a rendering context. ">SDL_GetRendererOutputSize()</a> to get the real client area size in pixels.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#abd78819171eb1a9e1f565a0f507f891b" title="Get the size of a window&#39;s client area. ">SDL_GetWindowSize()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#abd78819171eb1a9e1f565a0f507f891b" title="Get the size of a window&#39;s client area. ">SDL_GetWindowSize()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#aeae26a52fc590016bee18c4cc7cdcc2a" title="Set the display mode used when a fullscreen window is visible. ">SDL_SetWindowDisplayMode()</a> </dd></dl>
 
@@ -3662,7 +3662,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the title of a window, in UTF-8 format. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a11db11c8016bd7264be64b8c486f0c63" title="Get the title of a window, in UTF-8 format. ">SDL_GetWindowTitle()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a11db11c8016bd7264be64b8c486f0c63" title="Get the title of a window, in UTF-8 format. ">SDL_GetWindowTitle()</a> </dd></dl>
 
 </div>
 </div>
@@ -3683,7 +3683,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Show a window. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a017f08f82fdc0cb8d403446e096dca80" title="Hide a window. ">SDL_HideWindow()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a017f08f82fdc0cb8d403446e096dca80" title="Hide a window. ">SDL_HideWindow()</a> </dd></dl>
 
 </div>
 </div>
@@ -3704,8 +3704,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copy the window surface to the screen. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a888234788046eb05612650bdc448afed" title="Get the SDL surface associated with the window. ">SDL_GetWindowSurface()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a888234788046eb05612650bdc448afed" title="Get the SDL surface associated with the window. ">SDL_GetWindowSurface()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a4fedccb7e9221017b85d2332fff444ae" title="Copy a number of rectangles on the window surface to the screen. ">SDL_UpdateWindowSurfaceRects()</a> </dd></dl>
 
@@ -3744,8 +3744,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copy a number of rectangles on the window surface to the screen. </p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a888234788046eb05612650bdc448afed" title="Get the SDL surface associated with the window. ">SDL_GetWindowSurface()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a888234788046eb05612650bdc448afed" title="Get the SDL surface associated with the window. ">SDL_GetWindowSurface()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a0afe7fccbc61a35931990b094ee79722" title="Copy the window surface to the screen. ">SDL_UpdateWindowSurface()</a> </dd></dl>
 
@@ -3768,15 +3768,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Initialize the video subsystem, optionally specifying a video driver. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">driver_name</td><td>Initialize a specific driver by name, or NULL for the default video driver.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 on error</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, -1 on error</dd></dl>
 <p>This function initializes the video subsystem; setting up a connection to the window manager, etc, and determines the available display modes and pixel formats, but does not initialize a window or graphics mode.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ae86d31ef3c6aad24cd4d0da9a9551906" title="Shuts down the video subsystem. ">SDL_VideoQuit()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#ae86d31ef3c6aad24cd4d0da9a9551906" title="Shuts down the video subsystem. ">SDL_VideoQuit()</a> </dd></dl>
 
 </div>
 </div>
@@ -3798,7 +3798,7 @@ Functions</h2></td></tr>
 
 <p>Shuts down the video subsystem. </p>
 <p>This function closes all windows, and restores the original video mode.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a314ad2d4e93195f1fe877ab954ae0ff0" title="Initialize the video subsystem, optionally specifying a video driver. ">SDL_VideoInit()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a314ad2d4e93195f1fe877ab954ae0ff0" title="Initialize the video subsystem, optionally specifying a video driver. ">SDL_VideoInit()</a> </dd></dl>
 
 </div>
 </div>

@@ -509,7 +509,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create a 2D rendering context for a window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>The window where rendering is displayed. </td></tr>
     <tr><td class="paramname">index</td><td>The index of the rendering driver to initialize, or -1 to initialize the first one supporting the requested flags. </td></tr>
@@ -517,8 +517,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A valid rendering context or NULL if there was an error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ac87472c21481106daed997ecac2c1d4f" title="Create a 2D software rendering context for a surface. ">SDL_CreateSoftwareRenderer()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>A valid rendering context or NULL if there was an error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ac87472c21481106daed997ecac2c1d4f" title="Create a 2D software rendering context for a surface. ">SDL_CreateSoftwareRenderer()</a> </dd>
 <dd>
 <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a6bbb00044d393f5b9433e0215c369e75" title="Get information about a rendering context. ">SDL_GetRendererInfo()</a> </dd>
 <dd>
@@ -543,14 +543,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create a 2D software rendering context for a surface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">surface</td><td>The surface where rendering is done.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A valid rendering context or NULL if there was an error.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ad6cbdfcb41a3ac18be2797b1ced7b0ca" title="Create a 2D rendering context for a window. ">SDL_CreateRenderer()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>A valid rendering context or NULL if there was an error.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ad6cbdfcb41a3ac18be2797b1ced7b0ca" title="Create a 2D rendering context for a window. ">SDL_CreateRenderer()</a> </dd>
 <dd>
 <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a2a192631705ccfc9cb4224c6ef457a14" title="Destroy the rendering context for a window and free associated textures. ">SDL_DestroyRenderer()</a> </dd></dl>
 
@@ -601,7 +601,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create a texture for a rendering context. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer. </td></tr>
     <tr><td class="paramname">format</td><td>The format of the texture. </td></tr>
@@ -611,9 +611,9 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The created texture is returned, or NULL if no rendering context was active, the format was unsupported, or the width or height were out of range.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The contents of the texture are not defined at creation.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a26ec4e71dda0739b8225c5b9fa780438" title="Query the attributes of a texture. ">SDL_QueryTexture()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The created texture is returned, or NULL if no rendering context was active, the format was unsupported, or the width or height were out of range.</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>The contents of the texture are not defined at creation.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a26ec4e71dda0739b8225c5b9fa780438" title="Query the attributes of a texture. ">SDL_QueryTexture()</a> </dd>
 <dd>
 <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ab20b4ac3b528c73e78baf1eff49dda9a" title="Update the given texture rectangle with new pixel data. ">SDL_UpdateTexture()</a> </dd>
 <dd>
@@ -648,16 +648,16 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create a texture from an existing surface. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer. </td></tr>
     <tr><td class="paramname">surface</td><td>The surface containing pixel data used to fill the texture.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The created texture is returned, or NULL on error.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>The surface is not modified or freed by this function.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a26ec4e71dda0739b8225c5b9fa780438" title="Query the attributes of a texture. ">SDL_QueryTexture()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The created texture is returned, or NULL on error.</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>The surface is not modified or freed by this function.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a26ec4e71dda0739b8225c5b9fa780438" title="Query the attributes of a texture. ">SDL_QueryTexture()</a> </dd>
 <dd>
 <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a02098fcc116853c89224a7d6c7a2c8e0" title="Destroy the specified texture. ">SDL_DestroyTexture()</a> </dd></dl>
 
@@ -708,7 +708,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create a window and default renderer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">width</td><td>The width of the window </td></tr>
     <tr><td class="paramname">height</td><td>The height of the window </td></tr>
@@ -718,7 +718,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -739,7 +739,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Destroy the rendering context for a window and free associated textures. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ad6cbdfcb41a3ac18be2797b1ced7b0ca" title="Create a 2D rendering context for a window. ">SDL_CreateRenderer()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ad6cbdfcb41a3ac18be2797b1ced7b0ca" title="Create a 2D rendering context for a window. ">SDL_CreateRenderer()</a> </dd></dl>
 
 </div>
 </div>
@@ -760,7 +760,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Destroy the specified texture. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a36301e7c0b70a9e2b55a358db3584369" title="Create a texture for a rendering context. ">SDL_CreateTexture()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a36301e7c0b70a9e2b55a358db3584369" title="Create a texture for a rendering context. ">SDL_CreateTexture()</a> </dd>
 <dd>
 <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a53d1a1e9247a5a2c1be0a0550f28f1b9" title="Create a texture from an existing surface. ">SDL_CreateTextureFromSurface()</a> </dd></dl>
 
@@ -784,7 +784,7 @@ Functions</h2></td></tr>
 
 <p>Get the number of 2D rendering drivers available for the current display. </p>
 <p>A render driver is a set of code that handles rendering and texture management on a particular display. Normally there is only one, but some drivers may have several available with different capabilities.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#af8262855e90373b36b360ddc4c79a092" title="Get information about a specific 2D rendering driver for the current display. ">SDL_GetRenderDriverInfo()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#af8262855e90373b36b360ddc4c79a092" title="Get information about a specific 2D rendering driver for the current display. ">SDL_GetRenderDriverInfo()</a> </dd>
 <dd>
 <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ad6cbdfcb41a3ac18be2797b1ced7b0ca" title="Create a 2D rendering context for a window. ">SDL_CreateRenderer()</a> </dd></dl>
 
@@ -817,15 +817,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the blend mode used for drawing operations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer from which blend mode should be queried. </td></tr>
     <tr><td class="paramname">blendMode</td><td>A pointer filled in with the current blend mode.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a62f281cf38c5f7b3168cbbcb93738208" title="Set the blend mode used for drawing operations (Fill and Line). ">SDL_SetRenderDrawBlendMode()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a62f281cf38c5f7b3168cbbcb93738208" title="Set the blend mode used for drawing operations (Fill and Line). ">SDL_SetRenderDrawBlendMode()</a> </dd></dl>
 
 </div>
 </div>
@@ -874,7 +874,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the color used for drawing operations (Rect, Line and Clear). </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer from which drawing color should be queried. </td></tr>
     <tr><td class="paramname">r</td><td>A pointer to the red value used to draw on the rendering target. </td></tr>
@@ -884,7 +884,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -915,15 +915,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get information about a specific 2D rendering driver for the current display. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">index</td><td>The index of the driver to query information about. </td></tr>
     <tr><td class="paramname">info</td><td>A pointer to an <a class="el" href="../../d8/d04/struct_s_d_l___renderer_info.html" title="Information on the capabilities of a render driver or context. ">SDL_RendererInfo</a> struct to be filled with information on the rendering driver.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, -1 if the index was out of range.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ad6cbdfcb41a3ac18be2797b1ced7b0ca" title="Create a 2D rendering context for a window. ">SDL_CreateRenderer()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, -1 if the index was out of range.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ad6cbdfcb41a3ac18be2797b1ced7b0ca" title="Create a 2D rendering context for a window. ">SDL_CreateRenderer()</a> </dd></dl>
 
 </div>
 </div>
@@ -1030,8 +1030,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the current render target or NULL for the default render target. </p>
-<dl class="section return"><dt>Returns</dt><dd>The current render target</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a0520ce0f20c0e0efd3b3b6fd134ba748" title="Set a texture as the current rendering target. ">SDL_SetRenderTarget()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>The current render target</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a0520ce0f20c0e0efd3b3b6fd134ba748" title="Set a texture as the current rendering target. ">SDL_SetRenderTarget()</a> </dd></dl>
 
 </div>
 </div>
@@ -1062,15 +1062,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the additional alpha value used in render copy operations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The texture to query. </td></tr>
     <tr><td class="paramname">alpha</td><td>A pointer filled in with the current alpha value.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the texture is not valid.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a7dea030cb8c2bf6612a87567c88d1889" title="Set an additional alpha value used in render copy operations. ">SDL_SetTextureAlphaMod()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the texture is not valid.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a7dea030cb8c2bf6612a87567c88d1889" title="Set an additional alpha value used in render copy operations. ">SDL_SetTextureAlphaMod()</a> </dd></dl>
 
 </div>
 </div>
@@ -1101,15 +1101,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the blend mode used for texture copy operations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The texture to query. </td></tr>
     <tr><td class="paramname">blendMode</td><td>A pointer filled in with the current blend mode.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the texture is not valid.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ad6ba58455bc93965573d78b0aa824cd5" title="Set the blend mode used for texture copy operations. ">SDL_SetTextureBlendMode()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the texture is not valid.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ad6ba58455bc93965573d78b0aa824cd5" title="Set the blend mode used for texture copy operations. ">SDL_SetTextureBlendMode()</a> </dd></dl>
 
 </div>
 </div>
@@ -1152,7 +1152,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the additional color value used in render copy operations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The texture to query. </td></tr>
     <tr><td class="paramname">r</td><td>A pointer filled in with the current red color value. </td></tr>
@@ -1161,8 +1161,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the texture is not valid.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#aa43b89ec513fe812cb151f5704370344" title="Set an additional color value used in render copy operations. ">SDL_SetTextureColorMod()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the texture is not valid.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#aa43b89ec513fe812cb151f5704370344" title="Set an additional color value used in render copy operations. ">SDL_SetTextureColorMod()</a> </dd></dl>
 
 </div>
 </div>
@@ -1199,7 +1199,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Bind the texture to the current OpenGL/ES/ES2 context for use with OpenGL instructions. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The SDL texture to bind </td></tr>
     <tr><td class="paramname">texw</td><td>A pointer to a float that will be filled with the texture width </td></tr>
@@ -1207,7 +1207,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the operation is not supported </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the operation is not supported </dd></dl>
 
 </div>
 </div>
@@ -1228,13 +1228,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Unbind a texture from the current OpenGL/ES/ES2 context. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The SDL texture to unbind</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the operation is not supported </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the operation is not supported </dd></dl>
 
 </div>
 </div>
@@ -1277,7 +1277,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Lock a portion of the texture for write-only pixel access. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The texture to lock for access, which was created with <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a6b8417d7af279e8a0d4a51233da99bc9a19a4751f16e6b411aeb9c835d6c061b4">SDL_TEXTUREACCESS_STREAMING</a>. </td></tr>
     <tr><td class="paramname">rect</td><td>A pointer to the rectangle to lock for access. If the rect is NULL, the entire texture will be locked. </td></tr>
@@ -1286,8 +1286,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the texture is not valid or was not created with <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a6b8417d7af279e8a0d4a51233da99bc9a19a4751f16e6b411aeb9c835d6c061b4">SDL_TEXTUREACCESS_STREAMING</a>.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a2d60d8bc507b6dbb7265d3a2ef137579" title="Unlock a texture, uploading the changes to video memory, if needed. ">SDL_UnlockTexture()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the texture is not valid or was not created with <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a6b8417d7af279e8a0d4a51233da99bc9a19a4751f16e6b411aeb9c835d6c061b4">SDL_TEXTUREACCESS_STREAMING</a>.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a2d60d8bc507b6dbb7265d3a2ef137579" title="Unlock a texture, uploading the changes to video memory, if needed. ">SDL_UnlockTexture()</a> </dd></dl>
 
 </div>
 </div>
@@ -1336,7 +1336,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Query the attributes of a texture. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>A texture to be queried. </td></tr>
     <tr><td class="paramname">format</td><td>A pointer filled in with the raw format of the texture. The actual format may differ, but pixel transfers will use this format. </td></tr>
@@ -1346,7 +1346,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the texture is not valid. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the texture is not valid. </dd></dl>
 
 </div>
 </div>
@@ -1368,7 +1368,7 @@ Functions</h2></td></tr>
 
 <p>Clear the current rendering target with the drawing color. </p>
 <p>This function clears the entire rendering target, ignoring the viewport and the clip rectangle.</p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -1411,7 +1411,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copy a portion of the texture to the current rendering target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer which should copy parts of a texture. </td></tr>
     <tr><td class="paramname">texture</td><td>The source texture. </td></tr>
@@ -1420,7 +1420,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -1481,7 +1481,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copy a portion of the source texture to the current rendering target, rotating it by angle around the given center. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer which should copy parts of a texture. </td></tr>
     <tr><td class="paramname">texture</td><td>The source texture. </td></tr>
@@ -1493,7 +1493,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -1542,7 +1542,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Draw a line on the current rendering target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer which should draw a line. </td></tr>
     <tr><td class="paramname">x1</td><td>The x coordinate of the start point. </td></tr>
@@ -1552,7 +1552,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -1589,7 +1589,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Draw a series of connected lines on the current rendering target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer which should draw multiple lines. </td></tr>
     <tr><td class="paramname">points</td><td>The points along the lines </td></tr>
@@ -1597,7 +1597,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -1634,7 +1634,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Draw a point on the current rendering target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer which should draw a point. </td></tr>
     <tr><td class="paramname">x</td><td>The x coordinate of the point. </td></tr>
@@ -1642,7 +1642,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -1679,7 +1679,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Draw multiple points on the current rendering target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer which should draw multiple points. </td></tr>
     <tr><td class="paramname">points</td><td>The points to draw </td></tr>
@@ -1687,7 +1687,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -1718,14 +1718,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Draw a rectangle on the current rendering target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer which should draw a rectangle. </td></tr>
     <tr><td class="paramname">rect</td><td>A pointer to the destination rectangle, or NULL to outline the entire rendering target.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -1762,7 +1762,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Draw some number of rectangles on the current rendering target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer which should draw multiple rectangles. </td></tr>
     <tr><td class="paramname">rects</td><td>A pointer to an array of destination rectangles. </td></tr>
@@ -1770,7 +1770,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -1801,14 +1801,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Fill a rectangle on the current rendering target with the drawing color. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer which should fill a rectangle. </td></tr>
     <tr><td class="paramname">rect</td><td>A pointer to the destination rectangle, or NULL for the entire rendering target.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -1845,7 +1845,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Fill some number of rectangles on the current rendering target with the drawing color. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer which should fill multiple rectangles. </td></tr>
     <tr><td class="paramname">rects</td><td>A pointer to an array of destination rectangles. </td></tr>
@@ -1853,7 +1853,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -1884,14 +1884,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the clip rectangle for the current target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer from which clip rectangle should be queried. </td></tr>
     <tr><td class="paramname">rect</td><td>A pointer filled in with the current clip rectangle, or an empty rectangle if clipping is disabled.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a71fcead9960e92547bdc1832bcd46118" title="Set the clip rectangle for the current target. ">SDL_RenderSetClipRect()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a71fcead9960e92547bdc1832bcd46118" title="Set the clip rectangle for the current target. ">SDL_RenderSetClipRect()</a> </dd></dl>
 
 </div>
 </div>
@@ -1912,13 +1912,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get whether integer scales are forced for resolution-independent rendering. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer from which integer scaling should be queried.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a7dcc6fb429a1b19b2a6c5d7ff6fc47d0" title="Set whether to force integer scales for resolution-independent rendering. ">SDL_RenderSetIntegerScale()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a7dcc6fb429a1b19b2a6c5d7ff6fc47d0" title="Set whether to force integer scales for resolution-independent rendering. ">SDL_RenderSetIntegerScale()</a> </dd></dl>
 
 </div>
 </div>
@@ -1955,7 +1955,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get device independent resolution for rendering. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer from which resolution should be queried. </td></tr>
     <tr><td class="paramname">w</td><td>A pointer filled with the width of the logical resolution </td></tr>
@@ -1963,7 +1963,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ae86c702d21acddcbbb4a9973b30f7cd8" title="Set device independent resolution for rendering. ">SDL_RenderSetLogicalSize()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ae86c702d21acddcbbb4a9973b30f7cd8" title="Set device independent resolution for rendering. ">SDL_RenderSetLogicalSize()</a> </dd></dl>
 
 </div>
 </div>
@@ -1984,14 +1984,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the Metal command encoder for the current frame. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer to query</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>id&lt;MTLRenderCommandEncoder&gt; on success, or NULL if the renderer isn't a Metal renderer</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a84f153347a491e2183bcd56c2b6a446f" title="Get the CAMetalLayer associated with the given Metal renderer. ">SDL_RenderGetMetalLayer()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>id&lt;MTLRenderCommandEncoder&gt; on success, or NULL if the renderer isn't a Metal renderer</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a84f153347a491e2183bcd56c2b6a446f" title="Get the CAMetalLayer associated with the given Metal renderer. ">SDL_RenderGetMetalLayer()</a> </dd></dl>
 
 </div>
 </div>
@@ -2012,14 +2012,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the CAMetalLayer associated with the given Metal renderer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer to query</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>CAMetalLayer* on success, or NULL if the renderer isn't a Metal renderer</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a3ca5824dc7fd9d470259df507de863d3" title="Get the Metal command encoder for the current frame. ">SDL_RenderGetMetalCommandEncoder()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>CAMetalLayer* on success, or NULL if the renderer isn't a Metal renderer</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a3ca5824dc7fd9d470259df507de863d3" title="Get the Metal command encoder for the current frame. ">SDL_RenderGetMetalCommandEncoder()</a> </dd></dl>
 
 </div>
 </div>
@@ -2056,7 +2056,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the drawing scale for the current target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer from which drawing scale should be queried. </td></tr>
     <tr><td class="paramname">scaleX</td><td>A pointer filled in with the horizontal scaling factor </td></tr>
@@ -2064,7 +2064,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a8fadca74f168159d647a89bec1c5dcc9" title="Set the drawing scale for rendering on the current target. ">SDL_RenderSetScale()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a8fadca74f168159d647a89bec1c5dcc9" title="Set the drawing scale for rendering on the current target. ">SDL_RenderSetScale()</a> </dd></dl>
 
 </div>
 </div>
@@ -2095,7 +2095,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the drawing area for the current target. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a53215a931549d8c3b8445f74bb56aec3" title="Set the drawing area for rendering on the current target. ">SDL_RenderSetViewport()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a53215a931549d8c3b8445f74bb56aec3" title="Set the drawing area for rendering on the current target. ">SDL_RenderSetViewport()</a> </dd></dl>
 
 </div>
 </div>
@@ -2116,13 +2116,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get whether clipping is enabled on the given renderer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer from which clip state should be queried.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a6a4d6f87ee21b373fea99b25e60fbb00" title="Get the clip rectangle for the current target. ">SDL_RenderGetClipRect()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a6a4d6f87ee21b373fea99b25e60fbb00" title="Get the clip rectangle for the current target. ">SDL_RenderGetClipRect()</a> </dd></dl>
 
 </div>
 </div>
@@ -2191,7 +2191,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read pixels from the current rendering target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer from which pixels should be read. </td></tr>
     <tr><td class="paramname">rect</td><td>A pointer to the rectangle to read, or NULL for the entire render target. </td></tr>
@@ -2201,8 +2201,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if pixel reading is not supported.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>This is a very slow operation, and should not be used frequently. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if pixel reading is not supported.</dd></dl>
+<dl class="section warning"><dtTicks>Warning</dtTicks><dd>This is a very slow operation, and should not be used frequently. </dd></dl>
 
 </div>
 </div>
@@ -2233,15 +2233,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the clip rectangle for the current target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer for which clip rectangle should be set. </td></tr>
     <tr><td class="paramname">rect</td><td>A pointer to the rectangle to set as the clip rectangle, or NULL to disable clipping.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a6a4d6f87ee21b373fea99b25e60fbb00" title="Get the clip rectangle for the current target. ">SDL_RenderGetClipRect()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a6a4d6f87ee21b373fea99b25e60fbb00" title="Get the clip rectangle for the current target. ">SDL_RenderGetClipRect()</a> </dd></dl>
 
 </div>
 </div>
@@ -2272,7 +2272,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set whether to force integer scales for resolution-independent rendering. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer for which integer scaling should be set. </td></tr>
     <tr><td class="paramname">enable</td><td>Enable or disable integer scaling</td></tr>
@@ -2280,7 +2280,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>This function restricts the logical viewport to integer values - that is, when a resolution is between two multiples of a logical size, the viewport size is rounded down to the lower multiple.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ae86c702d21acddcbbb4a9973b30f7cd8" title="Set device independent resolution for rendering. ">SDL_RenderSetLogicalSize()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ae86c702d21acddcbbb4a9973b30f7cd8" title="Set device independent resolution for rendering. ">SDL_RenderSetLogicalSize()</a> </dd></dl>
 
 </div>
 </div>
@@ -2317,7 +2317,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set device independent resolution for rendering. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer for which resolution should be set. </td></tr>
     <tr><td class="paramname">w</td><td>The width of the logical resolution </td></tr>
@@ -2327,8 +2327,8 @@ Functions</h2></td></tr>
 </dl>
 <p>This function uses the viewport and scaling functionality to allow a fixed logical resolution for rendering, regardless of the actual output resolution. If the actual output resolution doesn't have the same aspect ratio the output rendering will be centered within the output display.</p>
 <p>If the output display is a window, mouse events in the window will be filtered and scaled so they seem to arrive within the logical resolution.</p>
-<dl class="section note"><dt>Note</dt><dd>If this function results in scaling or subpixel drawing by the rendering backend, it will be handled using the appropriate quality hints.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#abcc25d673b2cb4d8780028f21647e3bb" title="Get device independent resolution for rendering. ">SDL_RenderGetLogicalSize()</a> </dd>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>If this function results in scaling or subpixel drawing by the rendering backend, it will be handled using the appropriate quality hints.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#abcc25d673b2cb4d8780028f21647e3bb" title="Get device independent resolution for rendering. ">SDL_RenderGetLogicalSize()</a> </dd>
 <dd>
 <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a8fadca74f168159d647a89bec1c5dcc9" title="Set the drawing scale for rendering on the current target. ">SDL_RenderSetScale()</a> </dd>
 <dd>
@@ -2369,7 +2369,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the drawing scale for rendering on the current target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer for which the drawing scale should be set. </td></tr>
     <tr><td class="paramname">scaleX</td><td>The horizontal scaling factor </td></tr>
@@ -2378,8 +2378,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>The drawing coordinates are scaled by the x/y scaling factors before they are used by the renderer. This allows resolution independent drawing with a single coordinate system.</p>
-<dl class="section note"><dt>Note</dt><dd>If this results in scaling or subpixel drawing by the rendering backend, it will be handled using the appropriate quality hints. For best results use integer scaling factors.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a10228673647d0fab0833f87f39b994a6" title="Get the drawing scale for the current target. ">SDL_RenderGetScale()</a> </dd>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>If this results in scaling or subpixel drawing by the rendering backend, it will be handled using the appropriate quality hints. For best results use integer scaling factors.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a10228673647d0fab0833f87f39b994a6" title="Get the drawing scale for the current target. ">SDL_RenderGetScale()</a> </dd>
 <dd>
 <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ae86c702d21acddcbbb4a9973b30f7cd8" title="Set device independent resolution for rendering. ">SDL_RenderSetLogicalSize()</a> </dd></dl>
 
@@ -2412,7 +2412,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the drawing area for rendering on the current target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer for which the drawing area should be set. </td></tr>
     <tr><td class="paramname">rect</td><td>The rectangle representing the drawing area, or NULL to set the viewport to the entire target.</td></tr>
@@ -2420,9 +2420,9 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>The x,y of the viewport rect represents the origin for rendering.</p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If the window associated with the renderer is resized, the viewport is automatically reset.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a580ed67057389c26f4e57f69fd8b5137" title="Get the drawing area for the current target. ">SDL_RenderGetViewport()</a> </dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>If the window associated with the renderer is resized, the viewport is automatically reset.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a580ed67057389c26f4e57f69fd8b5137" title="Get the drawing area for the current target. ">SDL_RenderGetViewport()</a> </dd>
 <dd>
 <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ae86c702d21acddcbbb4a9973b30f7cd8" title="Set device independent resolution for rendering. ">SDL_RenderSetLogicalSize()</a> </dd></dl>
 
@@ -2445,13 +2445,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Determines whether a window supports the use of render targets. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer that will be checked</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>SDL_TRUE if supported, SDL_FALSE if not. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>SDL_TRUE if supported, SDL_FALSE if not. </dd></dl>
 
 </div>
 </div>
@@ -2482,16 +2482,16 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the blend mode used for drawing operations (Fill and Line). </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer for which blend mode should be set. </td></tr>
     <tr><td class="paramname">blendMode</td><td><a class="el" href="../../d3/d6c/_s_d_l__blendmode_8h.html#a850d3c67a878fd6698a1c8dbb1eabf1e" title="The blend mode used in SDL_RenderCopy() and drawing operations. ">SDL_BlendMode</a> to use for blending.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If the blend mode is not supported, the closest supported mode is chosen.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#aab76e86d71232b4379f47ffeff3d5830" title="Get the blend mode used for drawing operations. ">SDL_GetRenderDrawBlendMode()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>If the blend mode is not supported, the closest supported mode is chosen.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#aab76e86d71232b4379f47ffeff3d5830" title="Get the blend mode used for drawing operations. ">SDL_GetRenderDrawBlendMode()</a> </dd></dl>
 
 </div>
 </div>
@@ -2540,7 +2540,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the color used for drawing operations (Rect, Line and Clear). </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer for which drawing color should be set. </td></tr>
     <tr><td class="paramname">r</td><td>The red value used to draw on the rendering target. </td></tr>
@@ -2550,7 +2550,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error </dd></dl>
 
 </div>
 </div>
@@ -2581,15 +2581,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set a texture as the current rendering target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">renderer</td><td>The renderer. </td></tr>
     <tr><td class="paramname">texture</td><td>The targeted texture, which must be created with the SDL_TEXTUREACCESS_TARGET flag, or NULL for the default render target</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 on error</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#aad7f4f0cb91fba6962ca0b5c460dbcc6" title="Get the current render target or NULL for the default render target. ">SDL_GetRenderTarget()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 on error</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#aad7f4f0cb91fba6962ca0b5c460dbcc6" title="Get the current render target or NULL for the default render target. ">SDL_GetRenderTarget()</a> </dd></dl>
 
 </div>
 </div>
@@ -2620,15 +2620,15 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set an additional alpha value used in render copy operations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The texture to update. </td></tr>
     <tr><td class="paramname">alpha</td><td>The alpha value multiplied into copy operations.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the texture is not valid or alpha modulation is not supported.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ad2281c215e66c8b9a800d0ee210560f8" title="Get the additional alpha value used in render copy operations. ">SDL_GetTextureAlphaMod()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the texture is not valid or alpha modulation is not supported.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ad2281c215e66c8b9a800d0ee210560f8" title="Get the additional alpha value used in render copy operations. ">SDL_GetTextureAlphaMod()</a> </dd></dl>
 
 </div>
 </div>
@@ -2659,16 +2659,16 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set the blend mode used for texture copy operations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The texture to update. </td></tr>
     <tr><td class="paramname">blendMode</td><td><a class="el" href="../../d3/d6c/_s_d_l__blendmode_8h.html#a850d3c67a878fd6698a1c8dbb1eabf1e" title="The blend mode used in SDL_RenderCopy() and drawing operations. ">SDL_BlendMode</a> to use for texture blending.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the texture is not valid or the blend mode is not supported.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>If the blend mode is not supported, the closest supported mode is chosen.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a40e4edfb8a6e69f8008bcc3501cd75cb" title="Get the blend mode used for texture copy operations. ">SDL_GetTextureBlendMode()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the texture is not valid or the blend mode is not supported.</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>If the blend mode is not supported, the closest supported mode is chosen.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a40e4edfb8a6e69f8008bcc3501cd75cb" title="Get the blend mode used for texture copy operations. ">SDL_GetTextureBlendMode()</a> </dd></dl>
 
 </div>
 </div>
@@ -2711,7 +2711,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set an additional color value used in render copy operations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The texture to update. </td></tr>
     <tr><td class="paramname">r</td><td>The red color value multiplied into copy operations. </td></tr>
@@ -2720,8 +2720,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the texture is not valid or color modulation is not supported.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a4ebf8dd85155c2fd3b5a261289c26d65" title="Get the additional color value used in render copy operations. ">SDL_GetTextureColorMod()</a> </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the texture is not valid or color modulation is not supported.</dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#a4ebf8dd85155c2fd3b5a261289c26d65" title="Get the additional color value used in render copy operations. ">SDL_GetTextureColorMod()</a> </dd></dl>
 
 </div>
 </div>
@@ -2742,7 +2742,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Unlock a texture, uploading the changes to video memory, if needed. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#aeef3df2d6c4d8bb4026d96d723bf0f55" title="Lock a portion of the texture for write-only pixel access. ">SDL_LockTexture()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d6/d30/_s_d_l__render_8h.html#aeef3df2d6c4d8bb4026d96d723bf0f55" title="Lock a portion of the texture for write-only pixel access. ">SDL_LockTexture()</a> </dd></dl>
 
 </div>
 </div>
@@ -2785,7 +2785,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Update the given texture rectangle with new pixel data. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The texture to update </td></tr>
     <tr><td class="paramname">rect</td><td>A pointer to the rectangle of pixels to update, or NULL to update the entire texture. </td></tr>
@@ -2795,8 +2795,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>The pixel data must be in the format of the texture. The pixel format can be queried with SDL_QueryTexture.</p>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the texture is not valid.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This is a fairly slow function. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the texture is not valid.</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>This is a fairly slow function. </dd></dl>
 
 </div>
 </div>
@@ -2863,7 +2863,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Update a rectangle within a planar YV12 or IYUV texture with new pixel data. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">texture</td><td>The texture to update </td></tr>
     <tr><td class="paramname">rect</td><td>A pointer to the rectangle of pixels to update, or NULL to update the entire texture. </td></tr>
@@ -2876,8 +2876,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success, or -1 if the texture is not valid.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>You can use <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ab20b4ac3b528c73e78baf1eff49dda9a" title="Update the given texture rectangle with new pixel data. ">SDL_UpdateTexture()</a> as long as your pixel data is a contiguous block of Y and U/V planes in the proper order, but this function is available if your pixel data is not contiguous. </dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd>0 on success, or -1 if the texture is not valid.</dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>You can use <a class="el" href="../../d6/d30/_s_d_l__render_8h.html#ab20b4ac3b528c73e78baf1eff49dda9a" title="Update the given texture rectangle with new pixel data. ">SDL_UpdateTexture()</a> as long as your pixel data is a contiguous block of Y and U/V planes in the proper order, but this function is available if your pixel data is not contiguous. </dd></dl>
 
 </div>
 </div>

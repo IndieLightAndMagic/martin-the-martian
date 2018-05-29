@@ -73,7 +73,7 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Vulkan support functions</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><dl class="section note"><dt>Note</dt><dd>SDL_Vulkan_GetInstanceExtensions &amp; SDL_Vulkan_CreateSurface API is compatable with Tizen's implementation of Vulkan in SDL. </dd></dl>
+<tr><td colspan="2"><div class="groupText"><dl class="section note"><dtTicks>Note</dtTicks><dd>SDL_Vulkan_GetInstanceExtensions &amp; SDL_Vulkan_CreateSurface API is compatable with Tizen's implementation of Vulkan in SDL. </dd></dl>
 </div></td></tr>
 <tr class="memitem:a8885076e008e9ddd4fe98a4ca4017127"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a8885076e008e9ddd4fe98a4ca4017127">SDL_Vulkan_LoadLibrary</a> (const char *path)</td></tr>
 <tr class="memdesc:a8885076e008e9ddd4fe98a4ca4017127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dynamically load a Vulkan loader library.  <a href="#a8885076e008e9ddd4fe98a4ca4017127">More...</a><br /></td></tr>
@@ -206,7 +206,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Create a Vulkan rendering surface for a window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">window</td><td>SDL_Window to which to attach the rendering surface. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">instance</td><td>handle to the Vulkan instance to use. </td></tr>
@@ -214,11 +214,11 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>SDL_TRUE</code> on success, <code>SDL_FALSE</code> on error.</dd></dl>
-<div class="fragment"><div class="line">VkInstance instance;</div><div class="line"><a class="code" href="../../dc/d64/_s_d_l__video_8h.html#a55a196c7d3b8497538632c79ae1e6392">SDL_Window</a> *window;</div><div class="line"></div><div class="line"><span class="comment">// create instance and window</span></div><div class="line"></div><div class="line"><span class="comment">// create the Vulkan surface</span></div><div class="line">VkSurfaceKHR surface;</div><div class="line"><span class="keywordflow">if</span>(!<a class="code" href="../../d2/da2/_s_d_l__vulkan_8h.html#af028fbf0cd5d1853fcfcfc202e55eff7">SDL_Vulkan_CreateSurface</a>(window, instance, &amp;surface))</div><div class="line">    handle_error();</div></div><!-- fragment --><dl class="section note"><dt>Note</dt><dd><em>window</em> should have been created with the <code>SDL_WINDOW_VULKAN</code> flag.</dd>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd><code>SDL_TRUE</code> on success, <code>SDL_FALSE</code> on error.</dd></dl>
+<div class="fragment"><div class="line">VkInstance instance;</div><div class="line"><a class="code" href="../../dc/d64/_s_d_l__video_8h.html#a55a196c7d3b8497538632c79ae1e6392">SDL_Window</a> *window;</div><div class="line"></div><div class="line"><span class="comment">// create instance and window</span></div><div class="line"></div><div class="line"><span class="comment">// create the Vulkan surface</span></div><div class="line">VkSurfaceKHR surface;</div><div class="line"><span class="keywordflow">if</span>(!<a class="code" href="../../d2/da2/_s_d_l__vulkan_8h.html#af028fbf0cd5d1853fcfcfc202e55eff7">SDL_Vulkan_CreateSurface</a>(window, instance, &amp;surface))</div><div class="line">    handle_error();</div></div><!-- fragment --><dl class="section note"><dtTicks>Note</dtTicks><dd><em>window</em> should have been created with the <code>SDL_WINDOW_VULKAN</code> flag.</dd>
 <dd>
 <em>instance</em> should have been created with the extensions returned by <code><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#af028fbf0cd5d1853fcfcfc202e55eff7" title="Create a Vulkan rendering surface for a window. ">SDL_Vulkan_CreateSurface()</a></code> enabled.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a06ef070d6fc24e10bfd1856a30f53edc" title="Get the names of the Vulkan instance extensions needed to create a surface with SDL_Vulkan_CreateSurf...">SDL_Vulkan_GetInstanceExtensions()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a06ef070d6fc24e10bfd1856a30f53edc" title="Get the names of the Vulkan instance extensions needed to create a surface with SDL_Vulkan_CreateSurf...">SDL_Vulkan_GetInstanceExtensions()</a> </dd></dl>
 
 </div>
 </div>
@@ -255,7 +255,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the size of a window's underlying drawable in pixels (for use with setting viewport, scissor &amp; etc). </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramname">window</td><td>SDL_Window from which the drawable size should be queried </td></tr>
     <tr><td class="paramname">w</td><td>Pointer to variable for storing the width in pixels, may be NULL </td></tr>
@@ -264,7 +264,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>This may differ from <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#abd78819171eb1a9e1f565a0f507f891b" title="Get the size of a window&#39;s client area. ">SDL_GetWindowSize()</a> if we're rendering to a high-DPI drawable, i.e. the window was created with SDL_WINDOW_ALLOW_HIGHDPI on a platform with high-DPI support (Apple calls this "Retina"), and not disabled by the <code>SDL_HINT_VIDEO_HIGHDPI_DISABLED</code> hint.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#abd78819171eb1a9e1f565a0f507f891b" title="Get the size of a window&#39;s client area. ">SDL_GetWindowSize()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../dc/d64/_s_d_l__video_8h.html#abd78819171eb1a9e1f565a0f507f891b" title="Get the size of a window&#39;s client area. ">SDL_GetWindowSize()</a> </dd>
 <dd>
 <a class="el" href="../../dc/d64/_s_d_l__video_8h.html#a82dcba9ba98239a8682d4ac5880a8a5f" title="Create a window with the specified position, dimensions, and flags. ">SDL_CreateWindow()</a> </dd></dl>
 
@@ -303,7 +303,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the names of the Vulkan instance extensions needed to create a surface with <code><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#af028fbf0cd5d1853fcfcfc202e55eff7" title="Create a Vulkan rendering surface for a window. ">SDL_Vulkan_CreateSurface()</a></code>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">window</td><td>Window for which the required Vulkan instance extensions should be retrieved </td></tr>
     <tr><td class="paramdir">[in,out]</td><td class="paramname">count</td><td>pointer to an <code>unsigned</code> related to the number of required Vulkan instance extensions </td></tr>
@@ -311,14 +311,14 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>SDL_TRUE</code> on success, <code>SDL_FALSE</code> on error.</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd><code>SDL_TRUE</code> on success, <code>SDL_FALSE</code> on error.</dd></dl>
 <p>If <em>pNames</em> is <code>NULL</code>, then the number of required Vulkan instance extensions is returned in pCount. Otherwise, <em>pCount</em> must point to a variable set to the number of elements in the <em>pNames</em> array, and on return the variable is overwritten with the number of names actually written to <em>pNames</em>. If <em>pCount</em> is less than the number of required extensions, at most <em>pCount</em> structures will be written. If <em>pCount</em> is smaller than the number of required extensions, <code>SDL_FALSE</code> will be returned instead of <code>SDL_TRUE</code>, to indicate that not all the required extensions were returned.</p>
-<dl class="section note"><dt>Note</dt><dd>The returned list of extensions will contain <code>VK_KHR_surface</code> and zero or more platform specific extensions</dd>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>The returned list of extensions will contain <code>VK_KHR_surface</code> and zero or more platform specific extensions</dd>
 <dd>
 The extension names queried here must be enabled when calling VkCreateInstance, otherwise surface creation will fail.</dd>
 <dd>
 <code>window</code> should have been created with the <code>SDL_WINDOW_VULKAN</code> flag.</dd></dl>
-<div class="fragment"><div class="line"><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count;</div><div class="line"><span class="comment">// get count of required extensions</span></div><div class="line"><span class="keywordflow">if</span>(!<a class="code" href="../../d2/da2/_s_d_l__vulkan_8h.html#a06ef070d6fc24e10bfd1856a30f53edc">SDL_Vulkan_GetInstanceExtensions</a>(window, &amp;count, <a class="code" href="../../d1/d90/begin__code_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>))</div><div class="line">    handle_error();</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> additionalExtensions[] =</div><div class="line">{</div><div class="line">    VK_EXT_DEBUG_REPORT_EXTENSION_NAME, <span class="comment">// example additional extension</span></div><div class="line">};</div><div class="line"><span class="keywordtype">size_t</span> additionalExtensionsCount = <span class="keyword">sizeof</span>(additionalExtensions) / <span class="keyword">sizeof</span>(additionalExtensions[0]);</div><div class="line"><span class="keywordtype">size_t</span> extensionCount = count + additionalExtensionsCount;</div><div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> **names = malloc(<span class="keyword">sizeof</span>(<span class="keyword">const</span> <span class="keywordtype">char</span> *) * extensionCount);</div><div class="line"><span class="keywordflow">if</span>(!names)</div><div class="line">    handle_error();</div><div class="line"></div><div class="line"><span class="comment">// get names of required extensions</span></div><div class="line"><span class="keywordflow">if</span>(!<a class="code" href="../../d2/da2/_s_d_l__vulkan_8h.html#a06ef070d6fc24e10bfd1856a30f53edc">SDL_Vulkan_GetInstanceExtensions</a>(window, &amp;count, names))</div><div class="line">    handle_error();</div><div class="line"></div><div class="line"><span class="comment">// copy additional extensions after required extensions</span></div><div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; additionalExtensionsCount; i++)</div><div class="line">    names[i + count] = additionalExtensions[i];</div><div class="line"></div><div class="line">VkInstanceCreateInfo instanceCreateInfo = {};</div><div class="line">instanceCreateInfo.enabledExtensionCount = extensionCount;</div><div class="line">instanceCreateInfo.ppEnabledExtensionNames = names;</div><div class="line"><span class="comment">// fill in rest of instanceCreateInfo</span></div><div class="line"></div><div class="line">VkInstance instance;</div><div class="line"><span class="comment">// create the Vulkan instance</span></div><div class="line">VkResult result = vkCreateInstance(&amp;instanceCreateInfo, <a class="code" href="../../d1/d90/begin__code_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, &amp;instance);</div><div class="line">free(names);</div></div><!-- fragment --><dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#af028fbf0cd5d1853fcfcfc202e55eff7" title="Create a Vulkan rendering surface for a window. ">SDL_Vulkan_CreateSurface()</a> </dd></dl>
+<div class="fragment"><div class="line"><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count;</div><div class="line"><span class="comment">// get count of required extensions</span></div><div class="line"><span class="keywordflow">if</span>(!<a class="code" href="../../d2/da2/_s_d_l__vulkan_8h.html#a06ef070d6fc24e10bfd1856a30f53edc">SDL_Vulkan_GetInstanceExtensions</a>(window, &amp;count, <a class="code" href="../../d1/d90/begin__code_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>))</div><div class="line">    handle_error();</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> additionalExtensions[] =</div><div class="line">{</div><div class="line">    VK_EXT_DEBUG_REPORT_EXTENSION_NAME, <span class="comment">// example additional extension</span></div><div class="line">};</div><div class="line"><span class="keywordtype">size_t</span> additionalExtensionsCount = <span class="keyword">sizeof</span>(additionalExtensions) / <span class="keyword">sizeof</span>(additionalExtensions[0]);</div><div class="line"><span class="keywordtype">size_t</span> extensionCount = count + additionalExtensionsCount;</div><div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> **names = malloc(<span class="keyword">sizeof</span>(<span class="keyword">const</span> <span class="keywordtype">char</span> *) * extensionCount);</div><div class="line"><span class="keywordflow">if</span>(!names)</div><div class="line">    handle_error();</div><div class="line"></div><div class="line"><span class="comment">// get names of required extensions</span></div><div class="line"><span class="keywordflow">if</span>(!<a class="code" href="../../d2/da2/_s_d_l__vulkan_8h.html#a06ef070d6fc24e10bfd1856a30f53edc">SDL_Vulkan_GetInstanceExtensions</a>(window, &amp;count, names))</div><div class="line">    handle_error();</div><div class="line"></div><div class="line"><span class="comment">// copy additional extensions after required extensions</span></div><div class="line"><span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0; i &lt; additionalExtensionsCount; i++)</div><div class="line">    names[i + count] = additionalExtensions[i];</div><div class="line"></div><div class="line">VkInstanceCreateInfo instanceCreateInfo = {};</div><div class="line">instanceCreateInfo.enabledExtensionCount = extensionCount;</div><div class="line">instanceCreateInfo.ppEnabledExtensionNames = names;</div><div class="line"><span class="comment">// fill in rest of instanceCreateInfo</span></div><div class="line"></div><div class="line">VkInstance instance;</div><div class="line"><span class="comment">// create the Vulkan instance</span></div><div class="line">VkResult result = vkCreateInstance(&amp;instanceCreateInfo, <a class="code" href="../../d1/d90/begin__code_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, &amp;instance);</div><div class="line">free(names);</div></div><!-- fragment --><dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#af028fbf0cd5d1853fcfcfc202e55eff7" title="Create a Vulkan rendering surface for a window. ">SDL_Vulkan_CreateSurface()</a> </dd></dl>
 
 </div>
 </div>
@@ -339,7 +339,7 @@ The extension names queried here must be enabled when calling VkCreateInstance, 
 </div><div class="memdoc">
 
 <p>Get the address of the <code>vkGetInstanceProcAddr</code> function. </p>
-<dl class="section note"><dt>Note</dt><dd>This should be called after either calling SDL_Vulkan_LoadLibrary or creating an SDL_Window with the SDL_WINDOW_VULKAN flag. </dd></dl>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>This should be called after either calling SDL_Vulkan_LoadLibrary or creating an SDL_Window with the SDL_WINDOW_VULKAN flag. </dd></dl>
 
 </div>
 </div>
@@ -360,22 +360,22 @@ The extension names queried here must be enabled when calling VkCreateInstance, 
 </div><div class="memdoc">
 
 <p>Dynamically load a Vulkan loader library. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dtTicks>Parameters</dtTicks><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>The platform dependent Vulkan loader library name, or <code>NULL</code> to open the default Vulkan loader library.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>0</code> on success, or <code>-1</code> if the library couldn't be loaded.</dd></dl>
+<dl class="section return"><dtTicks>Returns</dtTicks><dd><code>0</code> on success, or <code>-1</code> if the library couldn't be loaded.</dd></dl>
 <p>This should be done after initializing the video driver, but before creating any Vulkan windows. If no Vulkan loader library is loaded, the default library will be loaded upon creation of the first Vulkan window.</p>
-<dl class="section note"><dt>Note</dt><dd>If you specify a non-NULL <em>path</em>, you should retrieve all of the Vulkan functions used in your program from the dynamic library using <code><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a02562bffd24cc8785ab49cfed7a5af4c" title="Get the address of the vkGetInstanceProcAddr function. ">SDL_Vulkan_GetVkGetInstanceProcAddr()</a></code> unless you can guarantee <em>path</em> points to the same vulkan loader library that you linked to.</dd>
+<dl class="section note"><dtTicks>Note</dtTicks><dd>If you specify a non-NULL <em>path</em>, you should retrieve all of the Vulkan functions used in your program from the dynamic library using <code><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a02562bffd24cc8785ab49cfed7a5af4c" title="Get the address of the vkGetInstanceProcAddr function. ">SDL_Vulkan_GetVkGetInstanceProcAddr()</a></code> unless you can guarantee <em>path</em> points to the same vulkan loader library that you linked to.</dd>
 <dd>
 On Apple devices, if <em>path</em> is NULL, SDL will attempt to find the vkGetInstanceProcAddr address within all the mach-o images of the current process. This is because the currently (v0.17.0) recommended MoltenVK (Vulkan on Metal) usage is as a static library. If it is not found then SDL will attempt to load <code>libMoltenVK.dylib</code>. Applications using the dylib alternative therefore do not need to do anything special when calling SDL.</dd>
 <dd>
 On non-Apple devices, SDL requires you to either not link to the Vulkan loader or link to a dynamic library version. This limitation may be removed in a future version of SDL.</dd>
 <dd>
 This function will fail if there are no working Vulkan drivers installed.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a02562bffd24cc8785ab49cfed7a5af4c" title="Get the address of the vkGetInstanceProcAddr function. ">SDL_Vulkan_GetVkGetInstanceProcAddr()</a> </dd>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a02562bffd24cc8785ab49cfed7a5af4c" title="Get the address of the vkGetInstanceProcAddr function. ">SDL_Vulkan_GetVkGetInstanceProcAddr()</a> </dd>
 <dd>
 <a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#af0b867080d762102461917a6e546c6c5" title="Unload the Vulkan loader library previously loaded by SDL_Vulkan_LoadLibrary(). ">SDL_Vulkan_UnloadLibrary()</a> </dd></dl>
 
@@ -398,7 +398,7 @@ This function will fail if there are no working Vulkan drivers installed.</dd></
 </div><div class="memdoc">
 
 <p>Unload the Vulkan loader library previously loaded by <code><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a8885076e008e9ddd4fe98a4ca4017127" title="Dynamically load a Vulkan loader library. ">SDL_Vulkan_LoadLibrary()</a></code>. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a8885076e008e9ddd4fe98a4ca4017127" title="Dynamically load a Vulkan loader library. ">SDL_Vulkan_LoadLibrary()</a> </dd></dl>
+<dl class="section see"><dtTicks>See also</dtTicks><dd><a class="el" href="../../d2/da2/_s_d_l__vulkan_8h.html#a8885076e008e9ddd4fe98a4ca4017127" title="Dynamically load a Vulkan loader library. ">SDL_Vulkan_LoadLibrary()</a> </dd></dl>
 
 </div>
 </div>
