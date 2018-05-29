@@ -82,13 +82,15 @@ namespace ECS {
     class SpeedComponent_;
     using SpeedComponent = std::shared_ptr<SpeedComponent_>;
     class SpeedComponent_ : public Component_{
-        glm::vec3 position;
+    public:
+        glm::vec3 speed;
     };
 
     class AccelerationComponent_;
     using AccelerationComponent = std::shared_ptr<AccelerationComponent_>;
     class AccelerationComponent_ : public Component_{
-        glm::vec3 position;
+    public:
+        glm::vec3 acceleration;
     };
 
     class PositionComponent_;

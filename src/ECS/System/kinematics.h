@@ -5,6 +5,7 @@
 
 #include <ECS/Component/componentmanager.h>
 #include <glm/vec3.hpp>
+#include <set>
 
 namespace ECS {
 
@@ -12,9 +13,9 @@ namespace ECS {
 
 
 		static std::vector<unsigned int>	ids;
-		static std::vector<glm::vec3&>		positions;
-		static std::vector<glm::vec3&>		speeds;
-		static std::vector<glm::vec3&>		accelerations;
+		static std::vector<glm::vec3*>		positions;
+		static std::vector<glm::vec3*>		speeds;
+		static std::vector<glm::vec3*>		accelerations;
 		public:
 			static unsigned int SubscribeEntity(unsigned int id){
 
@@ -22,60 +23,66 @@ namespace ECS {
             	auto componentManager = ECS::ComponentManager_::GetManager();
             	auto componentVectors = entityManager->GetComponentsIds(id);
 
-            	std::set<std::string> compotypes{"ECS::PositionComponent_","ECS::SpeedComponent_","ECS::AccelerationComponent_"};
+                using SetVarLambda      = std::function<void(unsigned int)>;
 
-            	ECS::SpeedComponent_* pSpeedComponent = nullptr;
-            	ECS::PositionComponent_* pPositionComponent = nullptr;
-            	ECS::AccelerationComponent_* pAccelerationComponent = nullptr;
-            
+                using typeFunction = std::map<std::string, SetVarLambda >;
+
+                ECS::SpeedComponent_* pSpeedComponent = nullptr;
+                ECS::PositionComponent_* pPositionComponent = nullptr;
+                ECS::AccelerationComponent_* pAccelerationComponent = nullptr;
+
+                SetVarLambda getComponentAccelerationLambda = [&](unsigned int componentId) {
+
+                    pAccelerationComponent = componentManager->GetComponentRaw<ECS::AccelerationComponent_>(componentId);
+                    accelerations.push_back(&pAccelerationComponent->acceleration);
+
+                };
+                SetVarLambda getComponentPositionLambda     = [&](unsigned int componentId) {
+
+                    pPositionComponent = componentManager->GetComponentRaw<ECS::PositionComponent_>(componentId);
+                    positions.push_back(&pPositionComponent->position);
+
+                };
+                SetVarLambda getComponentSpeedLambda        = [&](unsigned int componentId) {
+
+                    pSpeedComponent = componentManager->GetComponentRaw<ECS::SpeedComponent_>(componentId);
+                    speeds.push_back(&pSpeedComponent->speed);
+
+                };
+
+                typeFunction mapFunc {
+                        {"ECS::AccelerationComponent_", getComponentAccelerationLambda},
+                        {"ECS::PositionComponent_",     getComponentPositionLambda},
+                        {"ECS::SpeedComponent_",        getComponentSpeedLambda}
+                };
+
 
             	for (auto& componentId:componentVectors){
 
-                	auto pComponent = componentManager->GetComponent(componentId);
-                	auto pComponentType = pComponent->GetType();
-
-	                //Search
-	                auto pit = compotypes.find(pComponentType);
-	                if (pit == compotypes.end()) continue;
-
-	                //Found & erase
-	                compotypes.erase(pit);
-
-	                auto rawPtr = pComponent.get();
-	                if (pComponentType == "ECS::PositionComponent_")     pPositionComponent = componentmanager->GetComponent
-	                else if (pComponentType == "ECS::SpeedComponent_")  	pSpriteComponent = dynamic_cast<TextureComponent_*>(pComponent.get());
-	                else if (pComponentType == "ECS::AccelerationComponent_")  	pAccelerationComponent = dynamic_cast<TextureComponent_*>(pComponent.get());
+                    auto key = componentManager->GetComponent(componentId)->GetType();
+                	if (!mapFunc.count(key)) continue;
+                    mapFunc[key](componentId);
+                    mapFunc.erase(key);
 
 	            }
 
-	            if (compotypes.size() > 0 || pSpriteComponent == nullptr || pPositionComponent == nullptr){
+	            if (mapFunc.size() > 0 || pSpeedComponent == nullptr || pPositionComponent == nullptr || pAccelerationComponent == nullptr){
 
-	                for (auto &type: compotypes){
-	                    std::cout << "RenderingSystem::SubscribeEntity : " << "Component not found: " << type << "\n";
+	                for (auto key: mapFunc){
+	                    std::cout << "RenderingSystem::SubscribeEntity : " << "Component not found: " << key.first << "\n";
 	                }
-	                return 0;
+                    if (pAccelerationComponent) accelerations.pop_back();
+                    if (pPositionComponent) positions.pop_back();
+                    if (pSpeedComponent) speeds.pop_back();
+                    return 0;
 
 	            }
-
-	            auto pTexture = pSpriteComponent->GetTexture();
-
-
-	            //Texture Data
-	            textures.push_back(pTexture);
-	            int w,h;
-	            SDL_QueryTexture(pTexture, nullptr, nullptr, &w, &h);
-
-	            auto sizevec = glm::ivec2(w,h);
-	            textureSizes.push_back(sizevec);
 
 	            //Position data
-	            positions.push_back(&pPositionComponent->position);
-
-	            ids.push_back(id);
-
-	            return 1;
+                ids.push_back(id);
+                return 1;
 
 			}
-	}
+	};
 }
 #endif

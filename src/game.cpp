@@ -3,6 +3,7 @@
 #include <functional>
 
 #include <SDL2/SDL.h>
+#include <ECS/System/kinematics.h>
 #include <ECS/System/rendering.h>
 #include "Ship.h"
 #include "ECS/Event/events.h"
