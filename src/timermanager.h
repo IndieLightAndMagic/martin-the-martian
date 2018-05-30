@@ -8,18 +8,17 @@
 
 namespace ECS {
 
-	class TimedEventsManager_;
-	using TimedEventsManager =  std::shared_ptr<ECS::TimedEventsManager_>;
+	class TimedEventsManager;
 
-	class TimedEventsManager_{
+	class TimedEventsManager{
 	public:
-		static TimedEventsManager GetInstance();
+		static const TimedEventsManager& GetInstance();
 		uint32_t RegisterTimer(TimedEvent &rTimedEvent);
-
+		
 	private:
 		uint64_t counterReference;
-        TimedEventsManager_();
-        static TimedEventsManager_* pInstance;
+        TimedEventsManager() = default;
+
 	};
 }
 

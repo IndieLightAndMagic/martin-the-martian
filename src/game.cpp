@@ -78,7 +78,8 @@ namespace GAME{
 
         auto resPath = std::string(RES_DIR)+"orangebolt.png";
         auto boltId = GAME::Bolt::CreateBolt(resPath);
-        ECS::KinematicsSystem::SubscribeEntity(boltId);
+        //ECS::KinematicsSystem::SubscribeEntity(boltId);
+        ECS::RenderingSystem::SubscribeEntity(boltId);
 
     }
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
