@@ -18,7 +18,7 @@ namespace ECS {
 	private:
 		uint64_t counterReference;
         TimedEventsManager() = default;
-
+        
 	};
 }
 
