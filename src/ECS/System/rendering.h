@@ -13,9 +13,11 @@
 
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
+#include <ECS/Component/entityinformationcomponent.h>
 
 SDL_Texture* SDLCreateTexture(SDL_Rect& rSize);
 SDL_Texture* SDLCreateTextureFromFile(const char* path);
+std::tuple<uint32_t, int , glm::ivec2> SDLQueryTexture(SDL_Texture*);
 
 void SDLDetachRenderTexture();
 void SDLRenderClear();
@@ -38,61 +40,34 @@ namespace ECS {
         static SDL_Texture* pScreen;
         
     public:
-        static unsigned int SubscribeEntity(unsigned int id){
+        static unsigned int SubscribeEntity(unsigned int entityId){
 
-            //Get Manager
-            auto entityManager = ECS::EntityManager_::GetManager();
-            auto componentManager = ECS::ComponentManager_::GetManager();
-            auto componentVectors = entityManager->GetComponentsIds(id);
+            //Get Managers
+            auto& entityManager     = ECS::EntityManager::GetInstance();
+            auto& componentManager  = ECS::ComponentManager::GetInstance();
 
-            std::set<std::string> compotypes{"ECS::PositionComponent_","ECS::TextureComponent_"};
+            auto& entityComponentsV     = entityManager.GetComponentsIds(entityId);
+            auto& entityComponentInfoId = entityComponentsV[0];
 
-            ECS::TextureComponent_* pSpriteComponent = nullptr;
-            ECS::PositionComponent_* pPositionComponent = nullptr;
+            //Info Component
+            auto entityComponentInfoRP  = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityComponentInfoId);
+            auto [posId, textureId]     = entityComponentInfoRP->GetRenderingTupleIds();
 
 
-            for (auto& componentId:componentVectors){
-
-                auto pComponent = componentManager->GetComponent(componentId);
-                auto pComponentType = pComponent->GetType();
-
-                //Search
-                auto pit = compotypes.find(pComponentType);
-                if (pit == compotypes.end()) continue;
-
-                //Found & erase
-                compotypes.erase(pit);
-
-                auto rawPtr = pComponent.get();
-                if (pComponentType == "ECS::PositionComponent_")     pPositionComponent = dynamic_cast<PositionComponent_*>(pComponent.get());
-                else if (pComponentType == "ECS::TextureComponent_")  pSpriteComponent = dynamic_cast<TextureComponent_*>(pComponent.get());
-
-            }
-
-            if (compotypes.size() > 0 || pSpriteComponent == nullptr || pPositionComponent == nullptr){
-
-                for (auto &type: compotypes){
-                    std::cout << "RenderingSystem::SubscribeEntity : " << "Component not found: " << type << "\n";
-                }
-                return 0;
-
-            }
-
-            auto pTexture = pSpriteComponent->GetTexture();
-
+            auto pSpriteComponent   = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
+            auto pPositionComponent = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId);
 
             //Texture Data
+            auto pTexture = pSpriteComponent->GetTexture();
             textures.push_back(pTexture);
-            int w,h;
-            SDL_QueryTexture(pTexture, nullptr, nullptr, &w, &h);
 
-            auto sizevec = glm::ivec2(w,h);
-            textureSizes.push_back(sizevec);
+            auto [format, access, sz] = SDLQueryTexture(pTexture);
+            textureSizes.push_back(sz);
 
             //Position data
             positions.push_back(&pPositionComponent->position);
 
-            ids.push_back(id);
+            ids.push_back(entityId);
 
             return 1;
 

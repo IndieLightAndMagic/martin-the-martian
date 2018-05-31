@@ -64,6 +64,7 @@ void TimedEvent_::Start(){
         case State::RUNNING:
             m_t = *m_ptrTNow + m_intervalticksForLoop;
             break;
+            
         default:
             break;
     }

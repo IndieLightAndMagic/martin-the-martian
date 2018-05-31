@@ -8,15 +8,15 @@ using namespace ECS;
 static vector<TimedEvent> vTimedEvents;
 
 
-const TimedEventsManager& TimedEventsManager::GetInstance(){
+const TimedEventsSystem& TimedEventsSystem::GetInstance(){
 
-    static TimedEventsManager em;
+    static TimedEventsSystem em;
 
     return em;
 
 }
 
-uint32_t TimedEventsManager::RegisterTimer(TimedEvent &rTimedEvent) {
+uint32_t TimedEventsSystem::RegisterTimer(TimedEvent &rTimedEvent) {
 
 	rTimedEvent->SetCounterReference(&counterReference);
 	return 0;

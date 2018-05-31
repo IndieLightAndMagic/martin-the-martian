@@ -18,26 +18,26 @@ void KinematicsSystem::InitKinematicsSystem(){
     firstTime = true;
 }
 
-unsigned int KinematicsSystem::SubscribeEntity(unsigned int id){
+unsigned int KinematicsSystem::SubscribeEntity(unsigned int entityId){
 
-    auto entityManager      = ECS::EntityManager_::GetManager();
-    auto componentManager   = ECS::ComponentManager_::GetManager();
-    auto componentVectors   = entityManager->GetComponentsIds(id);
+    auto& entityManager      = ECS::EntityManager::GetInstance();
+    auto& componentManager   = ECS::ComponentManager::GetInstance();
+    auto componentVectors   = entityManager.GetComponentsIds(entityId);
 
     //CONVENTION: the first component of ANY entity is the EntityInformationComponent_
     auto entityInfo         = componentVectors[0];
-    auto entityInfoRP       = componentManager->GetComponentRaw<ECS::EntityInformationComponent_>(entityInfo);
+    auto entityInfoRP       = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityInfo);
 
     //Kinematic Triad
     auto [posId, speedId, accelId]  = entityInfoRP->GetKinematicTupleIds();
 
-    auto pSpeedComponent            = componentManager->GetComponentRaw<ECS::SpeedComponent_>(speedId);
-    auto pPositionComponent         = componentManager->GetComponentRaw<ECS::PositionComponent_>(posId);
-    auto pAccelerationComponent     = componentManager->GetComponentRaw<ECS::AccelerationComponent_>(accelId);
+    auto pSpeedComponent            = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+    auto pPositionComponent         = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId);
+    auto pAccelerationComponent     = componentManager.GetComponentRaw<ECS::AccelerationComponent_>(accelId);
 
     SDL_assert(pSpeedComponent!= nullptr && pPositionComponent != nullptr && pAccelerationComponent != nullptr);
 
-    ids.push_back(id);
+    ids.push_back(entityId);
     accelerations.push_back(&pAccelerationComponent->acceleration);
     accelerations_  = accelerations.data();
     speeds.push_back(&pSpeedComponent->speed);

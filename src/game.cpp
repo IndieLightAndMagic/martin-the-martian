@@ -5,9 +5,8 @@
 #include <SDL2/SDL.h>
 #include <ECS/System/kinematics.h>
 #include <ECS/System/rendering.h>
-#include "Ship.h"
+#include "Sprite.h"
 #include "ECS/Event/events.h"
-#include "Bolt.h"
 
 using namespace std;
 
@@ -44,14 +43,14 @@ namespace GAME{
         RegisterKeyboardEvent(SDL_KEYDOWN, SDLK_SPACE, OnFirePressed);
 
 
-        /* Create Ship */
+        /* Create Sprite */
         auto shipTexturePath = std::string(RES_DIR)+"hero.png";
-        shipId = GAME::Ship::CreateShip(shipTexturePath);
+        shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
         int width;
         int height;
         SDLWindowSize(&width, &height);
-        GAME::Ship::SetShipPosition(shipId, width >> 1, height >> 1);
+        GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 0));
 
         //Init Systems
         ECS::RenderingSystem::InitRenderingSystem();
@@ -77,12 +76,20 @@ namespace GAME{
     void OnFirePressed(const uint32_t& kbEvent, const int32_t& kbKey){
 
         auto resPath = std::string(RES_DIR)+"orangebolt.png";
-        auto boltId = GAME::Bolt::CreateBolt(resPath);
-        //ECS::KinematicsSystem::SubscribeEntity(boltId);
+        auto boltId = GTech::Sprite::CreateSprite(resPath);
+
+        ECS::KinematicsSystem::SubscribeEntity(boltId);
         ECS::RenderingSystem::SubscribeEntity(boltId);
+
+        auto& componentManager  = ECS::ComponentManager::GetInstance();
+        auto& entityManager     = ECS::EntityManager::GetInstance();
+        auto [posId, speedId, accelId] = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityManager.GetComponentsIds(shipId)[0])->GetKinematicTupleIds();
+
+        GTech::Sprite::SetPosition(boltId, componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position);
 
     }
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
+
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
         bGameIsOn = false;
     }
@@ -94,13 +101,10 @@ namespace GAME{
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Left";
             std::cout << "\n";
-            GAME::Ship::SetShipPositionDelta(shipId,-64,0);
-
         } else if (kbKey == SDLK_RIGHT) {
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Right";
             std::cout << "\n";
-            GAME::Ship::SetShipPositionDelta(shipId,+64,0);
         } else if (kbKey == SDLK_DOWN) {
             std::cout << __FUNCTION__ << ": ";
             std::cout << " Down";

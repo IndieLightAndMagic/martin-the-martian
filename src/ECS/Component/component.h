@@ -18,20 +18,28 @@ namespace ECS {
     class Component_ {
 
     protected:
-        unsigned int m_id;
-        unsigned int m_parentId;
+        unsigned int    m_id;
+        unsigned int    m_parentId;
+        bool            m_dirty;
 
     public:
         Component_(const Component_&) = default;
         Component_() :
                 m_parentId(0),
-                m_id(0) {}
+                m_id(0),
+                m_dirty(true){}
 
         friend class ComponentFactory;
+        friend class ComponentManager;
 
-        friend class ComponentManager_;
+        inline bool IsDirty(){
+
+            return m_dirty;
+
+        }
 
         virtual std::string GetType() {
+
             auto name = typeid(*this).name();
             auto status = 4;
             std::unique_ptr<char, void (*)(void *)> res{
@@ -39,7 +47,9 @@ namespace ECS {
                     std::free
             };
             return (status == 0 ? res.get() : name);
+
         }
+
         virtual ~Component_(){}
     };
 

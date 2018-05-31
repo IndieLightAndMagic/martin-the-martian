@@ -28,7 +28,7 @@ namespace ECS {
 
     public:
             static void InitKinematicsSystem();
-            static unsigned int SubscribeEntity(unsigned int id);
+            static unsigned int SubscribeEntity(unsigned int entityId);
             static void UpdateKinematicsSystem();
 	};
 }

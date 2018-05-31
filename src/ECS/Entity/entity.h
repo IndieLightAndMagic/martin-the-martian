@@ -16,7 +16,7 @@ namespace ECS {
     public:
         unsigned int m_id;
 
-        friend class EntityManager_;
+        friend class EntityManager;
 
     };
 

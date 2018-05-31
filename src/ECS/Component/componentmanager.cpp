@@ -1,15 +1,17 @@
 #include "componentmanager.h"
 
 using namespace ECS;
-ComponentManager_::ComponentManager ComponentManager_::componentManager = nullptr;
 
+ComponentManager& ComponentManager::GetInstance(){
 
-ComponentManager_::ComponentManager ComponentManager_::GetManager(){
+    static ComponentManager cm;
+    return cm;
 
-    if ( componentManager == nullptr ){
-        componentManager = std::make_shared<ComponentManager_>();
-    }
-    return componentManager;
+}
+
+Component ComponentManager::GetComponent(unsigned int componentId) {
+
+    return componentMap[componentId];
 
 }
 

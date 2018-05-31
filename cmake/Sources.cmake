@@ -42,8 +42,7 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard.h
 			${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard_sdlbridge.h
 
-			${CMAKE_SOURCE_DIR}/src/Bolt.h
-			${CMAKE_SOURCE_DIR}/src/Ship.h
+			${CMAKE_SOURCE_DIR}/src/Sprite.h
 
 			${CMAKE_SOURCE_DIR}/src/SignalSlot/signalslot.h
 

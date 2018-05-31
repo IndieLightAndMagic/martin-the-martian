@@ -7,34 +7,37 @@
 #include "ECS/Entity/entitymanager.h"
 #include "componentfactory.h"
 #include <memory>
+#include <SDL2/SDL_assert.h>
+
 namespace ECS{
 
-    class ComponentManager_ {
+    class ComponentManager {
 
-        using ComponentManager = std::shared_ptr<ComponentManager_>;
         std::map<unsigned int, Component>componentMap;
 
     public:
-        static ComponentManager componentManager;
-        static ComponentManager GetManager();
-        
-        template <typename T>
-        unsigned int CreateComponent(){
+        static ComponentManager& GetInstance();
+
+        template <typename T> unsigned int CreateComponent(){
 
             Component component = ECS::ComponentFactory::CreateComponent<T>();
             componentMap[component->m_id] = component;
             return component->m_id;
 
         }
-        inline Component GetComponent(unsigned int componentId) {
 
-            return componentMap[componentId];
+        Component GetComponent(unsigned int componentId);
+
+        template <typename T> T* GetComponentRaw(unsigned int componentId){
+
+
+            auto ptr = dynamic_cast<T*>(GetComponent(componentId).get());
+            SDL_assert(ptr);
+            return ptr;
 
         }
-		template <typename T>
-        inline T* GetComponentRaw(unsigned int componentId){
-            return dynamic_cast<T*>(componentManager->GetComponent(componentId).get());
-        }
+
+
     };
     
 

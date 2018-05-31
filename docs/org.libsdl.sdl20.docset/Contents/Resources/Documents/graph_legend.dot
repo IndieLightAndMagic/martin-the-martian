@@ -16,7 +16,7 @@ digraph "Graph Legend"
   Node16 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="FreeSans"];
   Node16 [shape="box",label="Templ< int >",fontsize="10",height=0.2,width=0.4,fontname="FreeSans",color="black",URL="$classTempl.html"];
   Node17 -> Node16 [dir="back",color="orange",fontsize="10",style="dashed",label="< int >",fontname="FreeSans"];
-  Node17 [shape="box",label="Templ< T >",fontsize="10",height=0.2,width=0.4,fontname="FreeSans",color="black",URL="$classTempl.html"];
+  Node17 [shape="box",label="Templ< Singleton >",fontsize="10",height=0.2,width=0.4,fontname="FreeSans",color="black",URL="$classTempl.html"];
   Node18 -> Node9 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label="m_usedClass",fontname="FreeSans"];
   Node18 [shape="box",label="Used",fontsize="10",height=0.2,width=0.4,fontname="FreeSans",color="black",URL="$classUsed.html"];
 }

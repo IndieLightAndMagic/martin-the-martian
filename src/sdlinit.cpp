@@ -2,9 +2,11 @@
 
 #include <iostream>
 #include <utility>
+#include <tuple>
 
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
+#include <glm/vec2.hpp>
 
 using namespace std;
 
@@ -95,6 +97,15 @@ SDL_Texture *SDLCreateTextureFromFile(const char *path) {
 void SDLDetachRenderTexture() {
     SDL_assert(SDL_SetRenderTarget(pRenderer, nullptr) == 0);
 }
+
+std::tuple<uint32_t, int , glm::ivec2> SDLQueryTexture(SDL_Texture* pTexture){
+
+    uint32_t format;
+    int access, w, h;
+    SDL_QueryTexture(pTexture, &format, &access, &w, &h);
+    return std::tuple<uint32_t, int , glm::ivec2>{format, access, glm::ivec2(w, h)};
+
+};
 void SDLRenderClear(void) {
     SDL_assert(SDL_RenderClear(pRenderer) == 0);
 }
