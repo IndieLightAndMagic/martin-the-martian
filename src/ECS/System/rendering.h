@@ -10,6 +10,7 @@
 #include <sdlwrapper.h>
 #include <ECS/Component/component.h>
 #include <ECS/Component/componentmanager.h>
+#include <ECS/Component/texturecomponent.h>
 #include <ECS/Entity/entitymanager.h>
 #include <ECS/Component/entityinformationcomponent.h>
 

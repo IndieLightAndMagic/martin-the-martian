@@ -2,11 +2,11 @@
 #define __COMPONENT_H__
 
 #include <cxxabi.h>
-#include <SDL2/SDL_system.h>
-#include "ECS/Entity/entity.h"
-
+#include <string>
 
 #include <glm/vec3.hpp>
+#include <SDL2/SDL_system.h>
+#include <ECS/Entity/entity.h>
 
 
 namespace ECS {

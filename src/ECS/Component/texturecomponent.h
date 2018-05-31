@@ -4,6 +4,7 @@
 
 #include <ECS/Component/component.h>
 #include <memory>
+#include <string>
 
 namespace ECS{
 
