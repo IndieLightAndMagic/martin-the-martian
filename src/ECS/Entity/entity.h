@@ -4,7 +4,6 @@
 
 #include <vector>
 #include <memory>
-class Component_;
 
 namespace ECS {
 

@@ -3,10 +3,9 @@
 
 #include "entityfactory.h"
 #include <map>
-#include <singleton.h>
 
 namespace ECS {
-class EntityManager : public ECS::Singleton{
+class EntityManager  {
 
         std::map<unsigned int, Entity>entityMap;
 

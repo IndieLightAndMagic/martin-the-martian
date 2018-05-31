@@ -4,7 +4,6 @@
 #include <memory>
 #include <vector>
 #include <map>
-#include <singleton.h>
 
 namespace ECS {
 

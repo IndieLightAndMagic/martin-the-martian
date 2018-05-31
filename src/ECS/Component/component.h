@@ -6,10 +6,10 @@
 #include "ECS/Entity/entity.h"
 #include "Tech/G/Tech.h"
 
+#include <ECS/Component/texturecomponent.h>
 
 #include <glm/vec3.hpp>
 
-SDL_Texture* SDLCreateTextureFromFile(const char *path);
 
 using namespace GTech;
 namespace ECS {
@@ -57,37 +57,6 @@ namespace ECS {
     using _Component = std::weak_ptr<Component_>;
 
 
-    class TextureComponent_;
-    using TextureComponent = std::shared_ptr<TextureComponent_>;
-    class TextureComponent_ : public Component_ {
-
-        SDL_Texture* m_pTexture;
-
-    public:
-        TextureComponent_() {}
-        TextureComponent_(std::string path) {
-            SetTexture(path.c_str());
-        }
-        TextureComponent_(const char* path) {
-            SetTexture(path);
-        }
-
-        inline SDL_Texture* GetTexture() {
-            return m_pTexture;
-        }
-
-        inline void SetTexture(SDL_Texture* pt) {
-            m_pTexture = pt;
-        }
-
-        inline void SetTexture(const char* path) {
-            SetTexture(SDLCreateTextureFromFile(path));
-        }
-        inline void SetTexture(std::string path) {
-            SetTexture(path.c_str());
-        }
-
-    };
 
     class SpeedComponent_;
     using SpeedComponent = std::shared_ptr<SpeedComponent_>;

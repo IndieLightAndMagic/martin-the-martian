@@ -5,26 +5,17 @@
 #include <vector>
 #include <utility>
 
-#include <Tech/G/Tech.h>
 #include <SDL2/SDL_system.h>
+
+#include <sdlwrapper.h>
 #include <ECS/Component/component.h>
 #include <ECS/Component/componentmanager.h>
 #include <ECS/Entity/entitymanager.h>
+#include <ECS/Component/entityinformationcomponent.h>
 
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
-#include <ECS/Component/entityinformationcomponent.h>
 
-SDL_Texture* SDLCreateTexture(SDL_Rect& rSize);
-SDL_Texture* SDLCreateTextureFromFile(const char* path);
-std::tuple<uint32_t, int , glm::ivec2> SDLQueryTexture(SDL_Texture*);
-
-void SDLDetachRenderTexture();
-void SDLRenderClear();
-void SDLRenderCopy(SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect);
-void SDLSetRenderTarget(SDL_Texture* pSDLTexture);
-void SDLUpdateScreen();
-std::pair<int, int> SDLWindowSize();
 
 namespace ECS {
     class RenderingSystem {
