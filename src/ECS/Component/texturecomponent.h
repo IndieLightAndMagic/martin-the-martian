@@ -1,5 +1,5 @@
-#ifndef __TEXTURE_H__
-#define __TEXTURE_H__
+#ifndef __TEXTURECOMPONENT_H__
+#define __TEXTURECOMPONENT_H__
 
 
 #include <ECS/Component/component.h>

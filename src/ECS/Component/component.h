@@ -4,14 +4,11 @@
 #include <cxxabi.h>
 #include <SDL2/SDL_system.h>
 #include "ECS/Entity/entity.h"
-#include "Tech/G/Tech.h"
 
-#include <ECS/Component/texturecomponent.h>
 
 #include <glm/vec3.hpp>
 
 
-using namespace GTech;
 namespace ECS {
 
 
