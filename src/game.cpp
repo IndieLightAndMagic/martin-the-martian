@@ -86,6 +86,7 @@ namespace GAME{
 
         GTech::Sprite::SetPosition(boltId, componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position);
 
+
     }
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
 

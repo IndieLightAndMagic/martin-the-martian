@@ -3,7 +3,7 @@
 
 #include <tuple>
 #include <ECS/Component/component.h>
-
+#include <ECS/Component/componentmanager.h>
 
 namespace ECS {
 
@@ -16,10 +16,10 @@ namespace ECS {
         std::tuple<unsigned int&, unsigned int&, unsigned int&> GetKinematicTupleIds();
         void SetKinematicTupleIds(unsigned int posId, unsigned int speedId, unsigned int accelId);
 
-
         std::tuple<unsigned int&, unsigned int&> GetRenderingTupleIds();
         void SetRenderingTupleIds(unsigned int posId, unsigned int speedId);
 
+        static const EntityInformationComponent_& GetInformationComponent(unsigned int entityId);
     };
 
 }
