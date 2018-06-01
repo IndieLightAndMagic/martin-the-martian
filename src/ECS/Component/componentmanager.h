@@ -6,11 +6,14 @@
 #include "component.h"
 #include "ECS/Entity/entitymanager.h"
 #include "componentfactory.h"
+#include "entityinformationcomponent.h"
 #include <memory>
 #include <SDL2/SDL_assert.h>
 
+
 namespace ECS{
 
+    class EntityInformationComponent_;
     class ComponentManager {
 
         std::map<unsigned int, Component>componentMap;
@@ -36,6 +39,9 @@ namespace ECS{
             return ptr;
 
         }
+
+        static const EntityInformationComponent_& GetInformationComponent(unsigned int entityId);
+
 
 
     };

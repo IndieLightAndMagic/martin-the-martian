@@ -1,5 +1,5 @@
 #include <Sprite.h>
-
+#include <ECS/Component/entityinformationcomponent.h>
 
 using namespace std;
 
@@ -51,11 +51,14 @@ namespace GTech {
         positionComponent->position = position;
 
     }
-    void Sprite::SetAnchor(unsigned int shipId, glm::vec3 position) {
 
-        static auto&	ComponentManager 	= ECS::ComponentManager::GetInstance();
-        auto 			entityInfoId		= ECS::EntityManager::GetInstance().GetComponentsIds(shipId)[0];		
-        auto  			infoComponentRP		= componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityInfoId);
+    void Sprite::SetAnchor(unsigned int shipId, glm::vec3 anchor) {
+
+        auto& componentInfo             = ECS::ComponentManager::GetInformationComponent(shipId);
+        auto  [positionId, textureId]   = componentInfo.GetRenderingTupleIds();
+        auto  positionComponent         = ECS::ComponentManager::GetInstance().GetComponentRaw<ECS::PositionComponent_>(shipId);
+
+        positionComponent->anchor = anchor;
 
     }
 

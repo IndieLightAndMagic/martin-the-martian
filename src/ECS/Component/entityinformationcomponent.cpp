@@ -5,7 +5,7 @@
 using namespace std;
 using namespace ECS;
 
-std::tuple<unsigned int&, unsigned int&, unsigned int&>  EntityInformationComponent_::GetKinematicTupleIds(){
+std::tuple<unsigned int, unsigned int, unsigned int>  EntityInformationComponent_::GetKinematicTupleIds() const{
     return kinematicTupleIds;
 };
 
@@ -14,7 +14,7 @@ void EntityInformationComponent_::SetKinematicTupleIds(unsigned int posId, unsig
     kinematicTupleIds = std::tuple<unsigned  int, unsigned int, unsigned  int>{posId, speedId, accelId};
 }
 
-tuple<unsigned int&, unsigned int&>  EntityInformationComponent_::GetRenderingTupleIds(){
+tuple<unsigned int, unsigned int>  EntityInformationComponent_::GetRenderingTupleIds() const{
     return renderingTupleIds;
 };
 
@@ -23,11 +23,3 @@ void EntityInformationComponent_::SetRenderingTupleIds(unsigned int posId, unsig
     renderingTupleIds = std::tuple<unsigned  int, unsigned int>{posId, textureId};
 }
 
-const EntityInformationComponent_& EntityInformationComponent_::GetInformationComponent(unsigned int entityId) {
-
-    static auto&	ComponentManager 	= ECS::ComponentManager::GetInstance();
-    auto 			entityInfoId		= ECS::EntityManager::GetInstance().GetComponentsIds(shipId)[0];		
-    auto  			infoComponentRP		= componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityInfoId);
-
-
-}

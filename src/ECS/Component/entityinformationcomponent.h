@@ -8,18 +8,19 @@
 namespace ECS {
 
     class EntityInformationComponent_ : public Component_ {
+
         std::tuple<unsigned int, unsigned int, unsigned int> kinematicTupleIds;
         std::tuple<unsigned int, unsigned int> renderingTupleIds;
-    public:
+
+        public:
         EntityInformationComponent_() = default;
 
-        std::tuple<unsigned int&, unsigned int&, unsigned int&> GetKinematicTupleIds();
+        std::tuple<unsigned int, unsigned int, unsigned int> GetKinematicTupleIds() const;
         void SetKinematicTupleIds(unsigned int posId, unsigned int speedId, unsigned int accelId);
 
-        std::tuple<unsigned int&, unsigned int&> GetRenderingTupleIds();
+        std::tuple<unsigned int, unsigned int> GetRenderingTupleIds() const;
         void SetRenderingTupleIds(unsigned int posId, unsigned int speedId);
 
-        static const EntityInformationComponent_& GetInformationComponent(unsigned int entityId);
     };
 
 }

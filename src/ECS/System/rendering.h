@@ -16,6 +16,7 @@
 
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
 
 using namespace GTech;
 
@@ -29,10 +30,16 @@ namespace ECS {
         static std::vector<glm::vec3*>      positions;
 
 
-        //Screen Context
+        ////Screen Texture && Screen Rectangle
         static SDL_Texture* pScreen;
-        
-    public:
+        static SDL_Rect pScreenRect;
+
+        ///Coordinate System: Center x to the right y up and z towards the user.
+        ///Coordinate System: width > height ? W[0,1] x H[0, height/width] : W[0, width/height] x H[0,1]
+        static glm::mat4x4 mtxSDLScreenCoordinates;
+
+
+        public:
         static unsigned int SubscribeEntity(unsigned int entityId){
 
             //Get Managers
@@ -74,7 +81,7 @@ namespace ECS {
                 auto pTexture = textures[index];
                 if (!pTexture) continue;
 
-
+                //Got size
                 auto textureSize = textureSizes[index];
 
                 //Got Position
@@ -83,6 +90,7 @@ namespace ECS {
                 //Render m_pTexture,
                 SDL_Rect dstrect;
 
+                
                 dstrect.x = rPosition->x;
                 dstrect.y = rPosition->y;
                 dstrect.w = textureSize.x;
@@ -98,14 +106,13 @@ namespace ECS {
             auto wh = SDLWindowSize();
 
             pScreen = nullptr;
-            SDL_Rect rect;
-            rect.w = wh.first;
-            rect.h = wh.second;
-            pScreen = SDLCreateTexture(rect);
+
+            pScreenRect.w = wh.first;
+            pScreenRect.h = wh.second;
+            pScreen = SDLCreateTexture(pScreenRect);
 
             SDLSetRenderTarget(pScreen);
             SDLRenderClear();
-
 
         }
         static void ShutdownRenderingSystem() {
