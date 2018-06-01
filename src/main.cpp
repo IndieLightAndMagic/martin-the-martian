@@ -1,6 +1,6 @@
+#include <sdlwrapper.h>
 
-void SDLInitialization();
-void SDLQuit();
+using namespace GTech;
 
 namespace GAME{
     void GameInitialization();

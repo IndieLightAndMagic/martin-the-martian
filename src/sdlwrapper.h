@@ -7,7 +7,11 @@
 #include <tuple>
 
 
-namespace ECS {
+namespace GTech  {
+
+    void SDLInitialization();
+    void SDLQuit();
+
 
     SDL_Texture* SDLCreateTexture(SDL_Rect& rSize);
     SDL_Texture* SDLCreateTextureFromFile(const char* path);

@@ -5,7 +5,6 @@
 #include <SDL2_image/SDL_image.h>
 #include <ECS/Component/entityinformationcomponent.h>
 
-#include "Tech/G/Tech.h"
 #include "ECS/Entity/entitymanager.h"
 #include "ECS/Component/componentmanager.h"
 

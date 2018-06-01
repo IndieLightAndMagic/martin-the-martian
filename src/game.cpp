@@ -3,15 +3,15 @@
 #include <functional>
 
 #include <SDL2/SDL.h>
+#include <sdlwrapper.h>
+
 #include <ECS/System/kinematics.h>
 #include <ECS/System/rendering.h>
-#include "Sprite.h"
-#include "ECS/Event/events.h"
+#include <ECS/Event/events.h>
+
+#include <Sprite.h>
 
 using namespace std;
-
-void SDLWindowSize(int* w, int* h);
-
 
 void RegisterKeyboardEvent(Uint32 event, Sint32 key, function<void(const Uint32&, const Sint32&)> slot);
 void RegisterKeyboardEvents(Uint32 event, vector<Sint32>& keys, std::function<void(const Uint32&, const Sint32&)> slot);
@@ -47,9 +47,8 @@ namespace GAME{
         auto shipTexturePath = std::string(RES_DIR)+"hero.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
-        int width;
-        int height;
-        SDLWindowSize(&width, &height);
+
+        auto [width, height] = SDLWindowSize();
         GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 0));
 
         //Init Systems

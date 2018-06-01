@@ -7,6 +7,7 @@
 
 using namespace std;
 using namespace ECS;
+using namespace GTech;
 
 TextureComponent_::TextureComponent_(std::string path) {
     SetTexture(path.c_str());
