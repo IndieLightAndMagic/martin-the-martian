@@ -90,10 +90,9 @@ void KinematicsSystem::UpdateKinematicsSystem(){
 
         glm::vec3 accelDelta(0.5 * accel->x * dt2, 0.5 * accel->y * dt2, 0.5 * accel->z * dt2);
         glm::vec3 speedDelta(speed->x * dt , speed->y * dt, speed->z * dt);
-        if (speedDelta.length() >= 0.0f)
+        pos += speedDelta;
+        if (speedDelta.length() >= 1.0f)
         {
-            glm::vec3 actualPos(pos);
-            pos += speedDelta;
             dirtyFlag = true;
         }
         //SDL_Log("%f %f %f\n", pos.x, pos.y, pos.z);

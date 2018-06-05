@@ -88,7 +88,7 @@ namespace GAME{
 
         auto [boltPosId, boltSpeedId, boltAccelId] = boltInfo.GetKinematicTupleIds();
         auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
-        speedComponent->speed.y = -16*50;
+        speedComponent->speed.y = -16;
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
