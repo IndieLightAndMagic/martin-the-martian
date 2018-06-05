@@ -10,12 +10,10 @@ std::vector<glm::vec3*>		KinematicsSystem::accelerations{};
 glm::vec3**                 KinematicsSystem::positions_ = nullptr;
 glm::vec3**                 KinematicsSystem::speeds_ = nullptr;
 glm::vec3**                 KinematicsSystem::accelerations_ = nullptr;
-uint64_t                    KinematicsSystem::dtTicks = SDL_GetPerformanceCounter();
-bool                        KinematicsSystem::firstTime = true;
 
 
 void KinematicsSystem::InitKinematicsSystem(){
-    firstTime = true;
+
 }
 
 unsigned int KinematicsSystem::SubscribeEntity(unsigned int entityId){
@@ -37,6 +35,7 @@ unsigned int KinematicsSystem::SubscribeEntity(unsigned int entityId){
 
     SDL_assert(pSpeedComponent!= nullptr && pPositionComponent != nullptr && pAccelerationComponent != nullptr);
 
+
     ids.push_back(entityId);
     accelerations.push_back(&pAccelerationComponent->acceleration);
     accelerations_  = accelerations.data();
@@ -51,28 +50,45 @@ unsigned int KinematicsSystem::SubscribeEntity(unsigned int entityId){
 
 void KinematicsSystem::UpdateKinematicsSystem(){
 
-    //x(t) = 0.5a(t)**2 + vo(t) + xo
-    //s(t) = a(t) + vo
-    //a(t)
-    if (firstTime){
-        dtTicks = SDL_GetPerformanceCounter();
-        firstTime = false;
-        return;
-    }
-    dtTicks = SDL_GetPerformanceCounter() - dtTicks;
-    float dtSecs = 1.0f / SDL_GetPerformanceFrequency(); //How long does it take to one tick
-    dtSecs *= dtTicks;
+    //x(t) = 0.5 * akte * t**2 + s*t + xo
+    //s(t) = akte*t + vo
+    //a(t) = akte
+    static const auto TICKS_PER__SEC = SDL_GetPerformanceFrequency();
+    static const auto SECS_PER__TICK = 1.0f / TICKS_PER__SEC;
 
-    auto sz = ids.size();
-    auto dtSecs2    = dtSecs * dtSecs;
+    ///FPS DELIMITER
+    static const auto FPS_HZ_____MAX = 45.0f;
+    static const auto FPS_MSECS__MIN = 1000.0f/FPS_HZ_____MAX;
+    static const auto FPS_SECS___MIN = 1.0f/FPS_HZ_____MAX;
+    static const auto fFPS_TICKS_MIN = TICKS_PER__SEC * FPS_SECS___MIN;
+    static const auto FPS_TICKS__MIN = static_cast<uint64_t>(fFPS_TICKS_MIN);
+
+    auto tNow = SDL_GetPerformanceCounter();
+    static auto tBefore = tNow;
+
+    auto tDelta = tNow - tBefore;
+
+    if (tDelta < FPS_TICKS__MIN){
+        return;
+    } else {
+        tBefore = tNow;
+    }
+
+    auto dt     = tDelta * SECS_PER__TICK;
+    auto sz     = ids.size();
+    auto dt2    = dt * dt;
+
     auto kinematic  = [&](int index){
 
+        auto speed  = speeds_[index]; if (speed->y == 0.0f) return;
         auto accel  = accelerations_[index];
-        auto speed  = speeds_[index];
         auto& pos   = *(positions_[index]);
-        glm::vec3 accelDelta(0.5 * accel->x * dtSecs2, 0.5 * accel->y * dtSecs2, 0.5 * accel->z * dtSecs2);
-        glm::vec3 speedDelta(speed->x * dtSecs, speed->y * dtSecs, speed->z * dtSecs);
-        pos += accelDelta + speedDelta;
+        glm::vec3 accelDelta(0.5 * accel->x * dt2, 0.5 * accel->y * dt2, 0.5 * accel->z * dt2);
+        glm::vec3 speedDelta(speed->x * dt , speed->y * dt, speed->z * dt);
+
+        pos += speedDelta;
+        //SDL_Log("%f %f %f\n", pos.x, pos.y, pos.z);
+
 
     };
 

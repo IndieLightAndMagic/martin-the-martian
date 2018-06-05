@@ -38,9 +38,11 @@ namespace ECS {
 
 
         enum State{
+
             RUNNING,
             STOPPED,
             PAUSED,
+
         };
         State m_state;
         
@@ -56,8 +58,15 @@ namespace ECS {
          */
         double_t    m_tickCounterPeriodMs;
 
+        /**
+         * Does it the timer loop?
+         */
         bool        m_timerLoops;
 
+        /**
+         *
+         * @param refCounter Reference to high performance Counter.
+         */
         void        RemainingTicksForLoop(uint64_t& refCounter);
 
     public:
@@ -69,7 +78,7 @@ namespace ECS {
         void Pause();
         void Stop();
         
-        void SetCounterReference(Uint64*ptr);
+        void SetCounterReference(Uint64* ptr);
         
         void TimerLoops(bool);
         

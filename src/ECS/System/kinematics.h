@@ -23,13 +23,12 @@ namespace ECS {
         static glm::vec3**                  positions_;
         static glm::vec3**                  speeds_;
         static glm::vec3**                  accelerations_;
-        static uint64_t                     dtTicks;
-        static bool                         firstTime;
 
     public:
             static void InitKinematicsSystem();
             static unsigned int SubscribeEntity(unsigned int entityId);
             static void UpdateKinematicsSystem();
+
 	};
 }
 #endif

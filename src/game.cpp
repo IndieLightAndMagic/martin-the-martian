@@ -47,11 +47,11 @@ namespace GAME{
         auto shipTexturePath = std::string(RES_DIR)+"hero.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
-
+        /* Dimensions */
         auto [width, height] = SDLWindowSize();
         GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 0));
 
-        //Init Systems
+        /* Init Systems */
         ECS::RenderingSystem::InitRenderingSystem();
         ECS::KinematicsSystem::InitKinematicsSystem();
 
@@ -76,18 +76,21 @@ namespace GAME{
 
         auto resPath = std::string(RES_DIR)+"orangebolt.png";
         auto boltId = GTech::Sprite::CreateSprite(resPath);
-
+        auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
         ECS::KinematicsSystem::SubscribeEntity(boltId);
         ECS::RenderingSystem::SubscribeEntity(boltId);
 
-        auto& componentManager  = ECS::ComponentManager::GetInstance();
-        auto& entityManager     = ECS::EntityManager::GetInstance();
-        auto [posId, speedId, accelId] = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityManager.GetComponentsIds(shipId)[0])->GetKinematicTupleIds();
+        auto& componentManager          = ECS::ComponentManager::GetInstance();
+        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
+        auto  [posId, speedId, accelId] = shipInformationComponent.GetKinematicTupleIds();
 
         GTech::Sprite::SetPosition(boltId, componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position);
 
-
+        auto [boltPosId, boltSpeedId, boltAccelId] = boltInfo.GetKinematicTupleIds();
+        auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
+        speedComponent->speed.y = -16*50;
     }
+
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
