@@ -20,10 +20,11 @@ namespace ECS {
 		static std::vector<glm::vec3*>		positions;
 		static std::vector<glm::vec3*>		speeds;
 		static std::vector<glm::vec3*>		accelerations;
+        static std::vector<bool*>           positionDirtyFlags;
         static glm::vec3**                  positions_;
         static glm::vec3**                  speeds_;
         static glm::vec3**                  accelerations_;
-
+        static bool**                       positionDirtyFlags_;
     public:
             static void InitKinematicsSystem();
             static unsigned int SubscribeEntity(unsigned int entityId);

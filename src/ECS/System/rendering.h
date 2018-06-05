@@ -1,7 +1,6 @@
 #ifndef __RENDERING__ 
 #define __RENDERING__ 
 
-#include <set>
 #include <vector>
 #include <utility>
 
@@ -23,6 +22,14 @@ using namespace GTech;
 namespace ECS {
     class RenderingSystem {
 
+        static std::vector<
+                std::tuple<
+                        const unsigned int,///ids
+                        SDL_Texture*,      ///textures
+                        const glm::ivec2,  ///textureSizes
+                        glm::vec3*,        ///positions
+                        bool&              ///isDirty
+                        >> renderingData;
 
         static std::vector<unsigned int>    ids;
         static std::vector<SDL_Texture*>    textures;
@@ -40,97 +47,13 @@ namespace ECS {
 
 
         public:
-        static unsigned int SubscribeEntity(unsigned int entityId){
+        static unsigned long SubscribeEntity(unsigned int entityId);
+        static unsigned int DrawSprites();
+        static void InitRenderingSystem();
+        static void ShutdownRenderingSystem();
 
-            //Get Managers
-            auto& entityManager     = ECS::EntityManager::GetInstance();
-            auto& componentManager  = ECS::ComponentManager::GetInstance();
+        static void UpdateRenderingSystem();
 
-            auto& entityComponentsV     = entityManager.GetComponentsIds(entityId);
-            auto& entityComponentInfoId = entityComponentsV[0];
-
-            //Info Component
-            auto entityComponentInfoRP  = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityComponentInfoId);
-            auto [posId, textureId]     = entityComponentInfoRP->GetRenderingTupleIds();
-
-
-            auto pSpriteComponent   = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
-            auto pPositionComponent = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId);
-
-            //Texture Data
-            auto pTexture = pSpriteComponent->GetTexture();
-            textures.push_back(pTexture);
-
-            auto [format, access, sz] = SDLQueryTexture(pTexture);
-            textureSizes.push_back(sz);
-
-            //Position data
-            positions.push_back(&pPositionComponent->position);
-
-            ids.push_back(entityId);
-
-            return 1;
-
-        }
-        static unsigned int DrawSprites(){
-
-            auto sz = textures.size();
-            for (auto index = 0; index < sz; ++index){
-
-                //Got texture & texture sizes
-                auto pTexture = textures[index];
-                if (!pTexture) continue;
-
-                //Got size
-                auto textureSize = textureSizes[index];
-
-                //Got Position
-                auto rPosition = positions[index];
-
-                //Render m_pTexture,
-                SDL_Rect dstrect;
-
-                
-                dstrect.x = rPosition->x;
-                dstrect.y = rPosition->y;
-                dstrect.w = textureSize.x;
-                dstrect.h = textureSize.y;
-                SDL_QueryTexture(pTexture, nullptr, nullptr, &dstrect.w, &dstrect.h);
-                SDLRenderCopy(pTexture, nullptr, &dstrect);
-            }
-
-            return 1;
-        }
-        static void InitRenderingSystem() {
-            
-            auto wh = SDLWindowSize();
-
-            pScreen = nullptr;
-
-            pScreenRect.w = wh.first;
-            pScreenRect.h = wh.second;
-            pScreen = SDLCreateTexture(pScreenRect);
-
-            SDLSetRenderTarget(pScreen);
-            SDLRenderClear();
-
-        }
-        static void ShutdownRenderingSystem() {
-
-            SDL_DestroyTexture(pScreen);
-            pScreen = nullptr;
-
-        }
-
-        static void UpdateRenderingSystem(){
-
-            SDLDetachRenderTexture();
-            SDLRenderClear();
-            SDLRenderCopy(pScreen, nullptr, nullptr);
-            SDLUpdateScreen();
-            SDLSetRenderTarget(pScreen);
-
-        }
     };
 
 }

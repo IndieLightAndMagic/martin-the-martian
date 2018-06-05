@@ -7,9 +7,11 @@ std::vector<unsigned int>	KinematicsSystem::ids{};
 std::vector<glm::vec3*>		KinematicsSystem::positions{};
 std::vector<glm::vec3*>		KinematicsSystem::speeds{};
 std::vector<glm::vec3*>		KinematicsSystem::accelerations{};
+std::vector<bool*>          KinematicsSystem::positionDirtyFlags{};
 glm::vec3**                 KinematicsSystem::positions_ = nullptr;
 glm::vec3**                 KinematicsSystem::speeds_ = nullptr;
 glm::vec3**                 KinematicsSystem::accelerations_ = nullptr;
+bool**                      KinematicsSystem::positionDirtyFlags_ = nullptr;
 
 
 void KinematicsSystem::InitKinematicsSystem(){
@@ -43,7 +45,8 @@ unsigned int KinematicsSystem::SubscribeEntity(unsigned int entityId){
     speeds_         = speeds.data();
     positions.push_back(&pPositionComponent->position);
     positions_      = positions.data();
-
+    positionDirtyFlags.push_back(&pPositionComponent->isDirty);
+    positionDirtyFlags_ = positionDirtyFlags.data();
     return 1;
 
 }
@@ -83,10 +86,16 @@ void KinematicsSystem::UpdateKinematicsSystem(){
         auto speed  = speeds_[index]; if (speed->y == 0.0f) return;
         auto accel  = accelerations_[index];
         auto& pos   = *(positions_[index]);
+        auto& dirtyFlag = *(positionDirtyFlags_[index]);
+
         glm::vec3 accelDelta(0.5 * accel->x * dt2, 0.5 * accel->y * dt2, 0.5 * accel->z * dt2);
         glm::vec3 speedDelta(speed->x * dt , speed->y * dt, speed->z * dt);
-
-        pos += speedDelta;
+        if (speedDelta.length() >= 0.0f)
+        {
+            glm::vec3 actualPos(pos);
+            pos += speedDelta;
+            dirtyFlag = true;
+        }
         //SDL_Log("%f %f %f\n", pos.x, pos.y, pos.z);
 
 
