@@ -1,4 +1,5 @@
 #include <ECS/System/kinematics.h>
+#include <glm/detail/func_common.hpp>
 
 using namespace ECS;
 
@@ -12,7 +13,6 @@ glm::vec3**                 KinematicsSystem::positions_ = nullptr;
 glm::vec3**                 KinematicsSystem::speeds_ = nullptr;
 glm::vec3**                 KinematicsSystem::accelerations_ = nullptr;
 bool**                      KinematicsSystem::positionDirtyFlags_ = nullptr;
-
 
 void KinematicsSystem::InitKinematicsSystem(){
 
@@ -60,24 +60,25 @@ void KinematicsSystem::UpdateKinematicsSystem(){
     static const auto SECS_PER__TICK = 1.0f / TICKS_PER__SEC;
 
     ///FPS DELIMITER
-    static const auto FPS_HZ_____MAX = 45.0f;
-    static const auto FPS_MSECS__MIN = 1000.0f/FPS_HZ_____MAX;
-    static const auto FPS_SECS___MIN = 1.0f/FPS_HZ_____MAX;
+    static const auto FPS_HZ_____MAX = 30.0f;
+    static const auto FPS_MSECS__MIN = 1000.0f / FPS_HZ_____MAX;
+    static const auto FPS_SECS___MIN = 1.0f / FPS_HZ_____MAX;
     static const auto fFPS_TICKS_MIN = TICKS_PER__SEC * FPS_SECS___MIN;
     static const auto FPS_TICKS__MIN = static_cast<uint64_t>(fFPS_TICKS_MIN);
 
-    auto tNow = SDL_GetPerformanceCounter();
+    auto tNow = SDL_GetTicks();
     static auto tBefore = tNow;
-
-    auto tDelta = tNow - tBefore;
-
-    if (tDelta < FPS_TICKS__MIN){
+    
+    auto tDelta = static_cast<float>(tNow - tBefore);
+    tDelta /= 1000.0f;
+    if (tNow == tBefore){
         return;
     } else {
         tBefore = tNow;
     }
-
-    auto dt     = tDelta * SECS_PER__TICK;
+    SDL_assert(tDelta > 0.0f);
+    
+    auto& dt    = tDelta;
     auto sz     = ids.size();
     auto dt2    = dt * dt;
 
@@ -91,12 +92,10 @@ void KinematicsSystem::UpdateKinematicsSystem(){
         glm::vec3 accelDelta(0.5 * accel->x * dt2, 0.5 * accel->y * dt2, 0.5 * accel->z * dt2);
         glm::vec3 speedDelta(speed->x * dt , speed->y * dt, speed->z * dt);
         pos += speedDelta;
-        if (speedDelta.length() >= 1.0f)
-        {
-            dirtyFlag = true;
-        }
-        //SDL_Log("%f %f %f\n", pos.x, pos.y, pos.z);
-
+        
+        auto xmoved = glm::abs(speed->x) >= 0.0f ? true : false;
+        auto ymoved = glm::abs(speed->y) >= 0.0f ? true : false;
+        dirtyFlag = xmoved || ymoved ? true : false;
 
     };
 

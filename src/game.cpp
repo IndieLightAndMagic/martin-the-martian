@@ -74,7 +74,7 @@ namespace GAME{
 
     void OnFirePressed(const uint32_t& kbEvent, const int32_t& kbKey){
 
-        auto resPath = std::string(RES_DIR)+"orangebolt.png";
+        auto resPath = std::string(RES_DIR)+"purplebolt16x16.png";
         auto boltId = GTech::Sprite::CreateSprite(resPath);
         auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
         ECS::KinematicsSystem::SubscribeEntity(boltId);
@@ -88,7 +88,8 @@ namespace GAME{
 
         auto [boltPosId, boltSpeedId, boltAccelId] = boltInfo.GetKinematicTupleIds();
         auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
-        speedComponent->speed.y = -16;
+        speedComponent->speed.y = -320.0f;
+
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
