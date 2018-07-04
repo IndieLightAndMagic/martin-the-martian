@@ -84,7 +84,8 @@ void KinematicsSystem::UpdateKinematicsSystem(){
 
     auto kinematic  = [&](int index){
 
-        auto speed  = speeds_[index]; if (speed->y == 0.0f) return;
+        auto speed  = speeds_[index]; if (speed->y == 0.0f && speed->x == 0.0f) return;
+        
         auto accel  = accelerations_[index];
         auto& pos   = *(positions_[index]);
         auto& dirtyFlag = *(positionDirtyFlags_[index]);

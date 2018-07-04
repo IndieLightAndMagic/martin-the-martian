@@ -7,7 +7,11 @@ std::vector<glm::ivec2>                 RenderingSystem::textureSizes{};
 std::vector<glm::vec3*>	                RenderingSystem::positions{};
 SDL_Texture* 							RenderingSystem::pScreen = nullptr;
 SDL_Rect                                RenderingSystem::pScreenRect{0, 0, 0, 0};
-glm::mat4x4                             RenderingSystem::mtxSDLScreenCoordinates({1.0f, 0.0f, 0.0f, 0},{0.0f, 1.0f, 0.0f, 0.0f},{0.0f, 0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0});
+glm::mat4x4                             RenderingSystem::mtxSDLScreenCoordinates(
+    {1.0f, 0.0f, 0.0f, 0},
+    {0.0f, 1.0f, 0.0f, 0.0f},
+    {0.0f, 0.0f, 1.0f, 0.0f},
+    {0.0f, 0.0f, 0.0f, 1.0});
 std::vector<
         std::tuple<
                 const unsigned int,   ///ids
@@ -15,7 +19,7 @@ std::vector<
                 const glm::ivec2,     ///textureSizes
                 glm::vec3*,           ///positions
                 bool&                 ///dirty
-        >>                              RenderingSystem::renderingData{};
+        >> RenderingSystem::renderingData{};
 
 
 namespace ECS {
@@ -67,9 +71,12 @@ namespace ECS {
     unsigned int RenderingSystem::DrawSprites() {
 
         auto sz = textures.size();
+        SDLRenderClear();
+
         for (auto& [eid, pTexture, textureSize, pPosition, dirty]: renderingData){
 
-            if (!dirty || !pTexture) continue;
+            //Check if need to render
+            if (!pTexture) continue;
 
             //Render m_pTexture,
             SDL_Rect dstrect;
@@ -107,11 +114,12 @@ namespace ECS {
     }
     void RenderingSystem::UpdateRenderingSystem() {
 
-        SDLDetachRenderTexture();
-        SDLRenderClear();
-        SDLRenderCopy(pScreen, nullptr, nullptr);
-        SDLUpdateScreen();
-        SDLSetRenderTarget(pScreen);
+        SDLSetRenderTarget(pScreen);                //SELECT PSCREEN AS THE ACTIVE CANVAS
+        SDLRenderClear();                           //TAKE THE PSCREEN TEXTURE AKA ACTUAL CANVAS AND CLEAR IT
+        DrawSprites();                              //DRAW THE SHIPS AND THE FIRE AND THE STUFF IN THE PSCREEN CANVAS
+        SDLDetachRenderTexture();                   //NOW IS THE GPU WHERE THE RENDERER WILL DRAW
+        SDLRenderCopy(pScreen, nullptr, nullptr);   //TAKE PSCREEN AND COPY IT INTO THE GPU
+        SDLUpdateScreen();                          //UPDATE THE SCREEN
 
     }
 }

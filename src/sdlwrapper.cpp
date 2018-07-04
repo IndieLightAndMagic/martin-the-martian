@@ -106,6 +106,9 @@ namespace GTech {
         return std::tuple<uint32_t, int , glm::ivec2>{format, access, glm::ivec2(w, h)};
 
     };
+    void SDLSetRenderDrawColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+        SDL_SetRenderDrawColor(pRenderer, r, g, b, a);
+    }
     void SDLRenderClear(void) {
         SDL_assert(SDL_RenderClear(pRenderer) == 0);
     }

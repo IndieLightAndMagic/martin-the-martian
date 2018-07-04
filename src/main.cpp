@@ -14,9 +14,9 @@ int main(int argc, char **argv) {
     /* Init Game Technology */
     SDLInitialization();
 
+    /* Initialization of the game */
     GAME::GameInitialization();
     GAME::MainLoop();
-
     
     /* Finish all the tech system (SDL for this case) */
     SDLQuit();

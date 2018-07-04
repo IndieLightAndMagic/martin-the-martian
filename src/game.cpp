@@ -57,6 +57,9 @@ namespace GAME{
 
         //Subscribe Entity into Systems
         ECS::RenderingSystem::SubscribeEntity(shipId);
+        ECS::KinematicsSystem::SubscribeEntity(shipId);
+
+
 
     }
 
@@ -66,7 +69,6 @@ namespace GAME{
         while (bGameIsOn)
         {
             ECS::UpdateEvents();
-            ECS::RenderingSystem::DrawSprites();
             ECS::RenderingSystem::UpdateRenderingSystem();
             ECS::KinematicsSystem::UpdateKinematicsSystem();
         }
@@ -100,23 +102,19 @@ namespace GAME{
 
     void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
+        auto& componentManager          = ECS::ComponentManager::GetInstance();
+        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
+        auto  [posId, speedId, accelId] = shipInformationComponent.GetKinematicTupleIds();
+
+        auto positionComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+
 
         if (kbKey ==  SDLK_LEFT){
-            std::cout << __FUNCTION__ << ": ";
-            std::cout << " Left";
-            std::cout << "\n";
+            positionComponent->speed.x = -15.0f;
         } else if (kbKey == SDLK_RIGHT) {
-            std::cout << __FUNCTION__ << ": ";
-            std::cout << " Right";
-            std::cout << "\n";
+            positionComponent->speed.x = +15.0f;
         } else if (kbKey == SDLK_DOWN) {
-            std::cout << __FUNCTION__ << ": ";
-            std::cout << " Down";
-            std::cout << "\n";
         } else if (kbKey == SDLK_UP) {
-            std::cout << __FUNCTION__ << ": ";
-            std::cout << " Up";
-            std::cout << "\n";
         }
 
     }
