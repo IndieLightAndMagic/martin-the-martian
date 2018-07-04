@@ -13,9 +13,9 @@ namespace ECS {
 
     class InputComponent : public Component_ {
 
-        Signal<GTech::KBEvent&, GTech::KBKey&> keyboardSignal;
-        Signal<GTech::GPEvent&, GTech::GPKey&> gamepadSignal;
-        Signal<GTech::JoyAxisEvent&, GTech::JoystickAxis&> joystickSignal;
+        GTech::Signal<GTech::KBEvent&, GTech::KBKey&> keyboardSignal;
+        GTech::Signal<GTech::GPEvent&, GTech::GPKey&> gamepadSignal;
+        GTech::Signal<GTech::JoyAxisEvent&, GTech::JoystickAxis&> joystickSignal;
         enum class JOYHATPOSITION : u_int8_t {
 
             DEAD_ZONE       = 0x0,
@@ -45,7 +45,7 @@ namespace ECS {
 
         }
         void OnKeyboardEvent(GTech::KBEvent&, GTech::KBKey& key){
-            ECS::
+
         }
         void OnGamepadEvent(GTech::GPEvent&, GTech::GPKey& button){
 
