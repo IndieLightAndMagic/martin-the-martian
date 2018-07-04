@@ -20,7 +20,6 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
             ${CMAKE_SOURCE_DIR}/src/ECS/Component/entityinformationcomponent.cpp
             ${CMAKE_SOURCE_DIR}/src/ECS/Component/componentfactory.cpp
             ${CMAKE_SOURCE_DIR}/src/ECS/Component/componentmanager.cpp
-            ${CMAKE_SOURCE_DIR}/src/ECS/Component/inputcomponent.h
             ${CMAKE_SOURCE_DIR}/src/ECS/Component/component.h
 
             ${CMAKE_SOURCE_DIR}/src/ECS/System/rendering.cpp
