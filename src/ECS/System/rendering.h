@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <utility>
+#include <algorithm>
 
 #include <SDL2/SDL_system.h>
 
@@ -20,20 +21,20 @@
 using namespace GTech;
 
 namespace ECS {
+    using RenderingDataTuple = std::tuple<
+            unsigned int,      ///ids
+            SDL_Texture*,      ///textures
+            const glm::ivec2*, ///textureSizes
+            const glm::vec3*,  ///positions
+            bool&>;            ///isDirty
+
     class RenderingSystem {
 
-        static std::vector<
-                std::tuple<
-                        const unsigned int,///ids
-                        SDL_Texture*,      ///textures
-                        const glm::ivec2,  ///textureSizes
-                        glm::vec3*,        ///positions
-                        bool&              ///isDirty
-                        >> renderingData;
+        static std::vector<ECS::RenderingDataTuple> renderingData;
 
         static std::vector<unsigned int>    ids;
         static std::vector<SDL_Texture*>    textures;
-        static std::vector<glm::ivec2>      textureSizes;
+        static std::vector<glm::ivec2*>     textureSizes;
         static std::vector<glm::vec3*>      positions;
 
 
@@ -47,6 +48,7 @@ namespace ECS {
 
 
         public:
+
         static unsigned long SubscribeEntity(unsigned int entityId);
         static unsigned int DrawSprites();
         static void InitRenderingSystem();

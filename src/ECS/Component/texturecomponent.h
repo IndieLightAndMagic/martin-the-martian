@@ -6,20 +6,25 @@
 #include <memory>
 #include <string>
 
+#include <glm/vec2.hpp>
+
 namespace ECS{
 
     class TextureComponent_;
     using TextureComponent = std::shared_ptr<TextureComponent_>;
     class TextureComponent_ : public Component_ {
 
-        SDL_Texture* m_pTexture;
-
+        SDL_Texture*    m_pTexture;
+        glm::ivec2      m_sz;
     public:
 
         TextureComponent_() = default;
         TextureComponent_(std::string path);
         TextureComponent_(const char* path);
+
         SDL_Texture* GetTexture();
+        glm::ivec2*  GetSize();
+
         void SetTexture(SDL_Texture* pt);
         void SetTexture(const char* path);
         void SetTexture(std::string path);

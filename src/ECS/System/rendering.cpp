@@ -1,9 +1,10 @@
+#include <tuple>
 #include "rendering.h"
 
 using namespace ECS;
 std::vector<unsigned int>               RenderingSystem::ids{};
 std::vector<SDL_Texture*>          		RenderingSystem::textures{};
-std::vector<glm::ivec2>                 RenderingSystem::textureSizes{};
+std::vector<glm::ivec2*>                RenderingSystem::textureSizes{};
 std::vector<glm::vec3*>	                RenderingSystem::positions{};
 SDL_Texture* 							RenderingSystem::pScreen = nullptr;
 SDL_Rect                                RenderingSystem::pScreenRect{0, 0, 0, 0};
@@ -12,15 +13,8 @@ glm::mat4x4                             RenderingSystem::mtxSDLScreenCoordinates
     {0.0f, 1.0f, 0.0f, 0.0f},
     {0.0f, 0.0f, 1.0f, 0.0f},
     {0.0f, 0.0f, 0.0f, 1.0});
-std::vector<
-        std::tuple<
-                const unsigned int,   ///ids
-                SDL_Texture*,         ///textures
-                const glm::ivec2,     ///textureSizes
-                glm::vec3*,           ///positions
-                bool&                 ///dirty
-        >> RenderingSystem::renderingData{};
 
+std::vector<RenderingDataTuple> RenderingSystem::renderingData{};
 
 namespace ECS {
     unsigned long RenderingSystem::SubscribeEntity(unsigned int entityId) {
@@ -45,7 +39,7 @@ namespace ECS {
             auto pTexture = pSpriteComponent->GetTexture();
             textures.push_back(pTexture);
 
-            auto [format, access, sz] = SDLQueryTexture(pTexture);
+            auto sz =  pSpriteComponent->GetSize();
             textureSizes.push_back(sz);
 
             //Position data
@@ -54,17 +48,15 @@ namespace ECS {
             //Entity Id Data
             ids.push_back(entityId);
 
-            auto entityRenderingData = std::tuple<
-                    const unsigned int, ///ids
-                    SDL_Texture*,       ///textures
-                    const glm::ivec2,   ///textureSizes
-                    glm::vec3*,         ///positions
-                    bool&               ///Check If Dirty
-            >(entityId, pTexture, sz, &pPositionComponent->position, pPositionComponent->isDirty);
+            std::tuple<unsigned int, SDL_Texture*, glm::ivec2*, glm::vec3*, bool&>entityRenderingData = std::tuple<unsigned int, SDL_Texture*, glm::ivec2*, glm::vec3*, bool&>(entityId, pTexture, &sz, &pPositionComponent->position, pPositionComponent->isDirty);
             renderingData.emplace_back(entityRenderingData);
 
             unsigned long size = renderingData.size();
             SDL_assert(size>0);
+
+            std::sort(begin(renderingData), end(renderingData), [](auto t1, auto t2){
+                return std::get<3>(t1)->z < std::get<3>(t2)->z;
+            });
             return size-1;
 
     }
@@ -73,18 +65,18 @@ namespace ECS {
         auto sz = textures.size();
         SDLRenderClear();
 
-        for (auto& [eid, pTexture, textureSize, pPosition, dirty]: renderingData){
+        for (auto& [eid, pTexture, pTextureSize, pPosition, dirty]: renderingData){
 
             //Check if need to render
-            if (!pTexture) continue;
+            //if (!pTexture) continue;
 
             //Render m_pTexture,
             SDL_Rect dstrect;
 
             dstrect.x = pPosition->x;
             dstrect.y = pPosition->y;
-            dstrect.w = textureSize.x;
-            dstrect.h = textureSize.y;
+            dstrect.w = pTextureSize->x;
+            dstrect.h = pTextureSize->y;
             SDL_QueryTexture(pTexture, nullptr, nullptr, &dstrect.w, &dstrect.h);
             SDLRenderCopy(pTexture, nullptr, &dstrect);
             dirty = false;
