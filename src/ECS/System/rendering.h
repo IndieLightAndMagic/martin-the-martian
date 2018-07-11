@@ -24,9 +24,9 @@ namespace ECS {
     using RenderingDataTuple = std::tuple<
             unsigned int,      ///ids
             SDL_Texture*,      ///textures
-            const glm::ivec2*, ///textureSizes
-            const glm::vec3*,  ///positions
-            bool&>;            ///isDirty
+            glm::ivec2*, ///textureSizes
+            glm::vec3*,  ///positions
+            bool*>;            ///isDirty
 
     class RenderingSystem {
 

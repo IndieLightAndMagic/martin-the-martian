@@ -48,7 +48,7 @@ namespace ECS {
             //Entity Id Data
             ids.push_back(entityId);
 
-            std::tuple<unsigned int, SDL_Texture*, glm::ivec2*, glm::vec3*, bool&>entityRenderingData = std::tuple<unsigned int, SDL_Texture*, glm::ivec2*, glm::vec3*, bool&>(entityId, pTexture, &sz, &pPositionComponent->position, pPositionComponent->isDirty);
+            RenderingDataTuple entityRenderingData(entityId, pTexture, &sz, &pPositionComponent->position, &pPositionComponent->isDirty);
             renderingData.emplace_back(entityRenderingData);
 
             unsigned long size = renderingData.size();
@@ -65,7 +65,7 @@ namespace ECS {
         auto sz = textures.size();
         SDLRenderClear();
 
-        for (auto& [eid, pTexture, pTextureSize, pPosition, dirty]: renderingData){
+        for (auto& [eid, pTexture, pTextureSize, pPosition, pDirty]: renderingData){
 
             //Check if need to render
             //if (!pTexture) continue;
@@ -79,7 +79,7 @@ namespace ECS {
             dstrect.h = pTextureSize->y;
             SDL_QueryTexture(pTexture, nullptr, nullptr, &dstrect.w, &dstrect.h);
             SDLRenderCopy(pTexture, nullptr, &dstrect);
-            dirty = false;
+            *pDirty = false;
         }
 
         return 1;
