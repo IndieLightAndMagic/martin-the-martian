@@ -65,21 +65,23 @@ namespace ECS {
         auto sz = textures.size();
         SDLRenderClear();
 
-        for (auto& [eid, pTexture, pTextureSize, pPosition, pDirty]: renderingData){
+        for (auto& [eid, pTexture, pvTextureSize, pvPosition, pDirty]: renderingData){
 
+            auto pTextureSize   = reinterpret_cast<glm::ivec2*> (pvTextureSize);
+            auto pPosition      = reinterpret_cast<glm::vec3*>  (pvPosition);
             //Check if need to render
             //if (!pTexture) continue;
 
             //Render m_pTexture,
             SDL_Rect dstrect;
 
-            /*dstrect.x = pPosition->x;
+            dstrect.x = pPosition->x;
             dstrect.y = pPosition->y;
             dstrect.w = pTextureSize->x;
-            dstrect.h = pTextureSize->y;*/
+            dstrect.h = pTextureSize->y;
             SDL_QueryTexture(pTexture, nullptr, nullptr, &dstrect.w, &dstrect.h);
             SDLRenderCopy(pTexture, nullptr, &dstrect);
-            //*pDirty = false;
+            *pDirty = false;
         }
 
         return 1;
