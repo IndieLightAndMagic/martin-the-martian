@@ -15,7 +15,18 @@ namespace GTech  {
 
     SDL_Texture* SDLCreateTexture(SDL_Rect& rSize);
     SDL_Texture* SDLCreateTextureFromFile(const char* path);
+
+    /*!
+     * @brief Query a SDL_Texture, for format, access type and texture size.
+     *
+     * Format is one of the formats explained at https://wiki.libsdl.org/SDL_PixelFormatEnum. Access is one of https://wiki.libsdl.org/SDL_TextureAccess.
+     * Texture size is a glm::ivec2 where x is width and y is height.
+     *
+     * @return Function returns a tuple of format, access and texture size.
+     */
     std::tuple<uint32_t, int , glm::ivec2> SDLQueryTexture(SDL_Texture*);
+
+
     SDL_Texture* SDLCreateTextureFromFile(const char *path);
 
     void SDLDetachRenderTexture();

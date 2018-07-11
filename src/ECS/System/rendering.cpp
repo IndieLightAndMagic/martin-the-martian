@@ -54,9 +54,9 @@ namespace ECS {
             unsigned long size = renderingData.size();
             SDL_assert(size>0);
 
-            /*std::sort(begin(renderingData), end(renderingData), [](auto t1, auto t2){
-                return std::get<3>(t1)->z < std::get<3>(t2)->z;
-            });*/
+            std::sort(begin(renderingData), end(renderingData), [](auto t1, auto t2){
+                return reinterpret_cast<glm::vec3*>(std::get<3>(t1))->z < reinterpret_cast<glm::vec3*>(std::get<3>(t2))->z;
+            });
             return size-1;
 
     }
@@ -79,7 +79,7 @@ namespace ECS {
             dstrect.y = pPosition->y;
             dstrect.w = pTextureSize->x;
             dstrect.h = pTextureSize->y;
-            SDL_QueryTexture(pTexture, nullptr, nullptr, &dstrect.w, &dstrect.h);
+
             SDLRenderCopy(pTexture, nullptr, &dstrect);
             *pDirty = false;
         }
