@@ -45,7 +45,7 @@ namespace GAME{
 
 
         /* Create Sprite */
-        auto shipTexturePath = std::string(RES_DIR)+"hero.png";
+        auto shipTexturePath = std::string(RES_DIR)+"ships/goodguy0.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
         /* Create Background */
@@ -55,7 +55,7 @@ namespace GAME{
         /* Dimensions */
         auto [width, height] = SDLWindowSize();
         GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 5));
-
+        GTech::Sprite::SetScale(shipId, 0.16);
         /* Init Systems */
         ECS::RenderingSystem::InitRenderingSystem();
         ECS::KinematicsSystem::InitKinematicsSystem();
@@ -119,9 +119,9 @@ namespace GAME{
 
 
         if (kbKey ==  SDLK_LEFT){
-            positionComponent->speed.x = -15.0f;
+            positionComponent->speed.x = -45.0f;
         } else if (kbKey == SDLK_RIGHT) {
-            positionComponent->speed.x = +15.0f;
+            positionComponent->speed.x = +45.0f;
         } else if (kbKey == SDLK_DOWN) {
         } else if (kbKey == SDLK_UP) {
         }

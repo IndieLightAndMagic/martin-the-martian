@@ -14,7 +14,7 @@ namespace ECS{
     using TextureComponent = std::shared_ptr<TextureComponent_>;
     class TextureComponent_ : public Component_ {
 
-        SDL_Texture*    m_pTexture;
+        SDL_Texture*    m_pTexture{nullptr};
     public:
 
         TextureComponent_() = default;
@@ -23,12 +23,13 @@ namespace ECS{
 
         SDL_Texture* GetTexture();
         const unsigned long * GetSize();
+        void SetScale(float scale);
 
         void SetTexture(SDL_Texture* pt);
         void SetTexture(const char* path);
         void SetTexture(std::string path);
 
-        unsigned long   m_sz;
+        unsigned long   m_sz{0};
 
 
     };

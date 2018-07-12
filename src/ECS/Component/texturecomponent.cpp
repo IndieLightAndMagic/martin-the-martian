@@ -39,5 +39,15 @@ void TextureComponent_::SetTexture(std::string path) {
     SetTexture(path.c_str());
 }
 
+void TextureComponent_::SetScale(float scale) {
 
+    SDL_assert(m_pTexture!= nullptr);
+
+    auto [format, access, sz] = SDLQueryTexture(m_pTexture);
+    glm::vec2 tsz{sz.x*scale, sz.y*scale};
+    glm::ivec2 tszi{tsz.x, tsz.y};
+    m_sz = (tszi.x << 16) + tszi.y;
+
+
+}
 

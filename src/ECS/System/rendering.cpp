@@ -83,6 +83,7 @@ namespace ECS {
 
             SDLRenderCopy(pTexture, nullptr, &dstrect);
             *pDirty = false;
+
         }
 
         return 1;

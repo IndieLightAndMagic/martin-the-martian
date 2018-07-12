@@ -61,5 +61,15 @@ namespace GTech {
         positionComponent->anchor = anchor;
 
     }
+    void Sprite::SetScale(unsigned int shipId, float scale) {
+
+        auto&	componentManager = ECS::ComponentManager::GetInstance();
+        auto 	entityInfoId = ECS::EntityManager::GetInstance().GetComponentsIds(shipId)[0];
+        auto  	infoComponentRP = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityInfoId);
+        auto  	[positionId, textureId] = infoComponentRP->GetRenderingTupleIds();
+        auto    textureComponent           = ECS::ComponentManager::GetInstance().GetComponentRaw<ECS::TextureComponent_>(textureId);
+        textureComponent->SetScale(scale);
+
+    }
 
 }
