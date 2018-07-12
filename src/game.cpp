@@ -52,19 +52,22 @@ namespace GAME{
         auto backgroundTexturePath = std::string(RES_DIR)+"backgrounds/B0.png";
         backId = GTech::Sprite::CreateSprite(backgroundTexturePath);
 
-
         /* Dimensions */
         auto [width, height] = SDLWindowSize();
-        GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 0));
+        GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 5));
 
         /* Init Systems */
         ECS::RenderingSystem::InitRenderingSystem();
         ECS::KinematicsSystem::InitKinematicsSystem();
 
-        //Subscribe Entity into Systems
+        //Subscribe Entities into Systems
+
+        //Ship
         ECS::RenderingSystem::SubscribeEntity(shipId);
         ECS::KinematicsSystem::SubscribeEntity(shipId);
 
+        //Background
+        ECS::RenderingSystem::SubscribeEntity(backId);
 
 
     }
