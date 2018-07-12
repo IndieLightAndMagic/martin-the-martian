@@ -22,11 +22,11 @@ using namespace GTech;
 
 namespace ECS {
     using RenderingDataTuple = std::tuple<
-            unsigned int,      ///ids
-            SDL_Texture*,      ///textures
-            void*, ///textureSizes
-            void*,  ///positions
-            bool*>;            ///isDirty
+            unsigned int,            ///ids
+            SDL_Texture*,            ///textures
+            const unsigned long*,    ///textureSizes
+            void*,                   ///positions. void* because because tuple wouldn't handle &glm::vec3.
+            bool*>;                  ///isDirty
 
     class RenderingSystem {
 
@@ -34,7 +34,7 @@ namespace ECS {
 
         static std::vector<unsigned int>    ids;
         static std::vector<SDL_Texture*>    textures;
-        static std::vector<glm::ivec2*>     textureSizes;
+        static std::vector<const unsigned long*>  textureSizes;
         static std::vector<glm::vec3*>      positions;
 
 

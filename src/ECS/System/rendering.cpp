@@ -4,7 +4,7 @@
 using namespace ECS;
 std::vector<unsigned int>               RenderingSystem::ids{};
 std::vector<SDL_Texture*>          		RenderingSystem::textures{};
-std::vector<glm::ivec2*>                RenderingSystem::textureSizes{};
+std::vector<const unsigned long*>       RenderingSystem::textureSizes{};
 std::vector<glm::vec3*>	                RenderingSystem::positions{};
 SDL_Texture* 							RenderingSystem::pScreen = nullptr;
 SDL_Rect                                RenderingSystem::pScreenRect{0, 0, 0, 0};
@@ -39,7 +39,7 @@ namespace ECS {
             auto pTexture = pSpriteComponent->GetTexture();
             textures.push_back(pTexture);
 
-            auto sz =  pSpriteComponent->GetSize();
+            auto sz =  &pSpriteComponent->m_sz;
             textureSizes.push_back(sz);
 
             //Position data
@@ -48,7 +48,7 @@ namespace ECS {
             //Entity Id Data
             ids.push_back(entityId);
 
-            RenderingDataTuple entityRenderingData(entityId, pTexture, &sz, &pPositionComponent->position, &pPositionComponent->isDirty);
+            RenderingDataTuple entityRenderingData(entityId, pTexture, sz, &pPositionComponent->position, &pPositionComponent->isDirty);
             renderingData.emplace_back(entityRenderingData);
 
             unsigned long size = renderingData.size();
@@ -65,20 +65,21 @@ namespace ECS {
         auto sz = textures.size();
         SDLRenderClear();
 
-        for (auto& [eid, pTexture, pvTextureSize, pvPosition, pDirty]: renderingData){
+        for (auto& [eid, pTexture, pEncodedTextureSize, pvPosition, pDirty]: renderingData){
 
-            auto pTextureSize   = reinterpret_cast<glm::ivec2*> (pvTextureSize);
-            auto pPosition      = reinterpret_cast<glm::vec3*>  (pvPosition);
+            auto encodedTextureSize = *pEncodedTextureSize;
+            auto pPosition          = reinterpret_cast<glm::vec3*>  (pvPosition);
             //Check if need to render
             //if (!pTexture) continue;
 
             //Render m_pTexture,
             SDL_Rect dstrect;
 
+            //AABB
             dstrect.x = pPosition->x;
             dstrect.y = pPosition->y;
-            dstrect.w = pTextureSize->x;
-            dstrect.h = pTextureSize->y;
+            dstrect.w = encodedTextureSize >> 16;
+            dstrect.h = encodedTextureSize & 0xffff;
 
             SDLRenderCopy(pTexture, nullptr, &dstrect);
             *pDirty = false;

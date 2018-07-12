@@ -15,7 +15,6 @@ namespace ECS{
     class TextureComponent_ : public Component_ {
 
         SDL_Texture*    m_pTexture;
-        glm::ivec2      m_sz;
     public:
 
         TextureComponent_() = default;
@@ -23,11 +22,14 @@ namespace ECS{
         TextureComponent_(const char* path);
 
         SDL_Texture* GetTexture();
-        glm::ivec2*  GetSize();
+        const unsigned long * GetSize();
 
         void SetTexture(SDL_Texture* pt);
         void SetTexture(const char* path);
         void SetTexture(std::string path);
+
+        unsigned long   m_sz;
+
 
     };
 

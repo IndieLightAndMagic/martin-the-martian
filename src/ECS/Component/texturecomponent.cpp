@@ -20,14 +20,14 @@ TextureComponent_::TextureComponent_(const char* path) {
 SDL_Texture* TextureComponent_::GetTexture() {
     return m_pTexture;
 }
-glm::ivec2* TextureComponent_::GetSize() {
+const unsigned long * TextureComponent_::GetSize() {
     return &m_sz;
 }
 void TextureComponent_::SetTexture(SDL_Texture* pt) {
 
     m_pTexture = pt;
     auto [format, access, sz] = SDLQueryTexture(pt);
-    m_sz = sz;
+    m_sz = (sz.x << 16) + sz.y;
 
 }
 
