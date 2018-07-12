@@ -22,7 +22,7 @@ namespace ECS{
         TextureComponent_(const char* path);
 
         SDL_Texture* GetTexture();
-        const unsigned long * GetSize();
+        const std::tuple<unsigned long, unsigned long> GetScaledSize();
         void SetScale(float scale);
 
         void SetTexture(SDL_Texture* pt);

@@ -20,8 +20,8 @@ TextureComponent_::TextureComponent_(const char* path) {
 SDL_Texture* TextureComponent_::GetTexture() {
     return m_pTexture;
 }
-const unsigned long * TextureComponent_::GetSize() {
-    return &m_sz;
+const std::tuple<unsigned long, unsigned long> TextureComponent_::GetScaledSize() {
+    return std::tuple<unsigned long, unsigned long>{ m_sz>>16, m_sz & 0xffff };
 }
 void TextureComponent_::SetTexture(SDL_Texture* pt) {
 

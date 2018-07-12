@@ -45,7 +45,7 @@ namespace GAME{
 
 
         /* Create Sprite */
-        auto shipTexturePath = std::string(RES_DIR)+"ships/goodguy0.png";
+        auto shipTexturePath = std::string(RES_DIR)+"ships/goodguy3.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
         /* Create Background */
@@ -56,6 +56,7 @@ namespace GAME{
         auto [width, height] = SDLWindowSize();
         GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 5));
         GTech::Sprite::SetScale(shipId, 0.16);
+
         /* Init Systems */
         ECS::RenderingSystem::InitRenderingSystem();
         ECS::KinematicsSystem::InitKinematicsSystem();
@@ -94,8 +95,16 @@ namespace GAME{
         auto& componentManager          = ECS::ComponentManager::GetInstance();
         auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
         auto  [posId, speedId, accelId] = shipInformationComponent.GetKinematicTupleIds();
+        auto  [posId1, textureId]       = shipInformationComponent.GetRenderingTupleIds();
 
-        GTech::Sprite::SetPosition(boltId, componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position);
+        //Get Width & Height of ship
+        auto  [w, h]                    = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId)->GetScaledSize();
+        auto  position                  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
+
+        position.x += w/2;
+        position.y += h/2;
+
+        GTech::Sprite::SetPosition(boltId, position);
 
         auto [boltPosId, boltSpeedId, boltAccelId] = boltInfo.GetKinematicTupleIds();
         auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
@@ -115,13 +124,13 @@ namespace GAME{
         auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
         auto  [posId, speedId, accelId] = shipInformationComponent.GetKinematicTupleIds();
 
-        auto positionComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+        auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
 
 
         if (kbKey ==  SDLK_LEFT){
-            positionComponent->speed.x = -45.0f;
+            speedComponent->speed.x = -45.0f;
         } else if (kbKey == SDLK_RIGHT) {
-            positionComponent->speed.x = +45.0f;
+            speedComponent->speed.x = +45.0f;
         } else if (kbKey == SDLK_DOWN) {
         } else if (kbKey == SDLK_UP) {
         }
