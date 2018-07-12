@@ -6,6 +6,7 @@ std::vector<unsigned int>               RenderingSystem::ids{};
 std::vector<SDL_Texture*>          		RenderingSystem::textures{};
 std::vector<const unsigned long*>       RenderingSystem::textureSizes{};
 std::vector<glm::vec3*>	                RenderingSystem::positions{};
+std::vector<glm::vec3*>                 RenderingSystem::anchorPoints{};
 SDL_Texture* 							RenderingSystem::pScreen = nullptr;
 SDL_Rect                                RenderingSystem::pScreenRect{0, 0, 0, 0};
 glm::mat4x4                             RenderingSystem::mtxSDLScreenCoordinates(
@@ -69,6 +70,7 @@ namespace ECS {
 
             auto encodedTextureSize = *pEncodedTextureSize;
             auto pPosition          = reinterpret_cast<glm::vec3*>  (pvPosition);
+
             //Check if need to render
             //if (!pTexture) continue;
 

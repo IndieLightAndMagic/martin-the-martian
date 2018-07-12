@@ -36,6 +36,7 @@ namespace ECS {
         static std::vector<SDL_Texture*>    textures;
         static std::vector<const unsigned long*>  textureSizes;
         static std::vector<glm::vec3*>      positions;
+        static std::vector<glm::vec3*>      anchorPoints;
 
 
         ////Screen Texture && Screen Rectangle
