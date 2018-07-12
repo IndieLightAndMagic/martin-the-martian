@@ -20,6 +20,7 @@ void RegisterKeyboardEvents(Uint32 event, vector<Sint32>& keys, std::function<vo
 
 namespace GAME{
 
+    static unsigned int backId;
     static unsigned int shipId;
     static bool bGameIsOn;
 
@@ -46,6 +47,11 @@ namespace GAME{
         /* Create Sprite */
         auto shipTexturePath = std::string(RES_DIR)+"hero.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
+
+        /* Create Background */
+        auto backgroundTexturePath = std::string(RES_DIR)+"backgrounds/B0.png";
+        backId = GTech::Sprite::CreateSprite(backgroundTexturePath);
+
 
         /* Dimensions */
         auto [width, height] = SDLWindowSize();
