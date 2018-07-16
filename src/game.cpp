@@ -88,24 +88,22 @@ namespace GAME{
 
         auto resPath = std::string(RES_DIR)+"purplebolt16x16.png";
         auto boltId = GTech::Sprite::CreateSprite(resPath);
+
         auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
         ECS::KinematicsSystem::SubscribeEntity(boltId);
         ECS::RenderingSystem::SubscribeEntity(boltId);
 
         auto& componentManager              = ECS::ComponentManager::GetInstance();
         auto  shipInformationComponent      = ECS::ComponentManager::GetInformationComponent(shipId);
-        auto  [posId, speedId, accelId]     = shipInformationComponent.GetKinematicTupleIds();
-        auto  [posId1,anchorId, textureId]  = shipInformationComponent.GetRenderingTupleIds();
+        auto  [posId,anchorId, textureId]   = shipInformationComponent.GetRenderingTupleIds();
 
-        //Get Width & Height of ship
-        auto  [w, h]    = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId)->GetScaledSize();
+        //Get Position of ship
         auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
 
-        position.x += w/2;
-        position.y += h/2;
-
+        //Set Position of the bolt
         GTech::Sprite::SetPosition(boltId, position);
 
+        //Set Speed of the bolt.
         auto [boltPosId, boltSpeedId, boltAccelId] = boltInfo.GetKinematicTupleIds();
         auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
         speedComponent->speed.y = -320.0f;

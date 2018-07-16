@@ -20,6 +20,6 @@ tuple<unsigned int, unsigned int, unsigned int>  EntityInformationComponent_::Ge
 
 
 void EntityInformationComponent_::SetRenderingTupleIds(unsigned int posId, unsigned int anchorId, unsigned int textureId){
-    renderingTupleIds = std::tuple<unsigned  int, unsigned int, unsigned int>{posId, textureId};
+    renderingTupleIds = std::tuple<unsigned  int, unsigned int, unsigned int>{posId, anchorId, textureId};
 }
 

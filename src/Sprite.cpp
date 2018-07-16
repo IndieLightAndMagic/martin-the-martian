@@ -66,8 +66,8 @@ namespace GTech {
         auto  componentManager                  = ECS::ComponentManager::GetInstance();
         auto& componentInfo                     = ECS::ComponentManager::GetInformationComponent(shipId);
         auto  [positionId, anchorId, textureId] = componentInfo.GetRenderingTupleIds();
-        auto  anchorPointComponentRP            = componentManager.GetComponentRaw<ECS::AnchorPointComponent_>(shipId);
-        auto  textureComponentRP                = componentManager.GetComponentRaw<ECS::TextureComponent_>(shipId);
+        auto  anchorPointComponentRP            = componentManager.GetComponentRaw<ECS::AnchorPointComponent_>(anchorId);
+        auto  textureComponentRP                = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
 
         auto [scaledTextureWidth, scaledTextureHeight] = textureComponentRP->GetScaledSize();
         anchorPointComponentRP->SetAnchorPoint(anchor, glm::vec3{scaledTextureWidth, scaledTextureHeight, 0.0f});
@@ -80,7 +80,7 @@ namespace GTech {
         auto  	infoComponentRP                      = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityInfoId);
         auto  	[positionId, anchorId, textureId]    = infoComponentRP->GetRenderingTupleIds();
         auto    textureComponentRP                   = ECS::ComponentManager::GetInstance().GetComponentRaw<ECS::TextureComponent_>(textureId);
-        auto    anchorPointComponentRP               = ECS::ComponentManager::GetInstance().GetComponentRaw<ECS::AnchorPointComponent_>(textureId);
+        auto    anchorPointComponentRP               = ECS::ComponentManager::GetInstance().GetComponentRaw<ECS::AnchorPointComponent_>(anchorId);
 
         textureComponentRP->SetScale(scale);
         auto [scaledTextureWidth, scaledTextureHeight] = textureComponentRP->GetScaledSize();
