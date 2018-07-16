@@ -9,6 +9,13 @@ namespace ECS {
 
     class EntityInformationComponent_ : public Component_ {
 
+        std::tuple<unsigned int, unsigned int, unsigned int> kinematicTupleIds;
+
+        std::tuple<unsigned int, unsigned int, unsigned int> renderingTupleIds;
+
+        public:
+        EntityInformationComponent_() = default;
+
         /*!
          * @brief Returns a component id tuple of <positionComponentId, speedComponentId, accelComponentId>, which are the ids of the kinematic triad compound.
          *
@@ -27,7 +34,8 @@ namespace ECS {
          *
          * @endcode
          */
-        std::tuple<unsigned int, unsigned int, unsigned int> kinematicTupleIds;
+        std::tuple<unsigned int, unsigned int, unsigned int> GetKinematicTupleIds() const;
+        void SetKinematicTupleIds(unsigned int posId, unsigned int speedId, unsigned int accelId);
 
         /*!
          * @brief Returns a component id tuple of <positionComponentId, textureComponentId>, which are the ids of the rendering pair compound.
@@ -46,18 +54,8 @@ namespace ECS {
          *
          * @endcode
          */
-
-
-        std::tuple<unsigned int, unsigned int> renderingTupleIds;
-
-        public:
-        EntityInformationComponent_() = default;
-
-        std::tuple<unsigned int, unsigned int, unsigned int> GetKinematicTupleIds() const;
-        void SetKinematicTupleIds(unsigned int posId, unsigned int speedId, unsigned int accelId);
-
-        std::tuple<unsigned int, unsigned int> GetRenderingTupleIds() const;
-        void SetRenderingTupleIds(unsigned int posId, unsigned int speedId);
+        std::tuple<unsigned int, unsigned int, unsigned int> GetRenderingTupleIds() const;
+        void SetRenderingTupleIds(unsigned int posId, unsigned int anchorId, unsigned int textureComponentId);
 
     };
 

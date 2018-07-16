@@ -21,14 +21,16 @@ SDL_Texture* TextureComponent_::GetTexture() {
     return m_pTexture;
 }
 const std::tuple<unsigned long, unsigned long> TextureComponent_::GetScaledSize() {
-    return std::tuple<unsigned long, unsigned long>{ m_sz>>16, m_sz & 0xffff };
+    return std::tuple<unsigned long, unsigned long>{ m_scaledSize_16W_16H>>16, m_scaledSize_16W_16H & 0xffff };
 }
 void TextureComponent_::SetTexture(SDL_Texture* pt) {
 
     m_pTexture = pt;
     auto [format, access, sz] = SDLQueryTexture(pt);
-    m_sz = (sz.x << 16) + sz.y;
 
+    m_pOriginalSize = sz;
+    m_scaledSize_16W_16H = (m_pOriginalSize.x << 16) + m_pOriginalSize.y;
+    
 }
 
 void TextureComponent_::SetTexture(const char* path) {
@@ -40,14 +42,10 @@ void TextureComponent_::SetTexture(std::string path) {
 }
 
 void TextureComponent_::SetScale(float scale) {
-
     SDL_assert(m_pTexture!= nullptr);
 
-    auto [format, access, sz] = SDLQueryTexture(m_pTexture);
-    glm::vec2 tsz{sz.x*scale, sz.y*scale};
+    glm::vec2 tsz{m_pOriginalSize.x*scale, m_pOriginalSize.y*scale};
     glm::ivec2 tszi{tsz.x, tsz.y};
-    m_sz = (tszi.x << 16) + tszi.y;
-
-
+    m_scaledSize_16W_16H = (tszi.x << 16) + tszi.y;
 }
 

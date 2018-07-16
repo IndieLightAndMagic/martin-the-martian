@@ -6,6 +6,7 @@
 
 #include <glm/vec3.hpp>
 #include <SDL2/SDL_system.h>
+#include <SDL2/SDL_assert.h>
 #include <ECS/Entity/entity.h>
 
 
@@ -75,8 +76,16 @@ namespace ECS {
 
     public:
         glm::vec3 position{0.0f, 0.0f, 0.0f};
-        glm::vec3 anchor{0.5f, 0.5f, 0.0f};
         bool isDirty;
+    };
+
+    class AnchorPointComponent_;
+    using AnchorpointComponent = std::shared_ptr<AnchorPointComponent_>;
+    class AnchorPointComponent_ : public Component_ {
+        public:
+            glm::vec3 m_correctionVector{0.0f, 0.0f, 0.0f};
+            glm::vec3 m_anchorPoint{0.0f, 0.0f, 0.0f};
+            void SetAnchorPoint(glm::vec3 anchorPoint, glm::vec3 box);
     };
 
 }

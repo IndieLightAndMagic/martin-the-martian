@@ -14,12 +14,12 @@ void EntityInformationComponent_::SetKinematicTupleIds(unsigned int posId, unsig
     kinematicTupleIds = std::tuple<unsigned  int, unsigned int, unsigned  int>{posId, speedId, accelId};
 }
 
-tuple<unsigned int, unsigned int>  EntityInformationComponent_::GetRenderingTupleIds() const{
+tuple<unsigned int, unsigned int, unsigned int>  EntityInformationComponent_::GetRenderingTupleIds() const{
     return renderingTupleIds;
 };
 
 
-void EntityInformationComponent_::SetRenderingTupleIds(unsigned int posId, unsigned int textureId){
-    renderingTupleIds = std::tuple<unsigned  int, unsigned int>{posId, textureId};
+void EntityInformationComponent_::SetRenderingTupleIds(unsigned int posId, unsigned int anchorId, unsigned int textureId){
+    renderingTupleIds = std::tuple<unsigned  int, unsigned int, unsigned int>{posId, textureId};
 }
 

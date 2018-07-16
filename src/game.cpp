@@ -92,14 +92,14 @@ namespace GAME{
         ECS::KinematicsSystem::SubscribeEntity(boltId);
         ECS::RenderingSystem::SubscribeEntity(boltId);
 
-        auto& componentManager          = ECS::ComponentManager::GetInstance();
-        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
-        auto  [posId, speedId, accelId] = shipInformationComponent.GetKinematicTupleIds();
-        auto  [posId1, textureId]       = shipInformationComponent.GetRenderingTupleIds();
+        auto& componentManager              = ECS::ComponentManager::GetInstance();
+        auto  shipInformationComponent      = ECS::ComponentManager::GetInformationComponent(shipId);
+        auto  [posId, speedId, accelId]     = shipInformationComponent.GetKinematicTupleIds();
+        auto  [posId1,anchorId, textureId]  = shipInformationComponent.GetRenderingTupleIds();
 
         //Get Width & Height of ship
-        auto  [w, h]                    = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId)->GetScaledSize();
-        auto  position                  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
+        auto  [w, h]    = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId)->GetScaledSize();
+        auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
 
         position.x += w/2;
         position.y += h/2;
@@ -132,7 +132,9 @@ namespace GAME{
         } else if (kbKey == SDLK_RIGHT) {
             speedComponent->speed.x = +45.0f;
         } else if (kbKey == SDLK_DOWN) {
+        	speedComponent->speed.y = +45.0f;
         } else if (kbKey == SDLK_UP) {
+        	speedComponent->speed.y = -45.0f;
         }
 
     }

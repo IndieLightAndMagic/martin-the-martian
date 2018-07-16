@@ -16,6 +16,7 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
             ${CMAKE_SOURCE_DIR}/src/timer.cpp
             ${CMAKE_SOURCE_DIR}/src/timer.h
 
+            ${CMAKE_SOURCE_DIR}/src/ECS/Component/anchorpointcomponent.cpp
             ${CMAKE_SOURCE_DIR}/src/ECS/Component/texturecomponent.cpp
             ${CMAKE_SOURCE_DIR}/src/ECS/Component/entityinformationcomponent.cpp
             ${CMAKE_SOURCE_DIR}/src/ECS/Component/componentfactory.cpp
