@@ -2,11 +2,6 @@
 #include "rendering.h"
 
 using namespace ECS;
-std::vector<unsigned int>               RenderingSystem::ids{};
-std::vector<SDL_Texture*>          		RenderingSystem::textures{};
-std::vector<const unsigned long*>       RenderingSystem::textureSizes{};
-std::vector<glm::vec3*>	                RenderingSystem::positions{};
-std::vector<glm::vec3*>                 RenderingSystem::anchorPoints{};
 SDL_Texture* 							RenderingSystem::pScreen = nullptr;
 SDL_Rect                                RenderingSystem::pScreenRect{0, 0, 0, 0};
 glm::mat4x4                             RenderingSystem::mtxSDLScreenCoordinates(
@@ -39,20 +34,8 @@ namespace ECS {
 
             //Texture Data
             auto pTexture = pTextureComponent->GetTexture();
-            textures.push_back(pTexture);
 
             auto sz =  &pTextureComponent->m_scaledSize_16W_16H;
-            textureSizes.push_back(sz);
-
-
-            //Position data
-            positions.push_back(&pPositionComponent->position);
-
-            //Anchor point
-            anchorPoints.push_back(&pAnchorPointComponent->m_correctionVector);
-
-            //Entity Id Data
-            ids.push_back(entityId);
 
             RenderingDataTuple entityRenderingData(entityId, pTexture, sz, &pPositionComponent->position, &pAnchorPointComponent->m_correctionVector, &pPositionComponent->isDirty);
             renderingData.emplace_back(entityRenderingData);
@@ -68,7 +51,6 @@ namespace ECS {
     }
     unsigned int RenderingSystem::DrawSprites() {
 
-        auto sz = textures.size();
         SDLRenderClear();
 
         for (auto& [eid, pTexture, pEncodedTextureSize, pvPosition, pvAnchorPoint, pDirty]: renderingData){
