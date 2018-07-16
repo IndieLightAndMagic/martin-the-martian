@@ -17,7 +17,7 @@ namespace ECS {
         EntityInformationComponent_() = default;
 
         /*!
-         * @brief Returns a component id tuple of <positionComponentId, speedComponentId, accelComponentId>, which are the ids of the kinematic triad compound.
+         * @brief Returns a component id tuple of <positionComponentId, speedComponentId, accelComponentId>, which are the ids of the kinematic compound.
          *
          * @return A tuple with the component Ids of the kinematic triad compound.
          *
@@ -38,17 +38,18 @@ namespace ECS {
         void SetKinematicTupleIds(unsigned int posId, unsigned int speedId, unsigned int accelId);
 
         /*!
-         * @brief Returns a component id tuple of <positionComponentId, textureComponentId>, which are the ids of the rendering pair compound.
+         * @brief Returns a component id tuple of <positionComponentId, anchorPointId, textureComponentId>, which are the ids of the rendering pair compound.
          *
-         * @return A tuple with the component Ids of the rendering pair compound.
+         * @return A tuple with the component Ids of the rendering triplet compound.
          *
          * @code
          *
-         * auto [posId, textureId] = informationComponent.renderingTupleIds();
+         * auto [posId, anchorPointId, textureId] = informationComponent.renderingTupleIds();
          * auto& compoManager = ECS::ComponentManager::GetInstance();
          *
-         * auto pPositionComponent = compoManager.GetComponentRaw<ECS::PositionComponent_>(posId);
-         * auto pTextureComponent  = compoManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
+         * auto pPositionComponent      = compoManager.GetComponentRaw<ECS::PositionComponent_>(posId);
+         * auto pTextureComponent       = compoManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
+         * auto pAnchorPointComponent   = compoManager.GetComponentRaw<ECS::AnchorPointComponent_>(textureId);
          *
          * auto [w, h] = pTextureComponent-> GetScaledSize();
          *
