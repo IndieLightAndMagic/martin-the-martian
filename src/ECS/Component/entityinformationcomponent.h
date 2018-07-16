@@ -1,6 +1,7 @@
 #ifndef __ENTITYINFORMATIONCOMPONENT_H__
 #define __ENTITYINFORMATIONCOMPONENT_H__
 
+#include <vector>
 #include <tuple>
 #include <ECS/Component/component.h>
 #include <ECS/Component/componentmanager.h>
@@ -9,7 +10,7 @@ namespace ECS {
 
     class EntityInformationComponent_ : public Component_ {
 
-        std::tuple<unsigned int, unsigned int, unsigned int> kinematicTupleIds;
+        std::vector<std::tuple<unsigned int, unsigned int, unsigned int>> kinematicTupleIds{};
 
         std::tuple<unsigned int, unsigned int, unsigned int> renderingTupleIds;
 
@@ -17,7 +18,7 @@ namespace ECS {
         EntityInformationComponent_() = default;
 
         /*!
-         * @brief Returns a component id tuple of <positionComponentId, speedComponentId, accelComponentId>, which are the ids of the kinematic compound.
+         * @brief Returns a vector of component-id tuples of <positionComponentId, speedComponentId, accelComponentId>, which are the ids of the kinematic compound.
          *
          * @return A tuple with the component Ids of the kinematic triad compound.
          *
@@ -34,7 +35,7 @@ namespace ECS {
          *
          * @endcode
          */
-        std::tuple<unsigned int, unsigned int, unsigned int> GetKinematicTupleIds() const;
+        std::vector<std::tuple<unsigned int, unsigned int, unsigned int>> GetKinematicTuples() const;
         void SetKinematicTupleIds(unsigned int posId, unsigned int speedId, unsigned int accelId);
 
         /*!

@@ -104,7 +104,8 @@ namespace GAME{
         GTech::Sprite::SetPosition(boltId, position);
 
         //Set Speed of the bolt.
-        auto [boltPosId, boltSpeedId, boltAccelId] = boltInfo.GetKinematicTupleIds();
+        auto kinematicTuples = boltInfo.GetKinematicTuples();
+        auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
         auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
         speedComponent->speed.y = -320.0f;
 
@@ -120,7 +121,8 @@ namespace GAME{
 
         auto& componentManager          = ECS::ComponentManager::GetInstance();
         auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
-        auto  [posId, speedId, accelId] = shipInformationComponent.GetKinematicTupleIds();
+        auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
+        auto  [posId, speedId, accelId] = kinematicTuples[0];
 
         auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
 

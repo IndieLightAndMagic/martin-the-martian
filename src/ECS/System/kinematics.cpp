@@ -29,24 +29,29 @@ unsigned int KinematicsSystem::SubscribeEntity(unsigned int entityId){
     auto entityInfoRP       = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityInfo);
 
     //Kinematic Triad
-    auto [posId, speedId, accelId]  = entityInfoRP->GetKinematicTupleIds();
+    auto kinematicTuples            = entityInfoRP->GetKinematicTuples();
 
-    auto pSpeedComponent            = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
-    auto pPositionComponent         = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId);
-    auto pAccelerationComponent     = componentManager.GetComponentRaw<ECS::AccelerationComponent_>(accelId);
+    for ( auto [posId, speedId, accelId] : kinematicTuples)
+    {
+        auto pSpeedComponent            = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+        auto pPositionComponent         = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId);
+        auto pAccelerationComponent     = componentManager.GetComponentRaw<ECS::AccelerationComponent_>(accelId);
 
-    SDL_assert(pSpeedComponent!= nullptr && pPositionComponent != nullptr && pAccelerationComponent != nullptr);
+        SDL_assert(pSpeedComponent!= nullptr && pPositionComponent != nullptr && pAccelerationComponent != nullptr);
 
 
-    ids.push_back(entityId);
-    accelerations.push_back(&pAccelerationComponent->acceleration);
-    accelerations_  = accelerations.data();
-    speeds.push_back(&pSpeedComponent->speed);
-    speeds_         = speeds.data();
-    positions.push_back(&pPositionComponent->position);
-    positions_      = positions.data();
-    positionDirtyFlags.push_back(&pPositionComponent->isDirty);
-    positionDirtyFlags_ = positionDirtyFlags.data();
+        ids.push_back(entityId);
+        accelerations.push_back(&pAccelerationComponent->acceleration);
+        accelerations_  = accelerations.data();
+        speeds.push_back(&pSpeedComponent->speed);
+        speeds_         = speeds.data();
+        positions.push_back(&pPositionComponent->position);
+        positions_      = positions.data();
+        positionDirtyFlags.push_back(&pPositionComponent->isDirty);
+        positionDirtyFlags_ = positionDirtyFlags.data();
+
+    }
+
     return 1;
 
 }
