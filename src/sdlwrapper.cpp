@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 #include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
 
 using namespace std;
 
@@ -111,6 +112,14 @@ namespace GTech {
     }
     void SDLRenderClear(void) {
         SDL_assert(SDL_RenderClear(pRenderer) == 0);
+    }
+    void SDLRenderCopyEx(SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect, const double angle, glm::vec3* anchorPoint) {
+        auto apx = static_cast<int>(anchorPoint->x * dstrect->w);
+        auto apy = static_cast<int>(anchorPoint->y * dstrect->h);
+        SDL_Point anchorPointSDL{apx, apy};
+
+        SDL_RenderCopyEx(pRenderer, texture, srcrect, dstrect, angle, &anchorPointSDL, SDL_FLIP_NONE);
+        SDL_assert(SDL_RenderCopy(pRenderer, texture, srcrect, dstrect) == 0);
     }
     void SDLRenderCopy(SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect) {
         SDL_assert(SDL_RenderCopy(pRenderer, texture, srcrect, dstrect) == 0);

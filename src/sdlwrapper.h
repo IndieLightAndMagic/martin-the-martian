@@ -32,6 +32,7 @@ namespace GTech  {
     void SDLDetachRenderTexture();
     void SDLRenderClear();
     void SDLRenderCopy(SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect);
+    void SDLRenderCopyEx(SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect, const double angle, glm::vec3* anchorPoint);
     void SDLSetRenderTarget(SDL_Texture* pSDLTexture);
     void SDLUpdateScreen();
     std::pair<int, int> SDLWindowSize();
