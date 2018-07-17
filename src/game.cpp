@@ -2,6 +2,7 @@
 #include <vector>
 #include <functional>
 
+#include <glm/detail/func_trigonometric.hpp>
 #include <SDL2/SDL.h>
 #include <sdlwrapper.h>
 
@@ -97,9 +98,12 @@ namespace GAME{
         auto  shipInformationComponent                      = ECS::ComponentManager::GetInformationComponent(shipId);
         auto  [posId, anglePositionId, anchorId, textureId] = shipInformationComponent.GetRenderingTupleIds();
 
-        //Get Position of ship
+        //Get Position and Direction of ship
         auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
-        
+        auto  direction = componentManager.GetComponentRaw<ECS::PositionComponent_>(anglePositionId)->position.z;
+        direction -= 90.0f;
+        direction -= (direction >= 360.0f) ? 360.0f : 0.0f;
+        direction += (direction  < 0.0f  ) ? 360.0f : 0.0f;
 
         //Set Position of the bolt
         GTech::Sprite::SetPosition(boltId, position);
@@ -108,7 +112,11 @@ namespace GAME{
         auto kinematicTuples = boltInfo.GetKinematicTuples();
         auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
         auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
-        speedComponent->speed.y = -320.0f;
+
+        auto const maxSpeed = 320.0l;
+        auto radians = glm::radians(direction);
+        speedComponent->speed.x = maxSpeed * glm::cos(radians);
+        speedComponent->speed.y = maxSpeed * glm::sin(radians);
 
     }
 

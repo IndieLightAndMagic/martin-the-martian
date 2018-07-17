@@ -54,6 +54,7 @@ namespace GTech {
 
         //Set Angular Kinematics tuple.
         informationRP->SetKinematicTupleIds(positionAngularComponentId, speedAngularComponentId, accelerationAngularComponentId);
+        auto positionAngularComponent = componentManager.GetComponentRaw<ECS::PositionComponent_>(positionAngularComponentId);
 
         //Set Rendering Tuple
         informationRP->SetRenderingTupleIds(positionComponentId, positionAngularComponentId, anchorPointId, textureComponentId);
