@@ -117,9 +117,8 @@ namespace GTech {
         auto apx = static_cast<int>(anchorPoint->x * dstrect->w);
         auto apy = static_cast<int>(anchorPoint->y * dstrect->h);
         SDL_Point anchorPointSDL{apx, apy};
-
-        SDL_RenderCopyEx(pRenderer, texture, srcrect, dstrect, angle, &anchorPointSDL, SDL_FLIP_NONE);
-        SDL_assert(SDL_RenderCopy(pRenderer, texture, srcrect, dstrect) == 0);
+        auto dangle = fmod(angle, 360.0f);
+        SDL_assert(SDL_RenderCopyEx(pRenderer, texture, srcrect, dstrect, dangle, &anchorPointSDL, SDL_FLIP_NONE) == 0);
     }
     void SDLRenderCopy(SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect) {
         SDL_assert(SDL_RenderCopy(pRenderer, texture, srcrect, dstrect) == 0);
