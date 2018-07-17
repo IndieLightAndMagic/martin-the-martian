@@ -27,9 +27,11 @@ namespace ECS {
             auto [posId, anglePositionId, anchorId, textureId]      = entityComponentInfoRP->GetRenderingTupleIds();
 
 
-            auto pTextureComponent      = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
-            auto pPositionComponent     = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId);
-            auto pAnchorPointComponent	= componentManager.GetComponentRaw<ECS::AnchorPointComponent_>(anchorId);
+            auto pTextureComponent          = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
+            auto pPositionComponent         = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId);
+            auto pAnglePositionComponent    = componentManager.GetComponentRaw<ECS::PositionComponent_>(anglePositionId);
+            auto pAnchorPointComponent	    = componentManager.GetComponentRaw<ECS::AnchorPointComponent_>(anchorId);
+
             pPositionComponent->isDirty = true;
 
             //Texture Data
@@ -37,7 +39,16 @@ namespace ECS {
 
             auto sz =  &pTextureComponent->m_scaledSize_16W_16H;
 
-            RenderingDataTuple entityRenderingData(entityId, pTexture, sz, &pPositionComponent->position, &pAnchorPointComponent->m_correctionVector, &pPositionComponent->isDirty);
+            RenderingDataTuple entityRenderingData(
+                    entityId,
+                    pTexture,
+                    sz,
+                    &pPositionComponent->position,
+                    &pAnglePositionComponent->position,
+                    &pAnchorPointComponent->m_anchorPoint,
+                    &pAnchorPointComponent->m_correctionVector,
+                    &pPositionComponent->isDirty);
+
             renderingData.emplace_back(entityRenderingData);
 
             unsigned long size = renderingData.size();
@@ -53,11 +64,14 @@ namespace ECS {
 
         SDLRenderClear();
 
-        for (auto& [eid, pTexture, pEncodedTextureSize, pvPosition, pvAnchorPoint, pDirty]: renderingData){
+        for (auto& [eid, pTexture, pEncodedTextureSize, pvPosition, pvAnglePosition, pvAnchorPoint, pvAnchorPointCorrection, pDirty]: renderingData){
 
             auto encodedTextureSize         = *pEncodedTextureSize;
             auto pPosition                  = reinterpret_cast<glm::vec3*>  (pvPosition);
-            auto pAnchorPointCorrection     = reinterpret_cast<glm::vec3*>  (pvAnchorPoint);
+            auto pAnglePosition             = reinterpret_cast<glm::vec3*>  (pvAnglePosition);
+            auto pAnchorPoint               = reinterpret_cast<glm::vec3*>  (pvAnchorPoint);
+            auto pAnchorPointCorrection     = reinterpret_cast<glm::vec3*>  (pvAnchorPointCorrection);
+
             //Check if need to render
             //if (!pTexture) continue;
 
@@ -70,6 +84,8 @@ namespace ECS {
             dstrect.w = encodedTextureSize >> 16;
             dstrect.h = encodedTextureSize & 0xffff;
 
+
+            //SDLRenderCopyEx(pTexture, nullptr, &dstrect, 45, )
             SDLRenderCopy(pTexture, nullptr, &dstrect);
             *pDirty = false;
 

@@ -26,7 +26,9 @@ namespace ECS {
             SDL_Texture*,            ///textures
             const unsigned long*,    ///textureSizes
             void*,                   ///positions. void* because because tuple wouldn't handle &glm::vec3.
-            void*,                   ///anchor point correction. 
+            void*,                   ///angles per axis. void* because because tuple wouldn't handle &glm::vec3.
+            void*,                   ///anchor point relative.
+            void*,                   ///anchor point correction.
             bool*>;                  ///isDirty
 
     class RenderingSystem {

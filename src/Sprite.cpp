@@ -26,20 +26,35 @@ namespace GTech {
         auto positionComponentId     = componentManager.CreateComponent<ECS::PositionComponent_>();
         auto speedComponentId        = componentManager.CreateComponent<ECS::SpeedComponent_>();
 
+        auto accelerationAngularComponentId = componentManager.CreateComponent<ECS::AccelerationComponent_>();
+        auto positionAngularComponentId     = componentManager.CreateComponent<ECS::PositionComponent_>();
+        auto speedAngularComponentId        = componentManager.CreateComponent<ECS::SpeedComponent_>();
+
+
         //Create an anchor component
         auto anchorPointId          = componentManager.CreateComponent<ECS::AnchorPointComponent_>();
 
         entityManager.AddComponent(spriteId, accelerationComponentId);
         entityManager.AddComponent(spriteId, positionComponentId);
         entityManager.AddComponent(spriteId, speedComponentId);
+        entityManager.AddComponent(spriteId, accelerationAngularComponentId);
+        entityManager.AddComponent(spriteId, positionAngularComponentId);
+        entityManager.AddComponent(spriteId, speedAngularComponentId);
         entityManager.AddComponent(spriteId, anchorPointId);
         entityManager.AddComponent(spriteId, textureComponentId);
 
         //Subscribe to kinematic elements
         auto informationId  = entityManager.GetComponentsIds(spriteId)[0];
         auto informationRP  = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(informationId);
+
+        //Set Position Kinematics tuple.
         informationRP->SetKinematicTupleIds(positionComponentId, speedComponentId, accelerationComponentId);
-        informationRP->SetRenderingTupleIds(positionComponentId, 0, anchorPointId, textureComponentId);
+
+        //Set Angular Kinematics tuple.
+        informationRP->SetKinematicTupleIds(positionAngularComponentId, speedAngularComponentId, accelerationAngularComponentId);
+
+        //Set Rendering Tuple
+        informationRP->SetRenderingTupleIds(positionComponentId, positionAngularComponentId, anchorPointId, textureComponentId);
 
         //Set AnchorPoint
         Sprite::SetAnchorPoint(spriteId, glm::vec3{0.5f, 0.5f, 0.0f});
