@@ -99,6 +99,7 @@ namespace GAME{
 
         //Get Position of ship
         auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
+        
 
         //Set Position of the bolt
         GTech::Sprite::SetPosition(boltId, position);
@@ -122,19 +123,14 @@ namespace GAME{
         auto& componentManager          = ECS::ComponentManager::GetInstance();
         auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
         auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
-        auto  [posId, speedId, accelId] = kinematicTuples[0];
+        auto  [posId, speedId, accelId] = kinematicTuples[1];
 
-        auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
-
+        auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
 
         if (kbKey ==  SDLK_LEFT){
-            speedComponent->speed.x = -45.0f;
+            angleSpeedComponent->speed.z = -45.0f;
         } else if (kbKey == SDLK_RIGHT) {
-            speedComponent->speed.x = +45.0f;
-        } else if (kbKey == SDLK_DOWN) {
-        	speedComponent->speed.y = +45.0f;
-        } else if (kbKey == SDLK_UP) {
-        	speedComponent->speed.y = -45.0f;
+            angleSpeedComponent->speed.z = +45.0f;
         }
 
     }

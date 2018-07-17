@@ -22,14 +22,16 @@ namespace GTech {
         auto [scaledTextureWidth, scaledTextureHeight] =  textureComponentRP->GetScaledSize();
 
         //Add Components to spriteId
+
+        //Kinematic Cartesian Positions
         auto accelerationComponentId = componentManager.CreateComponent<ECS::AccelerationComponent_>();
         auto positionComponentId     = componentManager.CreateComponent<ECS::PositionComponent_>();
         auto speedComponentId        = componentManager.CreateComponent<ECS::SpeedComponent_>();
 
+        //Kinematic Angular Positions
         auto accelerationAngularComponentId = componentManager.CreateComponent<ECS::AccelerationComponent_>();
         auto positionAngularComponentId     = componentManager.CreateComponent<ECS::PositionComponent_>();
         auto speedAngularComponentId        = componentManager.CreateComponent<ECS::SpeedComponent_>();
-
 
         //Create an anchor component
         auto anchorPointId          = componentManager.CreateComponent<ECS::AnchorPointComponent_>();
