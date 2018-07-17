@@ -47,7 +47,7 @@ namespace ECS {
         public:
 
         static unsigned long SubscribeEntity(unsigned int entityId);
-        static unsigned int DrawSprites();
+        static unsigned int DrawSprites2D();
         static void InitRenderingSystem();
         static void ShutdownRenderingSystem();
 

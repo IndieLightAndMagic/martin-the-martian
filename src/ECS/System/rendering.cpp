@@ -60,7 +60,7 @@ namespace ECS {
             return size-1;
 
     }
-    unsigned int RenderingSystem::DrawSprites() {
+    unsigned int RenderingSystem::DrawSprites2D() {
 
         SDLRenderClear();
 
@@ -85,8 +85,8 @@ namespace ECS {
             dstrect.h = encodedTextureSize & 0xffff;
 
 
-            //SDLRenderCopyEx(pTexture, nullptr, &dstrect, 45, )
-            SDLRenderCopy(pTexture, nullptr, &dstrect);
+            SDLRenderCopyEx(pTexture, nullptr, &dstrect, pAnglePosition->z, pAnchorPoint);
+            //SDLRenderCopy(pTexture, nullptr, &dstrect);
             *pDirty = false;
 
         }
@@ -117,7 +117,7 @@ namespace ECS {
 
         SDLSetRenderTarget(pScreen);                //SELECT PSCREEN AS THE ACTIVE CANVAS
         SDLRenderClear();                           //TAKE THE PSCREEN TEXTURE AKA ACTUAL CANVAS AND CLEAR IT
-        DrawSprites();                              //DRAW THE SHIPS AND THE FIRE AND THE STUFF IN THE PSCREEN CANVAS
+        DrawSprites2D();                              //DRAW THE SHIPS AND THE FIRE AND THE STUFF IN THE PSCREEN CANVAS
         SDLDetachRenderTexture();                   //NOW IS THE GPU WHERE THE RENDERER WILL DRAW
         SDLRenderCopy(pScreen, nullptr, nullptr);   //TAKE PSCREEN AND COPY IT INTO THE GPU
         SDLUpdateScreen();                          //UPDATE THE SCREEN
