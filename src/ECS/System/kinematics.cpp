@@ -101,6 +101,7 @@ void KinematicsSystem::UpdateKinematicsSystem(){
         
         auto xmoved = glm::abs(speed->x) >= 0.0f ? true : false;
         auto ymoved = glm::abs(speed->y) >= 0.0f ? true : false;
+        auto zmoved = glm::abs(speed->z) >= 0.0f ? true : false;
         dirtyFlag = xmoved || ymoved ? true : false;
 
     };

@@ -93,9 +93,9 @@ namespace GAME{
         ECS::KinematicsSystem::SubscribeEntity(boltId);
         ECS::RenderingSystem::SubscribeEntity(boltId);
 
-        auto& componentManager              = ECS::ComponentManager::GetInstance();
-        auto  shipInformationComponent      = ECS::ComponentManager::GetInformationComponent(shipId);
-        auto  [posId,anchorId, textureId]   = shipInformationComponent.GetRenderingTupleIds();
+        auto& componentManager                              = ECS::ComponentManager::GetInstance();
+        auto  shipInformationComponent                      = ECS::ComponentManager::GetInformationComponent(shipId);
+        auto  [posId, anglePositionId, anchorId, textureId] = shipInformationComponent.GetRenderingTupleIds();
 
         //Get Position of ship
         auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;

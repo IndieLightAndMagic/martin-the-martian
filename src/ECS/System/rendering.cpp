@@ -23,8 +23,8 @@ namespace ECS {
             auto& entityComponentInfoId = entityComponentsV[0];
 
             //Info Component
-            auto entityComponentInfoRP  = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityComponentInfoId);
-            auto [posId, anchorId, textureId]     = entityComponentInfoRP->GetRenderingTupleIds();
+            auto entityComponentInfoRP                              = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityComponentInfoId);
+            auto [posId, anglePositionId, anchorId, textureId]      = entityComponentInfoRP->GetRenderingTupleIds();
 
 
             auto pTextureComponent      = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId);

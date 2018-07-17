@@ -10,9 +10,9 @@ namespace ECS {
 
     class EntityInformationComponent_ : public Component_ {
 
-        std::vector<std::tuple<unsigned int, unsigned int, unsigned int>> kinematicTupleIds{};
+        std::vector<std::tuple<unsigned int, unsigned int, unsigned int>> m_kinematicTupleIds{};
 
-        std::tuple<unsigned int, unsigned int, unsigned int> renderingTupleIds;
+        std::tuple<unsigned int, unsigned int, unsigned int, unsigned int> m_renderingTupleIds;
 
         public:
         EntityInformationComponent_() = default;
@@ -39,25 +39,26 @@ namespace ECS {
         void SetKinematicTupleIds(unsigned int posId, unsigned int speedId, unsigned int accelId);
 
         /*!
-         * @brief Returns a component id tuple of <positionComponentId, anchorPointId, textureComponentId>, which are the ids of the rendering pair compound.
+         * @brief Returns a component id tuple of <positionComponentId, anglePositionId, anchorPointId, textureComponentId>, which are the ids of the rendering compound.
          *
-         * @return A tuple with the component Ids of the rendering triplet compound.
+         * @return A tuple with the component Ids of the rendering compound.
          *
          * @code
          *
-         * auto [posId, anchorPointId, textureId] = informationComponent.renderingTupleIds();
+         * auto [posId, anglePositionId, anchorPointId, textureId] = informationComponent.renderingTupleIds();
          * auto& compoManager = ECS::ComponentManager::GetInstance();
          *
          * auto pPositionComponent      = compoManager.GetComponentRaw<ECS::PositionComponent_>(posId);
+         * auto pAngularPosComponent    = compoManager.GetComponentRaw<ECS::PositionComponent_>(anglePositionId);
          * auto pTextureComponent       = compoManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
-         * auto pAnchorPointComponent   = compoManager.GetComponentRaw<ECS::AnchorPointComponent_>(textureId);
+         * auto pAnchorPointComponent   = compoManager.GetComponentRaw<ECS::AnchorPointComponent_>(anchorPointId);
          *
          * auto [w, h] = pTextureComponent-> GetScaledSize();
          *
          * @endcode
          */
-        std::tuple<unsigned int, unsigned int, unsigned int> GetRenderingTupleIds() const;
-        void SetRenderingTupleIds(unsigned int posId, unsigned int anchorId, unsigned int textureComponentId);
+        std::tuple<unsigned int, unsigned int, unsigned int, unsigned int> GetRenderingTupleIds() const;
+        void SetRenderingTupleIds(unsigned int posId, unsigned int anglePositionId, unsigned int anchorId, unsigned int textureComponentId);
 
     };
 
