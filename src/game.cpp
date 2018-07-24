@@ -50,13 +50,11 @@ namespace GAME{
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
         /* Create Background */
-        auto backgroundTexturePath = std::string(RES_DIR)+"backgrounds/B0.png";
+        auto backgroundTexturePath = std::string(RES_DIR)+"backgrounds/B0dbg.png";
         backId = GTech::Sprite::CreateSprite(backgroundTexturePath);
 
         /* Dimensions */
         auto [width, height] = SDLWindowSize();
-        GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 5));
-        GTech::Sprite::SetScale(shipId, 0.16);
 
         /* Init Systems */
         ECS::RenderingSystem::InitRenderingSystem();
@@ -65,11 +63,14 @@ namespace GAME{
         //Subscribe Entities into Systems
 
         //Ship
+        GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 5));
+        GTech::Sprite::SetScale(shipId, 0.16);
         ECS::RenderingSystem::SubscribeEntity(shipId);
         ECS::KinematicsSystem::SubscribeEntity(shipId);
 
         //Background
         ECS::RenderingSystem::SubscribeEntity(backId);
+        GTech::Sprite::SetPosition(backId, glm::vec3(width >> 1, height >> 1, 0));
 
 
     }
