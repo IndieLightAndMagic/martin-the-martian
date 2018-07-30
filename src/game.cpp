@@ -30,6 +30,21 @@ namespace GAME{
     void OnFirePressed(const Uint32&, const Sint32&);
 
 
+    float GetEntityDirection(const ECS::ComponentManager &componentManager, const ECS::EntityInformationComponent_ &informationComponent)
+    {
+        auto  [posId, anglePositionId, anchorId, textureId] = informationComponent.GetRenderingTupleIds();
+
+        //Get Position and Direction of ship
+        auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
+        auto  direction = componentManager.GetComponentRaw<ECS::PositionComponent_>(anglePositionId)->position.z;
+        direction -= 90.0f;
+        direction -= (direction >= 360.0f) ? 360.0f : 0.0f;
+        direction += (direction  < 0.0f  ) ? 360.0f : 0.0f;
+
+        return direction;
+
+    }
+
     void GameInitialization()
     {
 
@@ -43,6 +58,7 @@ namespace GAME{
         RegisterKeyboardEvents(SDL_KEYDOWN, arrowKeysGroup, OnArrowKeyPressed);
         RegisterKeyboardEvent(SDL_KEYDOWN, SDLK_ESCAPE, OnEscPressed);
         RegisterKeyboardEvent(SDL_KEYDOWN, SDLK_SPACE, OnFirePressed);
+        RegisterKeyboardEvents(SDL_KEYUP, arrowKeysGroup, OnArrowKeyPressed);
 
 
         /* Create Sprite */
@@ -70,6 +86,7 @@ namespace GAME{
 
         //Background
         ECS::RenderingSystem::SubscribeEntity(backId);
+        ECS::KinematicsSystem::SubscribeEntity(backId);
         GTech::Sprite::SetPosition(backId, glm::vec3(width >> 1, height >> 1, 0));
 
 
@@ -101,10 +118,7 @@ namespace GAME{
 
         //Get Position and Direction of ship
         auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
-        auto  direction = componentManager.GetComponentRaw<ECS::PositionComponent_>(anglePositionId)->position.z;
-        direction -= 90.0f;
-        direction -= (direction >= 360.0f) ? 360.0f : 0.0f;
-        direction += (direction  < 0.0f  ) ? 360.0f : 0.0f;
+        auto  direction = GAME::GetEntityDirection(componentManager, shipInformationComponent);
 
         //Set Position of the bolt
         GTech::Sprite::SetPosition(boltId, position);
@@ -118,6 +132,8 @@ namespace GAME{
         auto radians = glm::radians(direction);
         speedComponent->speed.x = maxSpeed * glm::cos(radians);
         speedComponent->speed.y = maxSpeed * glm::sin(radians);
+
+
 
     }
 
@@ -136,10 +152,31 @@ namespace GAME{
 
         auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
 
-        if (kbKey ==  SDLK_LEFT){
+        if (kbKey ==  SDLK_LEFT && kbEvent == SDL_KEYDOWN){
             angleSpeedComponent->speed.z = -45.0f;
-        } else if (kbKey == SDLK_RIGHT) {
+        } else if (kbKey == SDLK_RIGHT && kbEvent == SDL_KEYDOWN) {
             angleSpeedComponent->speed.z = +45.0f;
+        } else {
+            angleSpeedComponent->speed.z = 0.0f;
+        }
+
+
+
+        if (kbKey == SDLK_UP) {
+
+            auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
+            auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
+            auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
+            auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
+
+            auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+
+            auto const maxSpeed = 160.0f;
+            auto radians = glm::radians(direction);
+            backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
+            backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
+            backSpeedComponent->speed  *= -1;
+
         }
 
     }

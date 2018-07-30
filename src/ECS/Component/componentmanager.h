@@ -16,7 +16,7 @@ namespace ECS{
     class EntityInformationComponent_;
     class ComponentManager {
 
-        std::map<unsigned int, Component>componentMap;
+        mutable std::map<unsigned int, Component>componentMap;
 
     public:
         static ComponentManager& GetInstance();
@@ -29,9 +29,9 @@ namespace ECS{
 
         }
 
-        Component GetComponent(unsigned int componentId);
+        Component GetComponent(unsigned int componentId) const;
 
-        template <typename T> T* GetComponentRaw(unsigned int componentId){
+        template <typename T> T* GetComponentRaw(unsigned int componentId) const {
 
 
             auto ptr = dynamic_cast<T*>(GetComponent(componentId).get());

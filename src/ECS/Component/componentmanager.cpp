@@ -9,7 +9,7 @@ ComponentManager& ComponentManager::GetInstance(){
 
 }
 
-Component ComponentManager::GetComponent(unsigned int componentId) {
+Component ComponentManager::GetComponent(unsigned int componentId) const {
 
     return componentMap[componentId];
 
