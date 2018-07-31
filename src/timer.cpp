@@ -12,30 +12,27 @@ using namespace GTech;
 
 static unsigned int timedEventId = 0;
 using namespace ECS;
-TimedEvent_::TimedEvent_(Uint32 delayMs, State action) {
-    
-	m_tickCounterFrequencyHz	= SDL_GetPerformanceFrequency();
-	m_tickCounterPeriodMs 		= 1000 / static_cast<double>(m_tickCounterFrequencyHz);
-	m_timerLoops 				= false;
-    m_state = action;
-    Set(delayMs);
-    Reset();
 
-    switch (m_state){
-        case State::RUNNING: Start(); break;
-        case State::PAUSED:
-        case State::STOPPED:
-        default:
-            break;
-    }
+static Uint64 timerCounterReference = 0;
+const uint64_t TimedEvent_::m_tickCounterFrequencyHz    = SDL_GetPerformanceFrequency();
+const double_t TimedEvent_::m_tickCounterPeriodMs 	    = 1000 / static_cast<double>(m_tickCounterFrequencyHz);
+
+TimedEvent_::TimedEvent_(Uint32 delayMs) {
+
+    m_ptrTNow = &timerCounterReference;
+	Set(delayMs);
+
 
 }
 
 void TimedEvent_::Set(Uint32 delayMs){
 
-    m_intervalms 		= delayMs;
-    auto dintervalms	= m_intervalms / m_tickCounterPeriodMs;
-    m_ticksPerInterval	= static_cast<Uint64>(dintervalms);
+    static auto f_Hz_3  = m_tickCounterFrequencyHz / 1000.0;
+    m_intervalms 	    = delayMs;
+    auto intervalTicks  = m_intervalms / m_tickCounterPeriodMs;
+    auto itTest         = m_intervalms * f_Hz_3; //This should remain quite similar to intervalTicks
+
+    m_ticksPerInterval	= static_cast<Uint64>(intervalTicks);
 
 }
 
@@ -101,8 +98,7 @@ inline void TimedEvent_::TimerLoops(bool doLoop){
 }
 
 void TimedEvent_::Update(){
-
-	if (m_state == RUNNING){
+    if (m_state == RUNNING){
 
 		if (*m_ptrTNow >= m_t){
 			

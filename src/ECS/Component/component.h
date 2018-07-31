@@ -8,6 +8,7 @@
 #include <SDL2/SDL_system.h>
 #include <SDL2/SDL_assert.h>
 #include <ECS/Entity/entity.h>
+#include <timer.h>
 
 
 namespace ECS {
@@ -19,6 +20,7 @@ namespace ECS {
         unsigned int    m_id;
         unsigned int    m_parentId;
         bool            m_dirty;
+        unsigned int    reuse{0};
 
     public:
         Component_(const Component_&) = default;
@@ -86,6 +88,25 @@ namespace ECS {
             glm::vec3 m_correctionVector{0.0f, 0.0f, 0.0f};
             glm::vec3 m_anchorPoint{0.0f, 0.0f, 0.0f};
             void SetAnchorPoint(glm::vec3 anchorPoint, glm::vec3 box);
+    };
+
+
+    class LifeSpanComponent_;
+    using LifeSpanComponent = std::shared_ptr<LifeSpanComponent_>;
+    class LifeSpanComponent_ : public Component_ {
+
+    private:
+
+        ECS::TimedEvent_ m_te;
+    public:
+        static Uint64 lifeSpanCounter;
+
+        void Set(float ms);
+        GTech::Signal<> onLifeSpanEnded;
+
+
+
+
     };
 
 }

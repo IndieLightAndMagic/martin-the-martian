@@ -25,6 +25,7 @@ namespace GAME{
     static unsigned int shipId;
     static bool bGameIsOn;
 
+    void OnTimerDone();
     void OnEscPressed(const Uint32&, const Sint32&);
     void OnArrowKeyPressed(const Uint32&, const Sint32&);
     void OnFirePressed(const Uint32&, const Sint32&);
@@ -95,12 +96,25 @@ namespace GAME{
     void MainLoop()
     {
         bGameIsOn = true;
+
+        ECS::TimedEvent_ x(6000);
+        Uint64 timerCounterReference{SDL_GetPerformanceCounter()};
+        x.SetCounterReference(&timerCounterReference);
+        auto signalId = x.onTimer.connect(OnTimerDone);
+        x.Start();
+
+
         while (bGameIsOn)
         {
             ECS::UpdateEvents();
             ECS::RenderingSystem::UpdateRenderingSystem();
             ECS::KinematicsSystem::UpdateKinematicsSystem();
+            timerCounterReference = SDL_GetPerformanceCounter();
+            x.Update();
         }
+        x.Stop();
+        x.onTimer.disconnect(signalId);
+
     }
 
     void OnFirePressed(const uint32_t& kbEvent, const int32_t& kbKey){
@@ -136,11 +150,19 @@ namespace GAME{
 
 
     }
+    void ExitGame()
+    {
+        bGameIsOn = false;
+    }
+
+    void OnTimerDone(){
+        ExitGame();
+    }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
-        bGameIsOn = false;
+        ExitGame();
     }
 
     void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){

@@ -2,6 +2,7 @@
 #define SIGNAL_HPP
 
 #include <functional>
+#include <vector>
 #include <map>
 
 // A signal object may call multiple slots with the
@@ -52,6 +53,23 @@ namespace GTech{
           return current_id_;
         }
 
+        // connects another signal
+        std::vector<int> connect_signal(Signal const& other) {
+
+            auto& id_slot_map = other.GetIdSlots();
+            std::vector<int> ids {};
+            for (auto& id_slot_pair : id_slot_map)
+            {
+                auto const& slot    = id_slot_pair.second;
+                auto id             = connect(slot);
+                ids.push_back(id);
+
+            }
+
+            return ids;
+
+        }
+
 
         // disconnects a previously connected function
         void disconnect(int id) const {
@@ -65,8 +83,8 @@ namespace GTech{
 
         // calls all connected functions
         void emit(Args... p) const{
-          for(auto it : slots_) {
-            it.second(p...);
+          for(auto id_slot : slots_) {
+            id_slot.second(p...);
           }
         }
 
@@ -75,7 +93,12 @@ namespace GTech{
           disconnect_all();
         }
 
+
+
     private:
+        std::map<int, std::function<void(Args...)>>& GetIdSlots() const{
+            return slots_;
+        };
         mutable std::map<int, std::function<void(Args...)>> slots_;
         mutable int current_id_;
     };

@@ -16,25 +16,25 @@ namespace ECS {
         /**
          * Next on timer event tick.
          */
-        uint64_t m_t;
+        uint64_t m_t{0};
         /**
          * The size in ticks of the interval.
          */
-        uint64_t m_ticksPerInterval;
+        uint64_t m_ticksPerInterval{0};
         /**
          * Ticks left when pausing.
          */
-        uint64_t m_intervalticksForPause;
+        uint64_t m_intervalticksForPause{0};
         
         /**
          * Ticks left when pausing.
          */
-        uint64_t m_intervalticksForLoop;
+        uint64_t m_intervalticksForLoop{0};
         
         /**
          * Timer size in ms.
          */
-        uint32_t m_intervalms;
+        uint32_t m_intervalms{0};
 
 
         enum State{
@@ -44,24 +44,26 @@ namespace ECS {
             PAUSED,
 
         };
-        State m_state;
-        
-        uint64_t*   m_ptrTNow;
+        State m_state {STOPPED};
 
+
+        /* A pointer to a reference Counter */
+
+        uint64_t*   m_ptrTNow;
         /**
          * High Performance Counter Frequency (ticks per second)
          */
-        uint64_t    m_tickCounterFrequencyHz;
+        static const uint64_t m_tickCounterFrequencyHz;
 
         /**
          * High Performance Counter Frequency (milliseconds per tick)
          */
-        double_t    m_tickCounterPeriodMs;
+        static const double_t m_tickCounterPeriodMs;
 
         /**
          * Does it the timer loop?
          */
-        bool        m_timerLoops;
+        bool        m_timerLoops {false};
 
         /**
          *
@@ -71,7 +73,7 @@ namespace ECS {
 
     public:
 
-        TimedEvent_(Uint32 delayMs, State action = State::RUNNING);
+        TimedEvent_(Uint32 delayMs = 0);
         void Reset();
         void Set(Uint32 intervalms);
         void Start();
@@ -81,7 +83,8 @@ namespace ECS {
         void SetCounterReference(Uint64* ptr);
         
         void TimerLoops(bool);
-        
+
+
         void Update();
 
         GTech::Signal<> onTimer;
