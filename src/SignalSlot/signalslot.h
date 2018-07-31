@@ -54,19 +54,11 @@ namespace GTech{
         }
 
         // connects another signal
-        std::vector<int> connect_signal(Signal const& other) {
+        int connect_signal(Signal const& other) {
 
-            auto& id_slot_map = other.GetIdSlots();
-            std::vector<int> ids {};
-            for (auto& id_slot_pair : id_slot_map)
-            {
-                auto const& slot    = id_slot_pair.second;
-                auto id             = connect(slot);
-                ids.push_back(id);
-
-            }
-
-            return ids;
+            return connect([=](){
+                other.emit();
+            });
 
         }
 
