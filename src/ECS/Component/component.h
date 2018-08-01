@@ -98,10 +98,12 @@ namespace ECS {
     private:
 
         ECS::TimedEvent_ m_te;
+
+
     public:
-        static Uint64 lifeSpanCounter;
 
         void Set(float ms);
+        void Update();
         GTech::Signal<> onLifeSpanEnded;
 
 

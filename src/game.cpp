@@ -97,11 +97,9 @@ namespace GAME{
     {
         bGameIsOn = true;
 
-        ECS::TimedEvent_ x(6000);
-        Uint64 timerCounterReference{SDL_GetPerformanceCounter()};
-        x.SetCounterReference(&timerCounterReference);
-        auto signalId = x.onTimer.connect(OnTimerDone);
-        x.Start();
+        ECS::LifeSpanComponent_ x;
+        auto signalId = x.onLifeSpanEnded.connect_function(OnTimerDone);
+        x.Set(6000);
 
 
         while (bGameIsOn)
@@ -109,11 +107,9 @@ namespace GAME{
             ECS::UpdateEvents();
             ECS::RenderingSystem::UpdateRenderingSystem();
             ECS::KinematicsSystem::UpdateKinematicsSystem();
-            timerCounterReference = SDL_GetPerformanceCounter();
             x.Update();
         }
-        x.Stop();
-        x.onTimer.disconnect(signalId);
+        x.onLifeSpanEnded.disconnect(signalId);
 
     }
 
