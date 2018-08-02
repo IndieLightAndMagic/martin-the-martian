@@ -158,7 +158,7 @@ namespace GAME{
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
-        ExitGame();
+      //  ExitGame();
     }
 
     void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
