@@ -102,7 +102,8 @@ namespace GAME{
         x.Set(6000);
 
 
-        while (bGameIsOn)
+        //while (bGameIsOn)
+        while(true)
         {
             ECS::UpdateEvents();
             ECS::RenderingSystem::UpdateRenderingSystem();
