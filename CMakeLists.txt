@@ -48,7 +48,7 @@ TRY_17()
 
 if ("${CMAKE_SYSTEM_NAME}" MATCHES "Linux")
 PrintLine()
-message(STATUS "-> Es Linux <-")
+message(STATUS "-> Linux OS <-")
 endif()
 
 #Project is SDL VoidSample

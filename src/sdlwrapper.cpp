@@ -164,7 +164,7 @@ namespace GTech {
         const char *ruta = sRuta.data();
 
         /* Load the bolt WAV */
-        if (SDL_LoadWAV("bolt.wav", &wav_spec, &wav_buffer, &wav_length) == NULL) {
+        if (SDL_LoadWAV(ruta, &wav_spec, &wav_buffer, &wav_length) == NULL) {
           std::cerr<<"Could not open sound file for bolt \n";          
         } else {            
             SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &wav_spec, NULL, 0);
