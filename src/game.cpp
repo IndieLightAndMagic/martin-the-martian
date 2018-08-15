@@ -26,12 +26,13 @@ namespace GAME{
     static bool bGameIsOn;
     static bool bSetBoltInvisible;
     static bool bRemoveBoltFromMemory;
+    static int lastBackId=-1;
 
     void OnTimerDone();
     void OnEscPressed(const Uint32&, const Sint32&);
     void OnArrowKeyPressed(const Uint32&, const Sint32&);
     void OnFirePressed(const Uint32&, const Sint32&);
-
+    void OnChangeBackground(const int idTurn);
 
     float GetEntityDirection(const ECS::ComponentManager &componentManager, const ECS::EntityInformationComponent_ &informationComponent)
     {
@@ -188,34 +189,66 @@ namespace GAME{
         auto  [posId, speedId, accelId] = kinematicTuples[1];
 
         auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+        int idTurn = -1;
 
         if (kbKey ==  SDLK_LEFT && kbEvent == SDL_KEYDOWN){
             angleSpeedComponent->speed.z = -45.0f;
+            idTurn = 1;
         } else if (kbKey == SDLK_RIGHT && kbEvent == SDL_KEYDOWN) {
             angleSpeedComponent->speed.z = +45.0f;
+            idTurn = 2;
         } else {
             angleSpeedComponent->speed.z = 0.0f;
+            if (kbKey == SDLK_UP && kbEvent == SDL_KEYDOWN){
+                idTurn = 0;
+            }
         }
 
 
+         auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
+         auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
+         auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
+         auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
 
-        if (kbKey == SDLK_UP) {
+         auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
 
-            auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
-            auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
-            auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
-            auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
+         auto const maxSpeed = 160.0f;
+         auto radians = glm::radians(direction);
+         backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
+         backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
+         backSpeedComponent->speed  *= -1;
 
-            auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+         OnChangeBackground(idTurn);
 
-            auto const maxSpeed = 160.0f;
-            auto radians = glm::radians(direction);
-            backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
-            backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
-            backSpeedComponent->speed  *= -1;
+    }
 
+    void OnChangeBackground(const int idTurn){
+        if (lastBackId != idTurn) {
+            auto backPath = std::string("");
+            switch (idTurn) {
+            case 0:
+                backPath = std::string(RES_DIR)+"backgrounds/B0dbg.png";
+                break;
+            case 1:
+                backPath = std::string(RES_DIR)+"backgrounds/B4.png";
+                break;
+            case 2:
+                backPath = std::string(RES_DIR)+"backgrounds/B5.png";
+                break;
+             default:
+                return;
+                break;
+             }
+
+             auto& componentManager          = ECS::ComponentManager::GetInstance();
+             auto  backInformationComponent  = ECS::ComponentManager::GetInformationComponent(backId);
+             auto  [posId, anglePositionId, anchorId, textureId] = backInformationComponent.GetRenderingTupleIds();
+             auto textureComponentRP         = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
+
+             textureComponentRP->SetTexture(backPath);
+             ECS::RenderingSystem::SubscribeEntity(backId);
+             lastBackId=idTurn;
         }
-
     }
 
 };
