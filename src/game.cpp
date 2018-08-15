@@ -24,6 +24,8 @@ namespace GAME{
     static unsigned int backId;
     static unsigned int shipId;
     static bool bGameIsOn;
+    static bool bSetBoltInvisible;
+    static bool bRemoveBoltFromMemory;
 
     void OnTimerDone();
     void OnEscPressed(const Uint32&, const Sint32&);
@@ -99,7 +101,7 @@ namespace GAME{
 
         ECS::LifeSpanComponent_ x;
         auto signalId = x.onLifeSpanEnded.connect_function(OnTimerDone);
-        x.Set(6000);
+        x.Set(5000);
 
 
         while (bGameIsOn)
@@ -115,36 +117,52 @@ namespace GAME{
 
     void OnFirePressed(const uint32_t& kbEvent, const int32_t& kbKey){
 
-        auto resPath = std::string(RES_DIR)+"purplebolt16x16.png";
-        auto boltId = GTech::Sprite::CreateSprite(resPath);
-
-        auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
-        ECS::KinematicsSystem::SubscribeEntity(boltId);
-        ECS::RenderingSystem::SubscribeEntity(boltId);
-
-        auto& componentManager                              = ECS::ComponentManager::GetInstance();
-        auto  shipInformationComponent                      = ECS::ComponentManager::GetInformationComponent(shipId);
-        auto  [posId, anglePositionId, anchorId, textureId] = shipInformationComponent.GetRenderingTupleIds();
-
-        //Get Position and Direction of ship
-        auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
-        auto  direction = GAME::GetEntityDirection(componentManager, shipInformationComponent);
-
-        //Set Position of the bolt
-        GTech::Sprite::SetPosition(boltId, position);
-
-        //Set Speed of the bolt.
-        auto kinematicTuples = boltInfo.GetKinematicTuples();
-        auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
-        auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
-
-        auto const maxSpeed = 320.0l;
-        auto radians = glm::radians(direction);
-        speedComponent->speed.x = maxSpeed * glm::cos(radians);
-        speedComponent->speed.y = maxSpeed * glm::sin(radians);
-
-
-
+        if (!bRemoveBoltFromMemory) {
+            
+            auto resPath = std::string(RES_DIR)+"purplebolt16x16.png";
+            auto boltId = GTech::Sprite::CreateSprite(resPath);
+            
+            auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
+            ECS::KinematicsSystem::SubscribeEntity(boltId);
+            ECS::RenderingSystem::SubscribeEntity(boltId);
+            
+            auto& componentManager                              = ECS::ComponentManager::GetInstance();
+            auto  shipInformationComponent                      = ECS::ComponentManager::GetInformationComponent(shipId);
+            auto  [posId, anglePositionId, anchorId, textureId] = shipInformationComponent.GetRenderingTupleIds();
+            
+            //Get Position and Direction of ship
+            auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
+            auto  direction = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+            
+            //Set Position of the bolt
+            GTech::Sprite::SetPosition(boltId, position);
+            
+            
+            
+            //Set Speed of the bolt.
+            auto kinematicTuples = boltInfo.GetKinematicTuples();
+            auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
+            auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
+            
+            auto const maxSpeed = 320.0l;
+            auto radians = glm::radians(direction);
+            speedComponent->speed.x = maxSpeed * glm::cos(radians);
+            speedComponent->speed.y = maxSpeed * glm::sin(radians);
+            
+            
+            //After 5 seconds the bolt must become invisible.
+            if (bSetBoltInvisible) {
+                GTech::Sprite::SetScale(boltId, 0.0);
+                bRemoveBoltFromMemory = true;
+                //blast sounds
+                SDLPlaySoundEffect();
+            }
+        }
+        else
+        {
+            std::cout<<"\t The bolt was removed from memory"<<std::endl;
+        }
+        
     }
     void ExitGame()
     {
@@ -152,7 +170,8 @@ namespace GAME{
     }
 
     void OnTimerDone(){
-        //ExitGame();
+        //ExitGame();        
+        bSetBoltInvisible = true;
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){

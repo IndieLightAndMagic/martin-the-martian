@@ -53,5 +53,12 @@ endfunction()
 
 
 function(LINK_STANDARD_LIBRARIES PROJECT_NAME)
-    target_link_libraries(${ProjectName} "-liconv" "-lm")
+    if ("${CMAKE_SYSTEM_NAME}" MATCHES "Linux")
+        target_link_libraries(${ProjectName} "-lSDL2" "-lSDL2_image" "-lm")
+    endif()
+    
+    if (APPLE)
+       target_link_libraries(${ProjectName} "-liconv" "-lm")
+    endif()
+    
 endfunction()

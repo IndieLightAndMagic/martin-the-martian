@@ -2,7 +2,11 @@
 #define __SHIP__
 
 #include <set>
-#include <SDL2_image/SDL_image.h>
+#ifdef __APPLE__
+ #include <SDL2_image/SDL_image.h>
+#elif __linux
+ #include <SDL2/SDL_image.h>
+#endif
 
 #include <ECS/Component/entityinformationcomponent.h>
 #include <ECS/Component/texturecomponent.h>
