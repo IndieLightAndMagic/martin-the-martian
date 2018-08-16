@@ -25,12 +25,12 @@ namespace ECS {
          * Ticks left when pausing.
          */
         uint64_t m_intervalticksForPause{0};
-        
+
         /**
          * Ticks left when pausing.
          */
         uint64_t m_intervalticksForLoop{0};
-        
+
         /**
          * Timer size in ms.
          */
@@ -79,9 +79,9 @@ namespace ECS {
         void Start();
         void Pause();
         void Stop();
-        
+
         void SetCounterReference(Uint64* ptr);
-        
+
         void TimerLoops(bool);
 
 
@@ -98,4 +98,3 @@ namespace ECS {
 
 
 #endif //__TIMER_H__
-

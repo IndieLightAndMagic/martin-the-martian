@@ -1,3 +1,4 @@
+// #include "sdlwrapper.h"
 #include <sdlwrapper.h>
 
 #include <iostream>
@@ -5,7 +6,8 @@
 #include <tuple>
 
 #include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
+// #include <SDL2_image/SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 
@@ -147,4 +149,3 @@ namespace GTech {
         SDL_Quit();
     }
 }
-

@@ -61,7 +61,7 @@ void TimedEvent_::Start(){
         case State::RUNNING:
             m_t = *m_ptrTNow + m_intervalticksForLoop;
             break;
-            
+
         default:
             break;
     }
@@ -78,7 +78,7 @@ void TimedEvent_::Stop(){
 
 void TimedEvent_::RemainingTicksForLoop(uint64_t& refCounter){
 
-	auto t_mod = (*m_ptrTNow) % m_ticksPerInterval;  
+	auto t_mod = (*m_ptrTNow) % m_ticksPerInterval;
     refCounter = m_ticksPerInterval - t_mod;
 
 }
@@ -101,9 +101,9 @@ void TimedEvent_::Update(){
     if (m_state == RUNNING){
 
 		if (*m_ptrTNow >= m_t){
-			
+
 			onTimer.emit();
-			
+
 			if (m_timerLoops){
 
 				RemainingTicksForLoop(m_intervalticksForLoop);
@@ -117,9 +117,9 @@ void TimedEvent_::Update(){
 			}
 
 		}
-	
+
 	}
-	
+
 }
 
 void TimedEvent_::SetCounterReference(Uint64 *ptr) {
@@ -127,4 +127,3 @@ void TimedEvent_::SetCounterReference(Uint64 *ptr) {
     m_ptrTNow = ptr;
 
 }
-
