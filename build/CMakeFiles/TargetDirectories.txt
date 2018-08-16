@@ -1,0 +1,3 @@
+/home/juanpablo/Escritorio/martin-the-martian/build/CMakeFiles/rebuild_cache.dir
+/home/juanpablo/Escritorio/martin-the-martian/build/CMakeFiles/VoidSample.dir
+/home/juanpablo/Escritorio/martin-the-martian/build/CMakeFiles/edit_cache.dir
