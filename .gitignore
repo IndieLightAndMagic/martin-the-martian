@@ -79,3 +79,6 @@ Thumbs.db
 m/
 x/
 q/
+
+build/
+cmake/
