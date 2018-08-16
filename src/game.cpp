@@ -23,6 +23,7 @@ namespace GAME{
 
     static unsigned int backId;
     static unsigned int shipId;
+    static unsigned int martianId;
     static bool bGameIsOn;
 
     void OnTimerDone();
@@ -67,6 +68,10 @@ namespace GAME{
         auto shipTexturePath = std::string(RES_DIR)+"ships/goodguy3.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
+        /* Create Martian*/
+        auto martianTexturePath = std::string(RES_DIR)+"green_martian.png";
+        martianId = GTech::Sprite::CreateSprite(martianTexturePath);
+
         /* Create Background */
         auto backgroundTexturePath = std::string(RES_DIR)+"backgrounds/B0dbg.png";
         backId = GTech::Sprite::CreateSprite(backgroundTexturePath);
@@ -85,6 +90,12 @@ namespace GAME{
         GTech::Sprite::SetScale(shipId, 0.16);
         ECS::RenderingSystem::SubscribeEntity(shipId);
         ECS::KinematicsSystem::SubscribeEntity(shipId);
+
+        // //Martian
+        GTech::Sprite::SetPosition(martianId, glm::vec3(width >> 1, height >> 2, 5));
+        GTech::Sprite::SetScale(martianId, 0.14);
+        ECS::RenderingSystem::SubscribeEntity(martianId);
+        ECS::KinematicsSystem::SubscribeEntity(martianId);
 
         //Background
         ECS::RenderingSystem::SubscribeEntity(backId);
