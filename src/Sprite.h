@@ -2,7 +2,7 @@
 #define __SHIP__
 
 #include <set>
-#include <SDL2_image/SDL_image.h>
+#include <SDL2/SDL_image.h>
 
 #include <ECS/Component/entityinformationcomponent.h>
 #include <ECS/Component/texturecomponent.h>

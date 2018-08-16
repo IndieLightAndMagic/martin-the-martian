@@ -37,7 +37,7 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 
             ${CMAKE_SOURCE_DIR}/src/Event/event.h
             ${CMAKE_SOURCE_DIR}/src/Event/eventmanager.h
-            
+
             ${CMAKE_SOURCE_DIR}/src/Event/eventgamepad.h
             ${CMAKE_SOURCE_DIR}/src/Event/eventjoystick.h
             ${CMAKE_SOURCE_DIR}/src/Event/eventkeyboard.h
@@ -48,10 +48,10 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
             ${CMAKE_SOURCE_DIR}/src/SignalSlot/signalslot.h
 
             )
-endfunction() 
+endfunction()
 
 
 
 function(LINK_STANDARD_LIBRARIES PROJECT_NAME)
-    target_link_libraries(${ProjectName} "-liconv" "-lm")
+    target_link_libraries(${ProjectName} "-lSDL2" "-lSDL2_image" "-lm")
 endfunction()

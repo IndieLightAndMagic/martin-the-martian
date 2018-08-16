@@ -5,7 +5,8 @@
 #include <Event/eventkeyboard.h>
 #include <Event/eventgamepad.h>
 #include <Event/eventjoystick.h>
-#include <SignalSlot/signalslot.h>
+// #include <SignalSlot/signalslot.h> // dunno
+#include "SignalSlot/signalslot.h"
 #include <ECS/Component/component.h>
 #include <Event/eventgamepad.h>
 
