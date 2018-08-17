@@ -30,6 +30,9 @@ namespace GAME{
     void OnEscPressed(const Uint32&, const Sint32&);
     void OnArrowKeyPressed(const Uint32&, const Sint32&);
     void OnFirePressed(const Uint32&, const Sint32&);
+    void MartianMotion();
+    void MartianFire();
+    void FireBolt(auto boltId, auto shipInformationComponent);
 
 
     float GetEntityDirection(const ECS::ComponentManager &componentManager, const ECS::EntityInformationComponent_ &informationComponent)
@@ -119,6 +122,8 @@ namespace GAME{
             ECS::RenderingSystem::UpdateRenderingSystem();
             ECS::KinematicsSystem::UpdateKinematicsSystem();
             x.Update();
+            MartianMotion();
+            MartianFire();
         }
         x.onLifeSpanEnded.disconnect(signalId);
 
@@ -129,34 +134,37 @@ namespace GAME{
         auto resPath = std::string(RES_DIR)+"purplebolt16x16.png";
         auto boltId = GTech::Sprite::CreateSprite(resPath);
 
-        auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
-        ECS::KinematicsSystem::SubscribeEntity(boltId);
-        ECS::RenderingSystem::SubscribeEntity(boltId);
-
-        auto& componentManager                              = ECS::ComponentManager::GetInstance();
         auto  shipInformationComponent                      = ECS::ComponentManager::GetInformationComponent(shipId);
-        auto  [posId, anglePositionId, anchorId, textureId] = shipInformationComponent.GetRenderingTupleIds();
-
-        //Get Position and Direction of ship
-        auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
-        auto  direction = GAME::GetEntityDirection(componentManager, shipInformationComponent);
-
-        //Set Position of the bolt
-        GTech::Sprite::SetPosition(boltId, position);
-
-        //Set Speed of the bolt.
-        auto kinematicTuples = boltInfo.GetKinematicTuples();
-        auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
-        auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
-
-        auto const maxSpeed = 320.0l;
-        auto radians = glm::radians(direction);
-        speedComponent->speed.x = maxSpeed * glm::cos(radians);
-        speedComponent->speed.y = maxSpeed * glm::sin(radians);
-
-
+        FireBolt(boltId, shipInformationComponent);
 
     }
+
+    void FireBolt(auto boltId, auto shipInformationComponent){
+      auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
+      ECS::KinematicsSystem::SubscribeEntity(boltId);
+      ECS::RenderingSystem::SubscribeEntity(boltId);
+
+      auto& componentManager                              = ECS::ComponentManager::GetInstance();
+      auto  [posId, anglePositionId, anchorId, textureId] = shipInformationComponent.GetRenderingTupleIds();
+
+      //Get Position and Direction of ship
+      auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
+      auto  direction = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+
+      //Set Position of the bolt
+      GTech::Sprite::SetPosition(boltId, position);
+
+      //Set Speed of the bolt.
+      auto kinematicTuples = boltInfo.GetKinematicTuples();
+      auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
+      auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
+
+      auto const maxSpeed = 320.0l;
+      auto radians = glm::radians(direction);
+      speedComponent->speed.x = maxSpeed * glm::cos(radians);
+      speedComponent->speed.y = maxSpeed * glm::sin(radians);
+    }
+
     void ExitGame()
     {
         bGameIsOn = false;
@@ -207,6 +215,28 @@ namespace GAME{
             backSpeedComponent->speed  *= -1;
 
         }
+
+    }
+
+    void MartianMotion(){
+
+      auto& componentManager             = ECS::ComponentManager::GetInstance();
+      auto  martianInformationComponent  = ECS::ComponentManager::GetInformationComponent(martianId);
+      auto  kinematicTuples              = martianInformationComponent.GetKinematicTuples();
+      auto  [posId, speedId, accelId]    = kinematicTuples[1];
+
+      auto speedComponent      = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+      speedComponent->speed.z = +45.0f;
+
+    }
+
+    void MartianFire(){
+
+      auto resPath                   = std::string(RES_DIR)+"orangebolt.png";
+      auto boltId                    = GTech::Sprite::CreateSprite(resPath);
+      auto martianInformationComponent = ECS::ComponentManager::GetInformationComponent(martianId);
+
+      FireBolt(boltId,martianInformationComponent);
 
     }
 
