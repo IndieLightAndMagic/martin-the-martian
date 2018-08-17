@@ -87,11 +87,11 @@ namespace GAME{
         //Ship
         GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 5));
         GTech::Sprite::SetScale(shipId, 0.16);
-        ECS::RenderingSystem::SubscribeEntity(shipId);
+        ECS::RenderingSystem::SubscribeEntity(shipId, false);
         ECS::KinematicsSystem::SubscribeEntity(shipId);
 
         //Background
-        ECS::RenderingSystem::SubscribeEntity(backId);
+        ECS::RenderingSystem::SubscribeEntity(backId, false);
         ECS::KinematicsSystem::SubscribeEntity(backId);
         GTech::Sprite::SetPosition(backId, glm::vec3(width >> 1, height >> 1, 0));
 
@@ -127,7 +127,7 @@ namespace GAME{
             
             auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
             ECS::KinematicsSystem::SubscribeEntity(boltId);
-            ECS::RenderingSystem::SubscribeEntity(boltId);
+            ECS::RenderingSystem::SubscribeEntity(boltId, true);
             
             auto& componentManager                              = ECS::ComponentManager::GetInstance();
             auto  shipInformationComponent                      = ECS::ComponentManager::GetInformationComponent(shipId);
@@ -150,23 +150,10 @@ namespace GAME{
             auto const maxSpeed = 320.0l;
             auto radians = glm::radians(direction);
             speedComponent->speed.x = maxSpeed * glm::cos(radians);
-            speedComponent->speed.y = maxSpeed * glm::sin(radians);
-            
-            
-            //After 5 seconds the bolt must become invisible.
-            //if (bSetBoltInvisible) {
-            //   GTech::Sprite::SetScale(boltId, 0.0);
-            //    bRemoveBoltFromMemory = true;
-                //blast sounds
-                SDLPlaySoundEffect();
-            //}
-        //}
-        //else
-        //{
-        //    std::cout<<"\t The bolt was removed from memory"<<std::endl;
-        //}
+            speedComponent->speed.y = maxSpeed * glm::sin(radians);            
         
     }
+
     void ExitGame()
     {
         bGameIsOn = false;
@@ -224,7 +211,7 @@ namespace GAME{
          backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
          backSpeedComponent->speed  *= -1;
 
-         OnChangeBackground(idTurn);
+         //OnChangeBackground(idTurn);
 
     }
 
@@ -253,7 +240,7 @@ namespace GAME{
              auto textureComponentRP         = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
 
              textureComponentRP->SetTexture(backPath);
-             ECS::RenderingSystem::SubscribeEntity(backId);
+             ECS::RenderingSystem::SubscribeEntity(backId, false);
              lastBackId=idTurn;
         }
 
