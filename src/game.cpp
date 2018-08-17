@@ -32,6 +32,7 @@ namespace GAME{
     void OnArrowKeyPressed(const Uint32&, const Sint32&);
     void OnFirePressed(const Uint32&, const Sint32&);
 
+    void OnChangeBackground(const int selectBackground);
 
     float GetEntityDirection(const ECS::ComponentManager &componentManager, const ECS::EntityInformationComponent_ &informationComponent)
     {
@@ -117,7 +118,7 @@ namespace GAME{
 
     void OnFirePressed(const uint32_t& kbEvent, const int32_t& kbKey){
 
-        if (!bRemoveBoltFromMemory) {
+        //if (!bRemoveBoltFromMemory) {
             
             auto resPath = std::string(RES_DIR)+"purplebolt16x16.png";
             auto boltId = GTech::Sprite::CreateSprite(resPath);
@@ -151,17 +152,17 @@ namespace GAME{
             
             
             //After 5 seconds the bolt must become invisible.
-            if (bSetBoltInvisible) {
-                GTech::Sprite::SetScale(boltId, 0.0);
-                bRemoveBoltFromMemory = true;
+            //if (bSetBoltInvisible) {
+            //   GTech::Sprite::SetScale(boltId, 0.0);
+            //    bRemoveBoltFromMemory = true;
                 //blast sounds
                 SDLPlaySoundEffect();
-            }
-        }
-        else
-        {
-            std::cout<<"\t The bolt was removed from memory"<<std::endl;
-        }
+            //}
+        //}
+        //else
+        //{
+        //    std::cout<<"\t The bolt was removed from memory"<<std::endl;
+        //}
         
     }
     void ExitGame()
@@ -188,18 +189,21 @@ namespace GAME{
         auto  [posId, speedId, accelId] = kinematicTuples[1];
 
         auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+        int dirChangeBackground = 0;
 
         if (kbKey ==  SDLK_LEFT && kbEvent == SDL_KEYDOWN){
             angleSpeedComponent->speed.z = -45.0f;
+            dirChangeBackground=1;
         } else if (kbKey == SDLK_RIGHT && kbEvent == SDL_KEYDOWN) {
             angleSpeedComponent->speed.z = +45.0f;
+            dirChangeBackground=2;
         } else {
             angleSpeedComponent->speed.z = 0.0f;
         }
 
 
-
-        if (kbKey == SDLK_UP) {
+        //remove for remove the bug 
+        //if (kbKey == SDLK_UP) {
 
             auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
             auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
@@ -214,8 +218,18 @@ namespace GAME{
             backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
             backSpeedComponent->speed  *= -1;
 
-        }
-
+        //}
+            
+        OnChangeBackground(dirChangeBackground);
     }
+    
+    void OnChangeBackground(const int selectBackground){
+        
+
+
+ 
+        
+    }
+        
 
 };
