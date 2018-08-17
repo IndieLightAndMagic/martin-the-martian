@@ -23,6 +23,7 @@ namespace GAME{
 
     static unsigned int backId;
     static unsigned int shipId;
+    static unsigned int enemyId; //It adds Id for enemy ship
     static bool bGameIsOn;
 
     void OnTimerDone();
@@ -66,6 +67,9 @@ namespace GAME{
         auto shipTexturePath = std::string(RES_DIR)+"ships/goodguy3.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
+        auto enemyTexturePath = std::string(RES_DIR)+"ships/enemy1.png";
+        enemyId = GTech::Sprite::CreateSprite(enemyTexturePath);
+
         /* Create Background */
         auto backgroundTexturePath = std::string(RES_DIR)+"backgrounds/B0dbg.png";
         backId = GTech::Sprite::CreateSprite(backgroundTexturePath);
@@ -84,6 +88,12 @@ namespace GAME{
         GTech::Sprite::SetScale(shipId, 0.16);
         ECS::RenderingSystem::SubscribeEntity(shipId);
         ECS::KinematicsSystem::SubscribeEntity(shipId);
+
+        //Enemy ship to draw
+        GTech::Sprite::SetPosition(enemyId, glm::vec3(width >> 2, height >> 2, 5));
+        GTech::Sprite::SetScale(enemyId, 0.16);
+        ECS::RenderingSystem::SubscribeEntity(enemyId);
+        ECS::KinematicsSystem::SubscribeEntity(enemyId);
 
         //Background
         ECS::RenderingSystem::SubscribeEntity(backId);
