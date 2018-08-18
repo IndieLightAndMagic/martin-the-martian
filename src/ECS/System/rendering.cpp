@@ -1,5 +1,7 @@
 #include <tuple>
 #include "rendering.h"
+#include <ctime>
+#include <chrono>
 
 using namespace ECS;
 SDL_Texture* 							RenderingSystem::pScreen = nullptr;
@@ -13,7 +15,7 @@ glm::mat4x4                             RenderingSystem::mtxSDLScreenCoordinates
 std::vector<RenderingDataTuple> RenderingSystem::renderingData{};
 
 namespace ECS {
-    unsigned long RenderingSystem::SubscribeEntity(unsigned int entityId) {
+    unsigned long RenderingSystem::SubscribeEntity(unsigned int entityId, unsigned int typeComponent) {
 
             //Get Managers
             auto& entityManager     = ECS::EntityManager::GetInstance();
@@ -32,7 +34,10 @@ namespace ECS {
             auto pAnglePositionComponent    = componentManager.GetComponentRaw<ECS::PositionComponent_>(anglePositionId);
             auto pAnchorPointComponent	    = componentManager.GetComponentRaw<ECS::AnchorPointComponent_>(anchorId);
 
-            pPositionComponent->isDirty = true;
+            pPositionComponent->isDirty = false;
+
+			//timer
+			auto lifeTime = time(NULL);
 
             //Texture Data
             auto pTexture = pTextureComponent->GetTexture();
@@ -41,6 +46,8 @@ namespace ECS {
 
             RenderingDataTuple entityRenderingData(
                     entityId,
+					lifeTime,
+					typeComponent,
                     pTexture,
                     sz,
                     &pPositionComponent->position,
@@ -55,8 +62,9 @@ namespace ECS {
             SDL_assert(size>0);
 
             std::sort(begin(renderingData), end(renderingData), [](auto t1, auto t2){
-                return reinterpret_cast<glm::vec3*>(std::get<3>(t1))->z < reinterpret_cast<glm::vec3*>(std::get<3>(t2))->z;
+                return reinterpret_cast<glm::vec3*>(std::get<5>(t1))->z < reinterpret_cast<glm::vec3*>(std::get<5>(t2))->z;
             });
+			
             return size-1;
 
     }
@@ -64,31 +72,42 @@ namespace ECS {
 
         SDLRenderClear();
 
-        for (auto& [eid, pTexture, pEncodedTextureSize, pvPosition, pvAnglePosition, pvAnchorPoint, pvAnchorPointCorrection, pDirty]: renderingData){
+        for (auto& [eid, etime, tcomponent, pTexture, pEncodedTextureSize, pvPosition, pvAnglePosition, pvAnchorPoint, pvAnchorPointCorrection, pDirty]: renderingData){
+			
 
-            auto encodedTextureSize         = *pEncodedTextureSize;
-            auto pPosition                  = reinterpret_cast<glm::vec3*>  (pvPosition);
-            auto pAnglePosition             = reinterpret_cast<glm::vec3*>  (pvAnglePosition);
-            auto pAnchorPoint               = reinterpret_cast<glm::vec3*>  (pvAnchorPoint);
-            auto pAnchorPointCorrection     = reinterpret_cast<glm::vec3*>  (pvAnchorPointCorrection);
+			//condicion para imprimir
+			/*bool a=false;
+			for(int i=0;i<boltsIdCollection.size();i++){
+				if(eid==boltsIdCollection.at(i) && 5<difftime( time(NULL),boltsLifeTime.at(i))){
+					a=true;
+					break;				
+				}			
+			}*/
+			
+			if(tcomponent!=2 || (tcomponent==2 && 5> difftime( time(NULL), etime ) ) ){
+		        auto encodedTextureSize         = *pEncodedTextureSize;
+		        auto pPosition                  = reinterpret_cast<glm::vec3*>  (pvPosition);
+		        auto pAnglePosition             = reinterpret_cast<glm::vec3*>  (pvAnglePosition);
+		        auto pAnchorPoint               = reinterpret_cast<glm::vec3*>  (pvAnchorPoint);
+		        auto pAnchorPointCorrection     = reinterpret_cast<glm::vec3*>  (pvAnchorPointCorrection);
 
-            //Check if need to render
-            //if (!pTexture) continue;
+		        //Check if need to render
+		        //if (!pTexture) continue;
 
-            //Render m_pTexture,
-            SDL_Rect dstrect;
+		        //Render m_pTexture,
+		        SDL_Rect dstrect;
 
-            //AABB
-            dstrect.x = pPosition->x + pAnchorPointCorrection->x;
-            dstrect.y = pPosition->y + pAnchorPointCorrection->y;
-            dstrect.w = encodedTextureSize >> 16;
-            dstrect.h = encodedTextureSize & 0xffff;
+		        //AABB
+		        dstrect.x = pPosition->x + pAnchorPointCorrection->x;
+		        dstrect.y = pPosition->y + pAnchorPointCorrection->y;
+		        dstrect.w = encodedTextureSize >> 16;
+		        dstrect.h = encodedTextureSize & 0xffff;
 
 
-            SDLRenderCopyEx(pTexture, nullptr, &dstrect, pAnglePosition->z, pAnchorPoint);
-            //SDLRenderCopy(pTexture, nullptr, &dstrect);
-            *pDirty = false;
-
+		        SDLRenderCopyEx(pTexture, nullptr, &dstrect, pAnglePosition->z, pAnchorPoint);
+		        //SDLRenderCopy(pTexture, nullptr, &dstrect);
+		        *pDirty = false;
+			}
         }
 
         return 1;
@@ -117,7 +136,7 @@ namespace ECS {
 
         SDLSetRenderTarget(pScreen);                //SELECT PSCREEN AS THE ACTIVE CANVAS
         SDLRenderClear();                           //TAKE THE PSCREEN TEXTURE AKA ACTUAL CANVAS AND CLEAR IT
-        DrawSprites2D();                              //DRAW THE SHIPS AND THE FIRE AND THE STUFF IN THE PSCREEN CANVAS
+        DrawSprites2D();     						//DRAW THE SHIPS AND THE FIRE AND THE STUFF IN THE PSCREEN CANVAS
         SDLDetachRenderTexture();                   //NOW IS THE GPU WHERE THE RENDERER WILL DRAW
         SDLRenderCopy(pScreen, nullptr, nullptr);   //TAKE PSCREEN AND COPY IT INTO THE GPU
         SDLUpdateScreen();                          //UPDATE THE SCREEN

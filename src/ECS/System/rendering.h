@@ -23,6 +23,8 @@ using namespace GTech;
 namespace ECS {
     using RenderingDataTuple = std::tuple<
             unsigned int,            ///ids
+			time_t,					 ///lifeTime
+			unsigned int,			 ///typecomponent
             SDL_Texture*,            ///textures
             const unsigned long*,    ///textureSizes
             void*,                   ///positions. void* because because tuple wouldn't handle &glm::vec3.
@@ -46,7 +48,7 @@ namespace ECS {
 
         public:
 
-        static unsigned long SubscribeEntity(unsigned int entityId);
+        static unsigned long SubscribeEntity(unsigned int entityId, unsigned int typeComponent);
         static unsigned int DrawSprites2D();
         static void InitRenderingSystem();
         static void ShutdownRenderingSystem();
