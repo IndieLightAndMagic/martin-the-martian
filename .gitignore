@@ -9,7 +9,7 @@ cmake-build-debug
 *.core
 *.moc
 *.o
-/CMakeLists.txt
+CMakeLists.txt
 *.obj
 *.orig
 *.rej
