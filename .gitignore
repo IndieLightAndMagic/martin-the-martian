@@ -9,6 +9,7 @@ cmake-build-debug
 *.core
 *.moc
 *.o
+/CMakeLists.txt
 *.obj
 *.orig
 *.rej
@@ -19,6 +20,7 @@ cmake-build-debug
 *.qm
 .#*
 *.*#
+/build
 core
 !core/
 tags
