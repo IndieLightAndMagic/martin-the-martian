@@ -10,6 +10,9 @@ cmake-build-debug
 *.moc
 *.o
 CMakeLists.txt
+src/Sprite.h
+cmake/Sources.cmake
+src/sdlwrapper.cpp
 *.obj
 *.orig
 *.rej
