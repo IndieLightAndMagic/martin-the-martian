@@ -228,6 +228,17 @@ namespace GAME{
       auto speedComponent      = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
       speedComponent->speed.z = +45.0f;
 
+      //Set Speed of the martian.
+      auto [martianPosId, martianSpeedId, martianAccelId] = kinematicTuples[0];
+      auto martianSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(martianSpeedId);
+
+      auto  direction = GAME::GetEntityDirection(componentManager, martianInformationComponent);
+
+      auto const maxSpeed = 160.0l;
+      auto radians = glm::radians(direction);
+      martianSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
+      martianSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
+
     }
 
     void MartianFire(){
