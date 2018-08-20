@@ -137,6 +137,22 @@ namespace GAME{
 			std::cout<<"tiempo entre disparos: "<<difftime( boltsLifeTime.at(i-1),boltsLifeTime.at(i-2))<<std::endl;
 		}*/
 
+		//sound
+		//const char * musicPath = std::string(RES_DIR)+"sounds/BlastSound.wav";
+		/*if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT, 2, 2048)<0){
+			std::cout<<"failed to load music :( "<<std::endl;
+		}else{
+			Mix_Chunk *gScratch=nullptr;
+			gScratch = Mix_LoadWAV("../Resources/sounds/BlastSound.wav");
+			if(gScratch==nullptr){
+				std::cout<<"failed to load music :( "<<std::endl;
+				
+			}else{
+				Mix_PlayChannel(-1, gScratch, 0);			
+			}
+		}*/
+		
+
         auto& componentManager                              = ECS::ComponentManager::GetInstance();
         auto  shipInformationComponent                      = ECS::ComponentManager::GetInformationComponent(shipId);
         auto  [posId, anglePositionId, anchorId, textureId] = shipInformationComponent.GetRenderingTupleIds();

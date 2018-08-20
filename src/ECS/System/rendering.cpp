@@ -2,6 +2,7 @@
 #include "rendering.h"
 #include <ctime>
 #include <chrono>
+#include <iomanip>
 
 using namespace ECS;
 SDL_Texture* 							RenderingSystem::pScreen = nullptr;
@@ -11,6 +12,7 @@ glm::mat4x4                             RenderingSystem::mtxSDLScreenCoordinates
     {0.0f, 1.0f, 0.0f, 0.0f},
     {0.0f, 0.0f, 1.0f, 0.0f},
     {0.0f, 0.0f, 0.0f, 1.0});
+
 
 std::vector<RenderingDataTuple> RenderingSystem::renderingData{};
 
@@ -37,7 +39,9 @@ namespace ECS {
             pPositionComponent->isDirty = false;
 
 			//timer
-			auto lifeTime = time(NULL);
+			//auto lifeTimeStart = time(NULL);
+			//std::chrono::steady_clock::time_point now = std::chrono::system_clock::now();
+			std::chrono::steady_clock::time_point lifeTimeStart = std::chrono::steady_clock::now();
 
             //Texture Data
             auto pTexture = pTextureComponent->GetTexture();
@@ -46,7 +50,7 @@ namespace ECS {
 
             RenderingDataTuple entityRenderingData(
                     entityId,
-					lifeTime,
+					lifeTimeStart,
 					typeComponent,
                     pTexture,
                     sz,
@@ -64,13 +68,22 @@ namespace ECS {
             std::sort(begin(renderingData), end(renderingData), [](auto t1, auto t2){
                 return reinterpret_cast<glm::vec3*>(std::get<5>(t1))->z < reinterpret_cast<glm::vec3*>(std::get<5>(t2))->z;
             });
+	
+			
+			/*auto end1 = std::chrono::steady_clock::now();
+			auto elapsed = end1 -start1;
+			std::cout<<std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count()<<std::endl;*/
 			
             return size-1;
 
     }
+	void RenderingSystem::UnSubscribeEntity(int entityId){
+			//renderingData.erase(&renderingData[0]+entityId);
+	}
     unsigned int RenderingSystem::DrawSprites2D() {
 
         SDLRenderClear();
+		unsigned int vectorPosition=0;
 
         for (auto& [eid, etime, tcomponent, pTexture, pEncodedTextureSize, pvPosition, pvAnglePosition, pvAnchorPoint, pvAnchorPointCorrection, pDirty]: renderingData){
 			
@@ -84,30 +97,47 @@ namespace ECS {
 				}			
 			}*/
 			
-			if(tcomponent!=2 || (tcomponent==2 && 5> difftime( time(NULL), etime ) ) ){
-		        auto encodedTextureSize         = *pEncodedTextureSize;
-		        auto pPosition                  = reinterpret_cast<glm::vec3*>  (pvPosition);
-		        auto pAnglePosition             = reinterpret_cast<glm::vec3*>  (pvAnglePosition);
-		        auto pAnchorPoint               = reinterpret_cast<glm::vec3*>  (pvAnchorPoint);
-		        auto pAnchorPointCorrection     = reinterpret_cast<glm::vec3*>  (pvAnchorPointCorrection);
+			
+		    auto encodedTextureSize         = *pEncodedTextureSize;
+		    auto pPosition                  = reinterpret_cast<glm::vec3*>  (pvPosition);
+		    auto pAnglePosition             = reinterpret_cast<glm::vec3*>  (pvAnglePosition);
+		    auto pAnchorPoint               = reinterpret_cast<glm::vec3*>  (pvAnchorPoint);
+		    auto pAnchorPointCorrection     = reinterpret_cast<glm::vec3*>  (pvAnchorPointCorrection);
 
-		        //Check if need to render
-		        //if (!pTexture) continue;
+		    //Check if need to render
+		    //if (!pTexture) continue;
 
-		        //Render m_pTexture,
-		        SDL_Rect dstrect;
+		    //Render m_pTexture,
+		    SDL_Rect dstrect;
 
-		        //AABB
-		        dstrect.x = pPosition->x + pAnchorPointCorrection->x;
-		        dstrect.y = pPosition->y + pAnchorPointCorrection->y;
-		        dstrect.w = encodedTextureSize >> 16;
-		        dstrect.h = encodedTextureSize & 0xffff;
+		    //AABB
+		    dstrect.x = pPosition->x + pAnchorPointCorrection->x;
+		    dstrect.y = pPosition->y + pAnchorPointCorrection->y;
+		    dstrect.w = encodedTextureSize >> 16;
+		    dstrect.h = encodedTextureSize & 0xffff;
+			//auto timeNow = std::chrono::steady_clock::now();
+			//double timeDelta=difftime( time(NULL), etime );
+			//auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(timeNow-etime).count();
+			
+			std::chrono::steady_clock::time_point timenow = std::chrono::steady_clock::now();
+			std::chrono::steady_clock::duration time_span = timenow-etime;
+			double elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(timenow - etime).count();
 
-
+			if(tcomponent==2 ){
+				SDL_SetTextureAlphaMod(pTexture,255-(255*elapsedTime/5000));
+				std::cout<<std::setprecision(3);
+				std::cout << elapsedTime/1000.0f<<std::endl;
+			}
+			
+			if(tcomponent!=2 || (tcomponent==2 && 5000> elapsedTime ) ){
 		        SDLRenderCopyEx(pTexture, nullptr, &dstrect, pAnglePosition->z, pAnchorPoint);
 		        //SDLRenderCopy(pTexture, nullptr, &dstrect);
 		        *pDirty = false;
+			}else{
+				//UnsuscribeEntity
+				
 			}
+			vectorPosition++;
         }
 
         return 1;
