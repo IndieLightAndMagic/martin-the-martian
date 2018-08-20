@@ -171,26 +171,43 @@ namespace GAME{
         ExitGame();
     }
 
+
     void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
-        auto& componentManager          = ECS::ComponentManager::GetInstance();
-        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
-        auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
-        auto  [posId, speedId, accelId] = kinematicTuples[1];
 
-        auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+
+            auto& componentManager          = ECS::ComponentManager::GetInstance();
+            auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
+            auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
+            auto  [posId, speedId, accelId] = kinematicTuples[1];
+            auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+
+            auto const maxSpeed = 160.0f;
+            auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+            auto radians = glm::radians(direction);
+            auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
+            auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
+            auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
+            auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
+        
+           
+            backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
+            backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
+            backSpeedComponent->speed  *= -1;
+
+       
 
         if (kbKey ==  SDLK_LEFT && kbEvent == SDL_KEYDOWN){
+            
             angleSpeedComponent->speed.z = -45.0f;
         } else if (kbKey == SDLK_RIGHT && kbEvent == SDL_KEYDOWN) {
+      
             angleSpeedComponent->speed.z = +45.0f;
         } else {
             angleSpeedComponent->speed.z = 0.0f;
         }
 
-
-
-        if (kbKey == SDLK_UP) {
+        /*if (kbKey == SDLK_UP) {
 
             auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
             auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
@@ -205,7 +222,7 @@ namespace GAME{
             backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
             backSpeedComponent->speed  *= -1;
 
-        }
+        }*/
 
     }
 
