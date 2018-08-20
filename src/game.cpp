@@ -50,6 +50,7 @@ namespace GAME{
     void OnEscPressed(const Uint32&, const Sint32&);
     void OnArrowKeyPressed(const Uint32&, const Sint32&);
     void OnFirePressed(const Uint32&, const Sint32&);
+    void OnFireEnemy(const Uint32&, const Sint32&);
     //void moveEnemy(const Uint32&, const Sint32&);
     void moveEnemy();
     //void numFire(const Uint32&, const Sint32&);
@@ -90,6 +91,8 @@ namespace GAME{
         RegisterKeyboardEvent(SDL_KEYDOWN, SDLK_ESCAPE, OnEscPressed);
         RegisterKeyboardEvent(SDL_KEYDOWN, SDLK_SPACE, OnFirePressed);
         RegisterKeyboardEvents(SDL_KEYUP, arrowKeysGroup, OnArrowKeyPressed);
+        RegisterKeyboardEvent(SDL_KEYDOWN, SDLK_SPACE, OnFireEnemy);
+
        // RegisterKeyboardEvent(SDL_KEYDOWN, SDLK_SPACE, numFire);
        // RegisterKeyboardEvents(SDL_KEYDOWN, arrowKeysGroup, moveEnemy);
        // RegisterKeyboardEvents(SDL_KEYUP, arrowKeysGroup, moveEnemy);
@@ -130,11 +133,11 @@ namespace GAME{
         GTech::Sprite::SetPosition(backId, glm::vec3(width >> 1, height >> 1, 0));
 
         //enemy
-        GTech::Sprite::SetPosition(enemyId, glm::vec3(width >> 1, height >> 4, 5));
+        GTech::Sprite::SetPosition(enemyId, glm::vec3(width >> 0, height >> 2, 5));
         GTech::Sprite::SetScale(enemyId, 0.16);
         ECS::RenderingSystem::SubscribeEntity(enemyId);
         ECS::KinematicsSystem::SubscribeEntity(enemyId);
-                  moveEnemy();
+        moveEnemy();
 
         
 
@@ -211,9 +214,41 @@ namespace GAME{
          // std::cout << speedComponent->speed.x << "shipx \n";
          // std::cout << speedComponent->speed.y << "shipyy \n";
           boltSpeedY =  abs(speedComponent->speed.y);
-          collision();
-          ene++;
+          
     }  
+     void OnFireEnemy(const uint32_t& kbEvent, const int32_t& kbKey){
+
+        auto resPath = std::string(RES_DIR)+"orangebolt.png";
+        auto boltId  = GTech::Sprite::CreateSprite(resPath);
+
+        auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
+        ECS::KinematicsSystem::SubscribeEntity(boltId);
+        ECS::RenderingSystem::SubscribeEntity(boltId);
+
+        auto& componentManager                              = ECS::ComponentManager::GetInstance();
+        auto  enemyInformationComponent                      = ECS::ComponentManager::GetInformationComponent(enemyId);
+        auto  [posId, anglePositionId, anchorId, textureId] = enemyInformationComponent.GetRenderingTupleIds();
+       
+        
+        //Get Position and Direction of ship
+        auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
+        auto  direction = GAME::GetEntityDirection(componentManager, enemyInformationComponent);
+        //  std::cout << position[0] << "\n";
+        //Set Position of the bolt
+        GTech::Sprite::SetPosition(boltId, position);
+
+        //Set Speed of the bolt.
+        auto kinematicTuples = boltInfo.GetKinematicTuples();
+        auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
+        auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
+
+        auto const maxSpeed = -320.0l;
+        auto radians = glm::radians(direction);
+        speedComponent->speed.x = maxSpeed * glm::cos(radians);
+        speedComponent->speed.y = maxSpeed * glm::sin(radians);
+ 
+    }
+    
     
     void OnTimerDone(){
   
@@ -290,19 +325,9 @@ namespace GAME{
     
         auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId);
         
-       // angleSpeedComponent->speed.z = +40.0f;
+         angleSpeedComponent->speed.z = +40.0f;
 
-        /*if (kbKey ==  SDLK_z && kbEvent == SDL_KEYDOWN){
-            angleSpeedComponent->speed.z = -45.0f;
-        } else if (kbKey == SDLK_c && kbEvent == SDL_KEYDOWN) {
-            angleSpeedComponent->speed.z = +45.0f;
-        } else {
-            angleSpeedComponent->speed.z = 0.0f;
-        }
-         if (kbKey == SDLK_x){
-             shi ++;
-         }   */
-       // if (kbKey == SDLK_x || (kbKey == SDLK_z && shi >=1) || (kbKey == SDLK_c && shi >=1) ) {
+       
 
             auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(enemyId);
             auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
@@ -311,16 +336,11 @@ namespace GAME{
             auto backpos                                = componentManager.GetComponentRaw<ECS::PositionComponent_>(backPosId);
             auto direction                              = GAME::GetEntityDirection(componentManager, enemyInformationComponent);
            
-            auto const maxSpeed = 20.0f;
+            auto const maxSpeed = 160.0f;
             auto radians = glm::radians(direction);
             backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
             backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
             backSpeedComponent->speed  *= -1;
-
-           // std::cout << backSpeedComponent->speed.x << "enemyx \n";
-           // std::cout << backSpeedComponent->speed.y << "enemyy \n";
-           // std::cout << backpos->position.x << "position \n";
-          //  std::cout << backpos->position.y << "position \n";
 
             enemyX      = backpos->position.x;
             enemyY      = backpos->position.y;
@@ -328,7 +348,7 @@ namespace GAME{
 
 
             
-       // }
+    
 
     }
     void collision(){
@@ -339,10 +359,9 @@ namespace GAME{
          std::cout << enemyY << " positionenemy \n";
         */
 
-        if(ene>=1 && (enemySpeedY-boltSpeedY) == (350*enemySpeedY*boltSpeedY)/enemySpeedY ){
-        std::cout << "muerto \n";
-        ExitGame();
-         }
+       
+       
+         
        
     }
     
