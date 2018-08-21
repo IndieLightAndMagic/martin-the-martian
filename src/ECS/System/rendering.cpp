@@ -39,9 +39,7 @@ namespace ECS {
             pPositionComponent->isDirty = false;
 
 			//timer
-			//auto lifeTimeStart = time(NULL);
-			//std::chrono::steady_clock::time_point now = std::chrono::system_clock::now();
-			std::chrono::steady_clock::time_point lifeTimeStart = std::chrono::steady_clock::now();
+			auto lifeTimeStart = std::chrono::steady_clock::now();
 
             //Texture Data
             auto pTexture = pTextureComponent->GetTexture();
@@ -68,34 +66,22 @@ namespace ECS {
             std::sort(begin(renderingData), end(renderingData), [](auto t1, auto t2){
                 return reinterpret_cast<glm::vec3*>(std::get<5>(t1))->z < reinterpret_cast<glm::vec3*>(std::get<5>(t2))->z;
             });
-	
-			
-			/*auto end1 = std::chrono::steady_clock::now();
-			auto elapsed = end1 -start1;
-			std::cout<<std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count()<<std::endl;*/
 			
             return size-1;
 
     }
-	void RenderingSystem::UnSubscribeEntity(int entityId){
-			//renderingData.erase(&renderingData[0]+entityId);
+
+	void RenderingSystem::UnSubscribeEntity(int position){
+			std::cout<<"before erase we have : "<<renderingData.size()<<" components"<<std::endl;
+			renderingData.erase(renderingData.begin()+position);
+			std::cout<<"a components has been reased. There are : "<<renderingData.size()<<" components"<<std::endl;
 	}
+
     unsigned int RenderingSystem::DrawSprites2D() {
 
         SDLRenderClear();
-		unsigned int vectorPosition=0;
-
+		int position=0;
         for (auto& [eid, etime, tcomponent, pTexture, pEncodedTextureSize, pvPosition, pvAnglePosition, pvAnchorPoint, pvAnchorPointCorrection, pDirty]: renderingData){
-			
-
-			//condicion para imprimir
-			/*bool a=false;
-			for(int i=0;i<boltsIdCollection.size();i++){
-				if(eid==boltsIdCollection.at(i) && 5<difftime( time(NULL),boltsLifeTime.at(i))){
-					a=true;
-					break;				
-				}			
-			}*/
 			
 			
 		    auto encodedTextureSize         = *pEncodedTextureSize;
@@ -107,6 +93,12 @@ namespace ECS {
 		    //Check if need to render
 		    //if (!pTexture) continue;
 
+			//checking
+			if(tcomponent==0 ){
+
+				//std::cout<<"pos="<<position<<",id="<<eid<<std::endl;
+			}
+
 		    //Render m_pTexture,
 		    SDL_Rect dstrect;
 
@@ -115,18 +107,15 @@ namespace ECS {
 		    dstrect.y = pPosition->y + pAnchorPointCorrection->y;
 		    dstrect.w = encodedTextureSize >> 16;
 		    dstrect.h = encodedTextureSize & 0xffff;
-			//auto timeNow = std::chrono::steady_clock::now();
-			//double timeDelta=difftime( time(NULL), etime );
-			//auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(timeNow-etime).count();
 			
-			std::chrono::steady_clock::time_point timenow = std::chrono::steady_clock::now();
-			std::chrono::steady_clock::duration time_span = timenow-etime;
+			
+			auto timenow = std::chrono::steady_clock::now();
+			auto time_span = timenow-etime;
 			double elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(timenow - etime).count();
 
 			if(tcomponent==2 ){
+				//fades out component
 				SDL_SetTextureAlphaMod(pTexture,255-(255*elapsedTime/5000));
-				std::cout<<std::setprecision(3);
-				std::cout << elapsedTime/1000.0f<<std::endl;
 			}
 			
 			if(tcomponent!=2 || (tcomponent==2 && 5000> elapsedTime ) ){
@@ -135,9 +124,10 @@ namespace ECS {
 		        *pDirty = false;
 			}else{
 				//UnsuscribeEntity
-				
+				UnSubscribeEntity(position);
+				position--;
 			}
-			vectorPosition++;
+			position++;
         }
 
         return 1;

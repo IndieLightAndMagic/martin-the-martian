@@ -20,15 +20,12 @@ void RegisterKeyboardEvent(Uint32 event, Sint32 key, function<void(const Uint32&
 void RegisterKeyboardEvents(Uint32 event, vector<Sint32>& keys, std::function<void(const Uint32&, const Sint32&)> slot);
 
 
-
 namespace GAME{
 
     static unsigned int backId;
     static unsigned int shipId;
     static bool bGameIsOn;
 	static ECS::LifeSpanComponent_ fire;
-	//static std::vector<unsigned int>	boltsIdCollection;
-	//static std::vector<time_t> boltsLifeTime;
 
     void OnTimerDone();
     void OnEscPressed(const Uint32&, const Sint32&);
@@ -68,7 +65,7 @@ namespace GAME{
 
 
         /* Create Sprite */
-        auto shipTexturePath = std::string(RES_DIR)+"ships/boss0.png";
+        auto shipTexturePath = std::string(RES_DIR)+"ships/goodguy0.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
         /* Create Background */
@@ -87,7 +84,7 @@ namespace GAME{
 
         //Ship
         GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 5));
-        GTech::Sprite::SetScale(shipId, 0.16);
+        GTech::Sprite::SetScale(shipId, 0.17);
         ECS::RenderingSystem::SubscribeEntity(shipId,0);
         ECS::KinematicsSystem::SubscribeEntity(shipId);
 
@@ -129,28 +126,7 @@ namespace GAME{
         ECS::KinematicsSystem::SubscribeEntity(boltId);
         ECS::RenderingSystem::SubscribeEntity(boltId,2);
 		
-		/*std::cout<<"On fire pressed: "<<boltId<<std::endl;
-		boltsIdCollection.push_back(boltId);
-		boltsLifeTime.push_back(time(NULL));
-		if(boltsIdCollection.size()>1){
-			int i=boltsIdCollection.size();
-			std::cout<<"tiempo entre disparos: "<<difftime( boltsLifeTime.at(i-1),boltsLifeTime.at(i-2))<<std::endl;
-		}*/
 
-		//sound
-		//const char * musicPath = std::string(RES_DIR)+"sounds/BlastSound.wav";
-		/*if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT, 2, 2048)<0){
-			std::cout<<"failed to load music :( "<<std::endl;
-		}else{
-			Mix_Chunk *gScratch=nullptr;
-			gScratch = Mix_LoadWAV("../Resources/sounds/BlastSound.wav");
-			if(gScratch==nullptr){
-				std::cout<<"failed to load music :( "<<std::endl;
-				
-			}else{
-				Mix_PlayChannel(-1, gScratch, 0);			
-			}
-		}*/
 		
 
         auto& componentManager                              = ECS::ComponentManager::GetInstance();
@@ -173,8 +149,6 @@ namespace GAME{
         auto radians = glm::radians(direction);
         speedComponent->speed.x = maxSpeed * glm::cos(radians);
         speedComponent->speed.y = maxSpeed * glm::sin(radians);
-		
-
 
     }
     void ExitGame()
@@ -185,7 +159,6 @@ namespace GAME{
     void OnTimerDone(){
        // ExitGame();
     }
-
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
@@ -209,8 +182,6 @@ namespace GAME{
         } else {
             angleSpeedComponent->speed.z = 0.0f;
         }
-
-
 
         if (kbKey == SDLK_UP) {
 

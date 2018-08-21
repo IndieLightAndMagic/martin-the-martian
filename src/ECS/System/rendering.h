@@ -24,8 +24,8 @@ using namespace GTech;
 namespace ECS {
     using RenderingDataTuple = std::tuple<
             unsigned int,            ///ids
-			std::chrono::steady_clock::time_point,		 ///lifeTimeStart
-			unsigned int,			 ///typecomponent
+			std::chrono::steady_clock::time_point,		 ///lifeTimeStart 
+			unsigned int,			 ///typecomponent 0 = ship 1 = background 2 = bolts
             SDL_Texture*,            ///textures
             const unsigned long*,    ///textureSizes
             void*,                   ///positions. void* because because tuple wouldn't handle &glm::vec3.
