@@ -116,6 +116,8 @@ namespace GAME{
 
     void OnFirePressed(const uint32_t& kbEvent, const int32_t& kbKey){
 
+        MoveForward(); // To keep moving forward while shooting AND turning
+
         auto resPath = std::string(RES_DIR)+"purplebolt16x16.png";
         auto boltId = GTech::Sprite::CreateSprite(resPath);
 
