@@ -91,6 +91,7 @@ namespace GTech {
         anchorPointComponentRP->SetAnchorPoint(anchor, glm::vec3{scaledTextureWidth, scaledTextureHeight, 0.0f});
     
     }
+
     void Sprite::SetScale(unsigned int shipId, float scale) {
 
         auto&	componentManager                                        = ECS::ComponentManager::GetInstance();
@@ -104,7 +105,14 @@ namespace GTech {
         auto [scaledTextureWidth, scaledTextureHeight] = textureComponentRP->GetScaledSize();
         anchorPointComponentRP->SetAnchorPoint(anchorPointComponentRP->m_anchorPoint, glm::vec3{scaledTextureWidth, scaledTextureHeight, 0.0f});
 
-
     }
 
+    void Sprite::SetLifeSpan(unsigned int shipId, float milliseconds) {
+
+        auto&   componentManager    = ECS::ComponentManager::GetInstance();
+        auto    entityInfoId        = ECS::EntityManager::GetInstance().GetComponentsIds(shipId)[0];
+        auto    infoComponentRP     = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityInfoId);
+                
+
+    }
 }
