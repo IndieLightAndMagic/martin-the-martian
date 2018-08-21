@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
+#include <chrono>
 
 #include <SDL2/SDL_system.h>
 
@@ -23,6 +24,8 @@ using namespace GTech;
 namespace ECS {
     using RenderingDataTuple = std::tuple<
             unsigned int,            ///ids
+			std::chrono::steady_clock::time_point,		 ///lifeTimeStart 
+			unsigned int,			 ///typecomponent 0 = ship 1 = background 2 = bolts
             SDL_Texture*,            ///textures
             const unsigned long*,    ///textureSizes
             void*,                   ///positions. void* because because tuple wouldn't handle &glm::vec3.
@@ -46,7 +49,8 @@ namespace ECS {
 
         public:
 
-        static unsigned long SubscribeEntity(unsigned int entityId);
+        static unsigned long SubscribeEntity(unsigned int entityId, unsigned int typeComponent);
+		static void UnSubscribeEntity(int entityId);
         static unsigned int DrawSprites2D();
         static void InitRenderingSystem();
         static void ShutdownRenderingSystem();

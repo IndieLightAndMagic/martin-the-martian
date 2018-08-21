@@ -11,6 +11,8 @@
 #include <ECS/Event/events.h>
 
 #include <Sprite.h>
+#include <ctime>
+#include <chrono>
 
 using namespace std;
 
@@ -18,12 +20,12 @@ void RegisterKeyboardEvent(Uint32 event, Sint32 key, function<void(const Uint32&
 void RegisterKeyboardEvents(Uint32 event, vector<Sint32>& keys, std::function<void(const Uint32&, const Sint32&)> slot);
 
 
-
 namespace GAME{
 
     static unsigned int backId;
     static unsigned int shipId;
     static bool bGameIsOn;
+	static ECS::LifeSpanComponent_ fire;
 
     void OnTimerDone();
     void OnEscPressed(const Uint32&, const Sint32&);
@@ -63,7 +65,7 @@ namespace GAME{
 
 
         /* Create Sprite */
-        auto shipTexturePath = std::string(RES_DIR)+"ships/goodguy3.png";
+        auto shipTexturePath = std::string(RES_DIR)+"ships/goodguy0.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
         /* Create Background */
@@ -72,6 +74,7 @@ namespace GAME{
 
         /* Dimensions */
         auto [width, height] = SDLWindowSize();
+		std::cout<<width<<","<<height<<std::endl;
 
         /* Init Systems */
         ECS::RenderingSystem::InitRenderingSystem();
@@ -81,12 +84,12 @@ namespace GAME{
 
         //Ship
         GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 5));
-        GTech::Sprite::SetScale(shipId, 0.16);
-        ECS::RenderingSystem::SubscribeEntity(shipId);
+        GTech::Sprite::SetScale(shipId, 0.17);
+        ECS::RenderingSystem::SubscribeEntity(shipId,0);
         ECS::KinematicsSystem::SubscribeEntity(shipId);
 
         //Background
-        ECS::RenderingSystem::SubscribeEntity(backId);
+        ECS::RenderingSystem::SubscribeEntity(backId,1);
         ECS::KinematicsSystem::SubscribeEntity(backId);
         GTech::Sprite::SetPosition(backId, glm::vec3(width >> 1, height >> 1, 0));
 
@@ -98,9 +101,10 @@ namespace GAME{
         bGameIsOn = true;
 
         ECS::LifeSpanComponent_ x;
+		
         auto signalId = x.onLifeSpanEnded.connect_function(OnTimerDone);
         x.Set(6000);
-
+		
 
         while (bGameIsOn)
         {
@@ -120,7 +124,10 @@ namespace GAME{
 
         auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
         ECS::KinematicsSystem::SubscribeEntity(boltId);
-        ECS::RenderingSystem::SubscribeEntity(boltId);
+        ECS::RenderingSystem::SubscribeEntity(boltId,2);
+		
+
+		
 
         auto& componentManager                              = ECS::ComponentManager::GetInstance();
         auto  shipInformationComponent                      = ECS::ComponentManager::GetInformationComponent(shipId);
@@ -138,12 +145,10 @@ namespace GAME{
         auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
         auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
 
-        auto const maxSpeed = 320.0l;
+        auto const maxSpeed = 30.0l;
         auto radians = glm::radians(direction);
         speedComponent->speed.x = maxSpeed * glm::cos(radians);
         speedComponent->speed.y = maxSpeed * glm::sin(radians);
-
-
 
     }
     void ExitGame()
@@ -152,7 +157,7 @@ namespace GAME{
     }
 
     void OnTimerDone(){
-        ExitGame();
+       // ExitGame();
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
@@ -177,8 +182,6 @@ namespace GAME{
         } else {
             angleSpeedComponent->speed.z = 0.0f;
         }
-
-
 
         if (kbKey == SDLK_UP) {
 
