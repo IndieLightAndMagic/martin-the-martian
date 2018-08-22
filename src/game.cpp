@@ -1,4 +1,3 @@
-#include <ctime>
 #include <vector>
 #include <functional>
 
@@ -82,11 +81,11 @@ namespace GAME{
         //Ship
         GTech::Sprite::SetPosition(shipId, glm::vec3(width >> 1, height >> 1, 5));
         GTech::Sprite::SetScale(shipId, 0.16);
-        ECS::RenderingSystem::SubscribeEntity(shipId, 1);
+        ECS::RenderingSystem::SubscribeEntity(shipId);
         ECS::KinematicsSystem::SubscribeEntity(shipId);
 
         //Background
-        ECS::RenderingSystem::SubscribeEntity(backId, 0);
+        ECS::RenderingSystem::SubscribeEntity(backId);
         ECS::KinematicsSystem::SubscribeEntity(backId);
         GTech::Sprite::SetPosition(backId, glm::vec3(width >> 1, height >> 1, 0));
 
@@ -101,7 +100,7 @@ namespace GAME{
 
         ECS::LifeSpanComponent_ x;
         auto signalId = x.onLifeSpanEnded.connect_function(OnTimerDone);
-        x.Set(5000);
+        x.Set(6000);
 
 
         while (bGameIsOn)
@@ -122,7 +121,7 @@ namespace GAME{
 
         auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
         ECS::KinematicsSystem::SubscribeEntity(boltId);
-        ECS::RenderingSystem::SubscribeEntity(boltId, 2);
+        ECS::RenderingSystem::SubscribeEntity(boltId);
 
         auto& componentManager                              = ECS::ComponentManager::GetInstance();
         auto  shipInformationComponent                      = ECS::ComponentManager::GetInformationComponent(shipId);
@@ -140,7 +139,7 @@ namespace GAME{
         auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
         auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
 
-        auto const maxSpeed = 120.0l;
+        auto const maxSpeed = 320.0l;
         auto radians = glm::radians(direction);
         speedComponent->speed.x = maxSpeed * glm::cos(radians);
         speedComponent->speed.y = maxSpeed * glm::sin(radians);
@@ -160,7 +159,7 @@ namespace GAME{
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
         ExitGame();
     }
-
+    
         void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
         auto& componentManager          = ECS::ComponentManager::GetInstance();
@@ -168,32 +167,23 @@ namespace GAME{
         auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
         auto  [posId, speedId, accelId] = kinematicTuples[1];
 
+        auto  backgroundInformationComponent  = ECS::ComponentManager::GetInformationComponent(backId);
+        auto  kinematicTuplesBackground       =  backgroundInformationComponent.GetKinematicTuples ();
+        auto  [posbId, speedbId, accelbId] = kinematicTuplesBackground[1];
+
+
         auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
-      
+        auto backgroundPosComponent = componentManager.GetComponentRaw<ECS::PositionComponent_>(posbId);
+
         if (kbKey ==  SDLK_LEFT && kbEvent == SDL_KEYDOWN){
-            angleSpeedComponent->speed.z = -45.0f;
+            //angleSpeedComponent->speed.z = -45.0f;
+            backgroundPosComponent->position.z -=(-45.0f);
         } else if (kbKey == SDLK_RIGHT && kbEvent == SDL_KEYDOWN) {
-            angleSpeedComponent->speed.z = +45.0f;
+            //angleSpeedComponent->speed.z = +45.0f;
+            backgroundPosComponent->position.z +=(+45.0f);
         } else {
-            angleSpeedComponent->speed.z = 0.0f;
+            //angleSpeedComponent->speed.z = 0.0f;
         }
-
-        //if (kbKey == SDLK_UP) {
-
-            auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
-            auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
-            auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
-            auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
-
-            auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
-
-            auto const maxSpeed = 160.0f;
-            auto radians = glm::radians(direction);
-            backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
-            backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
-            backSpeedComponent->speed  *= -1;
-
-        //}
 
     }
 
