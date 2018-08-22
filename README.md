@@ -7,6 +7,7 @@ This is an example to illustrate Entity_ Component System.
 
 Version -- Description
 
+
 0.0.8	-- Bolt LifeSpan (Time).
 
 0.0.7	-- Background moves as ship thrust up with Up Arrow Key
@@ -30,7 +31,6 @@ Version -- Description
      Notes for compilation in Linux OS:
 __________________________________________________________________
 
-
 - Compiling using g++ 7 and cmake 3.10
 
 0. Install dependent libraries:
@@ -38,7 +38,6 @@ __________________________________________________________________
    libpng-dev (or libpng-devel in OpenSuse )
    xorg-dev (or xorg-x11-devel in OpenSuse )
    libasound2-dev (or alsa-dev in OpenSuse )
-   
    
    (*** libs for SDL2 -- look at the result of the "./configure" command --)
    libsamplerate
@@ -76,3 +75,4 @@ __________________________________________________________________
    - run "cmake .."   
    - run "make"
    - run "make install" (with sudo privileges)
+
