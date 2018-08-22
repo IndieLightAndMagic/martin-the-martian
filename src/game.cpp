@@ -165,23 +165,23 @@ namespace GAME{
     void setComponentSpeed(float const maxSpeed) {
 
     	auto& componentManager          = ECS::ComponentManager::GetInstance();
-		auto  informationComponent  	= ECS::ComponentManager::GetInformationComponent(backId);
-		auto  kinematicTuples           = informationComponent.GetKinematicTuples();
-		auto  [posId, speedId, accelId] = kinematicTuples[0];
-		auto speedComponent             = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
-		float const direction = 270.0f; // Challenge 2 : Silver: Background turns instead of the ship.
+	auto  informationComponent  	= ECS::ComponentManager::GetInformationComponent(shipId);
+	auto  kinematicTuples           = informationComponent.GetKinematicTuples();
+	auto  [posId, speedId, accelId] = kinematicTuples[0];
+	auto speedComponent             = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+	auto direction                  = GAME::GetEntityDirection(componentManager, informationComponent);
 
-		auto radians = glm::radians(direction);
+	auto radians = glm::radians(direction);
 
-		speedComponent->speed.x = maxSpeed * glm::cos(radians);
-		speedComponent->speed.y = maxSpeed * glm::sin(radians);
-		speedComponent->speed  *= -1;
+	speedComponent->speed.x = maxSpeed * glm::cos(radians);
+	speedComponent->speed.y = maxSpeed * glm::sin(radians);
+	speedComponent->speed  *= 1;
     }
 
     void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
         auto& componentManager          = ECS::ComponentManager::GetInstance();
-        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(backId);
+        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
         auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
         auto  [posId, speedId, accelId] = kinematicTuples[1];
 
