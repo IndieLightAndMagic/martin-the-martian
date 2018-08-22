@@ -167,23 +167,35 @@ namespace GAME{
         auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
         auto  [posId, speedId, accelId] = kinematicTuples[1];
 
-        auto  backgroundInformationComponent  = ECS::ComponentManager::GetInformationComponent(backId);
-        auto  kinematicTuplesBackground       =  backgroundInformationComponent.GetKinematicTuples ();
-        auto  [posbId, speedbId, accelbId] = kinematicTuplesBackground[1];
-
-
         auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
-        auto backgroundPosComponent = componentManager.GetComponentRaw<ECS::PositionComponent_>(posbId);
+    
 
         if (kbKey ==  SDLK_LEFT && kbEvent == SDL_KEYDOWN){
-            //angleSpeedComponent->speed.z = -45.0f;
-            backgroundPosComponent->position.z -=(-45.0f);
+            angleSpeedComponent->speed.z = -45.0f;
+            
         } else if (kbKey == SDLK_RIGHT && kbEvent == SDL_KEYDOWN) {
-            //angleSpeedComponent->speed.z = +45.0f;
-            backgroundPosComponent->position.z +=(+45.0f);
+            angleSpeedComponent->speed.z = +45.0f;
+            
         } else {
-            //angleSpeedComponent->speed.z = 0.0f;
+            angleSpeedComponent->speed.z = 0.0f;
         }
+
+        //if (kbKey == SDLK_UP) {
+
+            auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
+            auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
+            auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
+            auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
+
+            auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+
+            auto const maxSpeed = 160.0f;
+            auto radians = glm::radians(direction);
+            backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
+            backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
+            backSpeedComponent->speed  *= -1;
+
+       // }
 
     }
 
