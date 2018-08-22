@@ -1,7 +1,8 @@
 
 #include <vector>
 #include <functional>
-
+#include <ctime>
+#include <chrono>
 #include <glm/detail/func_trigonometric.hpp>
 #include <SDL2/SDL.h>
 #include <sdlwrapper.h>
@@ -23,18 +24,19 @@ namespace GAME{
 
     static unsigned int backId;
     static unsigned int shipId;
+    static unsigned int enemyShipId;
     static bool bGameIsOn;
-    static bool bSetBoltInvisible;
-    static bool bRemoveBoltFromMemory;
-    static int lastBackId=-1;
+    static bool bEnemyDirection;
+    static long lastTimeEnemyMove;
+    static long lastTimeEnemyShot;
 
     void OnTimerDone();
     void OnEscPressed(const Uint32&, const Sint32&);
     void OnArrowKeyPressed(const Uint32&, const Sint32&);
     void OnFirePressed(const Uint32&, const Sint32&);
 
-    void OnChangeBackground(const int idTurn);
-
+    void OnMoveEnemy();
+    void OnEnemyShot();
 
     float GetEntityDirection(const ECS::ComponentManager &componentManager, const ECS::EntityInformationComponent_ &informationComponent)
     {
@@ -71,8 +73,12 @@ namespace GAME{
         auto shipTexturePath = std::string(RES_DIR)+"ships/goodguy3.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
+        /* Create Sprite enemy*/
+        auto enemyShipTexturePath = std::string(RES_DIR)+"ships/enemy1.png";
+        enemyShipId = GTech::Sprite::CreateSprite(enemyShipTexturePath);
+
         /* Create Background */
-        auto backgroundTexturePath = std::string(RES_DIR)+"backgrounds/B0dbg.png";
+        auto backgroundTexturePath = std::string(RES_DIR)+"backgrounds/B0.png";
         backId = GTech::Sprite::CreateSprite(backgroundTexturePath);
 
         /* Dimensions */
@@ -95,7 +101,31 @@ namespace GAME{
         ECS::KinematicsSystem::SubscribeEntity(backId);
         GTech::Sprite::SetPosition(backId, glm::vec3(width >> 1, height >> 1, 0));
 
+        //Enemy Ship
+        GTech::Sprite::SetPosition(enemyShipId, glm::vec3(width >> 4, height >> 4, 5));
+        GTech::Sprite::SetScale(enemyShipId, 0.16);
+        ECS::RenderingSystem::SubscribeEntity(enemyShipId, false);
+        ECS::KinematicsSystem::SubscribeEntity(enemyShipId);
 
+        auto& componentManager                         = ECS::ComponentManager::GetInstance();
+        auto  enemyShipInformationComponent            = ECS::ComponentManager::GetInformationComponent(enemyShipId);
+        auto  enemyKinematicTuples                     = enemyShipInformationComponent.GetKinematicTuples();
+        auto  [enemyPosId, enemySpeedId, enemyAccelId] = enemyKinematicTuples[1];
+        auto  [enemyPos0Id, enemySpeed0Id, enemyAccel0Id] = enemyKinematicTuples[0];
+
+        auto  enemyPosComponent                        = componentManager.GetComponentRaw<ECS::PositionComponent_>(enemyPosId);
+        enemyPosComponent->position.z =180.0f;
+
+        auto enemySpeedComponent                       = componentManager.GetComponentRaw<ECS::SpeedComponent_>(enemySpeed0Id);
+        auto enemyDirection                            = GAME::GetEntityDirection(componentManager, enemyShipInformationComponent);
+        auto const maxSpeed = 100.0f;
+        auto radians = glm::radians(enemyDirection);
+        enemySpeedComponent->speed.x = maxSpeed * glm::sin(radians);
+        enemySpeedComponent->speed.y = maxSpeed * glm::cos(radians);
+
+        bEnemyDirection = false;
+        std::time_t t = std::time(0);
+        lastTimeEnemyMove = (long)t;
     }
 
     void MainLoop()
@@ -113,14 +143,14 @@ namespace GAME{
             ECS::RenderingSystem::UpdateRenderingSystem();
             ECS::KinematicsSystem::UpdateKinematicsSystem();
             x.Update();
+            OnMoveEnemy();
+            OnEnemyShot();
         }
         x.onLifeSpanEnded.disconnect(signalId);
 
     }
 
     void OnFirePressed(const uint32_t& kbEvent, const int32_t& kbKey){
-
-        //if (!bRemoveBoltFromMemory) {
             
             auto resPath = std::string(RES_DIR)+"purplebolt16x16.png";
             auto boltId = GTech::Sprite::CreateSprite(resPath);
@@ -139,9 +169,7 @@ namespace GAME{
             
             //Set Position of the bolt
             GTech::Sprite::SetPosition(boltId, position);
-            
-            
-            
+
             //Set Speed of the bolt.
             auto kinematicTuples = boltInfo.GetKinematicTuples();
             auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
@@ -151,7 +179,6 @@ namespace GAME{
             auto radians = glm::radians(direction);
             speedComponent->speed.x = maxSpeed * glm::cos(radians);
             speedComponent->speed.y = maxSpeed * glm::sin(radians);            
-        
     }
 
     void ExitGame()
@@ -160,8 +187,7 @@ namespace GAME{
     }
 
     void OnTimerDone(){
-        //ExitGame();        
-        bSetBoltInvisible = true;
+
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
@@ -172,79 +198,102 @@ namespace GAME{
 
     void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
-        auto& componentManager          = ECS::ComponentManager::GetInstance();
-        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
-        auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
-        auto  [posId, speedId, accelId] = kinematicTuples[1];
-
+        auto& componentManager                       = ECS::ComponentManager::GetInstance();
+        auto  shipInformationComponent               = ECS::ComponentManager::GetInformationComponent(shipId);
+        auto  backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
+        auto  kinematicTuples                        = shipInformationComponent.GetKinematicTuples();
+        auto  backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
+        auto  [posId, speedId, accelId]              = kinematicTuples[1];
+        auto  [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[1];
         auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+        auto backPosComponent = componentManager.GetComponentRaw<ECS::PositionComponent_>(backPosId);
 
-        int idTurn = -1;
 
         if (kbKey ==  SDLK_LEFT && kbEvent == SDL_KEYDOWN){
-            angleSpeedComponent->speed.z = -45.0f;
-            idTurn = 1;
+            backPosComponent->position.z -=(-45.0f);
         } else if (kbKey == SDLK_RIGHT && kbEvent == SDL_KEYDOWN) {
-            angleSpeedComponent->speed.z = +45.0f;
-            idTurn = 2;
-
+            backPosComponent->position.z +=(+45.0f);
         } else {
             angleSpeedComponent->speed.z = 0.0f;
-            if (kbKey == SDLK_UP && kbEvent == SDL_KEYDOWN){
-                idTurn = 0;
+        }
+    }
+
+
+    void OnMoveEnemy(){
+
+        auto& componentManager                            = ECS::ComponentManager::GetInstance();
+        auto  enemyShipInformationComponent               = ECS::ComponentManager::GetInformationComponent(enemyShipId);
+        auto  enemyKinematicTuples                        = enemyShipInformationComponent.GetKinematicTuples();
+
+        auto [enemyPosId, enemySpeedId, enemyAccelId]     = enemyKinematicTuples[0];
+        auto [enemyPos0Id, enemySpeed0Id, enemyAccel0Id]  = enemyKinematicTuples[1];
+        auto enemySpeedComponent                          = componentManager.GetComponentRaw<ECS::SpeedComponent_>(enemySpeedId);
+
+        auto const maxSpeed = 100.0f;
+
+        std::time_t t = std::time(0);
+        long actualTime = (long)t;
+
+        if ((actualTime - lastTimeEnemyMove) > 10 ){
+            auto enemyDirection                            = GAME::GetEntityDirection(componentManager, enemyShipInformationComponent);
+            auto radians = glm::radians(enemyDirection);
+
+            lastTimeEnemyMove = actualTime;
+            if (bEnemyDirection){
+                radians = glm::radians(enemyDirection);
+                enemySpeedComponent->speed.x = maxSpeed * glm::sin(radians);
+                enemySpeedComponent->speed.y = maxSpeed * glm::cos(radians);
+                bEnemyDirection = false;
+            }
+            else{
+                radians = glm::radians(enemyDirection*-1);
+                enemySpeedComponent->speed.x = maxSpeed * glm::sin(radians);
+                enemySpeedComponent->speed.y = maxSpeed * glm::cos(radians);
+                bEnemyDirection = true;
             }
         }
-
-
-
-         auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
-         auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
-         auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
-         auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
-
-         auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
-
-
-         auto const maxSpeed = 160.0f;
-         auto radians = glm::radians(direction);
-         backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
-         backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
-         backSpeedComponent->speed  *= -1;
-
-         //OnChangeBackground(idTurn);
-
     }
 
 
-    void OnChangeBackground(const int idTurn){
-        if (lastBackId != idTurn) {
-            auto backPath = std::string("");
-            switch (idTurn) {
-            case 0:
-                backPath = std::string(RES_DIR)+"backgrounds/B0dbg.png";
-                break;
-            case 1:
-                backPath = std::string(RES_DIR)+"backgrounds/B4.png";
-                break;
-            case 2:
-                backPath = std::string(RES_DIR)+"backgrounds/B5.png";
-                break;
-             default:
-                return;
-                break;
-             }
+    void OnEnemyShot(){
 
-             auto& componentManager          = ECS::ComponentManager::GetInstance();
-             auto  backInformationComponent  = ECS::ComponentManager::GetInformationComponent(backId);
-             auto  [posId, anglePositionId, anchorId, textureId] = backInformationComponent.GetRenderingTupleIds();
-             auto textureComponentRP         = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
+        std::time_t t = std::time(0);
+        long actualTime = (long)t;
 
-             textureComponentRP->SetTexture(backPath);
-             ECS::RenderingSystem::SubscribeEntity(backId, false);
-             lastBackId=idTurn;
+        if ((actualTime - lastTimeEnemyShot) > 1) {
+
+            auto resPath = std::string(RES_DIR)+"orangebolt.png";
+            auto boltId = GTech::Sprite::CreateSprite(resPath);
+
+            auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
+            ECS::KinematicsSystem::SubscribeEntity(boltId);
+            ECS::RenderingSystem::SubscribeEntity(boltId, true);
+
+            auto& componentManager                              = ECS::ComponentManager::GetInstance();
+            auto  shipInformationComponent                      = ECS::ComponentManager::GetInformationComponent(enemyShipId);
+            auto  [posId, anglePositionId, anchorId, textureId] = shipInformationComponent.GetRenderingTupleIds();
+
+            //Get Position and Direction of enemy ship
+            auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
+            auto  direction = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+
+            //Set Position of the bolt
+            GTech::Sprite::SetPosition(boltId, position);
+
+            //Set Speed of the bolt.
+            auto kinematicTuples = boltInfo.GetKinematicTuples();
+            auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
+            auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
+
+            auto const maxSpeed = 320.0l;
+            auto radians = glm::radians(direction-14);
+
+            if (bEnemyDirection)  radians = glm::radians(direction+14);
+
+            speedComponent->speed.x = maxSpeed * glm::cos(radians);
+            speedComponent->speed.y = maxSpeed * glm::sin(radians);
+            lastTimeEnemyShot = actualTime;
         }
-
     }
-        
 
 };

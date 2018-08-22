@@ -1,4 +1,4 @@
-#include <chrono>
+#include <ctime>
 #include <tuple>
 #include "rendering.h"
 
@@ -126,7 +126,7 @@ namespace ECS {
         SDLDetachRenderTexture();                   //NOW IS THE GPU WHERE THE RENDERER WILL DRAW
         SDLRenderCopy(pScreen, nullptr, nullptr);   //TAKE PSCREEN AND COPY IT INTO THE GPU
         SDLUpdateScreen();                          //UPDATE THE SCREEN
-        FadesOutBolts(2);                           //REMOVE THE BOLDS AFTER X SECONDS
+        FadesOutBolts(3);                           //REMOVE THE BOLDS AFTER X SECONDS
     }
 
     void RenderingSystem::FadesOutBolts(int secs)
@@ -143,7 +143,7 @@ namespace ECS {
                 long startSec = (int)(std::get<8>(item));
                 long endSec = (long)t;
 
-                if ( ((endSec)-startSec) >= secs){
+                if ( (endSec - startSec) >= secs){
                     //Remove the bolt
                     renderingData.erase(i);
                     SDLPlaySoundEffect();

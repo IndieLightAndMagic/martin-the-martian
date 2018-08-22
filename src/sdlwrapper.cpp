@@ -164,9 +164,8 @@ namespace GTech {
 
         if (!bIsOpenAudioDevice) {
 
-
             std::string sRuta (RES_DIR);
-            sRuta.append("sounds/bolt.wav");
+            sRuta.append("sounds/bolt1.wav");
             const char *ruta = sRuta.data();
 
             /* Load the bolt WAV */
@@ -192,7 +191,7 @@ namespace GTech {
                 SDL_PauseAudioDevice(deviceAudioId, 0);
             }
             else{
-                std::cerr<<"1 OpenAudioDevice failed. \n";
+                std::cerr<<"OpenAudioDevice failed. \n";
             }
         }
     }
