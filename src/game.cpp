@@ -1,4 +1,3 @@
-
 #include <vector>
 #include <functional>
 
@@ -23,6 +22,7 @@ namespace GAME{
 
     static unsigned int backId;
     static unsigned int shipId;
+    static unsigned int shipEnemyId;
     static bool bGameIsOn;
 
     void OnTimerDone();
@@ -62,11 +62,15 @@ namespace GAME{
         RegisterKeyboardEvents(SDL_KEYUP, arrowKeysGroup, OnArrowKeyPressed);
 
 
-        /* Create Sprite */
+        // Create Sprite
         auto shipTexturePath = std::string(RES_DIR)+"ships/goodguy3.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
-        /* Create Background */
+        // create enemyship
+        auto shipEnemyTexturePath = std::string(RES_DIR)+"ships/enemy1.png";
+        shipEnemyId = GTech::Sprite::CreateSprite(shipEnemyTexturePath);
+
+        // Create Background 
         auto backgroundTexturePath = std::string(RES_DIR)+"backgrounds/B0dbg.png";
         backId = GTech::Sprite::CreateSprite(backgroundTexturePath);
 
@@ -85,10 +89,18 @@ namespace GAME{
         ECS::RenderingSystem::SubscribeEntity(shipId);
         ECS::KinematicsSystem::SubscribeEntity(shipId);
 
+        //shipEnemy
+        GTech::Sprite::SetPosition(shipEnemyId, glm::vec3(width >> 1, height >> 2, 5));
+        GTech::Sprite::SetScale(shipEnemyId, 0.16);
+        ECS::RenderingSystem::SubscribeEntity(shipEnemyId);
+        ECS::KinematicsSystem::SubscribeEntity(shipEnemyId);
+
         //Background
         ECS::RenderingSystem::SubscribeEntity(backId);
         ECS::KinematicsSystem::SubscribeEntity(backId);
         GTech::Sprite::SetPosition(backId, glm::vec3(width >> 1, height >> 1, 0));
+
+       
 
 
     }
@@ -143,8 +155,6 @@ namespace GAME{
         speedComponent->speed.x = maxSpeed * glm::cos(radians);
         speedComponent->speed.y = maxSpeed * glm::sin(radians);
 
-
-
     }
     void ExitGame()
     {
@@ -152,7 +162,7 @@ namespace GAME{
     }
 
     void OnTimerDone(){
-        ExitGame();
+        //ExitGame();
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
@@ -160,8 +170,8 @@ namespace GAME{
         std::cout << "GAME::OnEscPressed "  << __FUNCTION__ << std::endl;
         ExitGame();
     }
-
-    void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
+    
+        void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
         auto& componentManager          = ECS::ComponentManager::GetInstance();
         auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
@@ -169,18 +179,19 @@ namespace GAME{
         auto  [posId, speedId, accelId] = kinematicTuples[1];
 
         auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+    
 
         if (kbKey ==  SDLK_LEFT && kbEvent == SDL_KEYDOWN){
             angleSpeedComponent->speed.z = -45.0f;
+            
         } else if (kbKey == SDLK_RIGHT && kbEvent == SDL_KEYDOWN) {
             angleSpeedComponent->speed.z = +45.0f;
+            
         } else {
             angleSpeedComponent->speed.z = 0.0f;
         }
 
-
-
-        if (kbKey == SDLK_UP) {
+        //if (kbKey == SDLK_UP) {
 
             auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
             auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
@@ -195,7 +206,7 @@ namespace GAME{
             backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
             backSpeedComponent->speed  *= -1;
 
-        }
+       // }
 
     }
 
