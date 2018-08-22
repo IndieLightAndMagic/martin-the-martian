@@ -1,3 +1,4 @@
+#include<ctime>
 #include <tuple>
 #include "rendering.h"
 
@@ -12,8 +13,8 @@ glm::mat4x4                             RenderingSystem::mtxSDLScreenCoordinates
 
 std::vector<RenderingDataTuple> RenderingSystem::renderingData{};
 
-namespace ECS {
-    unsigned long RenderingSystem::SubscribeEntity(unsigned int entityId) {
+namespace ECS { //metodos no se pueden acceder solo por el nombre
+    unsigned long RenderingSystem::SubscribeEntity(unsigned int entityId, int typeEntity) {
 
             //Get Managers
             auto& entityManager     = ECS::EntityManager::GetInstance();
@@ -38,16 +39,21 @@ namespace ECS {
             auto pTexture = pTextureComponent->GetTexture();
 
             auto sz =  &pTextureComponent->m_scaledSize_16W_16H;
+            
+            std::time_t t = std::time(0);   // get time now
+            long timeCreation = (long)t;
 
-            RenderingDataTuple entityRenderingData(
-                    entityId,
+            RenderingDataTuple entityRenderingData(//
+                    entityId, //identifcacion de componente
                     pTexture,
                     sz,
                     &pPositionComponent->position,
                     &pAnglePositionComponent->position,
                     &pAnchorPointComponent->m_anchorPoint,
                     &pAnchorPointComponent->m_correctionVector,
-                    &pPositionComponent->isDirty);
+                    &pPositionComponent->isDirty,
+                    typeEntity,
+                    timeCreation);
 
             renderingData.emplace_back(entityRenderingData);
 
@@ -64,7 +70,7 @@ namespace ECS {
 
         SDLRenderClear();
 
-        for (auto& [eid, pTexture, pEncodedTextureSize, pvPosition, pvAnglePosition, pvAnchorPoint, pvAnchorPointCorrection, pDirty]: renderingData){
+        for (auto& [eid, pTexture, pEncodedTextureSize, pvPosition, pvAnglePosition, pvAnchorPoint, pvAnchorPointCorrection, pDirty, pTypeEntity, pTimeCreation]: renderingData){
 
             auto encodedTextureSize         = *pEncodedTextureSize;
             auto pPosition                  = reinterpret_cast<glm::vec3*>  (pvPosition);
@@ -121,6 +127,29 @@ namespace ECS {
         SDLDetachRenderTexture();                   //NOW IS THE GPU WHERE THE RENDERER WILL DRAW
         SDLRenderCopy(pScreen, nullptr, nullptr);   //TAKE PSCREEN AND COPY IT INTO THE GPU
         SDLUpdateScreen();                          //UPDATE THE SCREEN
-
+        DesaparecerBalas(5);                        //llama la metodo
     }
+
+    void RenderingSystem::DesaparecerBalas(int sec){
+        
+        RenderingDataTuple Item;
+
+        for (std::vector<RenderingDataTuple>::iterator it = renderingData.begin() ; it != renderingData.end(); ++it) {
+            Item = *it;
+            long time = (long)std::get<9>(Item);
+            int typeEntity= (int)std::get<8>(Item); 
+             
+            if(typeEntity == 2){
+                std::time_t t = std::time(0);   // get time now
+                long end = (long)t;  
+
+                if((end-time) >= sec){
+                    renderingData.erase(it);
+                    
+                }
+            }       
+        }
+    }
+
 }
+
