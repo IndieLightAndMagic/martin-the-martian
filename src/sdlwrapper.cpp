@@ -5,7 +5,11 @@
 #include <tuple>
 
 #include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
+#ifdef __APPLE__
+ #include <SDL2_image/SDL_image.h>
+#elif __linux
+#include <SDL2/SDL_image.h>
+#endif
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 
@@ -17,6 +21,10 @@ SDL_Renderer* pRenderer;
 
 
 namespace GTech {
+
+    static bool bIsOpenAudioDevice;
+    static SDL_AudioDeviceID deviceAudioId;
+    static SDL_AudioSpec wav_spec;
 
     SDL_Texture* SDLCreateTexture(SDL_Rect& rSize) {
         return SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, rSize.w, rSize.h);
@@ -74,6 +82,14 @@ namespace GTech {
             std::cerr << "IMG_Init failed. \n";
             SDL_assert(false);
         }
+        
+        //Init the audio
+        if (SDL_Init(SDL_INIT_AUDIO)!=0)
+        {
+            std::cerr << "SDL_INIT_AUDIO failed. \n";
+            SDL_assert(false);
+        }
+
     }
 
     SDL_Texture* SDLCreateTextureFromSurface(SDL_Surface* pSurface) {
@@ -86,7 +102,7 @@ namespace GTech {
         return pSDLTexture;
     }
 
-    SDL_Texture *SDLCreateTextureFromFile(const char *path) {
+    SDL_Texture *SDLCreateTextureFromFile(const char *path) {        
         auto pSDLTexture = IMG_LoadTexture(pRenderer, path);
         if (!pSDLTexture){
             std::cerr << "Tech_SDLBridge: Couldn't create a texture... \n";
@@ -140,6 +156,44 @@ namespace GTech {
         auto p = make_pair(w,h);
         return p;
 
+    }
+    
+    void SDLPlaySoundEffect(){
+        static Uint32 wav_length;
+        static Uint8 *wav_buffer;
+
+        if (!bIsOpenAudioDevice) {
+
+            std::string sRuta (RES_DIR);
+            sRuta.append("sounds/bolt1.wav");
+            const char *ruta = sRuta.data();
+
+            /* Load the bolt WAV */
+            if (SDL_LoadWAV(ruta, &wav_spec, &wav_buffer, &wav_length) == NULL) {
+                std::cerr<<"Could not open sound file for bolt \n";
+            } else {
+                deviceAudioId = SDL_OpenAudioDevice(NULL, 0, &wav_spec, NULL, 0);
+                if (SDL_QueueAudio(deviceAudioId, wav_buffer, wav_length)==0){
+                    SDL_PauseAudioDevice(deviceAudioId, 0);
+                    bIsOpenAudioDevice = true;
+                }
+                else{
+                    std::cerr<<"OpenAudioDevice failed. \n";
+                    SDL_FreeWAV(wav_buffer);
+                }
+            }
+        }
+        else
+        {
+            if (SDL_QueueAudio(deviceAudioId, wav_buffer, wav_length)==0){
+                SDL_ClearQueuedAudio(deviceAudioId);
+                SDL_QueueAudio(deviceAudioId, wav_buffer, wav_length);
+                SDL_PauseAudioDevice(deviceAudioId, 0);
+            }
+            else{
+                std::cerr<<"OpenAudioDevice failed. \n";
+            }
+        }
     }
 
     void SDLQuit()

@@ -29,7 +29,9 @@ namespace ECS {
             void*,                   ///angles per axis. void* because because tuple wouldn't handle &glm::vec3.
             void*,                   ///anchor point relative.
             void*,                   ///anchor point correction.
-            bool*>;                  ///isDirty
+            bool*,                   ///isDirty
+            long,                    ///store actual time -seconds-
+            bool>;                   ///isBolt
 
     class RenderingSystem {
 
@@ -46,13 +48,14 @@ namespace ECS {
 
         public:
 
-        static unsigned long SubscribeEntity(unsigned int entityId);
+        static unsigned long SubscribeEntity(unsigned int entityId, bool isBolt);
         static unsigned int DrawSprites2D();
         static void InitRenderingSystem();
         static void ShutdownRenderingSystem();
 
         static void UpdateRenderingSystem();
 
+        static void FadesOutBolts(int secs);
     };
 
 }

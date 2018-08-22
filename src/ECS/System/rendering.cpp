@@ -1,3 +1,4 @@
+#include <ctime>
 #include <tuple>
 #include "rendering.h"
 
@@ -13,7 +14,7 @@ glm::mat4x4                             RenderingSystem::mtxSDLScreenCoordinates
 std::vector<RenderingDataTuple> RenderingSystem::renderingData{};
 
 namespace ECS {
-    unsigned long RenderingSystem::SubscribeEntity(unsigned int entityId) {
+    unsigned long RenderingSystem::SubscribeEntity(unsigned int entityId, bool isBolt) {
 
             //Get Managers
             auto& entityManager     = ECS::EntityManager::GetInstance();
@@ -39,6 +40,8 @@ namespace ECS {
 
             auto sz =  &pTextureComponent->m_scaledSize_16W_16H;
 
+            std::time_t t = std::time(0);
+
             RenderingDataTuple entityRenderingData(
                     entityId,
                     pTexture,
@@ -47,7 +50,9 @@ namespace ECS {
                     &pAnglePositionComponent->position,
                     &pAnchorPointComponent->m_anchorPoint,
                     &pAnchorPointComponent->m_correctionVector,
-                    &pPositionComponent->isDirty);
+                    &pPositionComponent->isDirty,
+                    (long)t,
+                    isBolt);
 
             renderingData.emplace_back(entityRenderingData);
 
@@ -64,7 +69,7 @@ namespace ECS {
 
         SDLRenderClear();
 
-        for (auto& [eid, pTexture, pEncodedTextureSize, pvPosition, pvAnglePosition, pvAnchorPoint, pvAnchorPointCorrection, pDirty]: renderingData){
+        for (auto& [eid, pTexture, pEncodedTextureSize, pvPosition, pvAnglePosition, pvAnchorPoint, pvAnchorPointCorrection, pDirty, pTime, pBolt]: renderingData){
 
             auto encodedTextureSize         = *pEncodedTextureSize;
             auto pPosition                  = reinterpret_cast<glm::vec3*>  (pvPosition);
@@ -121,6 +126,30 @@ namespace ECS {
         SDLDetachRenderTexture();                   //NOW IS THE GPU WHERE THE RENDERER WILL DRAW
         SDLRenderCopy(pScreen, nullptr, nullptr);   //TAKE PSCREEN AND COPY IT INTO THE GPU
         SDLUpdateScreen();                          //UPDATE THE SCREEN
-
+        FadesOutBolts(3);                           //REMOVE THE BOLDS AFTER X SECONDS
     }
+
+    void RenderingSystem::FadesOutBolts(int secs)
+    {
+        std::vector<ECS::RenderingDataTuple>::const_iterator i;
+        RenderingDataTuple item;
+
+        for (i= renderingData.begin(); i!=renderingData.end(); i++){
+
+            item = static_cast<RenderingDataTuple> (*i);
+
+            if ((bool)(std::get<9>(item))){
+                std::time_t t = std::time(0);   // get time now
+                long startSec = (int)(std::get<8>(item));
+                long endSec = (long)t;
+
+                if ( (endSec - startSec) >= secs){
+                    //Remove the bolt
+                    renderingData.erase(i);
+                    SDLPlaySoundEffect();
+                }
+            }
+        }
+    }
+
 }
