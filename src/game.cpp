@@ -164,24 +164,27 @@ namespace GAME{
 
     void setComponentSpeed(float const maxSpeed) {
 
-    	auto& componentManager          = ECS::ComponentManager::GetInstance();
-	auto  informationComponent  	= ECS::ComponentManager::GetInformationComponent(shipId);
+	auto& componentManager          = ECS::ComponentManager::GetInstance();
+	auto  informationComponent    	= ECS::ComponentManager::GetInformationComponent(backId);
 	auto  kinematicTuples           = informationComponent.GetKinematicTuples();
 	auto  [posId, speedId, accelId] = kinematicTuples[0];
 	auto speedComponent             = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
-	auto direction                  = GAME::GetEntityDirection(componentManager, informationComponent);
+
+	auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
+
+	auto direction                  = GAME::GetEntityDirection(componentManager, shipInformationComponent);
 
 	auto radians = glm::radians(direction);
 
 	speedComponent->speed.x = maxSpeed * glm::cos(radians);
 	speedComponent->speed.y = maxSpeed * glm::sin(radians);
-	speedComponent->speed  *= 1;
+	speedComponent->speed  *= -1;
     }
 
     void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
         auto& componentManager          = ECS::ComponentManager::GetInstance();
-        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
+        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(backId);
         auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
         auto  [posId, speedId, accelId] = kinematicTuples[1];
 
