@@ -13,51 +13,55 @@ glm::mat4x4                             RenderingSystem::mtxSDLScreenCoordinates
 std::vector<RenderingDataTuple> RenderingSystem::renderingData{};
 
 namespace ECS {
+    unsigned long RenderingSystem::UnSubscribeEntity(unsigned int entityId) {
+        
+        return renderingData.size();
+    }
     unsigned long RenderingSystem::SubscribeEntity(unsigned int entityId) {
 
-            //Get Managers
-            auto& entityManager     = ECS::EntityManager::GetInstance();
-            auto& componentManager  = ECS::ComponentManager::GetInstance();
+        //Get Managers
+        auto& entityManager     = ECS::EntityManager::GetInstance();
+        auto& componentManager  = ECS::ComponentManager::GetInstance();
 
-            auto& entityComponentsV     = entityManager.GetComponentsIds(entityId);
-            auto& entityComponentInfoId = entityComponentsV[0];
+        auto& entityComponents      = entityManager.GetComponentsIds(entityId);
+        auto& entityComponentInfoId = entityComponents[0];
 
-            //Info Component
-            auto entityComponentInfoRP                              = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityComponentInfoId);
-            auto [posId, anglePositionId, anchorId, textureId]      = entityComponentInfoRP->GetRenderingTupleIds();
+        //Info Component
+        auto entityComponentInfoRP                              = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityComponentInfoId);
+        auto [posId, anglePositionId, anchorId, textureId]      = entityComponentInfoRP->GetRenderingTupleIds();
 
 
-            auto pTextureComponent          = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
-            auto pPositionComponent         = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId);
-            auto pAnglePositionComponent    = componentManager.GetComponentRaw<ECS::PositionComponent_>(anglePositionId);
-            auto pAnchorPointComponent	    = componentManager.GetComponentRaw<ECS::AnchorPointComponent_>(anchorId);
+        auto pTextureComponent          = componentManager.GetComponentRaw<ECS::TextureComponent_>(textureId);
+        auto pPositionComponent         = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId);
+        auto pAnglePositionComponent    = componentManager.GetComponentRaw<ECS::PositionComponent_>(anglePositionId);
+        auto pAnchorPointComponent	    = componentManager.GetComponentRaw<ECS::AnchorPointComponent_>(anchorId);
 
-            pPositionComponent->isDirty = true;
+        pPositionComponent->isDirty = true;
 
-            //Texture Data
-            auto pTexture = pTextureComponent->GetTexture();
+        //Texture Data
+        auto pTexture = pTextureComponent->GetTexture();
 
-            auto sz =  &pTextureComponent->m_scaledSize_16W_16H;
+        auto sz =  &pTextureComponent->m_scaledSize_16W_16H;
 
-            RenderingDataTuple entityRenderingData(
-                    entityId,
-                    pTexture,
-                    sz,
-                    &pPositionComponent->position,
-                    &pAnglePositionComponent->position,
-                    &pAnchorPointComponent->m_anchorPoint,
-                    &pAnchorPointComponent->m_correctionVector,
-                    &pPositionComponent->isDirty);
+        RenderingDataTuple entityRenderingData(
+                entityId,
+                pTexture,
+                sz,
+                &pPositionComponent->position,
+                &pAnglePositionComponent->position,
+                &pAnchorPointComponent->m_anchorPoint,
+                &pAnchorPointComponent->m_correctionVector,
+                &pPositionComponent->isDirty);
 
-            renderingData.emplace_back(entityRenderingData);
+        renderingData.emplace_back(entityRenderingData);
 
-            unsigned long size = renderingData.size();
-            SDL_assert(size>0);
+        unsigned long size = renderingData.size();
+        SDL_assert(size>0);
 
-            std::sort(begin(renderingData), end(renderingData), [](auto t1, auto t2){
-                return reinterpret_cast<glm::vec3*>(std::get<3>(t1))->z < reinterpret_cast<glm::vec3*>(std::get<3>(t2))->z;
-            });
-            return size-1;
+        std::sort(begin(renderingData), end(renderingData), [](auto t1, auto t2){
+            return reinterpret_cast<glm::vec3*>(std::get<3>(t1))->z < reinterpret_cast<glm::vec3*>(std::get<3>(t2))->z;
+        });
+        return size-1;
 
     }
     unsigned int RenderingSystem::DrawSprites2D() {

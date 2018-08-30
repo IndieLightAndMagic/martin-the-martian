@@ -52,7 +52,7 @@ namespace ECS {
         static void ShutdownRenderingSystem();
 
         static void UpdateRenderingSystem();
-
+        static unsigned long UnSubscribeEntity(unsigned int entityId);
     };
 
 }

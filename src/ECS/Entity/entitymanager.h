@@ -18,6 +18,8 @@ class EntityManager  {
         const std::vector<unsigned int>& GetComponentsIds(unsigned int entity);
         Entity GetEntity(unsigned int entity);
 
+        void RemoveInstance(unsigned int entity);
+
     };
 
 }

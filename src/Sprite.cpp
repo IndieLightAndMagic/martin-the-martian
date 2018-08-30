@@ -112,7 +112,7 @@ namespace GTech {
         auto&   componentManager    = ECS::ComponentManager::GetInstance();
         auto    entityInfoId        = ECS::EntityManager::GetInstance().GetComponentsIds(shipId)[0];
         auto    infoComponentRP     = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityInfoId);
-                
+
 
     }
 }

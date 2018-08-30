@@ -7,7 +7,7 @@ using namespace ECS;
 
 vector<tuple<unsigned int, unsigned int, unsigned int>>  EntityInformationComponent_::GetKinematicTuples() const{
     return m_kinematicTupleIds;
-};
+}
 
 
 void EntityInformationComponent_::SetKinematicTupleIds(unsigned int posId, unsigned int speedId, unsigned int accelId){
@@ -16,9 +16,16 @@ void EntityInformationComponent_::SetKinematicTupleIds(unsigned int posId, unsig
 
 tuple<unsigned int, unsigned int, unsigned int, unsigned int> EntityInformationComponent_::GetRenderingTupleIds() const{
     return m_renderingTupleIds;
-};
+}
 
 void EntityInformationComponent_::SetRenderingTupleIds(unsigned int posId, unsigned int anglePositionId, unsigned int anchorId, unsigned int textureId) {
     m_renderingTupleIds = tuple<unsigned  int, unsigned int, unsigned int, unsigned int>{posId, anglePositionId, anchorId, textureId};
 }
 
+vector<unsigned int> EntityInformationComponent_::GetTimedEventsVector() const {
+	return m_timedEventsVectorIds;
+}
+
+void EntityInformationComponent_::SetTimedEvent(unsigned int timedEventId) {
+	m_timedEventsVectorIds.push_back(timedEventId);
+} 

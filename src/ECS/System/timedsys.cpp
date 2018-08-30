@@ -1,24 +1,17 @@
-#include <ECS/System/kinematics.h>
+#include <ECS/System/timedsys.h>
 #include <glm/detail/func_common.hpp>
 
 using namespace ECS;
 
 
-std::vector<unsigned int>   KinematicsSystem::ids{};
-std::vector<glm::vec3*>     KinematicsSystem::positions{};
-std::vector<glm::vec3*>     KinematicsSystem::speeds{};
-std::vector<glm::vec3*>     KinematicsSystem::accelerations{};
-std::vector<bool*>          KinematicsSystem::positionDirtyFlags{};
-glm::vec3**                 KinematicsSystem::positions_ = nullptr;
-glm::vec3**                 KinematicsSystem::speeds_ = nullptr;
-glm::vec3**                 KinematicsSystem::accelerations_ = nullptr;
-bool**                      KinematicsSystem::positionDirtyFlags_ = nullptr;
+std::vector<unsigned int>                       TimedEventsSystem::entitiesIds{};
+std::vector<std::vector<LifeSpanComponent_*>>   TimedEventsSystem::positions{};
 
-void KinematicsSystem::InitKinematicsSystem(){
+void TimedEventsSystem::InitTimedEventSystem(){
 
 }
 
-unsigned int KinematicsSystem::SubscribeEntity(unsigned int entityId){
+unsigned int TimedEventsSystem::SubscribeEntity(unsigned int entityId){
 
     auto& EntityManager     = ECS::EntityManager::GetInstance();
     auto& ComponentManager  = ECS::ComponentManager::GetInstance();
@@ -29,20 +22,18 @@ unsigned int KinematicsSystem::SubscribeEntity(unsigned int entityId){
     auto entityInfoRP       = componentManager.GetComponentRaw<ECS::EntityInformationComponent_>(entityInfo);
 
     //Kinematic Triad
-    auto kinematicTuples    = entityInfoRP->GetKinematicTuples();
+    auto kinematicTuples    = entityInfoRP->GetTimedEvensVector();
 
     //Get the RAW components and have RAW pointers pointing towards them to have "Fast Access"
-    for ( auto [posId, speedId, accelId] : kinematicTuples)
+    for ( auto lifeSpanComponentId : kinematicTuples)
     {
         //Raw Components.
-        auto pSpeedComponent            = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
-        auto pPositionComponent         = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId);
-        auto pAccelerationComponent     = componentManager.GetComponentRaw<ECS::AccelerationComponent_>(accelId);
-
-        SDL_assert(pSpeedComponent!= nullptr && pPositionComponent != nullptr && pAccelerationComponent != nullptr);
+        auto pLifeSpanComponent         = componentManager.GetComponentRaw<ECS::LifeSpanComponent_>(lifeSpanComponentId);
+        
+        SDL_assert(pLifeSpanComponent!= nullptr);
 
         //Fast Access Pointers!!!
-        ids.push_back(entityId);
+        entitiesIds.push_back(entityId);
         accelerations.push_back(&pAccelerationComponent->acceleration);
         accelerations_  = accelerations.data();
         
@@ -61,7 +52,7 @@ unsigned int KinematicsSystem::SubscribeEntity(unsigned int entityId){
 
 }
 
-void KinematicsSystem::UpdateKinematicsSystem(){
+void TimedEventsSystem::UpdateTimedEventsSystem(){
 
     //x(t) = 0.5 * akte * t**2 + s*t + xo
     //s(t) = akte*t + vo

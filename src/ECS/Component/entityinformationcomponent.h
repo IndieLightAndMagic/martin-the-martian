@@ -14,6 +14,7 @@ namespace ECS {
 
         std::tuple<unsigned int, unsigned int, unsigned int, unsigned int> m_renderingTupleIds;
 
+        std::vector<unsigned int> m_timedEventsVectorIds;
         public:
         EntityInformationComponent_() = default;
 
@@ -60,6 +61,18 @@ namespace ECS {
         std::tuple<unsigned int, unsigned int, unsigned int, unsigned int> GetRenderingTupleIds() const;
         void SetRenderingTupleIds(unsigned int posId, unsigned int anglePositionId, unsigned int anchorId, unsigned int textureComponentId);
 
+        /**
+         * @brief      Returns a component id 
+         *
+         * @return     The timed events components id vector.
+         */
+        std::vector<unsigned int> GetTimedEventsVector() const;
+        /**
+         * @brief      Register in the entityinformationcomponent a single timed event.
+         *
+         * @param[in]  timedComponentId  The timed component identifier
+         */
+        void SetTimedEvent(unsigned int timedComponentId);
     };
 
 }

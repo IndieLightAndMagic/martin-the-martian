@@ -45,3 +45,4 @@ Entity EntityManager::GetEntity(unsigned int entity){
     return entityMap[entity];
 
 }
+

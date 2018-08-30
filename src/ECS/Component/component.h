@@ -93,17 +93,19 @@ namespace ECS {
 
     class LifeSpanComponent_;
     using LifeSpanComponent = std::shared_ptr<LifeSpanComponent_>;
-    class LifeSpanComponent_ : public Component_ {
-
-    private:
-
-        ECS::TimedEvent_ m_te;
-
+    class LifeSpanComponent_ : public Component_, public TimedEvent_{
 
     public:
-
-        void Set(float ms);
-        void Update();
+        struct MilliSeconds{
+            static void TimedEvent_::Set(LifeSpanComponent_ component, Uint32 milliseconds){
+                component.TimedEvent_::Set(milliseconds)
+            }
+        };
+        struct Seconds{
+            static void TimedEvent_::Set(LifeSpanComponent_ component, Uint32 seconds){
+                 component.TimedEvent_::Set(seconds*1000);
+            }
+        };  
         GTech::Signal<> onLifeSpanEnded;
 
 

@@ -26,6 +26,7 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
 
             ${CMAKE_SOURCE_DIR}/src/ECS/System/rendering.cpp
             ${CMAKE_SOURCE_DIR}/src/ECS/System/kinematics.cpp
+            ${CMAKE_SOURCE_DIR}/src/ECS/System/timedsys.cpp
 
             ${CMAKE_SOURCE_DIR}/src/ECS/Event/events.cpp
             ${CMAKE_SOURCE_DIR}/src/ECS/Event/events.h
@@ -33,6 +34,8 @@ function(SOURCES_TO_COMPILE PROJECT_NAME)
             ${CMAKE_SOURCE_DIR}/src/ECS/Entity/entityfactory.cpp
             ${CMAKE_SOURCE_DIR}/src/ECS/Entity/entitymanager.cpp
             ${CMAKE_SOURCE_DIR}/src/ECS/Entity/entity.h
+
+            ${CMAKE_SOURCE_DIR}/src/ECS/ECSUtil.h
 
 
             ${CMAKE_SOURCE_DIR}/src/Event/event.h
