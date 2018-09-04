@@ -24,13 +24,13 @@ include(cmake/Sources.cmake)
 include(cmake/Resources.cmake)
 
 #SDL2 
-include(cmake/SDL.cmake)
+#include(cmake/SDL.cmake)
 
 #GML 
 include(cmake/GLM.cmake)
 
 #Cocoa 
-include(cmake/MacOS.cmake)
+#include(cmake/MacOS.cmake)
 
 #Set C++
 include(cmake/CPP.cmake)
@@ -50,13 +50,13 @@ PrintLine()
 HeaderMessage("Adding Sources To Project")
 SOURCES_TO_COMPILE(${ProjectName})
 
-PrintLine()
-HeaderMessage("SDL2 Libraries Linkage Addition")
-SDL_LINK(${ProjectName})
+#PrintLine()
+#HeaderMessage("SDL2 Libraries Linkage Addition")
+#SDL_LINK(${ProjectName})
 
-PrintLine()
-HeaderMessage("Cocoa Frameworks Linkage Addition")
-COCOA_LINK(${ProjectName})
+#PrintLine()
+#HeaderMessage("Cocoa Frameworks Linkage Addition")
+#COCOA_LINK(${ProjectName})
 
 PrintLine()
 HeaderMessage("Standard Linkage Addition")
