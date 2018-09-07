@@ -9,6 +9,7 @@
 #include <ECS/System/kinematics.h>
 #include <ECS/System/rendering.h>
 #include <ECS/Event/events.h>
+#include <time.h>
 
 #include <Sprite.h>
 
@@ -23,12 +24,15 @@ namespace GAME{
 
     static unsigned int backId;
     static unsigned int shipId;
+    static unsigned int enemyId; //It adds Id for enemy ship
     static bool bGameIsOn;
 
     void OnTimerDone();
     void OnEscPressed(const Uint32&, const Sint32&);
     void OnArrowKeyPressed(const Uint32&, const Sint32&);
     void OnFirePressed(const Uint32&, const Sint32&);
+    void RandomEnemyShipMovement();
+    void EnemyFire();
 
 
     float GetEntityDirection(const ECS::ComponentManager &componentManager, const ECS::EntityInformationComponent_ &informationComponent)
@@ -66,6 +70,9 @@ namespace GAME{
         auto shipTexturePath = std::string(RES_DIR)+"ships/goodguy3.png";
         shipId = GTech::Sprite::CreateSprite(shipTexturePath);
 
+        auto enemyTexturePath = std::string(RES_DIR)+"ships/enemy1.png";
+        enemyId = GTech::Sprite::CreateSprite(enemyTexturePath);
+
         /* Create Background */
         auto backgroundTexturePath = std::string(RES_DIR)+"backgrounds/B0dbg.png";
         backId = GTech::Sprite::CreateSprite(backgroundTexturePath);
@@ -84,6 +91,12 @@ namespace GAME{
         GTech::Sprite::SetScale(shipId, 0.16);
         ECS::RenderingSystem::SubscribeEntity(shipId);
         ECS::KinematicsSystem::SubscribeEntity(shipId);
+
+        //Enemy ship to draw
+        GTech::Sprite::SetPosition(enemyId, glm::vec3(width >> 2, height >> 2, 5));
+        GTech::Sprite::SetScale(enemyId, 0.16);
+        ECS::RenderingSystem::SubscribeEntity(enemyId);
+        ECS::KinematicsSystem::SubscribeEntity(enemyId);
 
         //Background
         ECS::RenderingSystem::SubscribeEntity(backId);
@@ -152,7 +165,7 @@ namespace GAME{
     }
 
     void OnTimerDone(){
-        ExitGame();
+       // ExitGame();
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
@@ -161,26 +174,47 @@ namespace GAME{
         ExitGame();
     }
 
+
     void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
-        auto& componentManager          = ECS::ComponentManager::GetInstance();
-        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
-        auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
-        auto  [posId, speedId, accelId] = kinematicTuples[1];
 
-        auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+
+            auto& componentManager          = ECS::ComponentManager::GetInstance();
+            auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
+            auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
+            auto  [posId, speedId, accelId] = kinematicTuples[1];
+            auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+
+            auto const maxSpeed = 160.0f;
+            auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+            auto radians = glm::radians(direction);
+            auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
+            auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
+            auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
+            auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
+        
+           
+            backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
+            backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
+            backSpeedComponent->speed  *= -1;
+
+
+            RandomEnemyShipMovement();
+            EnemyFire();
+
+       
 
         if (kbKey ==  SDLK_LEFT && kbEvent == SDL_KEYDOWN){
+            
             angleSpeedComponent->speed.z = -45.0f;
         } else if (kbKey == SDLK_RIGHT && kbEvent == SDL_KEYDOWN) {
+      
             angleSpeedComponent->speed.z = +45.0f;
         } else {
             angleSpeedComponent->speed.z = 0.0f;
         }
 
-
-
-        if (kbKey == SDLK_UP) {
+        /*if (kbKey == SDLK_UP) {
 
             auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
             auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
@@ -195,7 +229,80 @@ namespace GAME{
             backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
             backSpeedComponent->speed  *= -1;
 
-        }
+        }*/
+
+    }
+
+      void RandomEnemyShipMovement(){
+
+            srand(time(NULL));
+
+            auto& componentManager          = ECS::ComponentManager::GetInstance();
+            auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(enemyId);
+            auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
+            auto  [posId, speedId, accelId] = kinematicTuples[1];
+            auto  angleSpeedComponent       = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+            auto  shipEnemySpeedComponent   = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+           
+
+            auto const maxSpeed = 160.0f;
+            auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+            auto radians = glm::radians(direction);
+            auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
+            auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
+            auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
+            auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
+
+        
+           
+            shipEnemySpeedComponent->speed.x = maxSpeed * glm::cos(radians);
+            shipEnemySpeedComponent->speed.y = maxSpeed * glm::sin(radians);
+            shipEnemySpeedComponent->speed  *= 1;
+
+    
+        auto num = 1 +  rand()%(1001-1);
+        if (num%2==0){      
+            angleSpeedComponent->speed.z = -45.0f;
+        } else  {
+            angleSpeedComponent->speed.z = +45.0f;
+        } 
+
+
+    }
+
+    void EnemyFire(){
+
+        auto resenemyPath = std::string(RES_DIR)+"orangebolt.png";
+        auto boltId = GTech::Sprite::CreateSprite(resenemyPath);
+
+        auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
+        ECS::KinematicsSystem::SubscribeEntity(boltId);
+        ECS::RenderingSystem::SubscribeEntity(boltId);
+
+        auto& componentManager                              = ECS::ComponentManager::GetInstance();
+        auto  shipInformationComponent                      = ECS::ComponentManager::GetInformationComponent(enemyId);
+        auto  [posId, anglePositionId, anchorId, textureId] = shipInformationComponent.GetRenderingTupleIds();
+
+        //Get Position and Direction of ship
+        auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;  //backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
+            //backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
+            //backSpeedComponent->speed  *= -1;
+        auto  direction = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+
+        //Set Position of the bolt
+        GTech::Sprite::SetPosition(boltId, position);
+
+        //Set Speed of the bolt.
+        auto kinematicTuples = boltInfo.GetKinematicTuples();
+        auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
+        auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
+
+        auto const maxSpeed = 320.0l;
+        auto radians = glm::radians(direction);
+        speedComponent->speed.x = maxSpeed * glm::cos(radians);
+        speedComponent->speed.y = maxSpeed * glm::sin(radians);
+
+
 
     }
 
