@@ -152,7 +152,7 @@ namespace GAME{
     }
 
     void OnTimerDone(){
-        ExitGame();
+        //ExitGame();
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
@@ -164,8 +164,8 @@ namespace GAME{
     void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
         auto& componentManager          = ECS::ComponentManager::GetInstance();
-        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
-        auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
+        auto  backInformationComponent  = ECS::ComponentManager::GetInformationComponent(backId);
+        auto  kinematicTuples           = backInformationComponent.GetKinematicTuples();
         auto  [posId, speedId, accelId] = kinematicTuples[1];
 
         auto angleSpeedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
@@ -178,24 +178,11 @@ namespace GAME{
             angleSpeedComponent->speed.z = 0.0f;
         }
 
-
-
-        if (kbKey == SDLK_UP) {
-
-            auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
-            auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
-            auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
-            auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
-
-            auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
-
-            auto const maxSpeed = 160.0f;
-            auto radians = glm::radians(direction);
-            backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
-            backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
-            backSpeedComponent->speed  *= -1;
-
-        }
+        auto shipInformationComponent               = ECS::ComponentManager::GetInformationComponent(shipId);
+        auto shipKinematicTuples                    = shipInformationComponent.GetKinematicTuples();
+        auto [shipPosId, shipSpeedId, shipAccelId]  = shipKinematicTuples[0];
+        auto shipSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(shipSpeedId);
+        auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
 
     }
 
