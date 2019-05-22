@@ -56,5 +56,5 @@ endfunction()
 
 
 function(LINK_STANDARD_LIBRARIES PROJECT_NAME)
-    target_link_libraries(${ProjectName} "-liconv" "-lm")
+  target_link_libraries(${ProjectName} "-lSDL2" "-lSDL2_image" "-lm")
 endfunction()
