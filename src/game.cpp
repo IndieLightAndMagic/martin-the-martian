@@ -38,6 +38,7 @@ namespace GAME{
         //Get Position and Direction of ship
         auto  position  = componentManager.GetComponentRaw<ECS::PositionComponent_>(posId)->position;
         auto  direction = componentManager.GetComponentRaw<ECS::PositionComponent_>(anglePositionId)->position.z;
+
         direction -= 90.0f;
         direction -= (direction >= 360.0f) ? 360.0f : 0.0f;
         direction += (direction  < 0.0f  ) ? 360.0f : 0.0f;
@@ -152,7 +153,7 @@ namespace GAME{
     }
 
     void OnTimerDone(){
-        ExitGame();
+        //ExitGame();
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
@@ -161,10 +162,29 @@ namespace GAME{
         ExitGame();
     }
 
+    void setComponentSpeed(float const maxSpeed) {
+
+	auto& componentManager          = ECS::ComponentManager::GetInstance();
+	auto  informationComponent    	= ECS::ComponentManager::GetInformationComponent(backId);
+	auto  kinematicTuples           = informationComponent.GetKinematicTuples();
+	auto  [posId, speedId, accelId] = kinematicTuples[0];
+	auto speedComponent             = componentManager.GetComponentRaw<ECS::SpeedComponent_>(speedId);
+
+	auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
+
+	auto direction                  = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+
+	auto radians = glm::radians(direction);
+
+	speedComponent->speed.x = maxSpeed * glm::cos(radians);
+	speedComponent->speed.y = maxSpeed * glm::sin(radians);
+	speedComponent->speed  *= -1;
+    }
+
     void OnArrowKeyPressed(const Uint32& kbEvent, const Sint32& kbKey){
 
         auto& componentManager          = ECS::ComponentManager::GetInstance();
-        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
+        auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(backId);
         auto  kinematicTuples           = shipInformationComponent.GetKinematicTuples();
         auto  [posId, speedId, accelId] = kinematicTuples[1];
 
@@ -178,25 +198,13 @@ namespace GAME{
             angleSpeedComponent->speed.z = 0.0f;
         }
 
-
-
-        if (kbKey == SDLK_UP) {
-
-            auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
-            auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
-            auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
-            auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
-
-            auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
-
-            auto const maxSpeed = 160.0f;
-            auto radians = glm::radians(direction);
-            backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
-            backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
-            backSpeedComponent->speed  *= -1;
-
+        if (kbKey == SDLK_UP && kbEvent == SDL_KEYDOWN) {
+        	setComponentSpeed(160.0f);
         }
 
+        if (kbKey == SDLK_UP && kbEvent == SDL_KEYUP) {
+        	setComponentSpeed(0.0f);
+        }
     }
 
 };
