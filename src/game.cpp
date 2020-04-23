@@ -99,7 +99,7 @@ namespace GAME{
 
         ECS::LifeSpanComponent_ x;
         auto signalId = x.onLifeSpanEnded.connect_function(OnTimerDone);
-        x.Set(6000);
+        x.Set(15000);
 
 
         while (bGameIsOn)
@@ -148,7 +148,7 @@ namespace GAME{
     }
     void ExitGame()
     {
-        bGameIsOn = false;
+        //bGameIsOn = false;
     }
 
     void OnTimerDone(){
