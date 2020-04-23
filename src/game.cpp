@@ -24,11 +24,15 @@ namespace GAME{
     static unsigned int backId;
     static unsigned int shipId;
     static bool bGameIsOn;
+    static std::vector<unsigned int> boltIds;
+    static std::vector<time_t> timerBolt;
+    static unsigned int counterBolts = 0;
 
     void OnTimerDone();
     void OnEscPressed(const Uint32&, const Sint32&);
     void OnArrowKeyPressed(const Uint32&, const Sint32&);
     void OnFirePressed(const Uint32&, const Sint32&);
+    void VanishBolt();
 
 
     float GetEntityDirection(const ECS::ComponentManager &componentManager, const ECS::EntityInformationComponent_ &informationComponent)
@@ -108,6 +112,7 @@ namespace GAME{
             ECS::RenderingSystem::UpdateRenderingSystem();
             ECS::KinematicsSystem::UpdateKinematicsSystem();
             x.Update();
+            VanishBolt();
         }
         x.onLifeSpanEnded.disconnect(signalId);
 
@@ -117,6 +122,16 @@ namespace GAME{
 
         auto resPath = std::string(RES_DIR)+"purplebolt16x16.png";
         auto boltId = GTech::Sprite::CreateSprite(resPath);
+
+        time_t start;
+        timerBolt.resize(counterBolts+1);
+        time(&start);
+        timerBolt[counterBolts] = start;
+
+        boltIds.resize(counterBolts+1);
+        boltIds[counterBolts] = boltId;
+        counterBolts++;
+
 
         auto boltInfo = ECS::ComponentManager::GetInformationComponent(boltId);
         ECS::KinematicsSystem::SubscribeEntity(boltId);
@@ -138,7 +153,7 @@ namespace GAME{
         auto [boltPosId, boltSpeedId, boltAccelId] = kinematicTuples[0];
         auto speedComponent = componentManager.GetComponentRaw<ECS::SpeedComponent_>(boltSpeedId);
 
-        auto const maxSpeed = 320.0l;
+        auto const maxSpeed = 30.0l;  // To see when the bolt disappears before it gets out of the screen
         auto radians = glm::radians(direction);
         speedComponent->speed.x = maxSpeed * glm::cos(radians);
         speedComponent->speed.y = maxSpeed * glm::sin(radians);
@@ -152,7 +167,7 @@ namespace GAME{
     }
 
     void OnTimerDone(){
-        ExitGame();
+        // ExitGame();
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
@@ -196,6 +211,20 @@ namespace GAME{
             backSpeedComponent->speed  *= -1;
 
         }
+
+    }
+
+    void VanishBolt(){
+      time_t start, end;
+      time(&end);
+
+
+      for (size_t i = 0; i < timerBolt.size(); i++) {
+        start = timerBolt[i];
+        if (difftime(end,start) >= 5) {
+          GTech::Sprite::SetScale(boltIds[i], 0.0);
+        }
+      }
 
     }
 
