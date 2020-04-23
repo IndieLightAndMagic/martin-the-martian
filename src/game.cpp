@@ -29,6 +29,7 @@ namespace GAME{
     void OnEscPressed(const Uint32&, const Sint32&);
     void OnArrowKeyPressed(const Uint32&, const Sint32&);
     void OnFirePressed(const Uint32&, const Sint32&);
+    void MoveForward();
 
 
     float GetEntityDirection(const ECS::ComponentManager &componentManager, const ECS::EntityInformationComponent_ &informationComponent)
@@ -115,6 +116,8 @@ namespace GAME{
 
     void OnFirePressed(const uint32_t& kbEvent, const int32_t& kbKey){
 
+        MoveForward(); // To keep moving forward while shooting AND turning
+
         auto resPath = std::string(RES_DIR)+"purplebolt16x16.png";
         auto boltId = GTech::Sprite::CreateSprite(resPath);
 
@@ -152,7 +155,7 @@ namespace GAME{
     }
 
     void OnTimerDone(){
-        ExitGame();
+        // ExitGame();
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
@@ -172,8 +175,10 @@ namespace GAME{
 
         if (kbKey ==  SDLK_LEFT && kbEvent == SDL_KEYDOWN){
             angleSpeedComponent->speed.z = -45.0f;
+            MoveForward();
         } else if (kbKey == SDLK_RIGHT && kbEvent == SDL_KEYDOWN) {
             angleSpeedComponent->speed.z = +45.0f;
+            MoveForward();
         } else {
             angleSpeedComponent->speed.z = 0.0f;
         }
@@ -181,22 +186,29 @@ namespace GAME{
 
 
         if (kbKey == SDLK_UP) {
-
-            auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
-            auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
-            auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
-            auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
-
-            auto direction                              = GAME::GetEntityDirection(componentManager, shipInformationComponent);
-
-            auto const maxSpeed = 160.0f;
-            auto radians = glm::radians(direction);
-            backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
-            backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
-            backSpeedComponent->speed  *= -1;
-
+            MoveForward();
         }
 
+    }
+
+    void MoveForward(){
+
+      auto& componentManager          = ECS::ComponentManager::GetInstance();
+      auto  shipInformationComponent  = ECS::ComponentManager::GetInformationComponent(shipId);
+
+
+      auto backInformationComponent               = ECS::ComponentManager::GetInformationComponent(backId);
+      auto backKinematicTuples                    = backInformationComponent.GetKinematicTuples();
+      auto [backPosId, backSpeedId, backAccelId]  = backKinematicTuples[0];
+      auto backSpeedComponent                     = componentManager.GetComponentRaw<ECS::SpeedComponent_>(backSpeedId);
+
+      auto direction = GAME::GetEntityDirection(componentManager, shipInformationComponent);
+
+      auto const maxSpeed = 160.0f;
+      auto radians = glm::radians(direction);
+      backSpeedComponent->speed.x = maxSpeed * glm::cos(radians);
+      backSpeedComponent->speed.y = maxSpeed * glm::sin(radians);
+      backSpeedComponent->speed  *= -1;
     }
 
 };
