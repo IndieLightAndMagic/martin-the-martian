@@ -152,7 +152,6 @@ namespace GAME{
     }
 
     void OnTimerDone(){
-        ExitGame();
     }
 
     void OnEscPressed(const Uint32& kbEvent, const Sint32& kbKey){
